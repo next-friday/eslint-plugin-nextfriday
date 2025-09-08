@@ -1,6 +1,6 @@
 import { describe, it, expect } from "@jest/globals";
 
-import configs from "../configs";
+import { configs } from "..";
 
 describe("ESLint Plugin Configs", () => {
   it("should export configs object", () => {

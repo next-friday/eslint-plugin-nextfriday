@@ -44,9 +44,16 @@ const preferImportType = createRule({
         if (specifier.type === AST_NODE_TYPES.ImportSpecifier) {
           const importedName =
             specifier.imported.type === AST_NODE_TYPES.Identifier ? specifier.imported.name : specifier.imported.value;
-          return (
-            importedName[0] === importedName[0].toUpperCase() && !["ESLintUtils", "RuleTester"].includes(importedName)
-          );
+
+          const isKnownTypeOnly =
+            (node.source.value === "@typescript-eslint/utils" && ["TSESTree", "RuleContext"].includes(importedName)) ||
+            (node.source.value === "react" &&
+              ["Component", "ComponentProps", "ReactNode", "FC", "JSX"].includes(importedName)) ||
+            importedName.endsWith("Type") ||
+            importedName.endsWith("Interface") ||
+            importedName.endsWith("Props");
+
+          return isKnownTypeOnly;
         }
         return false;
       });
