@@ -1,6 +1,6 @@
 import { describe, it, expect } from "@jest/globals";
 
-import rules from "../rules";
+import { rules } from "..";
 
 describe("ESLint Plugin Rules", () => {
   it("should export rules object", () => {
