@@ -34,6 +34,33 @@ const preferImportType = createRule({
         return;
       }
 
+      if (node.specifiers.length === 0) {
+        return;
+      }
+
+      const source = node.source.value;
+      const isRuntimeImport =
+        /\.(css|scss|sass|less|styl)(\?.*)?$/.test(source) ||
+        /\.(png|jpg|jpeg|gif|svg|webp|ico|bmp)(\?.*)?$/.test(source) ||
+        /\.(woff|woff2|ttf|eot|otf)(\?.*)?$/.test(source) ||
+        /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/.test(source) ||
+        /\.(json|txt|md|xml|yml|yaml)(\?.*)?$/.test(source) ||
+        /^next\/(font|image|link|head|script|dynamic|router)/.test(source) ||
+        source.includes("/font/") ||
+        source === "react-dom" ||
+        source === "react-dom/client" ||
+        source === "react-dom/server" ||
+        source.startsWith("@emotion/") ||
+        source.startsWith("styled-components") ||
+        source.includes("polyfill") ||
+        source.includes("shim") ||
+        source === "styled-jsx/css" ||
+        source.startsWith("webpack/");
+
+      if (isRuntimeImport) {
+        return;
+      }
+
       const isTypeOnlyImport = node.specifiers.every((specifier) => {
         if (specifier.type === AST_NODE_TYPES.ImportDefaultSpecifier) {
           return false;
@@ -48,7 +75,9 @@ const preferImportType = createRule({
           const isKnownTypeOnly =
             (node.source.value === "@typescript-eslint/utils" && ["TSESTree", "RuleContext"].includes(importedName)) ||
             (node.source.value === "react" &&
-              ["Component", "ComponentProps", "ReactNode", "FC", "JSX"].includes(importedName)) ||
+              ["Component", "ComponentProps", "ReactNode", "FC", "JSX", "ReactElement", "PropsWithChildren"].includes(
+                importedName,
+              )) ||
             importedName.endsWith("Type") ||
             importedName.endsWith("Interface") ||
             importedName.endsWith("Props");
@@ -63,8 +92,8 @@ const preferImportType = createRule({
           node,
           messageId: "preferImportType",
           fix(fixer) {
-            const source = context.sourceCode.getText(node);
-            const fixedSource = source.replace(/^import\s+/, "import type ");
+            const sourceText = context.sourceCode.getText(node);
+            const fixedSource = sourceText.replace(/^import\s+/, "import type ");
             return fixer.replaceText(node, fixedSource);
           },
         });
