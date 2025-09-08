@@ -30,7 +30,7 @@ jobs:
           CHANGESET_FILES=$(ls .changeset/*.md 2>/dev/null | grep -v README.md || true)
           echo "has-changesets=$([ -n "$CHANGESET_FILES" ] && echo true || echo false)" >> $GITHUB_OUTPUT
 
-      - name: Create/Update Version PR (generic title)
+      - name: Create/Update Version PR
         if: steps.check.outputs.has-changesets == 'true'
         id: changesets
         uses: changesets/action@v1
@@ -42,17 +42,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.CHANGESETS_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Update PR title with the actual version
-        if: steps.changesets.outputs.pullRequestNumber != ''
-        env:
-          GH_TOKEN: ${{ secrets.CHANGESETS_TOKEN }}
-        run: |
-          PR_NUMBER=${{ steps.changesets.outputs.pullRequestNumber }}
-          HEAD_REF=$(gh pr view "$PR_NUMBER" --json headRefName -q .headRefName)
-          git fetch origin "$HEAD_REF"
-          VERSION="v$(git show "origin/$HEAD_REF:package.json" | node -e "process.stdout.write(JSON.parse(require('fs').readFileSync(0,'utf8')).version)")"
-          gh pr edit "$PR_NUMBER" --title "chore(release): bump version to $VERSION"
 
       - name: Enable PR auto-merge
         if: steps.changesets.outputs.pullRequestNumber != ''
@@ -84,7 +73,7 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Create GitHub Release (no-changeset path)
+      - name: Create GitHub Release
         if: steps.check.outputs.has-changesets == 'false' && steps.version-check.outputs.should-publish == 'true'
         env:
           GH_TOKEN: ${{ secrets.CHANGESETS_TOKEN }}
