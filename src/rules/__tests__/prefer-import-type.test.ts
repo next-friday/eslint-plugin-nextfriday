@@ -24,8 +24,19 @@ describe("prefer-import-type", () => {
 
   ruleTester.run("prefer-import-type", preferImportType, {
     valid: [
+      'import "../components/Button.module.css";',
+      'import "./globals.css";',
+      'import "./styles.scss";',
       'import * as utils from "./utils";',
+      'import Image from "next/image";',
+      'import Link from "next/link";',
       'import React from "react";',
+      'import React, { useState } from "react";',
+      'import data from "./data.json";',
+      'import dynamic from "next/dynamic";',
+      'import icon from "./icon.svg";',
+      'import logo from "./logo.png";',
+      'import styled from "styled-components";',
       'import type { Component } from "react";',
       'import type { RuleContext } from "@typescript-eslint/utils";',
       'import type { TSESTree } from "@typescript-eslint/utils";',
@@ -33,6 +44,8 @@ describe("prefer-import-type", () => {
       'import { ESLintUtils, type TSESTree } from "@typescript-eslint/utils";',
       'import { Geist, Geist_Mono } from "next/font/google";',
       'import { Inter } from "next/font/google";',
+      'import { createRoot } from "react-dom/client";',
+      'import { css } from "@emotion/react";',
       'import { useState, useEffect } from "react";',
     ],
     invalid: [

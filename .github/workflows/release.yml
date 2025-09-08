@@ -50,9 +50,8 @@ jobs:
         run: |
           PR_NUMBER=${{ steps.changesets.outputs.pullRequestNumber }}
           HEAD_REF=$(gh pr view "$PR_NUMBER" --json headRefName -q .headRefName)
-          git fetch origin "$HEAD_REF":"$HEAD_REF"
-          git checkout "$HEAD_REF"
-          VERSION="v$(node -p "require('./package.json').version")"
+          git fetch origin "$HEAD_REF"
+          VERSION="v$(git show "origin/$HEAD_REF:package.json" | node -e "process.stdout.write(JSON.parse(require('fs').readFileSync(0,'utf8')).version)")"
           gh pr edit "$PR_NUMBER" --title "chore(release): bump version to $VERSION"
 
       - name: Enable PR auto-merge
