@@ -1,0 +1,64 @@
+name: Changeset Version Validation
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: changeset-validation-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate-changes:
+    name: Validate Changes
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.draft == false }}
+    env:
+      IS_TRUSTED_BOT: >-
+        ${{
+          contains(fromJson('["github-actions[bot]","changeset-bot","changeset-bot[bot]","dependabot[bot]"]'), github.actor)
+          || contains(fromJson('["github-actions[bot]","changeset-bot","changeset-bot[bot]"]'), github.event.pull_request.user.login)
+          || startsWith(github.event.pull_request.title, 'ci(changesets):')
+          || startsWith(github.head_ref, 'changeset-release/')
+        }}
+
+    steps:
+      - name: Fast-pass for trusted bots
+        if: ${{ env.IS_TRUSTED_BOT == 'true' }}
+        run: echo "Trusted bot PR → skip changeset/version checks but report success."
+
+      - name: Checkout Repository
+        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Detect Changes
+        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
+        id: changes
+        run: |
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }})
+          CODE_CHANGES=$(echo "$CHANGED_FILES" | grep -E '^(src|docs)/' | grep -v '__tests__' || true)
+          VERSION_CHANGES=$(echo "$CHANGED_FILES" | grep -E '^(package\.json|CHANGELOG\.md)$' || true)
+          CHANGESET_CHANGES=$(echo "$CHANGED_FILES" | grep -E '^\.changeset/.*\.md$' || true)
+
+          echo "code=$([ -n "$CODE_CHANGES" ] && echo true || echo false)" >> $GITHUB_OUTPUT
+          echo "version=$([ -n "$VERSION_CHANGES" ] && echo true || echo false)" >> $GITHUB_OUTPUT
+          echo "changeset=$([ -n "$CHANGESET_CHANGES" ] && echo true || echo false)" >> $GITHUB_OUTPUT
+
+      - name: Check Version Changes Authorization
+        if: >-
+          ${{
+            env.IS_TRUSTED_BOT != 'true'
+            && steps.changes.outputs.version == 'true'
+            && !startsWith(github.event.pull_request.title, 'ci(changesets):')
+          }}
+        run: |
+          echo "Manual version changes not allowed. Add a changeset: pnpm changeset"
+          exit 1
+
+      - name: Check Changeset Requirement
+        if: ${{ env.IS_TRUSTED_BOT != 'true' && steps.changes.outputs.code == 'true' && steps.changes.outputs.changeset == 'false' }}
+        run: |
+          echo "Code changes require a changeset. Run: pnpm changeset"
+          exit 1

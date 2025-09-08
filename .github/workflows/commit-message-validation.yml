@@ -1,0 +1,34 @@
+name: Commit Message Validation
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: commit-validation-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate-commits:
+    name: Validate Commit Messages
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.draft == false }}
+    env:
+      IS_TRUSTED_BOT: ${{ github.actor == 'github-actions[bot]' || github.actor == 'changeset-bot' || github.event.pull_request.user.type == 'Bot' }}
+
+    steps:
+      - name: Fast-pass for trusted bots
+        if: ${{ env.IS_TRUSTED_BOT == 'true' }}
+        run: echo "Trusted bot PR → skip commitlint but report success."
+
+      - name: Checkout Repository
+        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Validate Commit Messages
+        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
+        uses: wagoid/commitlint-github-action@v6
+        with:
+          configFile: .commitlintrc.json

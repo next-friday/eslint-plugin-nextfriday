@@ -1,0 +1,56 @@
+name: Pull Request Title Validation
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+jobs:
+  main:
+    name: Validate Pull Request Title
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.draft == false }}
+    permissions:
+      contents: read
+      pull-requests: write
+    env:
+      IS_TRUSTED_BOT: ${{ github.actor == 'github-actions[bot]' || github.actor == 'changeset-bot' || github.event.pull_request.user.type == 'Bot' }}
+
+    steps:
+      - name: Fast-pass for trusted bots
+        if: ${{ env.IS_TRUSTED_BOT == 'true' }}
+        run: echo "Trusted bot PR → skip PR title validation but report success."
+
+      - uses: amannn/action-semantic-pull-request@v5
+        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            build
+            chore
+            ci
+            docs
+            feat
+            fix
+            perf
+            refactor
+            revert
+            style
+            test
+          requireScope: true
+          disallowScopes: |
+            [A-Z]+
+          subjectPattern: ^(?![A-Z]).{1,50}$
+          subjectPatternError: |
+            The subject "{subject}" found in the pull request title "{title}"
+            didn't match the configured pattern. Please ensure that the subject:
+            - doesn't start with an uppercase character
+            - is not empty
+            - is maximum 50 characters long
+          ignoreLabels: |
+            bot
+            ignore-semantic-pull-request
+          headerPattern: '^(\w*)(?:\(([\w$.\-*/ ]*)\))?: (.*)'
+          headerPatternCorrespondence: type, scope, subject
+          validateSingleCommit: true
+          validateSingleCommitMatchesPrTitle: true

@@ -1,0 +1,11 @@
+{
+  "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "editor.codeActionsOnSave": { "source.fixAll": "explicit" },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.quickSuggestions": { "strings": "on" },
+  "editor.tabSize": 2,
+  "eslint.validate": ["javascript", "typescript"],
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "terminal.integrated.scrollback": 10000,
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

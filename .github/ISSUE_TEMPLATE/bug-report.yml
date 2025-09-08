@@ -1,0 +1,166 @@
+name: Bug Report
+title: "[BUG]: "
+description: Report a bug with eslint-plugin-nextfriday
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue with eslint-plugin-nextfriday.
+
+        Before submitting this issue, please check the following places to ensure it has not already been reported or resolved:
+          - [Open Pull Requests](../../pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc)
+          - [Closed Issues](../../issues?q=is%3Aissue+sort%3Aupdated-desc+is%3Aclosed)
+          - [Discussions](../../discussions)
+
+  - type: checkboxes
+    id: duplicate_check
+    attributes:
+      label: Prior Investigation
+      description: Please confirm that you have already checked for duplicate issues.
+      options:
+        - label: I have searched existing issues, discussions, and pull requests to confirm this is not a duplicate.
+          required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Plugin Version
+      description: What version of eslint-plugin-nextfriday are you using?
+      placeholder: e.g. 0.1.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment Information
+      description: |
+        Please provide your environment details:
+      placeholder: |
+        - Node.js version: 22.0.0
+        - ESLint version: 9.35.0
+        - TypeScript version: 5.6.2 (if applicable)
+        - Operating System: macOS 14.5
+        - Package manager: pnpm 9.12.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: rule_affected
+    attributes:
+      label: Affected Rule
+      description: Which ESLint rule is causing the issue?
+      options:
+        - "nextfriday/no-emoji"
+        - "nextfriday/file-kebab-case"
+        - "nextfriday/jsx-pascal-case"
+        - "nextfriday/prefer-destructuring-params"
+        - "nextfriday/no-explicit-return-type"
+        - "nextfriday/prefer-import-type"
+        - "Configuration (base/react/nextjs)"
+        - "Plugin setup/installation"
+        - "Other (please describe)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: Provide a clear and concise description of the bug.
+      placeholder: The rule is not working as expected when...
+    validations:
+      required: true
+
+  - type: textarea
+    id: code_example
+    attributes:
+      label: Code Example
+      description: Provide the code that triggers the bug.
+      placeholder: |
+        ```typescript
+        // Your code here that demonstrates the issue
+        function example() {
+          // ...
+        }
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: eslint_config
+    attributes:
+      label: ESLint Configuration
+      description: Share your ESLint configuration (flat config or legacy).
+      placeholder: |
+        ```javascript
+        // eslint.config.mjs
+        import nextfriday from "eslint-plugin-nextfriday";
+
+        export default [
+          nextfriday.configs.base
+        ];
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: The rule should...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: Instead, the rule...
+    validations:
+      required: true
+
+  - type: textarea
+    id: error_output
+    attributes:
+      label: Error Output
+      description: If applicable, paste the complete error message or ESLint output.
+      placeholder: |
+        ```
+        npm run lint output:
+
+        src/example.ts
+          1:1  error  Expected error message  nextfriday/rule-name
+        ```
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Impact Level
+      description: How severely does this bug affect your workflow?
+      options:
+        - "Critical - Blocks development completely"
+        - "High - Significantly impacts development"
+        - "Medium - Minor impact on development"
+        - "Low - Cosmetic or edge case"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: workaround
+    attributes:
+      label: Workaround
+      description: Have you found a temporary workaround?
+      options:
+        - label: I have found a workaround (please describe below)
+        - label: No workaround available
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem, including workarounds if available.
+      placeholder: Any additional information that might help us understand and fix the issue.

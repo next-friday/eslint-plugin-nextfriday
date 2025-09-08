@@ -1,0 +1,17 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: ✨ Feature Request or Enhancement
+    url: https://github.com/next-friday/eslint-plugin-nextfriday/discussions
+    about: Suggest new ESLint rules or improvements to existing ones
+
+  - name: 🤔 Questions & Ideas Discussion
+    url: https://github.com/next-friday/eslint-plugin-nextfriday/discussions
+    about: Ask questions about ESLint plugin usage or discuss new rule ideas
+
+  - name: 💬 Next Friday Team
+    url: https://github.com/next-friday/eslint-plugin-nextfriday/discussions
+    about: Contact the Next Friday team directly for ESLint plugin support
+
+  - name: 💬 Discord Community Chat
+    url: https://discord.gg/ef8fAfTs

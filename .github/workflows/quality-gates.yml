@@ -1,0 +1,84 @@
+name: Quality Gates
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  quality-checks:
+    if: ${{ github.event.pull_request.draft == false }}
+    name: Quality Checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CI: true
+      NODE_OPTIONS: --max-old-space-size=4096
+      IS_TRUSTED_BOT: ${{ github.actor == 'github-actions[bot]' || github.actor == 'changeset-bot' }}
+
+    steps:
+      - name: Fast-pass for trusted bots
+        if: ${{ env.IS_TRUSTED_BOT == 'true' }}
+        run: echo "Trusted bot PR → skipping heavy checks but reporting success."
+
+      - name: Checkout Repository
+        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js and PNPM
+        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
+        uses: ./.github/common-actions/install
+
+      - name: Check Package.json Sorting
+        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
+        run: pnpm sort-package-json:check
+
+      - name: Check Code Formatting
+        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
+        run: pnpm prettier:check
+
+      - name: Run Linting
+        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
+        run: pnpm eslint:check
+
+      - name: Run Type Checking
+        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
+        run: pnpm typecheck
+
+      - name: Run Unit Tests (with coverage)
+        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
+        run: pnpm test:coverage
+
+      - name: Build Package
+        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
+        run: pnpm build
+
+      - name: Verify Build Output
+        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
+        run: |
+          test -d lib
+          test -f lib/index.cjs
+          test -f lib/index.js
+          node -e "require('./lib/index.cjs')"
+          node -e "import('./lib/index.js')"
+
+      - name: Package Verification
+        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
+        run: pnpm pack --pack-destination ./dist
+
+      - name: Upload Coverage Report
+        if: ${{ env.IS_TRUSTED_BOT != 'true' && always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage
+          if-no-files-found: ignore
+          retention-days: 30
