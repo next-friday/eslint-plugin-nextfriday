@@ -24,14 +24,16 @@ describe("prefer-import-type", () => {
 
   ruleTester.run("prefer-import-type", preferImportType, {
     valid: [
-      'import type { TSESTree } from "@typescript-eslint/utils";',
-      'import type { RuleContext } from "@typescript-eslint/utils";',
-      'import type { Component } from "react";',
-      'import { ESLintUtils } from "@typescript-eslint/utils";',
-      'import React from "react";',
       'import * as utils from "./utils";',
-      'import { useState, useEffect } from "react";',
+      'import React from "react";',
+      'import type { Component } from "react";',
+      'import type { RuleContext } from "@typescript-eslint/utils";',
+      'import type { TSESTree } from "@typescript-eslint/utils";',
+      'import { ESLintUtils } from "@typescript-eslint/utils";',
       'import { ESLintUtils, type TSESTree } from "@typescript-eslint/utils";',
+      'import { Geist, Geist_Mono } from "next/font/google";',
+      'import { Inter } from "next/font/google";',
+      'import { useState, useEffect } from "react";',
     ],
     invalid: [
       {
