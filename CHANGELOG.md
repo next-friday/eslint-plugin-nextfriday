@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.0.2
+
+### Patch Changes
+
+- [#9](https://github.com/next-friday/eslint-plugin-nextfriday/pull/9) [`11066f0`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/11066f030e8b510e415e9d5eb8fb95d1d2200354) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - Fix workflow fetch bug in release.yml
+
 ## 1.0.1
 
 ### Patch Changes
