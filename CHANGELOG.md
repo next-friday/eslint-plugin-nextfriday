@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.1.1
+
+### Patch Changes
+
+- [#14](https://github.com/next-friday/eslint-plugin-nextfriday/pull/14) [`de54aaa`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/de54aaa42833ada9d847fe3885ab98b82e0590e9) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - Improved type checking logic across ESLint rules to enhance accuracy and reliability. This refactor focuses on better type inference, more precise type guards, and improved handling of edge cases in rule implementations.
+
 ## 1.1.0
 
 ### Minor Changes
