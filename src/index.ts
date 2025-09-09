@@ -1,5 +1,6 @@
 import packageJson from "../package.json" assert { type: "json" };
 
+import enforceReadonlyComponentProps from "./rules/enforce-readonly-component-props";
 import fileKebabCase from "./rules/file-kebab-case";
 import jsxPascalCase from "./rules/jsx-pascal-case";
 import mdFilenameCaseRestriction from "./rules/md-filename-case-restriction";
@@ -19,6 +20,7 @@ const meta = {
 } as const;
 
 const rules = {
+  "enforce-readonly-component-props": enforceReadonlyComponentProps,
   "file-kebab-case": fileKebabCase,
   "jsx-pascal-case": jsxPascalCase,
   "md-filename-case-restriction": mdFilenameCaseRestriction,
@@ -60,12 +62,14 @@ const jsxRules = {
   "nextfriday/jsx-pascal-case": "warn",
   "nextfriday/prefer-interface-over-inline-types": "warn",
   "nextfriday/react-props-destructure": "warn",
+  "nextfriday/enforce-readonly-component-props": "warn",
 } as const;
 
 const jsxRecommendedRules = {
   "nextfriday/jsx-pascal-case": "error",
   "nextfriday/prefer-interface-over-inline-types": "error",
   "nextfriday/react-props-destructure": "error",
+  "nextfriday/enforce-readonly-component-props": "error",
 } as const;
 
 const createConfig = (configRules: Record<string, string>) => ({
