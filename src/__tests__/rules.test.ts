@@ -64,8 +64,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["md-filename-case-restriction"].create).toBe("function");
   });
 
-  it("should have exactly 7 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(7);
+  it("should have exactly 8 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(8);
   });
 
   it("should have correct rule names", () => {
@@ -77,5 +77,14 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("prefer-destructuring-params");
     expect(ruleNames).toContain("no-explicit-return-type");
     expect(ruleNames).toContain("prefer-import-type");
+    expect(ruleNames).toContain("react-props-destructure");
+  });
+
+  it("should have react-props-destructure rule", () => {
+    expect(rules).toHaveProperty("react-props-destructure");
+    expect(typeof rules["react-props-destructure"]).toBe("object");
+    expect(rules["react-props-destructure"]).toHaveProperty("meta");
+    expect(rules["react-props-destructure"]).toHaveProperty("create");
+    expect(typeof rules["react-props-destructure"].create).toBe("function");
   });
 });

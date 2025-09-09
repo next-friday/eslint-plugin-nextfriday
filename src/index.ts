@@ -7,6 +7,7 @@ import noEmoji from "./rules/no-emoji";
 import noExplicitReturnType from "./rules/no-explicit-return-type";
 import preferDestructuringParams from "./rules/prefer-destructuring-params";
 import preferImportType from "./rules/prefer-import-type";
+import reactPropsDestructure from "./rules/react-props-destructure";
 
 import type { TSESLint } from "@typescript-eslint/utils";
 
@@ -23,6 +24,7 @@ const rules = {
   "no-explicit-return-type": noExplicitReturnType,
   "prefer-destructuring-params": preferDestructuringParams,
   "prefer-import-type": preferImportType,
+  "react-props-destructure": reactPropsDestructure,
 } as const satisfies Record<string, TSESLint.RuleModule<string, readonly unknown[]>>;
 
 const plugin = {
@@ -50,10 +52,12 @@ const baseRecommendedRules = {
 
 const jsxRules = {
   "nextfriday/jsx-pascal-case": "warn",
+  "nextfriday/react-props-destructure": "warn",
 } as const;
 
 const jsxRecommendedRules = {
   "nextfriday/jsx-pascal-case": "error",
+  "nextfriday/react-props-destructure": "error",
 } as const;
 
 const createConfig = (configRules: Record<string, string>) => ({
@@ -90,6 +94,6 @@ const nextfridayPlugin = {
   rules,
 } as const;
 
-export { meta, configs, rules };
-
 export default nextfridayPlugin;
+
+export { meta, configs, rules };
