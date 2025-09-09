@@ -70,28 +70,24 @@ const preferInterfaceOverInlineTypes = createRule({
       if (node.type === AST_NODE_TYPES.TSTypeLiteral) {
         return true;
       }
+      if (node.type === AST_NODE_TYPES.TSTypeReference && node.typeArguments) {
+        return node.typeArguments.params.some((param) => param.type === AST_NODE_TYPES.TSTypeLiteral);
+      }
       if (node.type === AST_NODE_TYPES.TSUnionType) {
-        return node.types.some((type) => type.type === AST_NODE_TYPES.TSTypeLiteral);
+        return node.types.some((type) => isInlineTypeAnnotation(type));
       }
       return false;
     }
 
-    function hasComplexProps(node: TSESTree.TypeNode): boolean {
+    function hasInlineObjectType(node: TSESTree.TypeNode): boolean {
       if (node.type === AST_NODE_TYPES.TSTypeLiteral) {
-        if (node.members.length > 2) {
-          return true;
-        }
-        return node.members.some((member) => {
-          if (member.type === AST_NODE_TYPES.TSPropertySignature && member.typeAnnotation) {
-            const typeNode = member.typeAnnotation.typeAnnotation;
-            return (
-              typeNode.type === AST_NODE_TYPES.TSTypeLiteral ||
-              typeNode.type === AST_NODE_TYPES.TSUnionType ||
-              typeNode.type === AST_NODE_TYPES.TSArrayType
-            );
-          }
-          return false;
-        });
+        return true;
+      }
+      if (node.type === AST_NODE_TYPES.TSTypeReference && node.typeArguments) {
+        return node.typeArguments.params.some((param) => param.type === AST_NODE_TYPES.TSTypeLiteral);
+      }
+      if (node.type === AST_NODE_TYPES.TSUnionType) {
+        return node.types.some((type) => hasInlineObjectType(type));
       }
       return false;
     }
@@ -108,7 +104,7 @@ const preferInterfaceOverInlineTypes = createRule({
       const param = node.params[0];
       if (param.type === AST_NODE_TYPES.Identifier && param.typeAnnotation) {
         const { typeAnnotation } = param.typeAnnotation;
-        if (isInlineTypeAnnotation(typeAnnotation) && hasComplexProps(typeAnnotation)) {
+        if (isInlineTypeAnnotation(typeAnnotation) && hasInlineObjectType(typeAnnotation)) {
           context.report({
             node: param.typeAnnotation,
             messageId: "useInterface",
