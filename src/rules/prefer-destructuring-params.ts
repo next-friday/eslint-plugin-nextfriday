@@ -23,6 +23,19 @@ const preferDestructuringParams = createRule({
     const checkFunction = (
       node: TSESTree.FunctionDeclaration | TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression,
     ) => {
+      const { filename } = context;
+      if (filename.includes("node_modules") || filename.includes(".d.ts")) {
+        return;
+      }
+
+      if (node.type === AST_NODE_TYPES.FunctionDeclaration && node.id) {
+        const functionName = node.id.name;
+
+        if (functionName.startsWith("_") || functionName.includes("$") || /^[A-Z][a-zA-Z]*$/.test(functionName)) {
+          return;
+        }
+      }
+
       if (node.params.length <= 1) {
         return;
       }
