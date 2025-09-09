@@ -93,7 +93,7 @@ const regularFunction = ({ data }) => {
 
 ## Why?
 
-### Benefits of destructuring inside component body:
+### Benefits of destructuring inside component body
 
 1. **Explicit prop usage**: Makes it clear which props are being used within the component
 2. **Better readability**: Separates prop extraction from component signature
