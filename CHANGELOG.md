@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.2.1
+
+### Patch Changes
+
+- [#18](https://github.com/next-friday/eslint-plugin-nextfriday/pull/18) [`ddfad3d`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/ddfad3d5a112c429ee084c134517dad8cac01c7c) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - Fixed prefer-destructuring-params rule to only target user-defined functions and skip built-in/library/third-party functions.
+
 ## 1.2.0
 
 ### Minor Changes
