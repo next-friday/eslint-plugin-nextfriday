@@ -69,6 +69,7 @@ export default [
       "nextfriday/jsx-pascal-case": "error",
       "nextfriday/prefer-interface-over-inline-types": "error",
       "nextfriday/react-props-destructure": "error",
+      "nextfriday/enforce-readonly-component-props": "error",
     },
   },
 ];
@@ -117,6 +118,7 @@ module.exports = {
 | [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md) | Enforce interface declarations over inline types for React props | ❌      |
 | [prefer-react-import-types](docs/rules/PREFER_REACT_IMPORT_TYPES.md)                   | Enforce direct imports from 'react' instead of React.X           | ✅      |
 | [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                       | Enforce destructuring props inside React component body          | ❌      |
+| [enforce-readonly-component-props](docs/rules/ENFORCE_READONLY_COMPONENT_PROPS.md)     | Enforce Readonly wrapper for React component props               | ✅      |
 
 ## Configurations
 
@@ -148,6 +150,7 @@ Includes all base rules plus React-specific rules:
 - `nextfriday/jsx-pascal-case`: `"error"`
 - `nextfriday/prefer-interface-over-inline-types`: `"error"`
 - `nextfriday/react-props-destructure`: `"error"`
+- `nextfriday/enforce-readonly-component-props`: `"error"`
 
 #### `react/recommended`
 
@@ -163,6 +166,7 @@ Includes all rules suitable for Next.js projects:
 - `nextfriday/jsx-pascal-case`: `"error"`
 - `nextfriday/prefer-interface-over-inline-types`: `"error"`
 - `nextfriday/react-props-destructure`: `"error"`
+- `nextfriday/enforce-readonly-component-props`: `"error"`
 
 #### `nextjs/recommended`
 

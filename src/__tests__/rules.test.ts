@@ -64,8 +64,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["md-filename-case-restriction"].create).toBe("function");
   });
 
-  it("should have exactly 10 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(10);
+  it("should have exactly 11 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(11);
   });
 
   it("should have correct rule names", () => {
@@ -80,6 +80,7 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("prefer-interface-over-inline-types");
     expect(ruleNames).toContain("prefer-react-import-types");
     expect(ruleNames).toContain("react-props-destructure");
+    expect(ruleNames).toContain("enforce-readonly-component-props");
   });
 
   it("should have prefer-interface-over-inline-types rule", () => {
@@ -104,5 +105,13 @@ describe("ESLint Plugin Rules", () => {
     expect(rules["react-props-destructure"]).toHaveProperty("meta");
     expect(rules["react-props-destructure"]).toHaveProperty("create");
     expect(typeof rules["react-props-destructure"].create).toBe("function");
+  });
+
+  it("should have enforce-readonly-component-props rule", () => {
+    expect(rules).toHaveProperty("enforce-readonly-component-props");
+    expect(typeof rules["enforce-readonly-component-props"]).toBe("object");
+    expect(rules["enforce-readonly-component-props"]).toHaveProperty("meta");
+    expect(rules["enforce-readonly-component-props"]).toHaveProperty("create");
+    expect(typeof rules["enforce-readonly-component-props"].create).toBe("function");
   });
 });
