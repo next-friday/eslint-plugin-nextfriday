@@ -51,6 +51,7 @@ describe("ESLint Plugin Configs", () => {
       expect(reactRules).toHaveProperty("nextfriday/no-emoji", "warn");
       expect(reactRules).toHaveProperty("nextfriday/file-kebab-case", "warn");
       expect(reactRules).toHaveProperty("nextfriday/jsx-pascal-case", "warn");
+      expect(reactRules).toHaveProperty("nextfriday/prefer-interface-over-inline-types", "warn");
       expect(reactRules).toHaveProperty("nextfriday/react-props-destructure", "warn");
       expect(reactRules).toHaveProperty("nextfriday/prefer-destructuring-params", "warn");
       expect(reactRules).toHaveProperty("nextfriday/no-explicit-return-type", "warn");
@@ -77,6 +78,7 @@ describe("ESLint Plugin Configs", () => {
       expect(nextjsRules).toHaveProperty("nextfriday/no-emoji", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/file-kebab-case", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/jsx-pascal-case", "warn");
+      expect(nextjsRules).toHaveProperty("nextfriday/prefer-interface-over-inline-types", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/react-props-destructure", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/prefer-destructuring-params", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/no-explicit-return-type", "warn");

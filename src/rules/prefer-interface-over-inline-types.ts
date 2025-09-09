@@ -6,18 +6,17 @@ const createRule = ESLintUtils.RuleCreator(
   (name) => `https://github.com/next-friday/eslint-plugin-nextfriday/blob/main/docs/rules/${name}.md`,
 );
 
-const reactPropsDestructure = createRule({
-  name: "react-props-destructure",
+const preferInterfaceOverInlineTypes = createRule({
+  name: "prefer-interface-over-inline-types",
   meta: {
     type: "suggestion",
     docs: {
-      description: "Enforce destructuring props inside React component body instead of parameters",
+      description: "Enforce interface declarations over inline type annotations for React component props",
     },
     fixable: undefined,
     schema: [],
     messages: {
-      noParameterDestructuring:
-        "Destructure props inside component body instead of parameters. Use 'const { {{properties}} } = props;'",
+      useInterface: "Use interface declaration for component props instead of inline type annotation",
     },
   },
   defaultOptions: [],
@@ -45,19 +44,17 @@ const reactPropsDestructure = createRule({
             (stmt.argument.type === AST_NODE_TYPES.LogicalExpression && hasJSXInLogical(stmt.argument))
           );
         }
-
         return false;
       });
     }
 
     function isReactComponent(
       node: TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression | TSESTree.FunctionDeclaration,
-    ) {
+    ): boolean {
       if (node.type === AST_NODE_TYPES.ArrowFunctionExpression) {
         if (node.body.type === AST_NODE_TYPES.JSXElement || node.body.type === AST_NODE_TYPES.JSXFragment) {
           return true;
         }
-
         if (node.body.type === AST_NODE_TYPES.BlockStatement) {
           return hasJSXReturn(node.body);
         }
@@ -66,7 +63,36 @@ const reactPropsDestructure = createRule({
           return hasJSXReturn(node.body);
         }
       }
+      return false;
+    }
 
+    function isInlineTypeAnnotation(node: TSESTree.TypeNode): boolean {
+      if (node.type === AST_NODE_TYPES.TSTypeLiteral) {
+        return true;
+      }
+      if (node.type === AST_NODE_TYPES.TSUnionType) {
+        return node.types.some((type) => type.type === AST_NODE_TYPES.TSTypeLiteral);
+      }
+      return false;
+    }
+
+    function hasComplexProps(node: TSESTree.TypeNode): boolean {
+      if (node.type === AST_NODE_TYPES.TSTypeLiteral) {
+        if (node.members.length > 2) {
+          return true;
+        }
+        return node.members.some((member) => {
+          if (member.type === AST_NODE_TYPES.TSPropertySignature && member.typeAnnotation) {
+            const typeNode = member.typeAnnotation.typeAnnotation;
+            return (
+              typeNode.type === AST_NODE_TYPES.TSTypeLiteral ||
+              typeNode.type === AST_NODE_TYPES.TSUnionType ||
+              typeNode.type === AST_NODE_TYPES.TSArrayType
+            );
+          }
+          return false;
+        });
+      }
       return false;
     }
 
@@ -76,35 +102,18 @@ const reactPropsDestructure = createRule({
       if (!isReactComponent(node)) {
         return;
       }
-
       if (node.params.length !== 1) {
         return;
       }
-
       const param = node.params[0];
-
-      if (param.type === AST_NODE_TYPES.ObjectPattern) {
-        const properties = param.properties
-          .filter((prop): prop is TSESTree.Property => prop.type === AST_NODE_TYPES.Property)
-          .map((prop) => {
-            if (prop.key.type === AST_NODE_TYPES.Identifier) {
-              return prop.key.name;
-            }
-            return null;
-          })
-          .filter((name): name is string => name !== null);
-
-        if (properties.length === 0) {
-          return;
+      if (param.type === AST_NODE_TYPES.Identifier && param.typeAnnotation) {
+        const { typeAnnotation } = param.typeAnnotation;
+        if (isInlineTypeAnnotation(typeAnnotation) && hasComplexProps(typeAnnotation)) {
+          context.report({
+            node: param.typeAnnotation,
+            messageId: "useInterface",
+          });
         }
-
-        context.report({
-          node: param,
-          messageId: "noParameterDestructuring",
-          data: {
-            properties: properties.join(", "),
-          },
-        });
       }
     }
 
@@ -116,4 +125,4 @@ const reactPropsDestructure = createRule({
   },
 });
 
-export default reactPropsDestructure;
+export default preferInterfaceOverInlineTypes;

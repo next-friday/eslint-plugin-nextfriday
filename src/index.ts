@@ -7,6 +7,7 @@ import noEmoji from "./rules/no-emoji";
 import noExplicitReturnType from "./rules/no-explicit-return-type";
 import preferDestructuringParams from "./rules/prefer-destructuring-params";
 import preferImportType from "./rules/prefer-import-type";
+import preferInterfaceOverInlineTypes from "./rules/prefer-interface-over-inline-types";
 import preferReactImportTypes from "./rules/prefer-react-import-types";
 import reactPropsDestructure from "./rules/react-props-destructure";
 
@@ -25,6 +26,7 @@ const rules = {
   "no-explicit-return-type": noExplicitReturnType,
   "prefer-destructuring-params": preferDestructuringParams,
   "prefer-import-type": preferImportType,
+  "prefer-interface-over-inline-types": preferInterfaceOverInlineTypes,
   "prefer-react-import-types": preferReactImportTypes,
   "react-props-destructure": reactPropsDestructure,
 } as const satisfies Record<string, TSESLint.RuleModule<string, readonly unknown[]>>;
@@ -56,11 +58,13 @@ const baseRecommendedRules = {
 
 const jsxRules = {
   "nextfriday/jsx-pascal-case": "warn",
+  "nextfriday/prefer-interface-over-inline-types": "warn",
   "nextfriday/react-props-destructure": "warn",
 } as const;
 
 const jsxRecommendedRules = {
   "nextfriday/jsx-pascal-case": "error",
+  "nextfriday/prefer-interface-over-inline-types": "error",
   "nextfriday/react-props-destructure": "error",
 } as const;
 

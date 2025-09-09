@@ -64,8 +64,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["md-filename-case-restriction"].create).toBe("function");
   });
 
-  it("should have exactly 9 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(9);
+  it("should have exactly 10 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(10);
   });
 
   it("should have correct rule names", () => {
@@ -77,8 +77,17 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("prefer-destructuring-params");
     expect(ruleNames).toContain("no-explicit-return-type");
     expect(ruleNames).toContain("prefer-import-type");
+    expect(ruleNames).toContain("prefer-interface-over-inline-types");
     expect(ruleNames).toContain("prefer-react-import-types");
     expect(ruleNames).toContain("react-props-destructure");
+  });
+
+  it("should have prefer-interface-over-inline-types rule", () => {
+    expect(rules).toHaveProperty("prefer-interface-over-inline-types");
+    expect(typeof rules["prefer-interface-over-inline-types"]).toBe("object");
+    expect(rules["prefer-interface-over-inline-types"]).toHaveProperty("meta");
+    expect(rules["prefer-interface-over-inline-types"]).toHaveProperty("create");
+    expect(typeof rules["prefer-interface-over-inline-types"].create).toBe("function");
   });
 
   it("should have prefer-react-import-types rule", () => {
