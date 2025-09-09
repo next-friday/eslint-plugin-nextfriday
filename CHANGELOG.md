@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.2.0
+
+### Minor Changes
+
+- [#16](https://github.com/next-friday/eslint-plugin-nextfriday/pull/16) [`6059183`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/60591838ee3bbe9c5f1a497cb571028f973311b6) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - A new ESLint rule `enforce-readonly-component-props` that enforces the use of `Readonly<>` wrapper for React component props when using named types or interfaces. This rule helps prevent accidental mutations of props and makes the immutable nature of React props explicit in the type system.
+
 ## 1.1.1
 
 ### Patch Changes
