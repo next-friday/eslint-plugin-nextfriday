@@ -37,14 +37,12 @@ describe("prefer-interface-over-inline-types", () => {
       },
       {
         code: `
-          const Component = (props: { children: ReactNode }) => <div>{props.children}</div>;
+          const Component = (props: string) => <div>{props}</div>;
         `,
       },
       {
         code: `
-          const Component = (props: { title: string; onClick: () => void }) => (
-            <div onClick={props.onClick}>{props.title}</div>
-          );
+          const Component = (props: number) => <div>{props}</div>;
         `,
       },
       {
@@ -72,6 +70,41 @@ describe("prefer-interface-over-inline-types", () => {
       },
     ],
     invalid: [
+      {
+        code: `
+          const Component = (props: { children: ReactNode }) => <div>{props.children}</div>;
+        `,
+        errors: [
+          {
+            messageId: "useInterface",
+          },
+        ],
+      },
+      {
+        code: `
+          const RootLayout = (props: Readonly<{ children: ReactNode }>) => {
+            const { children } = props;
+            return <html><body>{children}</body></html>;
+          };
+        `,
+        errors: [
+          {
+            messageId: "useInterface",
+          },
+        ],
+      },
+      {
+        code: `
+          const Component = (props: { title: string; onClick: () => void }) => (
+            <div onClick={props.onClick}>{props.title}</div>
+          );
+        `,
+        errors: [
+          {
+            messageId: "useInterface",
+          },
+        ],
+      },
       {
         code: `
           const Component = (props: { children: ReactNode; title: string; onClick: () => void }) => (
