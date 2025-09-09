@@ -59,12 +59,15 @@ export default [
       nextfriday,
     },
     rules: {
+      // Base rules (suitable for all projects)
       "nextfriday/no-emoji": "error",
       "nextfriday/file-kebab-case": "error",
       "nextfriday/md-filename-case-restriction": "error",
       "nextfriday/prefer-destructuring-params": "error",
       "nextfriday/no-explicit-return-type": "error",
       "nextfriday/prefer-import-type": "error",
+      "nextfriday/prefer-react-import-types": "error",
+      // JSX rules (only for React/Next.js projects)
       "nextfriday/jsx-pascal-case": "error",
       "nextfriday/react-props-destructure": "error",
     },
@@ -112,6 +115,7 @@ module.exports = {
 | [prefer-destructuring-params](docs/rules/PREFER_DESTRUCTURING_PARAMS.md)   | Enforce destructuring for functions with multiple parameters | ❌      |
 | [no-explicit-return-type](docs/rules/NO_EXPLICIT_RETURN_TYPE.md)           | Disallow explicit return types on functions                  | ✅      |
 | [prefer-import-type](docs/rules/PREFER_IMPORT_TYPE.md)                     | Enforce using 'import type' for type-only imports            | ✅      |
+| [prefer-react-import-types](docs/rules/PREFER_REACT_IMPORT_TYPES.md)       | Enforce direct imports from 'react' instead of React.X       | ✅      |
 | [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)           | Enforce destructuring props inside React component body      | ❌      |
 
 ## Configurations
@@ -128,6 +132,7 @@ Basic configuration without JSX-specific rules:
 - `nextfriday/prefer-destructuring-params`: `"error"`
 - `nextfriday/no-explicit-return-type`: `"error"`
 - `nextfriday/prefer-import-type`: `"error"`
+- `nextfriday/prefer-react-import-types`: `"error"`
 
 #### `base/recommended`
 
