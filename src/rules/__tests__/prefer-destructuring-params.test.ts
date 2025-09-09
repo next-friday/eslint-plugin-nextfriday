@@ -60,6 +60,18 @@ ruleTester.run("prefer-destructuring-params", preferDestructuringParams, {
       code: `function foo({a: {nested}}, {b}) {}`,
       name: "should allow nested destructuring",
     },
+    {
+      code: `function _internalFunction(param1, param2) {}`,
+      name: "should skip functions starting with underscore",
+    },
+    {
+      code: `function $libraryFunction(param1, param2) {}`,
+      name: "should skip functions containing dollar sign",
+    },
+    {
+      code: `function Component(props, context) {}`,
+      name: "should skip constructor-like functions",
+    },
   ],
   invalid: [
     {
