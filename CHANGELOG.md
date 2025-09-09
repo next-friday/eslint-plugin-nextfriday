@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.1.0
+
+### Minor Changes
+
+- [#12](https://github.com/next-friday/eslint-plugin-nextfriday/pull/12) [`30dc89f`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/30dc89f3c4d11c9cb320b8c3dfa370b7caff9ddc) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - Added two new ESLint rules to improve React development practices and code quality. The `prefer-react-import-types` rule enforces direct import of React types, while `prefer-interface-over-inline-types` promotes better type organization. Also improved the React component detection logic in the existing `react-props-destructure` rule.
+
 ## 1.0.2
 
 ### Patch Changes
