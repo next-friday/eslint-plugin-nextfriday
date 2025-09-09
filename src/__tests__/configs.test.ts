@@ -28,6 +28,7 @@ describe("ESLint Plugin Configs", () => {
       expect(baseRules).toHaveProperty("nextfriday/prefer-destructuring-params", "warn");
       expect(baseRules).toHaveProperty("nextfriday/no-explicit-return-type", "warn");
       expect(baseRules).toHaveProperty("nextfriday/prefer-import-type", "warn");
+      expect(baseRules).toHaveProperty("nextfriday/prefer-react-import-types", "warn");
       expect(baseRules).not.toHaveProperty("nextfriday/jsx-pascal-case");
     });
   });
@@ -50,9 +51,12 @@ describe("ESLint Plugin Configs", () => {
       expect(reactRules).toHaveProperty("nextfriday/no-emoji", "warn");
       expect(reactRules).toHaveProperty("nextfriday/file-kebab-case", "warn");
       expect(reactRules).toHaveProperty("nextfriday/jsx-pascal-case", "warn");
+      expect(reactRules).toHaveProperty("nextfriday/prefer-interface-over-inline-types", "warn");
+      expect(reactRules).toHaveProperty("nextfriday/react-props-destructure", "warn");
       expect(reactRules).toHaveProperty("nextfriday/prefer-destructuring-params", "warn");
       expect(reactRules).toHaveProperty("nextfriday/no-explicit-return-type", "warn");
       expect(reactRules).toHaveProperty("nextfriday/prefer-import-type", "warn");
+      expect(reactRules).toHaveProperty("nextfriday/prefer-react-import-types", "warn");
     });
   });
 
@@ -74,9 +78,12 @@ describe("ESLint Plugin Configs", () => {
       expect(nextjsRules).toHaveProperty("nextfriday/no-emoji", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/file-kebab-case", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/jsx-pascal-case", "warn");
+      expect(nextjsRules).toHaveProperty("nextfriday/prefer-interface-over-inline-types", "warn");
+      expect(nextjsRules).toHaveProperty("nextfriday/react-props-destructure", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/prefer-destructuring-params", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/no-explicit-return-type", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/prefer-import-type", "warn");
+      expect(nextjsRules).toHaveProperty("nextfriday/prefer-react-import-types", "warn");
     });
   });
 

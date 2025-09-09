@@ -64,8 +64,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["md-filename-case-restriction"].create).toBe("function");
   });
 
-  it("should have exactly 7 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(7);
+  it("should have exactly 10 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(10);
   });
 
   it("should have correct rule names", () => {
@@ -77,5 +77,32 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("prefer-destructuring-params");
     expect(ruleNames).toContain("no-explicit-return-type");
     expect(ruleNames).toContain("prefer-import-type");
+    expect(ruleNames).toContain("prefer-interface-over-inline-types");
+    expect(ruleNames).toContain("prefer-react-import-types");
+    expect(ruleNames).toContain("react-props-destructure");
+  });
+
+  it("should have prefer-interface-over-inline-types rule", () => {
+    expect(rules).toHaveProperty("prefer-interface-over-inline-types");
+    expect(typeof rules["prefer-interface-over-inline-types"]).toBe("object");
+    expect(rules["prefer-interface-over-inline-types"]).toHaveProperty("meta");
+    expect(rules["prefer-interface-over-inline-types"]).toHaveProperty("create");
+    expect(typeof rules["prefer-interface-over-inline-types"].create).toBe("function");
+  });
+
+  it("should have prefer-react-import-types rule", () => {
+    expect(rules).toHaveProperty("prefer-react-import-types");
+    expect(typeof rules["prefer-react-import-types"]).toBe("object");
+    expect(rules["prefer-react-import-types"]).toHaveProperty("meta");
+    expect(rules["prefer-react-import-types"]).toHaveProperty("create");
+    expect(typeof rules["prefer-react-import-types"].create).toBe("function");
+  });
+
+  it("should have react-props-destructure rule", () => {
+    expect(rules).toHaveProperty("react-props-destructure");
+    expect(typeof rules["react-props-destructure"]).toBe("object");
+    expect(rules["react-props-destructure"]).toHaveProperty("meta");
+    expect(rules["react-props-destructure"]).toHaveProperty("create");
+    expect(typeof rules["react-props-destructure"].create).toBe("function");
   });
 });

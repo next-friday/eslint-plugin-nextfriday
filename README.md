@@ -59,23 +59,24 @@ export default [
       nextfriday,
     },
     rules: {
-      // Base rules (suitable for all projects)
       "nextfriday/no-emoji": "error",
       "nextfriday/file-kebab-case": "error",
       "nextfriday/md-filename-case-restriction": "error",
       "nextfriday/prefer-destructuring-params": "error",
       "nextfriday/no-explicit-return-type": "error",
       "nextfriday/prefer-import-type": "error",
-      // JSX rule (only for React/Next.js projects)
+      "nextfriday/prefer-react-import-types": "error",
       "nextfriday/jsx-pascal-case": "error",
+      "nextfriday/prefer-interface-over-inline-types": "error",
+      "nextfriday/react-props-destructure": "error",
     },
   },
 ];
 ```
 
-### Legacy Config
+### Legacy Config (ESLint 8 and below)
 
-#### Base Configuration
+#### Base Legacy Configuration
 
 ```js
 module.exports = {
@@ -84,7 +85,7 @@ module.exports = {
 };
 ```
 
-#### React Configuration
+#### React Legacy Configuration
 
 ```js
 module.exports = {
@@ -93,7 +94,7 @@ module.exports = {
 };
 ```
 
-#### Next.js Configuration
+#### Next.js Legacy Configuration
 
 ```js
 module.exports = {
@@ -104,15 +105,18 @@ module.exports = {
 
 ## Rules
 
-| Rule                                                                       | Description                                                  | Fixable |
-| -------------------------------------------------------------------------- | ------------------------------------------------------------ | ------- |
-| [no-emoji](docs/rules/NO_EMOJI.md)                                         | Disallow emojis in code                                      | ❌      |
-| [file-kebab-case](docs/rules/FILE_KEBAB_CASE.md)                           | Enforce kebab-case filenames for .ts and .js files           | ❌      |
-| [jsx-pascal-case](docs/rules/JSX_PASCAL_CASE.md)                           | Enforce PascalCase filenames for .jsx and .tsx files         | ❌      |
-| [md-filename-case-restriction](docs/rules/MD_FILENAME_CASE_RESTRICTION.md) | Enforce SNAKE_CASE filenames for .md files                   | ❌      |
-| [prefer-destructuring-params](docs/rules/PREFER_DESTRUCTURING_PARAMS.md)   | Enforce destructuring for functions with multiple parameters | ❌      |
-| [no-explicit-return-type](docs/rules/NO_EXPLICIT_RETURN_TYPE.md)           | Disallow explicit return types on functions                  | ✅      |
-| [prefer-import-type](docs/rules/PREFER_IMPORT_TYPE.md)                     | Enforce using 'import type' for type-only imports            | ✅      |
+| Rule                                                                                   | Description                                                      | Fixable |
+| -------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------- |
+| [no-emoji](docs/rules/NO_EMOJI.md)                                                     | Disallow emojis in code                                          | ❌      |
+| [file-kebab-case](docs/rules/FILE_KEBAB_CASE.md)                                       | Enforce kebab-case filenames for .ts and .js files               | ❌      |
+| [jsx-pascal-case](docs/rules/JSX_PASCAL_CASE.md)                                       | Enforce PascalCase filenames for .jsx and .tsx files             | ❌      |
+| [md-filename-case-restriction](docs/rules/MD_FILENAME_CASE_RESTRICTION.md)             | Enforce SNAKE_CASE filenames for .md files                       | ❌      |
+| [prefer-destructuring-params](docs/rules/PREFER_DESTRUCTURING_PARAMS.md)               | Enforce destructuring for functions with multiple parameters     | ❌      |
+| [no-explicit-return-type](docs/rules/NO_EXPLICIT_RETURN_TYPE.md)                       | Disallow explicit return types on functions                      | ✅      |
+| [prefer-import-type](docs/rules/PREFER_IMPORT_TYPE.md)                                 | Enforce using 'import type' for type-only imports                | ✅      |
+| [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md) | Enforce interface declarations over inline types for React props | ❌      |
+| [prefer-react-import-types](docs/rules/PREFER_REACT_IMPORT_TYPES.md)                   | Enforce direct imports from 'react' instead of React.X           | ✅      |
+| [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                       | Enforce destructuring props inside React component body          | ❌      |
 
 ## Configurations
 
@@ -128,6 +132,7 @@ Basic configuration without JSX-specific rules:
 - `nextfriday/prefer-destructuring-params`: `"error"`
 - `nextfriday/no-explicit-return-type`: `"error"`
 - `nextfriday/prefer-import-type`: `"error"`
+- `nextfriday/prefer-react-import-types`: `"error"`
 
 #### `base/recommended`
 
@@ -141,6 +146,8 @@ Includes all base rules plus React-specific rules:
 
 - All base rules above
 - `nextfriday/jsx-pascal-case`: `"error"`
+- `nextfriday/prefer-interface-over-inline-types`: `"error"`
+- `nextfriday/react-props-destructure`: `"error"`
 
 #### `react/recommended`
 
@@ -154,6 +161,8 @@ Includes all rules suitable for Next.js projects:
 
 - All base rules
 - `nextfriday/jsx-pascal-case`: `"error"`
+- `nextfriday/prefer-interface-over-inline-types`: `"error"`
+- `nextfriday/react-props-destructure`: `"error"`
 
 #### `nextjs/recommended`
 
