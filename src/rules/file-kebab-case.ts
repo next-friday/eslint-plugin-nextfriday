@@ -7,9 +7,10 @@ const createRule = ESLintUtils.RuleCreator(
 );
 
 const isKebabCase = (str: string) => {
-  if (/\.(config|rc|setup|spec|test)$/.test(str)) {
-    return /^[a-z0-9]+(?:-[a-z0-9]+)*(?:\.[a-z0-9]+)*$/.test(str);
+  if (/\.(config|rc|setup|spec|test)$/.test(str) || /^[a-z0-9]+(?:-[a-z0-9]+)*\.[a-z0-9]+(?:-[a-z0-9]+)*$/.test(str)) {
+    return /^[a-z0-9]+(?:-[a-z0-9]+)*(?:\.[a-z0-9]+(?:-[a-z0-9]+)*)*$/.test(str);
   }
+
   return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(str);
 };
 
