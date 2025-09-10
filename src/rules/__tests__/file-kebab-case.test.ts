@@ -57,6 +57,41 @@ ruleTester.run("file-kebab-case", fileKebabCase, {
       filename: "webpack.config.js",
       name: "should allow common config file patterns",
     },
+    {
+      code: `export interface GreetingProps {}`,
+      filename: "greeting.interfaces.ts",
+      name: "should allow [name].[type] pattern with interfaces",
+    },
+    {
+      code: `export type UserType = {};`,
+      filename: "greeting.types.ts",
+      name: "should allow [name].[type] pattern with types",
+    },
+    {
+      code: `export class GreetingService {}`,
+      filename: "greeting.service.ts",
+      name: "should allow [name].[type] pattern with service",
+    },
+    {
+      code: `export const fooBar = {};`,
+      filename: "foo.bar.ts",
+      name: "should allow [name].[type] pattern with simple names",
+    },
+    {
+      code: `export const utils = {};`,
+      filename: "foo.bar.js",
+      name: "should allow [name].[type] pattern with .js files",
+    },
+    {
+      code: `export const api = {};`,
+      filename: "user-profile.service.ts",
+      name: "should allow [name].[type] pattern with kebab-case names",
+    },
+    {
+      code: `export const data = {};`,
+      filename: "api-v2.client.ts",
+      name: "should allow [name].[type] pattern with numbers in kebab-case",
+    },
   ],
   invalid: [
     {
@@ -147,6 +182,42 @@ ruleTester.run("file-kebab-case", fileKebabCase, {
       code: `const numbers = [];`,
       filename: "file123Name.js",
       name: "should disallow camelCase with numbers",
+      errors: [
+        {
+          messageId: "fileKebabCase",
+          line: 1,
+          column: 1,
+        },
+      ],
+    },
+    {
+      code: `export interface Props {}`,
+      filename: "Greeting.Interfaces.ts",
+      name: "should disallow PascalCase in [name].[type] pattern",
+      errors: [
+        {
+          messageId: "fileKebabCase",
+          line: 1,
+          column: 1,
+        },
+      ],
+    },
+    {
+      code: `export const service = {};`,
+      filename: "greeting_service.ts",
+      name: "should disallow snake_case in [name].[type] pattern",
+      errors: [
+        {
+          messageId: "fileKebabCase",
+          line: 1,
+          column: 1,
+        },
+      ],
+    },
+    {
+      code: `export const data = {};`,
+      filename: "foo.Bar.ts",
+      name: "should disallow PascalCase in type part of [name].[type] pattern",
       errors: [
         {
           messageId: "fileKebabCase",
