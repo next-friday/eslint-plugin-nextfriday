@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.2.2
+
+### Patch Changes
+
+- [#20](https://github.com/next-friday/eslint-plugin-nextfriday/pull/20) [`5cc909e`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/5cc909e2b4cc7f32bafca3c6eaff1a37f4a914e2) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - Fixed the file-kebab-case rule to allow [name].[type] filename patterns like greeting.interfaces.ts, greeting.service.ts, and foo.bar.ts while maintaining kebab-case enforcement for both name and type components.
+
 ## 1.2.1
 
 ### Patch Changes
