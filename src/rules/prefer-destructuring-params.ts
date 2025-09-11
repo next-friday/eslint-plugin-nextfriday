@@ -3,7 +3,8 @@ import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import type { TSESTree } from "@typescript-eslint/utils";
 
 const createRule = ESLintUtils.RuleCreator(
-  (name) => `https://github.com/next-friday/eslint-plugin-nextfriday/blob/main/docs/rules/${name}.md`,
+  (name) =>
+    `https://github.com/next-friday/eslint-plugin-nextfriday/blob/main/docs/rules/${name.replace(/-/g, "_").toUpperCase()}.md`,
 );
 
 const preferDestructuringParams = createRule({
@@ -20,6 +21,35 @@ const preferDestructuringParams = createRule({
   },
   defaultOptions: [],
   create(context) {
+    const isCallbackFunction = (node: TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression) => {
+      const { parent } = node;
+      return parent?.type === AST_NODE_TYPES.CallExpression;
+    };
+
+    const isDeveloperFunction = (
+      node: TSESTree.FunctionDeclaration | TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression,
+    ) => {
+      if (node.type === AST_NODE_TYPES.FunctionDeclaration) {
+        return true;
+      }
+
+      if (node.type === AST_NODE_TYPES.FunctionExpression || node.type === AST_NODE_TYPES.ArrowFunctionExpression) {
+        if (isCallbackFunction(node)) {
+          return false;
+        }
+
+        const { parent } = node;
+        return (
+          parent?.type === AST_NODE_TYPES.VariableDeclarator ||
+          parent?.type === AST_NODE_TYPES.AssignmentExpression ||
+          parent?.type === AST_NODE_TYPES.Property ||
+          parent?.type === AST_NODE_TYPES.MethodDefinition
+        );
+      }
+
+      return false;
+    };
+
     const checkFunction = (
       node: TSESTree.FunctionDeclaration | TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression,
     ) => {
@@ -28,9 +58,12 @@ const preferDestructuringParams = createRule({
         return;
       }
 
+      if (!isDeveloperFunction(node)) {
+        return;
+      }
+
       if (node.type === AST_NODE_TYPES.FunctionDeclaration && node.id) {
         const functionName = node.id.name;
-
         if (functionName.startsWith("_") || functionName.includes("$") || /^[A-Z][a-zA-Z]*$/.test(functionName)) {
           return;
         }

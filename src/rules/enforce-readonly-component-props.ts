@@ -3,7 +3,8 @@ import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import type { TSESTree } from "@typescript-eslint/utils";
 
 const createRule = ESLintUtils.RuleCreator(
-  (name) => `https://github.com/next-friday/eslint-plugin-nextfriday/blob/main/docs/rules/${name}.md`,
+  (name) =>
+    `https://github.com/next-friday/eslint-plugin-nextfriday/blob/main/docs/rules/${name.replace(/-/g, "_").toUpperCase()}.md`,
 );
 
 const enforceReadonlyComponentProps = createRule({

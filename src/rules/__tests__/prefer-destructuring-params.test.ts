@@ -72,6 +72,62 @@ ruleTester.run("prefer-destructuring-params", preferDestructuringParams, {
       code: `function Component(props, context) {}`,
       name: "should skip constructor-like functions",
     },
+    {
+      code: `words.forEach((word, wordIndex) => {})`,
+      name: "should allow forEach callbacks with multiple parameters",
+    },
+    {
+      code: `items.map((item, index) => {})`,
+      name: "should allow map callbacks with multiple parameters",
+    },
+    {
+      code: `items.filter((item, index) => {})`,
+      name: "should allow filter callbacks with multiple parameters",
+    },
+    {
+      code: `items.reduce((acc, curr, index) => {})`,
+      name: "should allow reduce callbacks with multiple parameters",
+    },
+    {
+      code: `items.find((item, index) => {})`,
+      name: "should allow find callbacks with multiple parameters",
+    },
+    {
+      code: `items.findIndex((item, index) => {})`,
+      name: "should allow findIndex callbacks with multiple parameters",
+    },
+    {
+      code: `items.some((item, index) => {})`,
+      name: "should allow some callbacks with multiple parameters",
+    },
+    {
+      code: `items.every((item, index) => {})`,
+      name: "should allow every callbacks with multiple parameters",
+    },
+    {
+      code: `items.forEach(function(item, index) {})`,
+      name: "should allow forEach function expressions with multiple parameters",
+    },
+    {
+      code: `promise.then((result, error) => {})`,
+      name: "should allow Promise then callbacks with multiple parameters",
+    },
+    {
+      code: `element.addEventListener('click', (event, data) => {})`,
+      name: "should allow event listener callbacks with multiple parameters",
+    },
+    {
+      code: `setTimeout((arg1, arg2) => {}, 1000)`,
+      name: "should allow setTimeout callbacks with multiple parameters",
+    },
+    {
+      code: `customFunction((param1, param2) => {})`,
+      name: "should allow any callback function with multiple parameters",
+    },
+    {
+      code: `obj.method((a, b) => {})`,
+      name: "should allow method callbacks with multiple parameters",
+    },
   ],
   invalid: [
     {

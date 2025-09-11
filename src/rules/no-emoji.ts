@@ -2,7 +2,8 @@ import emojiRegex from "emoji-regex";
 import { ESLintUtils } from "@typescript-eslint/utils";
 
 const createRule = ESLintUtils.RuleCreator(
-  (name) => `https://github.com/next-friday/eslint-plugin-nextfriday/blob/main/docs/rules/${name}.md`,
+  (name) =>
+    `https://github.com/next-friday/eslint-plugin-nextfriday/blob/main/docs/rules/${name.replace(/-/g, "_").toUpperCase()}.md`,
 );
 
 const noEmoji = createRule({
