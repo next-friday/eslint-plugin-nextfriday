@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.2.3
+
+### Patch Changes
+
+- [#22](https://github.com/next-friday/eslint-plugin-nextfriday/pull/22) [`45d54ff`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/45d54ffb7be27c762fbf57c40752a83a1fb1da32) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - Updated rule documentation links to use uppercase and underscores (SNAKE_CASE) for rule names to match the actual documentation file naming convention.
+
 ## 1.2.2
 
 ### Patch Changes
