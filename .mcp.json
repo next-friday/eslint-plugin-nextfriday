@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "package-registry": {
+      "command": "npx",
+      "args": ["-y", "package-registry-mcp"]
+    },
+    "eslint": {
+      "command": "npx",
+      "args": ["@eslint/mcp@latest"]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest"]
+    },
+    "context7": {
+      "httpUrl": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "ctx7sk-11500660-cb89-43c8-80e2-9cd1ceeaceaa",
+        "Accept": "application/json, text/event-stream"
+      }
+    }
+  }
+}

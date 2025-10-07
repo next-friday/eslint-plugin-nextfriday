@@ -65,6 +65,7 @@ export default [
       "nextfriday/prefer-destructuring-params": "error",
       "nextfriday/no-explicit-return-type": "error",
       "nextfriday/prefer-import-type": "error",
+      "nextfriday/prefer-named-param-types": "error",
       "nextfriday/prefer-react-import-types": "error",
       "nextfriday/jsx-pascal-case": "error",
       "nextfriday/prefer-interface-over-inline-types": "error",
@@ -115,6 +116,7 @@ module.exports = {
 | [prefer-destructuring-params](docs/rules/PREFER_DESTRUCTURING_PARAMS.md)               | Enforce destructuring for functions with multiple parameters     | ❌      |
 | [no-explicit-return-type](docs/rules/NO_EXPLICIT_RETURN_TYPE.md)                       | Disallow explicit return types on functions                      | ✅      |
 | [prefer-import-type](docs/rules/PREFER_IMPORT_TYPE.md)                                 | Enforce using 'import type' for type-only imports                | ✅      |
+| [prefer-named-param-types](docs/rules/PREFER_NAMED_PARAM_TYPES.md)                     | Enforce named types for function parameters with object types    | ❌      |
 | [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md) | Enforce interface declarations over inline types for React props | ❌      |
 | [prefer-react-import-types](docs/rules/PREFER_REACT_IMPORT_TYPES.md)                   | Enforce direct imports from 'react' instead of React.X           | ✅      |
 | [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                       | Enforce destructuring props inside React component body          | ❌      |
@@ -134,6 +136,7 @@ Basic configuration without JSX-specific rules:
 - `nextfriday/prefer-destructuring-params`: `"error"`
 - `nextfriday/no-explicit-return-type`: `"error"`
 - `nextfriday/prefer-import-type`: `"error"`
+- `nextfriday/prefer-named-param-types`: `"error"`
 - `nextfriday/prefer-react-import-types`: `"error"`
 
 #### `base/recommended`
