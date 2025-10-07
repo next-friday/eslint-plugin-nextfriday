@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.3.0
+
+### Minor Changes
+
+- [#24](https://github.com/next-friday/eslint-plugin-nextfriday/pull/24) [`59d1932`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/59d193258d6ffd19d6fd90515626d826732e30b3) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - Add new prefer-named-param-types rule that enforces using named interfaces or type aliases instead of inline object type literals for function
+
 ## 1.2.3
 
 ### Patch Changes
