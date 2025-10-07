@@ -9,6 +9,7 @@ import noExplicitReturnType from "./rules/no-explicit-return-type";
 import preferDestructuringParams from "./rules/prefer-destructuring-params";
 import preferImportType from "./rules/prefer-import-type";
 import preferInterfaceOverInlineTypes from "./rules/prefer-interface-over-inline-types";
+import preferNamedParamTypes from "./rules/prefer-named-param-types";
 import preferReactImportTypes from "./rules/prefer-react-import-types";
 import reactPropsDestructure from "./rules/react-props-destructure";
 
@@ -29,6 +30,7 @@ const rules = {
   "prefer-destructuring-params": preferDestructuringParams,
   "prefer-import-type": preferImportType,
   "prefer-interface-over-inline-types": preferInterfaceOverInlineTypes,
+  "prefer-named-param-types": preferNamedParamTypes,
   "prefer-react-import-types": preferReactImportTypes,
   "react-props-destructure": reactPropsDestructure,
 } as const satisfies Record<string, TSESLint.RuleModule<string, readonly unknown[]>>;
@@ -45,6 +47,7 @@ const baseRules = {
   "nextfriday/prefer-destructuring-params": "warn",
   "nextfriday/no-explicit-return-type": "warn",
   "nextfriday/prefer-import-type": "warn",
+  "nextfriday/prefer-named-param-types": "warn",
   "nextfriday/prefer-react-import-types": "warn",
 } as const;
 
@@ -55,6 +58,7 @@ const baseRecommendedRules = {
   "nextfriday/prefer-destructuring-params": "error",
   "nextfriday/no-explicit-return-type": "error",
   "nextfriday/prefer-import-type": "error",
+  "nextfriday/prefer-named-param-types": "error",
   "nextfriday/prefer-react-import-types": "error",
 } as const;
 
