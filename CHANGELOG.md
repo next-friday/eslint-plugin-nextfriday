@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.5.3
+
+### Patch Changes
+
+- [#34](https://github.com/next-friday/eslint-plugin-nextfriday/pull/34) [`f87b0ad`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/f87b0ad3836f10f3e34b9f1cb751fe4101d04ef8) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - Fix missing build step in CI/CD pipeline causing npm package to be published without lib directory. Added build steps before publishing in release workflow and prepublishOnly script as safety net.
+
 ## 1.5.2
 
 ### Patch Changes
