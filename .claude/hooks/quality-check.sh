@@ -2,13 +2,9 @@
 
 set -e
 
-echo "> Running Prettier check..."
-pnpm prettier:check
+echo "> Running quality checks..."
 
-echo "[PASS] Prettier check passed"
+npx prettier --write .
+npx eslint src --ext .js,.ts --fix
 
-echo "> Running ESLint fix..."
-pnpm eslint
-
-echo "[PASS] ESLint fix passed"
-echo "[PASS] All quality checks passed!"
+echo "[PASS] Quality checks passed"
