@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.5.1
+
+### Patch Changes
+
+- [#30](https://github.com/next-friday/eslint-plugin-nextfriday/pull/30) [`cc054bc`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/cc054bc46b902af77e747b72b09eb56854ea9630) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - Fix package installation warnings by removing preinstall script and making prepare script fail-safe
+
 ## 1.5.0
 
 ### Minor Changes
