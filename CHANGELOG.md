@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.5.2
+
+### Patch Changes
+
+- [#32](https://github.com/next-friday/eslint-plugin-nextfriday/pull/32) [`1efbfc0`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/1efbfc05590ed21ee786a5e03f89ff6bcb38fe69) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - Update package scripts: remove prepublishOnly script and update prepare script to use husky without fallback
+
 ## 1.5.1
 
 ### Patch Changes
