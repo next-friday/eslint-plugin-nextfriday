@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.5.0
+
+### Minor Changes
+
+- [#28](https://github.com/next-friday/eslint-plugin-nextfriday/pull/28) [`387c2b8`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/387c2b8a6d0e4668daa035ab3bc3ad2f41e5d8f3) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - Add new `no-env-fallback` rule to prevent dangerous fallback values for environment variables. This rule disallows using `||`, `??`, or ternary operators with `process.env` to ensure applications fail explicitly when required environment variables are missing rather than silently using default values.
+
 ## 1.4.0
 
 ### Minor Changes
