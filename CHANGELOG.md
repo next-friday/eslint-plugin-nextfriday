@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.4.0
+
+### Minor Changes
+
+- [#26](https://github.com/next-friday/eslint-plugin-nextfriday/pull/26) [`e90935a`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/e90935a56129ff84efc9df5de3f43e8e4a61af16) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - Add two new rules to improve code readability and debugging: `no-complex-inline-return` disallows complex inline expressions (such as ternary operators, logical expressions, or `new` expressions) directly in return statements, requiring extraction to a `const` variable instead; and `no-logic-in-params` prohibits using logic or conditions (e.g., ternary, logical, comparison, or negation operators) within function parameters, enforcing the use of intermediate `const` variables to enhance clarity and allow inspection of values.
+
 ## 1.3.0
 
 ### Minor Changes
