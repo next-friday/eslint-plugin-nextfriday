@@ -4,6 +4,7 @@ import enforceReadonlyComponentProps from "./rules/enforce-readonly-component-pr
 import fileKebabCase from "./rules/file-kebab-case";
 import jsxPascalCase from "./rules/jsx-pascal-case";
 import mdFilenameCaseRestriction from "./rules/md-filename-case-restriction";
+import noComplexInlineReturn from "./rules/no-complex-inline-return";
 import noEmoji from "./rules/no-emoji";
 import noExplicitReturnType from "./rules/no-explicit-return-type";
 import preferDestructuringParams from "./rules/prefer-destructuring-params";
@@ -25,6 +26,7 @@ const rules = {
   "file-kebab-case": fileKebabCase,
   "jsx-pascal-case": jsxPascalCase,
   "md-filename-case-restriction": mdFilenameCaseRestriction,
+  "no-complex-inline-return": noComplexInlineReturn,
   "no-emoji": noEmoji,
   "no-explicit-return-type": noExplicitReturnType,
   "prefer-destructuring-params": preferDestructuringParams,
@@ -49,6 +51,7 @@ const baseRules = {
   "nextfriday/prefer-import-type": "warn",
   "nextfriday/prefer-named-param-types": "warn",
   "nextfriday/prefer-react-import-types": "warn",
+  "nextfriday/no-complex-inline-return": "warn",
 } as const;
 
 const baseRecommendedRules = {
@@ -60,6 +63,7 @@ const baseRecommendedRules = {
   "nextfriday/prefer-import-type": "error",
   "nextfriday/prefer-named-param-types": "error",
   "nextfriday/prefer-react-import-types": "error",
+  "nextfriday/no-complex-inline-return": "error",
 } as const;
 
 const jsxRules = {

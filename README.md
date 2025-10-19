@@ -67,6 +67,7 @@ export default [
       "nextfriday/prefer-import-type": "error",
       "nextfriday/prefer-named-param-types": "error",
       "nextfriday/prefer-react-import-types": "error",
+      "nextfriday/no-complex-inline-return": "error",
       "nextfriday/jsx-pascal-case": "error",
       "nextfriday/prefer-interface-over-inline-types": "error",
       "nextfriday/react-props-destructure": "error",
@@ -107,20 +108,21 @@ module.exports = {
 
 ## Rules
 
-| Rule                                                                                   | Description                                                      | Fixable |
-| -------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------- |
-| [no-emoji](docs/rules/NO_EMOJI.md)                                                     | Disallow emojis in code                                          | ❌      |
-| [file-kebab-case](docs/rules/FILE_KEBAB_CASE.md)                                       | Enforce kebab-case filenames for .ts and .js files               | ❌      |
-| [jsx-pascal-case](docs/rules/JSX_PASCAL_CASE.md)                                       | Enforce PascalCase filenames for .jsx and .tsx files             | ❌      |
-| [md-filename-case-restriction](docs/rules/MD_FILENAME_CASE_RESTRICTION.md)             | Enforce SNAKE_CASE filenames for .md files                       | ❌      |
-| [prefer-destructuring-params](docs/rules/PREFER_DESTRUCTURING_PARAMS.md)               | Enforce destructuring for functions with multiple parameters     | ❌      |
-| [no-explicit-return-type](docs/rules/NO_EXPLICIT_RETURN_TYPE.md)                       | Disallow explicit return types on functions                      | ✅      |
-| [prefer-import-type](docs/rules/PREFER_IMPORT_TYPE.md)                                 | Enforce using 'import type' for type-only imports                | ✅      |
-| [prefer-named-param-types](docs/rules/PREFER_NAMED_PARAM_TYPES.md)                     | Enforce named types for function parameters with object types    | ❌      |
-| [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md) | Enforce interface declarations over inline types for React props | ❌      |
-| [prefer-react-import-types](docs/rules/PREFER_REACT_IMPORT_TYPES.md)                   | Enforce direct imports from 'react' instead of React.X           | ✅      |
-| [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                       | Enforce destructuring props inside React component body          | ❌      |
-| [enforce-readonly-component-props](docs/rules/ENFORCE_READONLY_COMPONENT_PROPS.md)     | Enforce Readonly wrapper for React component props               | ✅      |
+| Rule                                                                                   | Description                                                                   | Fixable |
+| -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------- |
+| [no-emoji](docs/rules/NO_EMOJI.md)                                                     | Disallow emojis in code                                                       | ❌      |
+| [file-kebab-case](docs/rules/FILE_KEBAB_CASE.md)                                       | Enforce kebab-case filenames for .ts and .js files                            | ❌      |
+| [jsx-pascal-case](docs/rules/JSX_PASCAL_CASE.md)                                       | Enforce PascalCase filenames for .jsx and .tsx files                          | ❌      |
+| [md-filename-case-restriction](docs/rules/MD_FILENAME_CASE_RESTRICTION.md)             | Enforce SNAKE_CASE filenames for .md files                                    | ❌      |
+| [prefer-destructuring-params](docs/rules/PREFER_DESTRUCTURING_PARAMS.md)               | Enforce destructuring for functions with multiple parameters                  | ❌      |
+| [no-explicit-return-type](docs/rules/NO_EXPLICIT_RETURN_TYPE.md)                       | Disallow explicit return types on functions                                   | ✅      |
+| [prefer-import-type](docs/rules/PREFER_IMPORT_TYPE.md)                                 | Enforce using 'import type' for type-only imports                             | ✅      |
+| [prefer-named-param-types](docs/rules/PREFER_NAMED_PARAM_TYPES.md)                     | Enforce named types for function parameters with object types                 | ❌      |
+| [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md) | Enforce interface declarations over inline types for React props              | ❌      |
+| [prefer-react-import-types](docs/rules/PREFER_REACT_IMPORT_TYPES.md)                   | Enforce direct imports from 'react' instead of React.X                        | ✅      |
+| [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                       | Enforce destructuring props inside React component body                       | ❌      |
+| [enforce-readonly-component-props](docs/rules/ENFORCE_READONLY_COMPONENT_PROPS.md)     | Enforce Readonly wrapper for React component props                            | ✅      |
+| [no-complex-inline-return](docs/rules/NO_COMPLEX_INLINE_RETURN.md)                     | Disallow complex inline expressions in return statements - prefer const first | ❌      |
 
 ## Configurations
 
@@ -138,6 +140,7 @@ Basic configuration without JSX-specific rules:
 - `nextfriday/prefer-import-type`: `"error"`
 - `nextfriday/prefer-named-param-types`: `"error"`
 - `nextfriday/prefer-react-import-types`: `"error"`
+- `nextfriday/no-complex-inline-return`: `"error"`
 
 #### `base/recommended`
 

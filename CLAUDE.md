@@ -65,20 +65,21 @@ pnpm changeset:publish   # Publish to npm with provenance
 
 ### Rules Registry
 
-All 11 rules are registered in `src/index.ts`:
+All 13 rules are registered in `src/index.ts`:
 
 1. File naming: `file-kebab-case`, `jsx-pascal-case`, `md-filename-case-restriction`
-2. Code style: `no-emoji`, `prefer-destructuring-params`, `no-explicit-return-type`
+2. Code style: `no-emoji`, `prefer-destructuring-params`, `no-explicit-return-type`, `no-complex-inline-return`
 3. Import optimization: `prefer-import-type`, `prefer-react-import-types`
-4. React conventions: `prefer-interface-over-inline-types`, `react-props-destructure`, `enforce-readonly-component-props`
+4. Parameter patterns: `prefer-named-param-types`
+5. React conventions: `prefer-interface-over-inline-types`, `react-props-destructure`, `enforce-readonly-component-props`
 
 ### Configuration Presets
 
 Three config families with strict ("recommended") and lenient variants:
 
-- `base` / `base/recommended` - For pure JS/TS projects (7 rules)
-- `react` / `react/recommended` - Base + React-specific rules (11 rules)
-- `nextjs` / `nextjs/recommended` - Same as React configs (11 rules)
+- `base` / `base/recommended` - For pure JS/TS projects (9 rules)
+- `react` / `react/recommended` - Base + React-specific rules (13 rules)
+- `nextjs` / `nextjs/recommended` - Same as React configs (13 rules)
 
 Difference: lenient uses `"warn"`, recommended uses `"error"`
 
