@@ -80,8 +80,16 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-complex-inline-return"].create).toBe("function");
   });
 
-  it("should have exactly 13 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(13);
+  it("should have no-logic-in-params rule", () => {
+    expect(rules).toHaveProperty("no-logic-in-params");
+    expect(typeof rules["no-logic-in-params"]).toBe("object");
+    expect(rules["no-logic-in-params"]).toHaveProperty("meta");
+    expect(rules["no-logic-in-params"]).toHaveProperty("create");
+    expect(typeof rules["no-logic-in-params"].create).toBe("function");
+  });
+
+  it("should have exactly 14 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(14);
   });
 
   it("should have correct rule names", () => {
@@ -99,6 +107,7 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("react-props-destructure");
     expect(ruleNames).toContain("enforce-readonly-component-props");
     expect(ruleNames).toContain("no-complex-inline-return");
+    expect(ruleNames).toContain("no-logic-in-params");
   });
 
   it("should have prefer-interface-over-inline-types rule", () => {

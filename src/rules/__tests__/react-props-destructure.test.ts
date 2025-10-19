@@ -27,63 +27,43 @@ describe("react-props-destructure", () => {
 
   ruleTester.run("react-props-destructure", reactPropsDestructure, {
     valid: [
-      // Correct usage - props destructured inside component body
       `const Component = (props) => {
         const { children } = props;
         return <div>{children}</div>;
       };`,
-
-      // Correct usage - function declaration
       `function Component(props) {
         const { children } = props;
         return <div>{children}</div>;
       }`,
-
-      // Correct usage - function expression
       `const Component = function(props) {
         const { children } = props;
         return <div>{children}</div>;
       };`,
-
-      // Non-React components should be ignored
       `const regularFunction = ({ data }) => {
         return data.map(item => item.id);
       };`,
-
-      // Functions that don't return JSX should be ignored
       `const helper = ({ value }) => {
         return value * 2;
       };`,
-
-      // Multiple parameters should be ignored
       `const Component = (props, ref) => {
         return <div>{props.children}</div>;
       };`,
-
-      // No parameters should be ignored
       `const Component = () => {
         return <div>Hello</div>;
       };`,
-
-      // Already using props parameter (no destructuring)
       `const Component = (props) => {
         return <div>{props.children}</div>;
       };`,
-
-      // Components with conditional JSX
       `const Component = (props) => {
         const { show, children } = props;
         return show ? <div>{children}</div> : null;
       };`,
-
-      // Components with logical operators
       `const Component = (props) => {
         const { show, children } = props;
         return show && <div>{children}</div>;
       };`,
     ],
     invalid: [
-      // Basic arrow function with direct JSX return
       {
         code: `const Component = ({ children }) => (
           <div>{children}</div>
@@ -96,8 +76,6 @@ describe("react-props-destructure", () => {
           },
         ],
       },
-
-      // Arrow function with block body
       {
         code: `const Component = ({ children }) => {
           return <div>{children}</div>;
@@ -110,8 +88,6 @@ describe("react-props-destructure", () => {
           },
         ],
       },
-
-      // Multiple destructured props
       {
         code: `const Component = ({ title, children, onClick }) => (
           <div onClick={onClick}>
@@ -127,8 +103,6 @@ describe("react-props-destructure", () => {
           },
         ],
       },
-
-      // Function declaration
       {
         code: `function Component({ children }) {
           return <div>{children}</div>;
@@ -141,8 +115,6 @@ describe("react-props-destructure", () => {
           },
         ],
       },
-
-      // Function expression
       {
         code: `const Component = function({ children }) {
           return <div>{children}</div>;
@@ -155,8 +127,6 @@ describe("react-props-destructure", () => {
           },
         ],
       },
-
-      // Component with conditional return
       {
         code: `const Component = ({ show, children }) => {
           return show ? <div>{children}</div> : null;
@@ -169,8 +139,6 @@ describe("react-props-destructure", () => {
           },
         ],
       },
-
-      // Component with logical operator
       {
         code: `const Component = ({ show, children }) => {
           return show && <div>{children}</div>;

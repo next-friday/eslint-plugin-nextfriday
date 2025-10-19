@@ -68,6 +68,7 @@ export default [
       "nextfriday/prefer-named-param-types": "error",
       "nextfriday/prefer-react-import-types": "error",
       "nextfriday/no-complex-inline-return": "error",
+      "nextfriday/no-logic-in-params": "error",
       "nextfriday/jsx-pascal-case": "error",
       "nextfriday/prefer-interface-over-inline-types": "error",
       "nextfriday/react-props-destructure": "error",
@@ -123,6 +124,7 @@ module.exports = {
 | [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                       | Enforce destructuring props inside React component body                       | ❌      |
 | [enforce-readonly-component-props](docs/rules/ENFORCE_READONLY_COMPONENT_PROPS.md)     | Enforce Readonly wrapper for React component props                            | ✅      |
 | [no-complex-inline-return](docs/rules/NO_COMPLEX_INLINE_RETURN.md)                     | Disallow complex inline expressions in return statements - prefer const first | ❌      |
+| [no-logic-in-params](docs/rules/NO_LOGIC_IN_PARAMS.md)                                 | Disallow logic or conditions in function parameters - extract to const first  | ❌      |
 
 ## Configurations
 
@@ -141,6 +143,7 @@ Basic configuration without JSX-specific rules:
 - `nextfriday/prefer-named-param-types`: `"error"`
 - `nextfriday/prefer-react-import-types`: `"error"`
 - `nextfriday/no-complex-inline-return`: `"error"`
+- `nextfriday/no-logic-in-params`: `"error"`
 
 #### `base/recommended`
 

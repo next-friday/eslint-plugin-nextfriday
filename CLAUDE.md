@@ -65,10 +65,10 @@ pnpm changeset:publish   # Publish to npm with provenance
 
 ### Rules Registry
 
-All 13 rules are registered in `src/index.ts`:
+All 14 rules are registered in `src/index.ts`:
 
 1. File naming: `file-kebab-case`, `jsx-pascal-case`, `md-filename-case-restriction`
-2. Code style: `no-emoji`, `prefer-destructuring-params`, `no-explicit-return-type`, `no-complex-inline-return`
+2. Code style: `no-emoji`, `prefer-destructuring-params`, `no-explicit-return-type`, `no-complex-inline-return`, `no-logic-in-params`
 3. Import optimization: `prefer-import-type`, `prefer-react-import-types`
 4. Parameter patterns: `prefer-named-param-types`
 5. React conventions: `prefer-interface-over-inline-types`, `react-props-destructure`, `enforce-readonly-component-props`
@@ -77,9 +77,9 @@ All 13 rules are registered in `src/index.ts`:
 
 Three config families with strict ("recommended") and lenient variants:
 
-- `base` / `base/recommended` - For pure JS/TS projects (9 rules)
-- `react` / `react/recommended` - Base + React-specific rules (13 rules)
-- `nextjs` / `nextjs/recommended` - Same as React configs (13 rules)
+- `base` / `base/recommended` - For pure JS/TS projects (10 rules)
+- `react` / `react/recommended` - Base + React-specific rules (14 rules)
+- `nextjs` / `nextjs/recommended` - Same as React configs (14 rules)
 
 Difference: lenient uses `"warn"`, recommended uses `"error"`
 
@@ -122,6 +122,11 @@ Tests use `@typescript-eslint/rule-tester` with:
 - `invalid` array for failing cases with expected errors/fixes
 - TypeScript parser configuration
 
+### Code Style Preferences
+
+- No comments in code files - keep code clean and self-documenting
+- Use clear, descriptive variable and function names instead of explanatory comments
+
 ## Package Management
 
 - **Package Manager**: pnpm 9.12.0+ (enforced via preinstall hook)
@@ -134,4 +139,11 @@ Tests use `@typescript-eslint/rule-tester` with:
 - Changesets for version management and changelog generation
 - Conventional commits enforced via commitlint
 - Main branch: `main`
-- Current release branch: `release/1.2.3`
+
+## Test File Updates
+
+When adding a new rule, remember to update `src/__tests__/rules.test.ts`:
+
+1. Update the rule count in the "should have exactly X rules" test
+2. Add the new rule name to the "should have correct rule names" test
+3. Add a dedicated test for the new rule's existence and structure

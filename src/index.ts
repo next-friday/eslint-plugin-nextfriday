@@ -7,6 +7,7 @@ import mdFilenameCaseRestriction from "./rules/md-filename-case-restriction";
 import noComplexInlineReturn from "./rules/no-complex-inline-return";
 import noEmoji from "./rules/no-emoji";
 import noExplicitReturnType from "./rules/no-explicit-return-type";
+import noLogicInParams from "./rules/no-logic-in-params";
 import preferDestructuringParams from "./rules/prefer-destructuring-params";
 import preferImportType from "./rules/prefer-import-type";
 import preferInterfaceOverInlineTypes from "./rules/prefer-interface-over-inline-types";
@@ -29,6 +30,7 @@ const rules = {
   "no-complex-inline-return": noComplexInlineReturn,
   "no-emoji": noEmoji,
   "no-explicit-return-type": noExplicitReturnType,
+  "no-logic-in-params": noLogicInParams,
   "prefer-destructuring-params": preferDestructuringParams,
   "prefer-import-type": preferImportType,
   "prefer-interface-over-inline-types": preferInterfaceOverInlineTypes,
@@ -52,6 +54,7 @@ const baseRules = {
   "nextfriday/prefer-named-param-types": "warn",
   "nextfriday/prefer-react-import-types": "warn",
   "nextfriday/no-complex-inline-return": "warn",
+  "nextfriday/no-logic-in-params": "warn",
 } as const;
 
 const baseRecommendedRules = {
@@ -64,6 +67,7 @@ const baseRecommendedRules = {
   "nextfriday/prefer-named-param-types": "error",
   "nextfriday/prefer-react-import-types": "error",
   "nextfriday/no-complex-inline-return": "error",
+  "nextfriday/no-logic-in-params": "error",
 } as const;
 
 const jsxRules = {
