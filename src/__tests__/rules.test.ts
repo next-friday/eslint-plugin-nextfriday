@@ -88,8 +88,16 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-logic-in-params"].create).toBe("function");
   });
 
-  it("should have exactly 14 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(14);
+  it("should have no-env-fallback rule", () => {
+    expect(rules).toHaveProperty("no-env-fallback");
+    expect(typeof rules["no-env-fallback"]).toBe("object");
+    expect(rules["no-env-fallback"]).toHaveProperty("meta");
+    expect(rules["no-env-fallback"]).toHaveProperty("create");
+    expect(typeof rules["no-env-fallback"].create).toBe("function");
+  });
+
+  it("should have exactly 15 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(15);
   });
 
   it("should have correct rule names", () => {
@@ -108,6 +116,7 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("enforce-readonly-component-props");
     expect(ruleNames).toContain("no-complex-inline-return");
     expect(ruleNames).toContain("no-logic-in-params");
+    expect(ruleNames).toContain("no-env-fallback");
   });
 
   it("should have prefer-interface-over-inline-types rule", () => {
