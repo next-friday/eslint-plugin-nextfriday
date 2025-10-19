@@ -30,6 +30,10 @@ jobs:
           CHANGESET_FILES=$(ls .changeset/*.md 2>/dev/null | grep -v README.md || true)
           echo "has-changesets=$([ -n "$CHANGESET_FILES" ] && echo true || echo false)" >> $GITHUB_OUTPUT
 
+      - name: Build Package
+        if: steps.check.outputs.has-changesets == 'true'
+        run: pnpm build
+
       - name: Create/Update Version PR
         if: steps.check.outputs.has-changesets == 'true'
         id: changesets
@@ -60,6 +64,10 @@ jobs:
           PUBLISHED=$(npm view "$NAME" version 2>/dev/null || echo "0.0.0")
           echo "pkg-name=$NAME" >> $GITHUB_OUTPUT
           echo "should-publish=$([ "$CURRENT" != "$PUBLISHED" ] && echo true || echo false)" >> $GITHUB_OUTPUT
+
+      - name: Build Package
+        if: steps.version-check.outputs.should-publish == 'true'
+        run: pnpm build
 
       - name: Configure npm auth
         if: steps.version-check.outputs.should-publish == 'true'
