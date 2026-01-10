@@ -118,12 +118,16 @@ module.exports = {
 | [md-filename-case-restriction](docs/rules/MD_FILENAME_CASE_RESTRICTION.md)             | Enforce SNAKE_CASE filenames for .md files                                    | ❌      |
 | [prefer-destructuring-params](docs/rules/PREFER_DESTRUCTURING_PARAMS.md)               | Enforce destructuring for functions with multiple parameters                  | ❌      |
 | [no-explicit-return-type](docs/rules/NO_EXPLICIT_RETURN_TYPE.md)                       | Disallow explicit return types on functions                                   | ✅      |
+| [jsx-no-non-component-function](docs/rules/JSX_NO_NON_COMPONENT_FUNCTION.md)           | Disallow non-component functions at top level in .tsx and .jsx files          | ❌      |
+| [jsx-no-variable-in-callback](docs/rules/JSX_NO_VARIABLE_IN_CALLBACK.md)               | Disallow variable declarations inside callback functions within JSX           | ❌      |
 | [prefer-import-type](docs/rules/PREFER_IMPORT_TYPE.md)                                 | Enforce using 'import type' for type-only imports                             | ✅      |
 | [prefer-named-param-types](docs/rules/PREFER_NAMED_PARAM_TYPES.md)                     | Enforce named types for function parameters with object types                 | ❌      |
 | [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md) | Enforce interface declarations over inline types for React props              | ❌      |
+| [prefer-jsx-template-literals](docs/rules/PREFER_JSX_TEMPLATE_LITERALS.md)             | Enforce using template literals instead of mixing text and JSX expressions    | ✅      |
 | [prefer-react-import-types](docs/rules/PREFER_REACT_IMPORT_TYPES.md)                   | Enforce direct imports from 'react' instead of React.X                        | ✅      |
 | [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                       | Enforce destructuring props inside React component body                       | ❌      |
 | [enforce-readonly-component-props](docs/rules/ENFORCE_READONLY_COMPONENT_PROPS.md)     | Enforce Readonly wrapper for React component props                            | ✅      |
+| [enforce-sorted-destructuring](docs/rules/ENFORCE_SORTED_DESTRUCTURING.md)             | Enforce alphabetical sorting of destructured properties with defaults first   | ❌      |
 | [no-complex-inline-return](docs/rules/NO_COMPLEX_INLINE_RETURN.md)                     | Disallow complex inline expressions in return statements - prefer const first | ❌      |
 | [no-logic-in-params](docs/rules/NO_LOGIC_IN_PARAMS.md)                                 | Disallow logic or conditions in function parameters - extract to const first  | ❌      |
 | [no-env-fallback](docs/rules/NO_ENV_FALLBACK.md)                                       | Disallow fallback values for environment variables as they can be dangerous   | ❌      |

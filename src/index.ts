@@ -1,17 +1,21 @@
 import packageJson from "../package.json" assert { type: "json" };
 
 import enforceReadonlyComponentProps from "./rules/enforce-readonly-component-props";
+import enforceSortedDestructuring from "./rules/enforce-sorted-destructuring";
 import fileKebabCase from "./rules/file-kebab-case";
 import jsxPascalCase from "./rules/jsx-pascal-case";
+import jsxNoVariableInCallback from "./rules/jsx-no-variable-in-callback";
 import mdFilenameCaseRestriction from "./rules/md-filename-case-restriction";
 import noComplexInlineReturn from "./rules/no-complex-inline-return";
 import noEmoji from "./rules/no-emoji";
 import noEnvFallback from "./rules/no-env-fallback";
 import noExplicitReturnType from "./rules/no-explicit-return-type";
+import jsxNoNonComponentFunction from "./rules/jsx-no-non-component-function";
 import noLogicInParams from "./rules/no-logic-in-params";
 import preferDestructuringParams from "./rules/prefer-destructuring-params";
 import preferImportType from "./rules/prefer-import-type";
 import preferInterfaceOverInlineTypes from "./rules/prefer-interface-over-inline-types";
+import preferJSXTemplateLiterals from "./rules/prefer-jsx-template-literals";
 import preferNamedParamTypes from "./rules/prefer-named-param-types";
 import preferReactImportTypes from "./rules/prefer-react-import-types";
 import reactPropsDestructure from "./rules/react-props-destructure";
@@ -25,8 +29,11 @@ const meta = {
 
 const rules = {
   "enforce-readonly-component-props": enforceReadonlyComponentProps,
+  "enforce-sorted-destructuring": enforceSortedDestructuring,
   "file-kebab-case": fileKebabCase,
   "jsx-pascal-case": jsxPascalCase,
+  "jsx-no-non-component-function": jsxNoNonComponentFunction,
+  "jsx-no-variable-in-callback": jsxNoVariableInCallback,
   "md-filename-case-restriction": mdFilenameCaseRestriction,
   "no-complex-inline-return": noComplexInlineReturn,
   "no-emoji": noEmoji,
@@ -36,6 +43,7 @@ const rules = {
   "prefer-destructuring-params": preferDestructuringParams,
   "prefer-import-type": preferImportType,
   "prefer-interface-over-inline-types": preferInterfaceOverInlineTypes,
+  "prefer-jsx-template-literals": preferJSXTemplateLiterals,
   "prefer-named-param-types": preferNamedParamTypes,
   "prefer-react-import-types": preferReactImportTypes,
   "react-props-destructure": reactPropsDestructure,
@@ -48,6 +56,7 @@ const plugin = {
 
 const baseRules = {
   "nextfriday/no-emoji": "warn",
+  "nextfriday/enforce-sorted-destructuring": "warn",
   "nextfriday/file-kebab-case": "warn",
   "nextfriday/md-filename-case-restriction": "warn",
   "nextfriday/prefer-destructuring-params": "warn",
@@ -62,6 +71,7 @@ const baseRules = {
 
 const baseRecommendedRules = {
   "nextfriday/no-emoji": "error",
+  "nextfriday/enforce-sorted-destructuring": "error",
   "nextfriday/file-kebab-case": "error",
   "nextfriday/md-filename-case-restriction": "error",
   "nextfriday/prefer-destructuring-params": "error",
@@ -76,14 +86,20 @@ const baseRecommendedRules = {
 
 const jsxRules = {
   "nextfriday/jsx-pascal-case": "warn",
+  "nextfriday/jsx-no-non-component-function": "warn",
+  "nextfriday/jsx-no-variable-in-callback": "warn",
   "nextfriday/prefer-interface-over-inline-types": "warn",
+  "nextfriday/prefer-jsx-template-literals": "warn",
   "nextfriday/react-props-destructure": "warn",
   "nextfriday/enforce-readonly-component-props": "warn",
 } as const;
 
 const jsxRecommendedRules = {
   "nextfriday/jsx-pascal-case": "error",
+  "nextfriday/jsx-no-non-component-function": "error",
+  "nextfriday/jsx-no-variable-in-callback": "error",
   "nextfriday/prefer-interface-over-inline-types": "error",
+  "nextfriday/prefer-jsx-template-literals": "error",
   "nextfriday/react-props-destructure": "error",
   "nextfriday/enforce-readonly-component-props": "error",
 } as const;
