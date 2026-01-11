@@ -12,7 +12,11 @@ jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
     runs-on: ubuntu-latest
-    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.draft == false }}
+    if: |
+      ${{
+        (github.event_name != 'pull_request' || github.event.pull_request.draft == false) &&
+        !(github.event_name == 'pull_request' && (github.actor == 'github-actions[bot]' || github.actor == 'changeset-bot' || github.event.pull_request.user.type == 'Bot'))
+      }}
     permissions:
       actions: read
       contents: read
@@ -23,30 +27,19 @@ jobs:
       matrix:
         language: [javascript, typescript]
 
-    env:
-      IS_TRUSTED_BOT: ${{ github.event_name == 'pull_request' && (github.actor == 'github-actions[bot]' || github.actor == 'changeset-bot' || github.event.pull_request.user.type == 'Bot') }}
-
     steps:
-      - name: Fast-pass for trusted bots
-        if: ${{ env.IS_TRUSTED_BOT == 'true' }}
-        run: echo "Trusted bot PR → skip CodeQL, report success."
-
       - name: Checkout
-        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
         uses: actions/checkout@v5
 
       - name: Initialize CodeQL
-        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
 
       - name: Autobuild
-        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
         uses: github/codeql-action/autobuild@v3
 
       - name: Perform CodeQL Analysis
-        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:${{ matrix.language }}"
