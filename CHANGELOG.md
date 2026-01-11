@@ -1,5 +1,14 @@
 # eslint-plugin-nextfriday
 
+## 1.6.0
+
+### Minor Changes
+
+- [#36](https://github.com/next-friday/eslint-plugin-nextfriday/pull/36) [`f819ffa`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/f819ffa8eed179e38eed4ec51a05dec53dd979d0) Thanks [@joetakara](https://github.com/joetakara)! - Add three new ESLint rules:
+  - `jsx-no-non-component-function`: Prevent non-component functions at top level in .tsx/.jsx files
+  - `enforce-sorted-destructuring`: Enforce alphabetical sorting of destructured properties with defaults first
+  - `jsx-no-variable-in-callback`: Prevent variable declarations inside JSX callbacks for cleaner code
+
 ## 1.5.3
 
 ### Patch Changes
