@@ -22,7 +22,7 @@ pnpm add -D eslint-plugin-nextfriday
 import nextfriday from "eslint-plugin-nextfriday";
 
 export default [nextfriday.configs.base];
-// or use the recommended preset
+// or use the recommended preset (stricter)
 export default [nextfriday.configs["base/recommended"]];
 ```
 
@@ -59,19 +59,37 @@ export default [
       nextfriday,
     },
     rules: {
-      "nextfriday/no-emoji": "error",
+      // Variable Naming
+      "nextfriday/no-single-char-variables": "error",
+      "nextfriday/boolean-naming-prefix": "error",
+
+      // File Naming
       "nextfriday/file-kebab-case": "error",
+      "nextfriday/jsx-pascal-case": "error",
       "nextfriday/md-filename-case-restriction": "error",
+
+      // Code Style
+      "nextfriday/no-emoji": "error",
       "nextfriday/prefer-destructuring-params": "error",
-      "nextfriday/no-explicit-return-type": "error",
-      "nextfriday/prefer-import-type": "error",
-      "nextfriday/prefer-named-param-types": "error",
-      "nextfriday/prefer-react-import-types": "error",
+      "nextfriday/prefer-function-declaration": "error",
+      "nextfriday/require-explicit-return-type": "error",
       "nextfriday/no-complex-inline-return": "error",
       "nextfriday/no-logic-in-params": "error",
+      "nextfriday/enforce-sorted-destructuring": "error",
       "nextfriday/no-env-fallback": "error",
-      "nextfriday/jsx-pascal-case": "error",
+
+      // Import Optimization
+      "nextfriday/prefer-import-type": "error",
+      "nextfriday/prefer-react-import-types": "error",
+
+      // Type Patterns
+      "nextfriday/prefer-named-param-types": "error",
       "nextfriday/prefer-interface-over-inline-types": "error",
+
+      // React/JSX
+      "nextfriday/jsx-no-non-component-function": "error",
+      "nextfriday/jsx-no-variable-in-callback": "error",
+      "nextfriday/prefer-jsx-template-literals": "error",
       "nextfriday/react-props-destructure": "error",
       "nextfriday/enforce-readonly-component-props": "error",
     },
@@ -110,91 +128,119 @@ module.exports = {
 
 ## Rules
 
-| Rule                                                                                   | Description                                                                   | Fixable |
-| -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------- |
-| [no-emoji](docs/rules/NO_EMOJI.md)                                                     | Disallow emojis in code                                                       | ❌      |
-| [file-kebab-case](docs/rules/FILE_KEBAB_CASE.md)                                       | Enforce kebab-case filenames for .ts and .js files                            | ❌      |
-| [jsx-pascal-case](docs/rules/JSX_PASCAL_CASE.md)                                       | Enforce PascalCase filenames for .jsx and .tsx files                          | ❌      |
-| [md-filename-case-restriction](docs/rules/MD_FILENAME_CASE_RESTRICTION.md)             | Enforce SNAKE_CASE filenames for .md files                                    | ❌      |
-| [prefer-destructuring-params](docs/rules/PREFER_DESTRUCTURING_PARAMS.md)               | Enforce destructuring for functions with multiple parameters                  | ❌      |
-| [no-explicit-return-type](docs/rules/NO_EXPLICIT_RETURN_TYPE.md)                       | Disallow explicit return types on functions                                   | ✅      |
-| [jsx-no-non-component-function](docs/rules/JSX_NO_NON_COMPONENT_FUNCTION.md)           | Disallow non-component functions at top level in .tsx and .jsx files          | ❌      |
-| [jsx-no-variable-in-callback](docs/rules/JSX_NO_VARIABLE_IN_CALLBACK.md)               | Disallow variable declarations inside callback functions within JSX           | ❌      |
-| [prefer-import-type](docs/rules/PREFER_IMPORT_TYPE.md)                                 | Enforce using 'import type' for type-only imports                             | ✅      |
-| [prefer-named-param-types](docs/rules/PREFER_NAMED_PARAM_TYPES.md)                     | Enforce named types for function parameters with object types                 | ❌      |
-| [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md) | Enforce interface declarations over inline types for React props              | ❌      |
-| [prefer-jsx-template-literals](docs/rules/PREFER_JSX_TEMPLATE_LITERALS.md)             | Enforce using template literals instead of mixing text and JSX expressions    | ✅      |
-| [prefer-react-import-types](docs/rules/PREFER_REACT_IMPORT_TYPES.md)                   | Enforce direct imports from 'react' instead of React.X                        | ✅      |
-| [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                       | Enforce destructuring props inside React component body                       | ❌      |
-| [enforce-readonly-component-props](docs/rules/ENFORCE_READONLY_COMPONENT_PROPS.md)     | Enforce Readonly wrapper for React component props                            | ✅      |
-| [enforce-sorted-destructuring](docs/rules/ENFORCE_SORTED_DESTRUCTURING.md)             | Enforce alphabetical sorting of destructured properties with defaults first   | ❌      |
-| [no-complex-inline-return](docs/rules/NO_COMPLEX_INLINE_RETURN.md)                     | Disallow complex inline expressions in return statements - prefer const first | ❌      |
-| [no-logic-in-params](docs/rules/NO_LOGIC_IN_PARAMS.md)                                 | Disallow logic or conditions in function parameters - extract to const first  | ❌      |
-| [no-env-fallback](docs/rules/NO_ENV_FALLBACK.md)                                       | Disallow fallback values for environment variables as they can be dangerous   | ❌      |
+### Variable Naming Rules
+
+| Rule                                                               | Description                                                           | Fixable |
+| ------------------------------------------------------------------ | --------------------------------------------------------------------- | ------- |
+| [no-single-char-variables](docs/rules/NO_SINGLE_CHAR_VARIABLES.md) | Disallow single character variable names (e.g., `d`, `u`, `l`)        | ❌      |
+| [boolean-naming-prefix](docs/rules/BOOLEAN_NAMING_PREFIX.md)       | Enforce boolean variables to have prefix (is, has, should, can, etc.) | ❌      |
+
+### File Naming Rules
+
+| Rule                                                                       | Description                                          | Fixable |
+| -------------------------------------------------------------------------- | ---------------------------------------------------- | ------- |
+| [file-kebab-case](docs/rules/FILE_KEBAB_CASE.md)                           | Enforce kebab-case filenames for .ts and .js files   | ❌      |
+| [jsx-pascal-case](docs/rules/JSX_PASCAL_CASE.md)                           | Enforce PascalCase filenames for .jsx and .tsx files | ❌      |
+| [md-filename-case-restriction](docs/rules/MD_FILENAME_CASE_RESTRICTION.md) | Enforce SNAKE_CASE filenames for .md files           | ❌      |
+
+### Code Style Rules
+
+| Rule                                                                       | Description                                                            | Fixable |
+| -------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------- |
+| [no-emoji](docs/rules/NO_EMOJI.md)                                         | Disallow emoji characters in source code                               | ❌      |
+| [prefer-destructuring-params](docs/rules/PREFER_DESTRUCTURING_PARAMS.md)   | Enforce destructuring for functions with multiple parameters           | ❌      |
+| [prefer-function-declaration](docs/rules/PREFER_FUNCTION_DECLARATION.md)   | Enforce function declarations over arrow functions in .ts files        | ❌      |
+| [require-explicit-return-type](docs/rules/REQUIRE_EXPLICIT_RETURN_TYPE.md) | Require explicit return types on functions for better documentation    | ❌      |
+| [no-complex-inline-return](docs/rules/NO_COMPLEX_INLINE_RETURN.md)         | Disallow complex inline expressions in return - extract to const first | ❌      |
+| [no-logic-in-params](docs/rules/NO_LOGIC_IN_PARAMS.md)                     | Disallow logic/conditions in function parameters - extract to const    | ❌      |
+| [enforce-sorted-destructuring](docs/rules/ENFORCE_SORTED_DESTRUCTURING.md) | Enforce alphabetical sorting of destructured properties                | ❌      |
+| [no-env-fallback](docs/rules/NO_ENV_FALLBACK.md)                           | Disallow fallback values for environment variables                     | ❌      |
+| [no-direct-date](docs/rules/NO_DIRECT_DATE.md)                             | Disallow direct usage of Date constructor and methods                  | ❌      |
+
+### Import Optimization Rules
+
+| Rule                                                                 | Description                                            | Fixable |
+| -------------------------------------------------------------------- | ------------------------------------------------------ | ------- |
+| [prefer-import-type](docs/rules/PREFER_IMPORT_TYPE.md)               | Enforce using 'import type' for type-only imports      | ✅      |
+| [prefer-react-import-types](docs/rules/PREFER_REACT_IMPORT_TYPES.md) | Enforce direct imports from 'react' instead of React.X | ✅      |
+
+### Type Pattern Rules
+
+| Rule                                                                                   | Description                                                      | Fixable |
+| -------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------- |
+| [prefer-named-param-types](docs/rules/PREFER_NAMED_PARAM_TYPES.md)                     | Enforce named types for function parameters with object types    | ❌      |
+| [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md) | Enforce interface declarations over inline types for React props | ❌      |
+
+### React/JSX Rules
+
+| Rule                                                                               | Description                                                          | Fixable |
+| ---------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ------- |
+| [jsx-no-non-component-function](docs/rules/JSX_NO_NON_COMPONENT_FUNCTION.md)       | Disallow non-component functions at top level in .tsx/.jsx files     | ❌      |
+| [jsx-no-variable-in-callback](docs/rules/JSX_NO_VARIABLE_IN_CALLBACK.md)           | Disallow variable declarations inside callback functions in JSX      | ❌      |
+| [prefer-jsx-template-literals](docs/rules/PREFER_JSX_TEMPLATE_LITERALS.md)         | Enforce template literals instead of mixing text and JSX expressions | ✅      |
+| [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                   | Enforce destructuring props inside React component body              | ❌      |
+| [enforce-readonly-component-props](docs/rules/ENFORCE_READONLY_COMPONENT_PROPS.md) | Enforce Readonly wrapper for React component props                   | ✅      |
 
 ## Configurations
 
-### Base Configurations (for pure JS/TS projects)
+### Configuration Presets Overview
 
-#### `base`
+| Preset               | Severity | Base Rules | JSX Rules | Total Rules |
+| -------------------- | -------- | ---------- | --------- | ----------- |
+| `base`               | warn     | 16         | 0         | 16          |
+| `base/recommended`   | error    | 16         | 0         | 16          |
+| `react`              | warn     | 16         | 7         | 23          |
+| `react/recommended`  | error    | 16         | 7         | 23          |
+| `nextjs`             | warn     | 16         | 7         | 23          |
+| `nextjs/recommended` | error    | 16         | 7         | 23          |
 
-Basic configuration without JSX-specific rules:
+### Base Configuration Rules (16 rules)
 
-- `nextfriday/no-emoji`: `"error"`
-- `nextfriday/file-kebab-case`: `"error"`
-- `nextfriday/md-filename-case-restriction`: `"error"`
-- `nextfriday/prefer-destructuring-params`: `"error"`
-- `nextfriday/no-explicit-return-type`: `"error"`
-- `nextfriday/prefer-import-type`: `"error"`
-- `nextfriday/prefer-named-param-types`: `"error"`
-- `nextfriday/prefer-react-import-types`: `"error"`
-- `nextfriday/no-complex-inline-return`: `"error"`
-- `nextfriday/no-logic-in-params`: `"error"`
-- `nextfriday/no-env-fallback`: `"error"`
+Included in `base`, `base/recommended`, and all other presets:
 
-#### `base/recommended`
+- `nextfriday/boolean-naming-prefix`
+- `nextfriday/enforce-sorted-destructuring`
+- `nextfriday/file-kebab-case`
+- `nextfriday/md-filename-case-restriction`
+- `nextfriday/no-complex-inline-return`
+- `nextfriday/no-direct-date`
+- `nextfriday/no-emoji`
+- `nextfriday/no-env-fallback`
+- `nextfriday/require-explicit-return-type`
+- `nextfriday/no-logic-in-params`
+- `nextfriday/no-single-char-variables`
+- `nextfriday/prefer-destructuring-params`
+- `nextfriday/prefer-function-declaration`
+- `nextfriday/prefer-import-type`
+- `nextfriday/prefer-named-param-types`
+- `nextfriday/prefer-react-import-types`
 
-Same as `base` configuration (recommended preset for pure JS/TS projects).
+### JSX Rules (7 rules)
 
-### React Configurations
+Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recommended`:
 
-#### `react`
+- `nextfriday/enforce-readonly-component-props`
+- `nextfriday/jsx-no-non-component-function`
+- `nextfriday/jsx-no-variable-in-callback`
+- `nextfriday/jsx-pascal-case`
+- `nextfriday/prefer-interface-over-inline-types`
+- `nextfriday/prefer-jsx-template-literals`
+- `nextfriday/react-props-destructure`
 
-Includes all base rules plus React-specific rules:
+### Severity Levels
 
-- All base rules above
-- `nextfriday/jsx-pascal-case`: `"error"`
-- `nextfriday/prefer-interface-over-inline-types`: `"error"`
-- `nextfriday/react-props-destructure`: `"error"`
-- `nextfriday/enforce-readonly-component-props`: `"error"`
-
-#### `react/recommended`
-
-Same as `react` configuration (recommended preset for React projects).
-
-### Next.js Configurations
-
-#### `nextjs`
-
-Includes all rules suitable for Next.js projects:
-
-- All base rules
-- `nextfriday/jsx-pascal-case`: `"error"`
-- `nextfriday/prefer-interface-over-inline-types`: `"error"`
-- `nextfriday/react-props-destructure`: `"error"`
-- `nextfriday/enforce-readonly-component-props`: `"error"`
-
-#### `nextjs/recommended`
-
-Same as `nextjs` configuration (recommended preset for Next.js projects).
+- **`base` / `react` / `nextjs`**: All rules set to `"warn"`
+- **`base/recommended` / `react/recommended` / `nextjs/recommended`**: All rules set to `"error"`
 
 ## Features
 
-- **File naming enforcement**: Ensure consistent file naming conventions across your project
+- **Variable naming enforcement**: Prevent cryptic single-character names and enforce boolean prefixes
+- **File naming enforcement**: Ensure consistent file naming conventions (kebab-case, PascalCase, SNAKE_CASE)
+- **Function style**: Enforce function declarations over arrow functions in utility files
 - **Import optimization**: Automatically suggests better import patterns for TypeScript
 - **Code cleanup**: Helps remove unnecessary explicit type annotations
-- **React component conventions**: Enforces naming standards for JSX/TSX files
-- **Clean code practices**: Prevents emoji usage and enforces parameter destructuring
+- **React component conventions**: Enforces naming standards and patterns for JSX/TSX files
+- **Clean code practices**: Prevents emoji usage, enforces parameter destructuring, and more
 
 ## Need Help?
 
