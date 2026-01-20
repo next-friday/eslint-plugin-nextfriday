@@ -26,9 +26,10 @@ describe("ESLint Plugin Configs", () => {
       expect(baseRules).toHaveProperty("nextfriday/no-emoji", "warn");
       expect(baseRules).toHaveProperty("nextfriday/file-kebab-case", "warn");
       expect(baseRules).toHaveProperty("nextfriday/prefer-destructuring-params", "warn");
-      expect(baseRules).toHaveProperty("nextfriday/no-explicit-return-type", "warn");
+      expect(baseRules).toHaveProperty("nextfriday/require-explicit-return-type", "warn");
       expect(baseRules).toHaveProperty("nextfriday/prefer-import-type", "warn");
       expect(baseRules).toHaveProperty("nextfriday/prefer-react-import-types", "warn");
+      expect(baseRules).toHaveProperty("nextfriday/no-direct-date", "warn");
       expect(baseRules).not.toHaveProperty("nextfriday/jsx-pascal-case");
     });
   });
@@ -55,7 +56,7 @@ describe("ESLint Plugin Configs", () => {
       expect(reactRules).toHaveProperty("nextfriday/react-props-destructure", "warn");
       expect(reactRules).toHaveProperty("nextfriday/enforce-readonly-component-props", "warn");
       expect(reactRules).toHaveProperty("nextfriday/prefer-destructuring-params", "warn");
-      expect(reactRules).toHaveProperty("nextfriday/no-explicit-return-type", "warn");
+      expect(reactRules).toHaveProperty("nextfriday/require-explicit-return-type", "warn");
       expect(reactRules).toHaveProperty("nextfriday/prefer-import-type", "warn");
       expect(reactRules).toHaveProperty("nextfriday/prefer-react-import-types", "warn");
     });
@@ -83,7 +84,7 @@ describe("ESLint Plugin Configs", () => {
       expect(nextjsRules).toHaveProperty("nextfriday/react-props-destructure", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/enforce-readonly-component-props", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/prefer-destructuring-params", "warn");
-      expect(nextjsRules).toHaveProperty("nextfriday/no-explicit-return-type", "warn");
+      expect(nextjsRules).toHaveProperty("nextfriday/require-explicit-return-type", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/prefer-import-type", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/prefer-react-import-types", "warn");
     });

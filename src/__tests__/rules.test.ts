@@ -40,12 +40,12 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["prefer-destructuring-params"].create).toBe("function");
   });
 
-  it("should have no-explicit-return-type rule", () => {
-    expect(rules).toHaveProperty("no-explicit-return-type");
-    expect(typeof rules["no-explicit-return-type"]).toBe("object");
-    expect(rules["no-explicit-return-type"]).toHaveProperty("meta");
-    expect(rules["no-explicit-return-type"]).toHaveProperty("create");
-    expect(typeof rules["no-explicit-return-type"].create).toBe("function");
+  it("should have require-explicit-return-type rule", () => {
+    expect(rules).toHaveProperty("require-explicit-return-type");
+    expect(typeof rules["require-explicit-return-type"]).toBe("object");
+    expect(rules["require-explicit-return-type"]).toHaveProperty("meta");
+    expect(rules["require-explicit-return-type"]).toHaveProperty("create");
+    expect(typeof rules["require-explicit-return-type"].create).toBe("function");
   });
 
   it("should have prefer-import-type rule", () => {
@@ -96,8 +96,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 19 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(19);
+  it("should have exactly 23 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(23);
   });
 
   it("should have correct rule names", () => {
@@ -109,7 +109,7 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("jsx-no-variable-in-callback");
     expect(ruleNames).toContain("md-filename-case-restriction");
     expect(ruleNames).toContain("prefer-destructuring-params");
-    expect(ruleNames).toContain("no-explicit-return-type");
+    expect(ruleNames).toContain("require-explicit-return-type");
     expect(ruleNames).toContain("prefer-import-type");
     expect(ruleNames).toContain("prefer-named-param-types");
     expect(ruleNames).toContain("prefer-interface-over-inline-types");
@@ -121,6 +121,10 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("no-complex-inline-return");
     expect(ruleNames).toContain("no-logic-in-params");
     expect(ruleNames).toContain("no-env-fallback");
+    expect(ruleNames).toContain("no-single-char-variables");
+    expect(ruleNames).toContain("boolean-naming-prefix");
+    expect(ruleNames).toContain("prefer-function-declaration");
+    expect(ruleNames).toContain("no-direct-date");
   });
 
   it("should have prefer-interface-over-inline-types rule", () => {
@@ -185,5 +189,37 @@ describe("ESLint Plugin Rules", () => {
     expect(rules["jsx-no-variable-in-callback"]).toHaveProperty("meta");
     expect(rules["jsx-no-variable-in-callback"]).toHaveProperty("create");
     expect(typeof rules["jsx-no-variable-in-callback"].create).toBe("function");
+  });
+
+  it("should have no-single-char-variables rule", () => {
+    expect(rules).toHaveProperty("no-single-char-variables");
+    expect(typeof rules["no-single-char-variables"]).toBe("object");
+    expect(rules["no-single-char-variables"]).toHaveProperty("meta");
+    expect(rules["no-single-char-variables"]).toHaveProperty("create");
+    expect(typeof rules["no-single-char-variables"].create).toBe("function");
+  });
+
+  it("should have boolean-naming-prefix rule", () => {
+    expect(rules).toHaveProperty("boolean-naming-prefix");
+    expect(typeof rules["boolean-naming-prefix"]).toBe("object");
+    expect(rules["boolean-naming-prefix"]).toHaveProperty("meta");
+    expect(rules["boolean-naming-prefix"]).toHaveProperty("create");
+    expect(typeof rules["boolean-naming-prefix"].create).toBe("function");
+  });
+
+  it("should have prefer-function-declaration rule", () => {
+    expect(rules).toHaveProperty("prefer-function-declaration");
+    expect(typeof rules["prefer-function-declaration"]).toBe("object");
+    expect(rules["prefer-function-declaration"]).toHaveProperty("meta");
+    expect(rules["prefer-function-declaration"]).toHaveProperty("create");
+    expect(typeof rules["prefer-function-declaration"].create).toBe("function");
+  });
+
+  it("should have no-direct-date rule", () => {
+    expect(rules).toHaveProperty("no-direct-date");
+    expect(typeof rules["no-direct-date"]).toBe("object");
+    expect(rules["no-direct-date"]).toHaveProperty("meta");
+    expect(rules["no-direct-date"]).toHaveProperty("create");
+    expect(typeof rules["no-direct-date"].create).toBe("function");
   });
 });
