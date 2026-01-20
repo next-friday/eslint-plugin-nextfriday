@@ -96,8 +96,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 23 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(23);
+  it("should have exactly 24 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(24);
   });
 
   it("should have correct rule names", () => {
@@ -121,6 +121,7 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("no-complex-inline-return");
     expect(ruleNames).toContain("no-logic-in-params");
     expect(ruleNames).toContain("no-env-fallback");
+    expect(ruleNames).toContain("no-lazy-identifiers");
     expect(ruleNames).toContain("no-single-char-variables");
     expect(ruleNames).toContain("boolean-naming-prefix");
     expect(ruleNames).toContain("prefer-function-declaration");
@@ -189,6 +190,14 @@ describe("ESLint Plugin Rules", () => {
     expect(rules["jsx-no-variable-in-callback"]).toHaveProperty("meta");
     expect(rules["jsx-no-variable-in-callback"]).toHaveProperty("create");
     expect(typeof rules["jsx-no-variable-in-callback"].create).toBe("function");
+  });
+
+  it("should have no-lazy-identifiers rule", () => {
+    expect(rules).toHaveProperty("no-lazy-identifiers");
+    expect(typeof rules["no-lazy-identifiers"]).toBe("object");
+    expect(rules["no-lazy-identifiers"]).toHaveProperty("meta");
+    expect(rules["no-lazy-identifiers"]).toHaveProperty("create");
+    expect(typeof rules["no-lazy-identifiers"].create).toBe("function");
   });
 
   it("should have no-single-char-variables rule", () => {

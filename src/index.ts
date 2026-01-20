@@ -14,6 +14,7 @@ import noEnvFallback from "./rules/no-env-fallback";
 import requireExplicitReturnType from "./rules/require-explicit-return-type";
 import jsxNoNonComponentFunction from "./rules/jsx-no-non-component-function";
 import noLogicInParams from "./rules/no-logic-in-params";
+import noLazyIdentifiers from "./rules/no-lazy-identifiers";
 import noSingleCharVariables from "./rules/no-single-char-variables";
 import preferDestructuringParams from "./rules/prefer-destructuring-params";
 import preferFunctionDeclaration from "./rules/prefer-function-declaration";
@@ -45,6 +46,7 @@ const rules = {
   "no-emoji": noEmoji,
   "no-env-fallback": noEnvFallback,
   "require-explicit-return-type": requireExplicitReturnType,
+  "no-lazy-identifiers": noLazyIdentifiers,
   "no-logic-in-params": noLogicInParams,
   "no-single-char-variables": noSingleCharVariables,
   "prefer-destructuring-params": preferDestructuringParams,
@@ -78,6 +80,7 @@ const baseRules = {
   "nextfriday/no-direct-date": "warn",
   "nextfriday/no-logic-in-params": "warn",
   "nextfriday/no-env-fallback": "warn",
+  "nextfriday/no-lazy-identifiers": "warn",
   "nextfriday/no-single-char-variables": "warn",
 } as const;
 
@@ -97,6 +100,7 @@ const baseRecommendedRules = {
   "nextfriday/no-direct-date": "error",
   "nextfriday/no-logic-in-params": "error",
   "nextfriday/no-env-fallback": "error",
+  "nextfriday/no-lazy-identifiers": "error",
   "nextfriday/no-single-char-variables": "error",
 } as const;
 
