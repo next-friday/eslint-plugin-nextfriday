@@ -61,6 +61,7 @@ export default [
     rules: {
       // Variable Naming
       "nextfriday/no-single-char-variables": "error",
+      "nextfriday/no-lazy-identifiers": "error",
       "nextfriday/boolean-naming-prefix": "error",
 
       // File Naming
@@ -133,6 +134,7 @@ module.exports = {
 | Rule                                                               | Description                                                           | Fixable |
 | ------------------------------------------------------------------ | --------------------------------------------------------------------- | ------- |
 | [no-single-char-variables](docs/rules/NO_SINGLE_CHAR_VARIABLES.md) | Disallow single character variable names (e.g., `d`, `u`, `l`)        | ❌      |
+| [no-lazy-identifiers](docs/rules/NO_LAZY_IDENTIFIERS.md)           | Disallow lazy identifiers like `xxx`, `asdf`, `qwerty`                | ❌      |
 | [boolean-naming-prefix](docs/rules/BOOLEAN_NAMING_PREFIX.md)       | Enforce boolean variables to have prefix (is, has, should, can, etc.) | ❌      |
 
 ### File Naming Rules
@@ -187,14 +189,14 @@ module.exports = {
 
 | Preset               | Severity | Base Rules | JSX Rules | Total Rules |
 | -------------------- | -------- | ---------- | --------- | ----------- |
-| `base`               | warn     | 16         | 0         | 16          |
-| `base/recommended`   | error    | 16         | 0         | 16          |
-| `react`              | warn     | 16         | 7         | 23          |
-| `react/recommended`  | error    | 16         | 7         | 23          |
-| `nextjs`             | warn     | 16         | 7         | 23          |
-| `nextjs/recommended` | error    | 16         | 7         | 23          |
+| `base`               | warn     | 17         | 0         | 17          |
+| `base/recommended`   | error    | 17         | 0         | 17          |
+| `react`              | warn     | 17         | 7         | 24          |
+| `react/recommended`  | error    | 17         | 7         | 24          |
+| `nextjs`             | warn     | 17         | 7         | 24          |
+| `nextjs/recommended` | error    | 17         | 7         | 24          |
 
-### Base Configuration Rules (16 rules)
+### Base Configuration Rules (17 rules)
 
 Included in `base`, `base/recommended`, and all other presets:
 
@@ -206,7 +208,7 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/no-direct-date`
 - `nextfriday/no-emoji`
 - `nextfriday/no-env-fallback`
-- `nextfriday/require-explicit-return-type`
+- `nextfriday/no-lazy-identifiers`
 - `nextfriday/no-logic-in-params`
 - `nextfriday/no-single-char-variables`
 - `nextfriday/prefer-destructuring-params`
@@ -214,6 +216,7 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/prefer-import-type`
 - `nextfriday/prefer-named-param-types`
 - `nextfriday/prefer-react-import-types`
+- `nextfriday/require-explicit-return-type`
 
 ### JSX Rules (7 rules)
 
