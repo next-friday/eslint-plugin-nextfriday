@@ -1,5 +1,15 @@
 # eslint-plugin-nextfriday
 
+## 1.8.0
+
+### Minor Changes
+
+- [#43](https://github.com/next-friday/eslint-plugin-nextfriday/pull/43) [`2fbee6d`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/2fbee6df84009954cb99674bcdb1cb1cca3be4e6) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - feat(rules): add no-lazy-identifiers rule
+
+  Added a new rule `no-lazy-identifiers` that detects and disallows lazy variable names:
+  - Repeated characters (3+): `xxx`, `aaa`, `zzz`
+  - Keyboard sequences (4+): `asdf`, `qwerty`, `hjkl`, `zxcv`
+
 ## 1.7.0
 
 ### Minor Changes
