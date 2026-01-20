@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.7.0
+
+### Minor Changes
+
+- [#41](https://github.com/next-friday/eslint-plugin-nextfriday/pull/41) [`10b67d9`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/10b67d941c47fef5b72408bfff2b56e98a46c26c) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - Add no-direct-date rule to disallow direct usage of Date constructor and methods (new Date(), Date.now(), Date.parse()) to enforce centralized date utilities like dayjs
+
 ## 1.6.0
 
 ### Minor Changes
