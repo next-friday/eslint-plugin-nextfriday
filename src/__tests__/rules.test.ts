@@ -96,8 +96,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 24 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(24);
+  it("should have exactly 25 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(25);
   });
 
   it("should have correct rule names", () => {
@@ -121,6 +121,7 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("no-complex-inline-return");
     expect(ruleNames).toContain("no-logic-in-params");
     expect(ruleNames).toContain("no-env-fallback");
+    expect(ruleNames).toContain("no-inline-default-export");
     expect(ruleNames).toContain("no-lazy-identifiers");
     expect(ruleNames).toContain("no-single-char-variables");
     expect(ruleNames).toContain("boolean-naming-prefix");
@@ -230,5 +231,13 @@ describe("ESLint Plugin Rules", () => {
     expect(rules["no-direct-date"]).toHaveProperty("meta");
     expect(rules["no-direct-date"]).toHaveProperty("create");
     expect(typeof rules["no-direct-date"].create).toBe("function");
+  });
+
+  it("should have no-inline-default-export rule", () => {
+    expect(rules).toHaveProperty("no-inline-default-export");
+    expect(typeof rules["no-inline-default-export"]).toBe("object");
+    expect(rules["no-inline-default-export"]).toHaveProperty("meta");
+    expect(rules["no-inline-default-export"]).toHaveProperty("create");
+    expect(typeof rules["no-inline-default-export"].create).toBe("function");
   });
 });

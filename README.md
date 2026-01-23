@@ -78,6 +78,7 @@ export default [
       "nextfriday/no-logic-in-params": "error",
       "nextfriday/enforce-sorted-destructuring": "error",
       "nextfriday/no-env-fallback": "error",
+      "nextfriday/no-inline-default-export": "error",
 
       // Import Optimization
       "nextfriday/prefer-import-type": "error",
@@ -157,6 +158,7 @@ module.exports = {
 | [no-logic-in-params](docs/rules/NO_LOGIC_IN_PARAMS.md)                     | Disallow logic/conditions in function parameters - extract to const    | ❌      |
 | [enforce-sorted-destructuring](docs/rules/ENFORCE_SORTED_DESTRUCTURING.md) | Enforce alphabetical sorting of destructured properties                | ❌      |
 | [no-env-fallback](docs/rules/NO_ENV_FALLBACK.md)                           | Disallow fallback values for environment variables                     | ❌      |
+| [no-inline-default-export](docs/rules/NO_INLINE_DEFAULT_EXPORT.md)         | Disallow inline default exports - declare first, then export           | ❌      |
 | [no-direct-date](docs/rules/NO_DIRECT_DATE.md)                             | Disallow direct usage of Date constructor and methods                  | ❌      |
 
 ### Import Optimization Rules
@@ -189,14 +191,14 @@ module.exports = {
 
 | Preset               | Severity | Base Rules | JSX Rules | Total Rules |
 | -------------------- | -------- | ---------- | --------- | ----------- |
-| `base`               | warn     | 17         | 0         | 17          |
-| `base/recommended`   | error    | 17         | 0         | 17          |
-| `react`              | warn     | 17         | 7         | 24          |
-| `react/recommended`  | error    | 17         | 7         | 24          |
-| `nextjs`             | warn     | 17         | 7         | 24          |
-| `nextjs/recommended` | error    | 17         | 7         | 24          |
+| `base`               | warn     | 18         | 0         | 18          |
+| `base/recommended`   | error    | 18         | 0         | 18          |
+| `react`              | warn     | 18         | 7         | 25          |
+| `react/recommended`  | error    | 18         | 7         | 25          |
+| `nextjs`             | warn     | 18         | 7         | 25          |
+| `nextjs/recommended` | error    | 18         | 7         | 25          |
 
-### Base Configuration Rules (17 rules)
+### Base Configuration Rules (18 rules)
 
 Included in `base`, `base/recommended`, and all other presets:
 
@@ -208,6 +210,7 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/no-direct-date`
 - `nextfriday/no-emoji`
 - `nextfriday/no-env-fallback`
+- `nextfriday/no-inline-default-export`
 - `nextfriday/no-lazy-identifiers`
 - `nextfriday/no-logic-in-params`
 - `nextfriday/no-single-char-variables`
