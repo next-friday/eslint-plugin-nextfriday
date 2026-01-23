@@ -11,6 +11,7 @@ import mdFilenameCaseRestriction from "./rules/md-filename-case-restriction";
 import noComplexInlineReturn from "./rules/no-complex-inline-return";
 import noEmoji from "./rules/no-emoji";
 import noEnvFallback from "./rules/no-env-fallback";
+import noInlineDefaultExport from "./rules/no-inline-default-export";
 import requireExplicitReturnType from "./rules/require-explicit-return-type";
 import jsxNoNonComponentFunction from "./rules/jsx-no-non-component-function";
 import noLogicInParams from "./rules/no-logic-in-params";
@@ -45,6 +46,7 @@ const rules = {
   "no-direct-date": noDirectDate,
   "no-emoji": noEmoji,
   "no-env-fallback": noEnvFallback,
+  "no-inline-default-export": noInlineDefaultExport,
   "require-explicit-return-type": requireExplicitReturnType,
   "no-lazy-identifiers": noLazyIdentifiers,
   "no-logic-in-params": noLogicInParams,
@@ -80,6 +82,7 @@ const baseRules = {
   "nextfriday/no-direct-date": "warn",
   "nextfriday/no-logic-in-params": "warn",
   "nextfriday/no-env-fallback": "warn",
+  "nextfriday/no-inline-default-export": "warn",
   "nextfriday/no-lazy-identifiers": "warn",
   "nextfriday/no-single-char-variables": "warn",
 } as const;
@@ -100,6 +103,7 @@ const baseRecommendedRules = {
   "nextfriday/no-direct-date": "error",
   "nextfriday/no-logic-in-params": "error",
   "nextfriday/no-env-fallback": "error",
+  "nextfriday/no-inline-default-export": "error",
   "nextfriday/no-lazy-identifiers": "error",
   "nextfriday/no-single-char-variables": "error",
 } as const;
