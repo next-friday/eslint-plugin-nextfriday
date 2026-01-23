@@ -1,5 +1,15 @@
 # eslint-plugin-nextfriday
 
+## 1.9.0
+
+### Minor Changes
+
+- [#45](https://github.com/next-friday/eslint-plugin-nextfriday/pull/45) [`5a00484`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/5a0048400d3a6b7640813b4ba718635c9117ea20) Thanks [@joetakara](https://github.com/joetakara)! - feat(rules): add no-inline-default-export rule
+
+  Disallow inline default exports. Prefer declaring functions/classes first, then exporting separately.
+  - `export default function foo() {}` → Error
+  - `function foo() {} export default foo;` → Valid
+
 ## 1.8.0
 
 ### Minor Changes
