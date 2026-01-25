@@ -60,7 +60,7 @@ describe("prefer-import-type", () => {
         name: "should not flag React hooks used as functions",
       },
       {
-        code: 'import { composeRenderProps } from "react-aria-components";\nconst result = composeRenderProps(x, y);',
+        code: 'import { composeData } from "./utils";\nconst result = composeData(x, y);',
         name: "should not flag function used as runtime value",
       },
       {
