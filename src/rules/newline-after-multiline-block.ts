@@ -1,4 +1,4 @@
-import { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES, ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
 const createRule = ESLintUtils.RuleCreator(
   (name) =>
@@ -6,6 +6,10 @@ const createRule = ESLintUtils.RuleCreator(
 );
 
 type ProgramChild = TSESTree.ProgramStatement;
+
+function isImportDeclaration(node: TSESTree.Node): boolean {
+  return node.type === AST_NODE_TYPES.ImportDeclaration;
+}
 
 function checkStatements(
   statements: readonly ProgramChild[] | readonly TSESTree.Statement[],
@@ -27,6 +31,10 @@ function checkStatements(
     const isMultiline = current.loc.start.line !== current.loc.end.line;
 
     if (!isMultiline) {
+      return;
+    }
+
+    if (isImportDeclaration(current) && isImportDeclaration(next)) {
       return;
     }
 

@@ -115,6 +115,40 @@ function wrapper() {
         `,
         name: "multi-line in block with blank line after",
       },
+      {
+        code: `
+import {
+  foo,
+  bar,
+} from "module-a";
+import { baz } from "module-b";
+        `,
+        name: "multi-line import followed by single-line import (no blank line needed)",
+      },
+      {
+        code: `
+import {
+  foo,
+  bar,
+} from "module-a";
+import {
+  baz,
+  qux,
+} from "module-b";
+        `,
+        name: "multi-line import followed by multi-line import (no blank line needed)",
+      },
+      {
+        code: `
+import { foo } from "module-a";
+import {
+  bar,
+  baz,
+} from "module-b";
+import { qux } from "module-c";
+        `,
+        name: "imports in any order do not require blank lines between them",
+      },
     ],
     invalid: [
       {
@@ -318,6 +352,29 @@ try {
 const result = cleanup();
         `,
         name: "missing blank line after try-catch",
+      },
+      {
+        code: `
+import {
+  foo,
+  bar,
+} from "module-a";
+const baz = 1;
+        `,
+        errors: [
+          {
+            messageId: "requireNewline",
+          },
+        ],
+        output: `
+import {
+  foo,
+  bar,
+} from "module-a";
+
+const baz = 1;
+        `,
+        name: "missing blank line after multi-line import followed by non-import",
       },
     ],
   });
