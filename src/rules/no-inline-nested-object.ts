@@ -20,6 +20,19 @@ function getInnerExpression(node: TSESTree.Node): TSESTree.Node {
   return node;
 }
 
+function arrayContainsOnlyPrimitives(node: TSESTree.ArrayExpression): boolean {
+  return node.elements.every((el) => {
+    if (el === null) return true;
+    const inner = getInnerExpression(el);
+    return (
+      inner.type === AST_NODE_TYPES.Literal ||
+      inner.type === AST_NODE_TYPES.Identifier ||
+      inner.type === AST_NODE_TYPES.TemplateLiteral ||
+      inner.type === AST_NODE_TYPES.UnaryExpression
+    );
+  });
+}
+
 const noInlineNestedObject = createRule({
   name: "no-inline-nested-object",
   meta: {
@@ -56,6 +69,10 @@ const noInlineNestedObject = createRule({
         const elements = valueNode.type === AST_NODE_TYPES.ObjectExpression ? valueNode.properties : valueNode.elements;
 
         if (elements.length === 0) {
+          return;
+        }
+
+        if (valueNode.type === AST_NODE_TYPES.ArrayExpression && arrayContainsOnlyPrimitives(valueNode)) {
           return;
         }
 
