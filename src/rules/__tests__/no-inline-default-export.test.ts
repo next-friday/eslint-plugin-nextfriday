@@ -81,6 +81,37 @@ export default value;
         code: `export default { key: 'value' };`,
         name: "should allow exporting inline objects",
       },
+      {
+        code: `
+function add(a: number, b: number) {
+  return a + b;
+}
+export { add };
+`,
+        name: "should allow separate function declaration and named export",
+      },
+      {
+        code: `
+class MyService {}
+export { MyService };
+`,
+        name: "should allow separate class declaration and named export",
+      },
+      {
+        code: `export { foo } from './foo';`,
+        name: "should allow re-export named",
+      },
+      {
+        code: `export type { Foo } from './foo';`,
+        name: "should allow type re-export",
+      },
+      {
+        code: `
+const value = 42;
+export { value };
+`,
+        name: "should allow separate const and named export",
+      },
     ],
     invalid: [
       {
@@ -154,6 +185,50 @@ export default function processData(data) {
           {
             messageId: "noInlineDefaultExport",
             data: { type: "function", name: "processData" },
+          },
+        ],
+      },
+      {
+        code: `export function add(a: number, b: number) { return a + b; }`,
+        name: "should reject inline named function export",
+        errors: [
+          {
+            messageId: "noInlineNamedExport",
+            data: { type: "function", name: "add" },
+          },
+        ],
+      },
+      {
+        code: `export async function fetchData() { return await fetch('/api'); }`,
+        name: "should reject inline async named function export",
+        errors: [
+          {
+            messageId: "noInlineNamedExport",
+            data: { type: "function", name: "fetchData" },
+          },
+        ],
+      },
+      {
+        code: `export class MyService { constructor() {} }`,
+        name: "should reject inline named class export",
+        errors: [
+          {
+            messageId: "noInlineNamedExport",
+            data: { type: "class", name: "MyService" },
+          },
+        ],
+      },
+      {
+        code: `
+export function processItems(items) {
+  return items.map(item => item * 2);
+}
+`,
+        name: "should reject multiline inline named function export",
+        errors: [
+          {
+            messageId: "noInlineNamedExport",
+            data: { type: "function", name: "processItems" },
           },
         ],
       },

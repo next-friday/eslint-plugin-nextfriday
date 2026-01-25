@@ -10,13 +10,15 @@ const noInlineDefaultExport = createRule({
   meta: {
     type: "suggestion",
     docs: {
-      description: "Disallow inline default exports. Prefer declaring first, then exporting separately.",
+      description: "Disallow inline exports. Prefer declaring first, then exporting separately.",
     },
     messages: {
       noInlineDefaultExport:
         "Avoid inline default export. Declare the {{type}} first, then export it separately: `export default {{name}};`",
       noAnonymousDefaultExport:
         "Avoid anonymous default export. Declare a named {{type}} first, then export it separately.",
+      noInlineNamedExport:
+        "Avoid inline named export. Declare the {{type}} first, then export it separately: `export { {{name}} };`",
     },
     schema: [],
   },
@@ -66,6 +68,30 @@ const noInlineDefaultExport = createRule({
             node,
             messageId: "noAnonymousDefaultExport",
             data: { type: "function" },
+          });
+        }
+      },
+
+      ExportNamedDeclaration(node: TSESTree.ExportNamedDeclaration) {
+        const { declaration } = node;
+
+        if (!declaration) {
+          return;
+        }
+
+        if (declaration.type === AST_NODE_TYPES.FunctionDeclaration && declaration.id) {
+          context.report({
+            node,
+            messageId: "noInlineNamedExport",
+            data: { type: "function", name: declaration.id.name },
+          });
+        }
+
+        if (declaration.type === AST_NODE_TYPES.ClassDeclaration && declaration.id) {
+          context.report({
+            node,
+            messageId: "noInlineNamedExport",
+            data: { type: "class", name: declaration.id.name },
           });
         }
       },

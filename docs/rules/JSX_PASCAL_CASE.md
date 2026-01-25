@@ -34,30 +34,38 @@ The content of the file doesn't matter - only the filename is checked:
 
 ```jsx
 // INCORRECT: File: my-component.jsx (incorrect filename)
-export default function MyComponent() {
+function MyComponent() {
   return <div>Hello</div>;
 }
+
+export default MyComponent;
 ```
 
 ```jsx
 // CORRECT: File: MyComponent.jsx (correct filename)
-export default function MyComponent() {
+function MyComponent() {
   return <div>Hello</div>;
 }
+
+export default MyComponent;
 ```
 
 ```tsx
 // INCORRECT: File: user-profile.tsx (incorrect filename)
-export default function UserProfile() {
+function UserProfile() {
   return <div>Profile</div>;
 }
+
+export default UserProfile;
 ```
 
 ```tsx
 // CORRECT: File: UserProfile.tsx (correct filename)
-export default function UserProfile() {
+function UserProfile() {
   return <div>Profile</div>;
 }
+
+export default UserProfile;
 ```
 
 ## When Not To Use
