@@ -1,5 +1,16 @@
 # eslint-plugin-nextfriday
 
+## 1.10.1
+
+### Patch Changes
+
+- [#49](https://github.com/next-friday/eslint-plugin-nextfriday/pull/49) [`baecdc9`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/baecdc9810eda995c0ced73bcf1536027feae2e6) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - fix(no-inline-nested-object): allow arrays with only primitive values to stay inline
+
+  Arrays containing only primitives (literals, identifiers, template literals) are now allowed to be inline. Objects still require multiple lines.
+  - `options: ["primary", "foreground", "danger"]` is now valid
+  - `config: { enabled: true }` still requires multiline
+  - `items: [{ a: 1 }, { b: 2 }]` still requires multiline
+
 ## 1.10.0
 
 ### Minor Changes
