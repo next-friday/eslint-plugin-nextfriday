@@ -79,6 +79,9 @@ export default [
       "nextfriday/enforce-sorted-destructuring": "error",
       "nextfriday/no-env-fallback": "error",
       "nextfriday/no-inline-default-export": "error",
+      "nextfriday/newline-after-multiline-block": "error",
+      "nextfriday/newline-before-return": "error",
+      "nextfriday/no-inline-nested-object": "error",
 
       // Import Optimization
       "nextfriday/prefer-import-type": "error",
@@ -89,6 +92,7 @@ export default [
       "nextfriday/prefer-interface-over-inline-types": "error",
 
       // React/JSX
+      "nextfriday/jsx-newline-between-elements": "error",
       "nextfriday/jsx-no-non-component-function": "error",
       "nextfriday/jsx-no-variable-in-callback": "error",
       "nextfriday/prefer-jsx-template-literals": "error",
@@ -148,18 +152,21 @@ module.exports = {
 
 ### Code Style Rules
 
-| Rule                                                                       | Description                                                            | Fixable |
-| -------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------- |
-| [no-emoji](docs/rules/NO_EMOJI.md)                                         | Disallow emoji characters in source code                               | ❌      |
-| [prefer-destructuring-params](docs/rules/PREFER_DESTRUCTURING_PARAMS.md)   | Enforce destructuring for functions with multiple parameters           | ❌      |
-| [prefer-function-declaration](docs/rules/PREFER_FUNCTION_DECLARATION.md)   | Enforce function declarations over arrow functions in .ts files        | ❌      |
-| [require-explicit-return-type](docs/rules/REQUIRE_EXPLICIT_RETURN_TYPE.md) | Require explicit return types on functions for better documentation    | ❌      |
-| [no-complex-inline-return](docs/rules/NO_COMPLEX_INLINE_RETURN.md)         | Disallow complex inline expressions in return - extract to const first | ❌      |
-| [no-logic-in-params](docs/rules/NO_LOGIC_IN_PARAMS.md)                     | Disallow logic/conditions in function parameters - extract to const    | ❌      |
-| [enforce-sorted-destructuring](docs/rules/ENFORCE_SORTED_DESTRUCTURING.md) | Enforce alphabetical sorting of destructured properties                | ❌      |
-| [no-env-fallback](docs/rules/NO_ENV_FALLBACK.md)                           | Disallow fallback values for environment variables                     | ❌      |
-| [no-inline-default-export](docs/rules/NO_INLINE_DEFAULT_EXPORT.md)         | Disallow inline default exports - declare first, then export           | ❌      |
-| [no-direct-date](docs/rules/NO_DIRECT_DATE.md)                             | Disallow direct usage of Date constructor and methods                  | ❌      |
+| Rule                                                                         | Description                                                            | Fixable |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------- |
+| [no-emoji](docs/rules/NO_EMOJI.md)                                           | Disallow emoji characters in source code                               | ❌      |
+| [prefer-destructuring-params](docs/rules/PREFER_DESTRUCTURING_PARAMS.md)     | Enforce destructuring for functions with multiple parameters           | ❌      |
+| [prefer-function-declaration](docs/rules/PREFER_FUNCTION_DECLARATION.md)     | Enforce function declarations over arrow functions in .ts files        | ❌      |
+| [require-explicit-return-type](docs/rules/REQUIRE_EXPLICIT_RETURN_TYPE.md)   | Require explicit return types on functions for better documentation    | ❌      |
+| [no-complex-inline-return](docs/rules/NO_COMPLEX_INLINE_RETURN.md)           | Disallow complex inline expressions in return - extract to const first | ❌      |
+| [no-logic-in-params](docs/rules/NO_LOGIC_IN_PARAMS.md)                       | Disallow logic/conditions in function parameters - extract to const    | ❌      |
+| [enforce-sorted-destructuring](docs/rules/ENFORCE_SORTED_DESTRUCTURING.md)   | Enforce alphabetical sorting of destructured properties                | ❌      |
+| [no-env-fallback](docs/rules/NO_ENV_FALLBACK.md)                             | Disallow fallback values for environment variables                     | ❌      |
+| [no-inline-default-export](docs/rules/NO_INLINE_DEFAULT_EXPORT.md)           | Disallow inline default exports - declare first, then export           | ❌      |
+| [no-direct-date](docs/rules/NO_DIRECT_DATE.md)                               | Disallow direct usage of Date constructor and methods                  | ❌      |
+| [newline-after-multiline-block](docs/rules/NEWLINE_AFTER_MULTILINE_BLOCK.md) | Require a blank line after multi-line statements                       | ✅      |
+| [newline-before-return](docs/rules/NEWLINE_BEFORE_RETURN.md)                 | Require a blank line before return statements                          | ✅      |
+| [no-inline-nested-object](docs/rules/NO_INLINE_NESTED_OBJECT.md)             | Require nested objects and arrays to span multiple lines               | ✅      |
 
 ### Import Optimization Rules
 
@@ -179,6 +186,7 @@ module.exports = {
 
 | Rule                                                                               | Description                                                          | Fixable |
 | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ------- |
+| [jsx-newline-between-elements](docs/rules/JSX_NEWLINE_BETWEEN_ELEMENTS.md)         | Require empty lines between sibling multi-line JSX elements          | ✅      |
 | [jsx-no-non-component-function](docs/rules/JSX_NO_NON_COMPONENT_FUNCTION.md)       | Disallow non-component functions at top level in .tsx/.jsx files     | ❌      |
 | [jsx-no-variable-in-callback](docs/rules/JSX_NO_VARIABLE_IN_CALLBACK.md)           | Disallow variable declarations inside callback functions in JSX      | ❌      |
 | [prefer-jsx-template-literals](docs/rules/PREFER_JSX_TEMPLATE_LITERALS.md)         | Enforce template literals instead of mixing text and JSX expressions | ✅      |
@@ -191,14 +199,14 @@ module.exports = {
 
 | Preset               | Severity | Base Rules | JSX Rules | Total Rules |
 | -------------------- | -------- | ---------- | --------- | ----------- |
-| `base`               | warn     | 18         | 0         | 18          |
-| `base/recommended`   | error    | 18         | 0         | 18          |
-| `react`              | warn     | 18         | 7         | 25          |
-| `react/recommended`  | error    | 18         | 7         | 25          |
-| `nextjs`             | warn     | 18         | 7         | 25          |
-| `nextjs/recommended` | error    | 18         | 7         | 25          |
+| `base`               | warn     | 21         | 0         | 21          |
+| `base/recommended`   | error    | 21         | 0         | 21          |
+| `react`              | warn     | 21         | 8         | 29          |
+| `react/recommended`  | error    | 21         | 8         | 29          |
+| `nextjs`             | warn     | 21         | 8         | 29          |
+| `nextjs/recommended` | error    | 21         | 8         | 29          |
 
-### Base Configuration Rules (18 rules)
+### Base Configuration Rules (21 rules)
 
 Included in `base`, `base/recommended`, and all other presets:
 
@@ -206,11 +214,14 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/enforce-sorted-destructuring`
 - `nextfriday/file-kebab-case`
 - `nextfriday/md-filename-case-restriction`
+- `nextfriday/newline-after-multiline-block`
+- `nextfriday/newline-before-return`
 - `nextfriday/no-complex-inline-return`
 - `nextfriday/no-direct-date`
 - `nextfriday/no-emoji`
 - `nextfriday/no-env-fallback`
 - `nextfriday/no-inline-default-export`
+- `nextfriday/no-inline-nested-object`
 - `nextfriday/no-lazy-identifiers`
 - `nextfriday/no-logic-in-params`
 - `nextfriday/no-single-char-variables`
@@ -221,11 +232,12 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/prefer-react-import-types`
 - `nextfriday/require-explicit-return-type`
 
-### JSX Rules (7 rules)
+### JSX Rules (8 rules)
 
 Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recommended`:
 
 - `nextfriday/enforce-readonly-component-props`
+- `nextfriday/jsx-newline-between-elements`
 - `nextfriday/jsx-no-non-component-function`
 - `nextfriday/jsx-no-variable-in-callback`
 - `nextfriday/jsx-pascal-case`
@@ -247,6 +259,7 @@ Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recomme
 - **Code cleanup**: Helps remove unnecessary explicit type annotations
 - **React component conventions**: Enforces naming standards and patterns for JSX/TSX files
 - **Clean code practices**: Prevents emoji usage, enforces parameter destructuring, and more
+- **Formatting rules**: Enforces consistent blank lines around multi-line blocks and return statements
 
 ## Need Help?
 
