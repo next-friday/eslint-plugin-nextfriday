@@ -1,5 +1,13 @@
 # eslint-plugin-nextfriday
 
+## 1.10.2
+
+### Patch Changes
+
+- [#51](https://github.com/next-friday/eslint-plugin-nextfriday/pull/51) [`b940720`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/b940720b356ee0bf0da0addac5bd4a35c20b4141) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - fix(newline-after-multiline-block): exclude import declarations from requiring blank lines between them
+
+  Multi-line imports followed by other imports no longer require a blank line, avoiding conflicts with `import-x/order` rule. Blank lines are still required when a multi-line import is followed by a non-import statement.
+
 ## 1.10.1
 
 ### Patch Changes
