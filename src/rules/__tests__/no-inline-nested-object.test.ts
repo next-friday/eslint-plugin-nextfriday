@@ -87,6 +87,38 @@ const obj = {
         `,
         name: "deeply nested objects all on multiple lines",
       },
+      {
+        code: `
+const obj = {
+  items: [1, 2, 3],
+};
+        `,
+        name: "inline array with primitives only is allowed",
+      },
+      {
+        code: `
+const obj = {
+  options: ["primary", "foreground", "danger", "outline", "ghost", "link"],
+};
+        `,
+        name: "inline array with string literals is allowed",
+      },
+      {
+        code: `
+const obj = {
+  values: [true, false, null, undefined],
+};
+        `,
+        name: "inline array with boolean and null literals is allowed",
+      },
+      {
+        code: `
+const obj = {
+  refs: [foo, bar, baz],
+};
+        `,
+        name: "inline array with identifiers is allowed",
+      },
     ],
     invalid: [
       {
@@ -116,7 +148,7 @@ const obj = {
       {
         code: `
 const obj = {
-  items: [1, 2, 3],
+  items: [{ a: 1 }, { b: 2 }],
 };
         `,
         errors: [
@@ -127,13 +159,12 @@ const obj = {
         output: `
 const obj = {
   items: [
-    1,
-    2,
-    3,
+    { a: 1 },
+    { b: 2 },
   ],
 };
         `,
-        name: "inline nested array should be multiline",
+        name: "inline array with objects should be multiline",
       },
       {
         code: `
