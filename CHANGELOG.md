@@ -1,5 +1,14 @@
 # eslint-plugin-nextfriday
 
+## 1.10.0
+
+### Minor Changes
+
+- [#47](https://github.com/next-friday/eslint-plugin-nextfriday/pull/47) [`3efdb6f`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/3efdb6f33d499a02c00021e9248a5d6f63791457) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - feat(rules): add formatting rules for code consistency
+  - `newline-after-multiline-block`: Require a blank line after multi-line statements
+  - `newline-before-return`: Require a blank line before return statements
+  - `no-inline-nested-object`: Require nested objects and arrays to span multiple lines
+
 ## 1.9.0
 
 ### Minor Changes
