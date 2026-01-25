@@ -13,23 +13,23 @@ function getName() {
   return "John Doe";
 }
 
-const getAge = () => {
+function getAge() {
   return 25;
-};
+}
 
 function processUser() {
   console.log("Processing user");
 }
 
-const calculateTotal = (items: Item[]) => {
+function calculateTotal(items: Item[]) {
   return items.reduce((sum, item) => sum + item.price, 0);
-};
+}
 
 async function fetchData() {
   return await api.get("/data");
 }
 
-export function validateEmail(email: string) {
+function validateEmail(email: string) {
   return email.includes("@");
 }
 ```
@@ -41,23 +41,23 @@ function getName(): string {
   return "John Doe";
 }
 
-const getAge = (): number => {
+function getAge(): number {
   return 25;
-};
+}
 
 function processUser(): void {
   console.log("Processing user");
 }
 
-const calculateTotal = (items: Item[]): number => {
+function calculateTotal(items: Item[]): number {
   return items.reduce((sum, item) => sum + item.price, 0);
-};
+}
 
 async function fetchData(): Promise<Data> {
   return await api.get("/data");
 }
 
-export function validateEmail(email: string): boolean {
+function validateEmail(email: string): boolean {
   return email.includes("@");
 }
 ```

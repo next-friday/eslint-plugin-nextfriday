@@ -55,9 +55,11 @@ const calculateTotal = (items: number[]) => {
   return items.reduce((sum, item) => sum + item, 0);
 };
 
-export const OrderSummary = () => {
+const OrderSummary = () => {
   return <div>Total</div>;
 };
+
+export { OrderSummary };
 ```
 
 ### ✅ Correct
@@ -89,19 +91,23 @@ const Component = () => {
 };
 ```
 
-```tsx
+```typescript
 // Good: Functions in .ts or .js files are allowed
 // utils.ts
-export const helper = (name: string) => {
+function helper(name: string) {
   return name.toUpperCase();
-};
+}
+
+export { helper };
 ```
 
 ```tsx
 // Good: Exported component functions are allowed
-export const Component = () => {
+const Component = () => {
   return <div>Hello</div>;
 };
+
+export { Component };
 ```
 
 ## When Not To Use It

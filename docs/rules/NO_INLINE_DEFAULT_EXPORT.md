@@ -1,78 +1,101 @@
 # no-inline-default-export
 
-Disallow inline default exports. Prefer declaring first, then exporting separately.
+Disallow inline exports. Declare first, then export separately.
 
 ## Rule Details
 
-This rule enforces separating function/class declarations from their default exports. Instead of combining declaration and export in a single statement, declare the function or class first, then export it by reference.
+This rule enforces separating declarations from exports. Instead of `export function`, declare the function first, then export it.
 
-This pattern improves code readability and makes it easier to identify what a module exports at a glance.
-
-## Examples
-
-### Incorrect
+**Incorrect** code for this rule:
 
 ```typescript
-// Inline function default export
-export default function generator(plop: PlopTypes.NodePlopAPI): void {
+// Inline named export
+export function fetchData() {
+  return fetch("/api");
+}
+
+// Inline async named export
+export async function fetchHighlight(id: string) {
+  return await api.get(`/highlights/${id}`);
+}
+
+// Inline class export
+export class UserService {
   // ...
 }
 
-// Inline class default export
+// Inline default export
+export default function generator() {
+  // ...
+}
+
+// Inline default class export
 export default class MyService {
   // ...
 }
 
-// Anonymous function default export
+// Anonymous exports
 export default function () {
   return "anonymous";
 }
 
-// Arrow function default export
 export default () => "arrow";
-
-// Anonymous class default export
-export default class {
-  // ...
-}
 ```
 
-### Correct
+**Correct** code for this rule:
 
 ```typescript
-// Separate function declaration and export
-function generator(plop: PlopTypes.NodePlopAPI): void {
+// Declare function, then export
+function fetchData() {
+  return fetch("/api");
+}
+
+export { fetchData };
+
+// Declare async function, then export
+async function fetchHighlight(id: string) {
+  return await api.get(`/highlights/${id}`);
+}
+
+export { fetchHighlight };
+
+// Or use default export
+export default fetchHighlight;
+
+// Declare class, then export
+class UserService {
+  // ...
+}
+
+export { UserService };
+
+// Declare function, then default export
+function generator() {
   // ...
 }
 
 export default generator;
 
-// Separate class declaration and export
-class MyService {
-  // ...
-}
+// Re-exports are allowed
+export { foo } from "./foo";
+export { bar as default } from "./bar";
+export type { Baz } from "./baz";
 
-export default MyService;
-
-// Separate const arrow function and export
-const processData = (data: Data): Result => {
-  // ...
-};
-
-export default processData;
-
-// Exporting literals and objects is allowed
+// Literals and objects are allowed
 export default "literal";
 export default { key: "value" };
-
-// Re-exports are allowed
-export { foo as default } from "./foo";
 ```
+
+## Benefits
+
+- **Readability**: Easy to see what a module exports at a glance
+- **Consistency**: All exports follow the same pattern
+- **Refactoring**: Easier to rename or move declarations
 
 ## When Not To Use
 
-If your project prefers inline default exports for brevity, or if you're working with frameworks that expect specific export patterns, you may want to disable this rule.
+If your project prefers inline exports for brevity, you may want to disable this rule.
 
 ## Related Rules
 
-- [prefer-function-declaration](./PREFER_FUNCTION_DECLARATION.md) - Prefer function declarations over expressions
+- [prefer-function-declaration](./PREFER_FUNCTION_DECLARATION.md) - Prefer function declarations over arrow functions

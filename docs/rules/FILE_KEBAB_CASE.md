@@ -34,16 +34,20 @@ The content of the file doesn't matter - only the filename is checked:
 
 ```typescript
 // INCORRECT: File: MyFile.ts (incorrect filename)
-export const myFunction = () => {
+function myFunction() {
   return "Hello World";
-};
+}
+
+export { myFunction };
 ```
 
 ```typescript
 // CORRECT: File: my-file.ts (correct filename)
-export const myFunction = () => {
+function myFunction() {
   return "Hello World";
-};
+}
+
+export { myFunction };
 ```
 
 ```javascript
@@ -53,6 +57,8 @@ class UserService {
     return {};
   }
 }
+
+export { UserService };
 ```
 
 ```javascript
@@ -62,6 +68,8 @@ class UserService {
     return {};
   }
 }
+
+export { UserService };
 ```
 
 ## When Not To Use It
