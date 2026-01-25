@@ -4,6 +4,7 @@ import booleanNamingPrefix from "./rules/boolean-naming-prefix";
 import enforceReadonlyComponentProps from "./rules/enforce-readonly-component-props";
 import enforceSortedDestructuring from "./rules/enforce-sorted-destructuring";
 import fileKebabCase from "./rules/file-kebab-case";
+import jsxNewlineBetweenElements from "./rules/jsx-newline-between-elements";
 import jsxPascalCase from "./rules/jsx-pascal-case";
 import noDirectDate from "./rules/no-direct-date";
 import jsxNoVariableInCallback from "./rules/jsx-no-variable-in-callback";
@@ -12,9 +13,12 @@ import noComplexInlineReturn from "./rules/no-complex-inline-return";
 import noEmoji from "./rules/no-emoji";
 import noEnvFallback from "./rules/no-env-fallback";
 import noInlineDefaultExport from "./rules/no-inline-default-export";
+import noInlineNestedObject from "./rules/no-inline-nested-object";
 import requireExplicitReturnType from "./rules/require-explicit-return-type";
 import jsxNoNonComponentFunction from "./rules/jsx-no-non-component-function";
 import noLogicInParams from "./rules/no-logic-in-params";
+import newlineAfterMultilineBlock from "./rules/newline-after-multiline-block";
+import newlineBeforeReturn from "./rules/newline-before-return";
 import noLazyIdentifiers from "./rules/no-lazy-identifiers";
 import noSingleCharVariables from "./rules/no-single-char-variables";
 import preferDestructuringParams from "./rules/prefer-destructuring-params";
@@ -38,15 +42,19 @@ const rules = {
   "enforce-readonly-component-props": enforceReadonlyComponentProps,
   "enforce-sorted-destructuring": enforceSortedDestructuring,
   "file-kebab-case": fileKebabCase,
+  "jsx-newline-between-elements": jsxNewlineBetweenElements,
   "jsx-pascal-case": jsxPascalCase,
   "jsx-no-non-component-function": jsxNoNonComponentFunction,
   "jsx-no-variable-in-callback": jsxNoVariableInCallback,
   "md-filename-case-restriction": mdFilenameCaseRestriction,
+  "newline-after-multiline-block": newlineAfterMultilineBlock,
+  "newline-before-return": newlineBeforeReturn,
   "no-complex-inline-return": noComplexInlineReturn,
   "no-direct-date": noDirectDate,
   "no-emoji": noEmoji,
   "no-env-fallback": noEnvFallback,
   "no-inline-default-export": noInlineDefaultExport,
+  "no-inline-nested-object": noInlineNestedObject,
   "require-explicit-return-type": requireExplicitReturnType,
   "no-lazy-identifiers": noLazyIdentifiers,
   "no-logic-in-params": noLogicInParams,
@@ -72,6 +80,8 @@ const baseRules = {
   "nextfriday/enforce-sorted-destructuring": "warn",
   "nextfriday/file-kebab-case": "warn",
   "nextfriday/md-filename-case-restriction": "warn",
+  "nextfriday/newline-after-multiline-block": "warn",
+  "nextfriday/newline-before-return": "warn",
   "nextfriday/prefer-destructuring-params": "warn",
   "nextfriday/prefer-function-declaration": "warn",
   "nextfriday/require-explicit-return-type": "warn",
@@ -83,6 +93,7 @@ const baseRules = {
   "nextfriday/no-logic-in-params": "warn",
   "nextfriday/no-env-fallback": "warn",
   "nextfriday/no-inline-default-export": "warn",
+  "nextfriday/no-inline-nested-object": "warn",
   "nextfriday/no-lazy-identifiers": "warn",
   "nextfriday/no-single-char-variables": "warn",
 } as const;
@@ -93,6 +104,8 @@ const baseRecommendedRules = {
   "nextfriday/enforce-sorted-destructuring": "error",
   "nextfriday/file-kebab-case": "error",
   "nextfriday/md-filename-case-restriction": "error",
+  "nextfriday/newline-after-multiline-block": "error",
+  "nextfriday/newline-before-return": "error",
   "nextfriday/prefer-destructuring-params": "error",
   "nextfriday/prefer-function-declaration": "error",
   "nextfriday/require-explicit-return-type": "error",
@@ -104,11 +117,13 @@ const baseRecommendedRules = {
   "nextfriday/no-logic-in-params": "error",
   "nextfriday/no-env-fallback": "error",
   "nextfriday/no-inline-default-export": "error",
+  "nextfriday/no-inline-nested-object": "error",
   "nextfriday/no-lazy-identifiers": "error",
   "nextfriday/no-single-char-variables": "error",
 } as const;
 
 const jsxRules = {
+  "nextfriday/jsx-newline-between-elements": "warn",
   "nextfriday/jsx-pascal-case": "warn",
   "nextfriday/jsx-no-non-component-function": "warn",
   "nextfriday/jsx-no-variable-in-callback": "warn",
@@ -119,6 +134,7 @@ const jsxRules = {
 } as const;
 
 const jsxRecommendedRules = {
+  "nextfriday/jsx-newline-between-elements": "error",
   "nextfriday/jsx-pascal-case": "error",
   "nextfriday/jsx-no-non-component-function": "error",
   "nextfriday/jsx-no-variable-in-callback": "error",

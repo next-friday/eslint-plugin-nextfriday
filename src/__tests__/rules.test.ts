@@ -96,14 +96,15 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 25 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(25);
+  it("should have exactly 29 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(29);
   });
 
   it("should have correct rule names", () => {
     const ruleNames = Object.keys(rules);
     expect(ruleNames).toContain("no-emoji");
     expect(ruleNames).toContain("file-kebab-case");
+    expect(ruleNames).toContain("jsx-newline-between-elements");
     expect(ruleNames).toContain("jsx-pascal-case");
     expect(ruleNames).toContain("jsx-no-non-component-function");
     expect(ruleNames).toContain("jsx-no-variable-in-callback");
@@ -122,8 +123,11 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("no-logic-in-params");
     expect(ruleNames).toContain("no-env-fallback");
     expect(ruleNames).toContain("no-inline-default-export");
+    expect(ruleNames).toContain("no-inline-nested-object");
     expect(ruleNames).toContain("no-lazy-identifiers");
     expect(ruleNames).toContain("no-single-char-variables");
+    expect(ruleNames).toContain("newline-after-multiline-block");
+    expect(ruleNames).toContain("newline-before-return");
     expect(ruleNames).toContain("boolean-naming-prefix");
     expect(ruleNames).toContain("prefer-function-declaration");
     expect(ruleNames).toContain("no-direct-date");
@@ -239,5 +243,37 @@ describe("ESLint Plugin Rules", () => {
     expect(rules["no-inline-default-export"]).toHaveProperty("meta");
     expect(rules["no-inline-default-export"]).toHaveProperty("create");
     expect(typeof rules["no-inline-default-export"].create).toBe("function");
+  });
+
+  it("should have jsx-newline-between-elements rule", () => {
+    expect(rules).toHaveProperty("jsx-newline-between-elements");
+    expect(typeof rules["jsx-newline-between-elements"]).toBe("object");
+    expect(rules["jsx-newline-between-elements"]).toHaveProperty("meta");
+    expect(rules["jsx-newline-between-elements"]).toHaveProperty("create");
+    expect(typeof rules["jsx-newline-between-elements"].create).toBe("function");
+  });
+
+  it("should have newline-after-multiline-block rule", () => {
+    expect(rules).toHaveProperty("newline-after-multiline-block");
+    expect(typeof rules["newline-after-multiline-block"]).toBe("object");
+    expect(rules["newline-after-multiline-block"]).toHaveProperty("meta");
+    expect(rules["newline-after-multiline-block"]).toHaveProperty("create");
+    expect(typeof rules["newline-after-multiline-block"].create).toBe("function");
+  });
+
+  it("should have no-inline-nested-object rule", () => {
+    expect(rules).toHaveProperty("no-inline-nested-object");
+    expect(typeof rules["no-inline-nested-object"]).toBe("object");
+    expect(rules["no-inline-nested-object"]).toHaveProperty("meta");
+    expect(rules["no-inline-nested-object"]).toHaveProperty("create");
+    expect(typeof rules["no-inline-nested-object"].create).toBe("function");
+  });
+
+  it("should have newline-before-return rule", () => {
+    expect(rules).toHaveProperty("newline-before-return");
+    expect(typeof rules["newline-before-return"]).toBe("object");
+    expect(rules["newline-before-return"]).toHaveProperty("meta");
+    expect(rules["newline-before-return"]).toHaveProperty("create");
+    expect(typeof rules["newline-before-return"].create).toBe("function");
   });
 });
