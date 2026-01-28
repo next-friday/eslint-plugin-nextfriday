@@ -1,5 +1,15 @@
 # eslint-plugin-nextfriday
 
+## 1.11.1
+
+### Patch Changes
+
+- [#55](https://github.com/next-friday/eslint-plugin-nextfriday/pull/55) [`11ec99c`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/11ec99cfabf7976ce5da450e0de018ec45ea7155) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - fix(enforce-sorted-destructuring): simplify sorting to alphabetical only
+
+  Changed the sorting behavior from type-based (string → number → boolean → object) to pure alphabetical sorting. Properties with defaults still come first, but both groups are now sorted alphabetically (A-Z) without type priority.
+
+  This makes the rule compatible with other alphabetical sorting tools and more intuitive to use.
+
 ## 1.11.0
 
 ### Minor Changes
