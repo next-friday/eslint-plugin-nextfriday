@@ -4,7 +4,7 @@ Enforce alphabetical sorting of destructured properties with defaults first.
 
 ## Rule Details
 
-This rule enforces that object destructuring properties are sorted alphabetically, with properties that have default values coming first. Default values are further sorted by type (string, number, boolean, object) and then alphabetically within each type.
+This rule enforces that object destructuring properties are sorted alphabetically, with properties that have default values coming first. Both groups (defaults and non-defaults) are sorted alphabetically (A-Z).
 
 ### Why?
 
@@ -17,14 +17,8 @@ This rule enforces that object destructuring properties are sorted alphabeticall
 
 Properties are sorted in this order:
 
-1. **Properties with defaults** (sorted by type, then alphabetically):
-   - String defaults (alphabetically)
-   - Number defaults (alphabetically)
-   - Boolean defaults (alphabetically)
-   - Object/Array defaults (alphabetically)
-   - Other defaults (alphabetically)
-
-2. **Properties without defaults** (alphabetically)
+1. **Properties with defaults** (sorted alphabetically A-Z)
+2. **Properties without defaults** (sorted alphabetically A-Z)
 
 ## Examples
 
@@ -51,18 +45,23 @@ const { a, d = "string", e = 0 } = foo;
 ```
 
 ```js
-// Bad: Defaults not sorted by type (number before string)
+// Bad: Defaults not sorted alphabetically (e before d)
 const { e = 0, d = "string", a, b } = foo;
 ```
 
 ```js
-// Bad: String defaults not sorted alphabetically
+// Bad: Defaults not sorted alphabetically (b before a)
 const { b = "beta", a = "alpha", c } = foo;
 ```
 
 ```js
 // Bad: Properties reversed
 const { b, a } = foo;
+```
+
+```js
+// Bad: Defaults not sorted alphabetically (duration before autoplay)
+const { duration = 5000, autoplay = false, totalSlides } = options;
 ```
 
 ### ✅ Correct
@@ -73,12 +72,7 @@ const { a, b, c, d } = foo;
 ```
 
 ```js
-// Good: Defaults first, sorted by type (string, number, boolean), then non-defaults
-const { d = "string", e = 0, f = true, a, b, c } = foo;
-```
-
-```js
-// Good: String defaults first (sorted alphabetically), then non-defaults
+// Good: Defaults first (sorted alphabetically), then non-defaults
 const { a = "alpha", b = "beta", c, d } = foo;
 ```
 
@@ -98,18 +92,23 @@ const { a = {}, b = [], c, d } = foo;
 ```
 
 ```js
-// Good: Mixed default types sorted by type order, then non-defaults
-const { name = "default", age = 0, active = true, data = {}, x, y, z } = foo;
+// Good: Mixed default types sorted alphabetically, then non-defaults alphabetically
+const { active = true, age = 0, data = {}, name = "default", x, y, z } = foo;
 ```
 
 ```js
-// Good: All defaults sorted by type and alphabetically
+// Good: All defaults sorted alphabetically
 const { a = "test", b = "value", c = 1, d = 2 } = foo;
 ```
 
 ```js
 // Good: With rest element at end
 const { a, b, ...rest } = foo;
+```
+
+```js
+// Good: Defaults alphabetically sorted (autoplay, duration), then non-defaults
+const { autoplay = false, duration = 5000, totalSlides } = options;
 ```
 
 ## When Not To Use It

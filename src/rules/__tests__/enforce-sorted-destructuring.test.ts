@@ -37,12 +37,8 @@ describe("enforce-sorted-destructuring", () => {
         name: "two properties sorted",
       },
       {
-        code: 'const { d = "string", e = 0, f = true, a, b, c } = foo;',
-        name: "defaults first, sorted by type (string, number, boolean), then non-defaults",
-      },
-      {
         code: 'const { a = "alpha", b = "beta", c, d } = foo;',
-        name: "string defaults first (sorted alphabetically), then non-defaults",
+        name: "defaults first (sorted alphabetically), then non-defaults",
       },
       {
         code: "const { a = 1, b = 2, c, d } = foo;",
@@ -57,10 +53,6 @@ describe("enforce-sorted-destructuring", () => {
         name: "object defaults first (sorted alphabetically), then non-defaults",
       },
       {
-        code: 'const { name = "default", age = 0, active = true, data = {}, x, y, z } = foo;',
-        name: "mixed default types sorted by type order, then non-defaults",
-      },
-      {
         code: "const { a, b, ...rest } = foo;",
         name: "with rest element at end",
       },
@@ -70,7 +62,19 @@ describe("enforce-sorted-destructuring", () => {
       },
       {
         code: 'const { a = "test", b = "value", c = 1, d = 2 } = foo;',
-        name: "all defaults sorted by type and alphabetically",
+        name: "all defaults sorted alphabetically",
+      },
+      {
+        code: "const { autoplay = false, duration = 5000, totalSlides } = options;",
+        name: "defaults alphabetically sorted, then non-defaults",
+      },
+      {
+        code: 'const { active = true, age = 0, data = {}, name = "default", x, y, z } = foo;',
+        name: "mixed default types sorted alphabetically, then non-defaults alphabetically",
+      },
+      {
+        code: 'const { d = "string", e = 0, f = true, a, b, c } = foo;',
+        name: "defaults first alphabetically (d, e, f), then non-defaults alphabetically (a, b, c)",
       },
     ],
     invalid: [
@@ -126,7 +130,7 @@ describe("enforce-sorted-destructuring", () => {
             messageId: "unsortedDestructuring",
           },
         ],
-        name: "defaults not sorted by type (number before string)",
+        name: "defaults not sorted alphabetically (e before d)",
       },
       {
         code: 'const { b = "beta", a = "alpha", c } = foo;',
@@ -135,7 +139,7 @@ describe("enforce-sorted-destructuring", () => {
             messageId: "unsortedDestructuring",
           },
         ],
-        name: "string defaults not sorted alphabetically",
+        name: "defaults not sorted alphabetically (b before a)",
       },
       {
         code: "const { b = 2, a = 1, c } = foo;",
@@ -144,7 +148,7 @@ describe("enforce-sorted-destructuring", () => {
             messageId: "unsortedDestructuring",
           },
         ],
-        name: "number defaults not sorted alphabetically",
+        name: "defaults not sorted alphabetically",
       },
       {
         code: "const { z, y, x, a, b, c } = foo;",
@@ -163,6 +167,24 @@ describe("enforce-sorted-destructuring", () => {
           },
         ],
         name: "non-defaults before defaults and not sorted",
+      },
+      {
+        code: "const { duration = 5000, autoplay = false, totalSlides } = options;",
+        errors: [
+          {
+            messageId: "unsortedDestructuring",
+          },
+        ],
+        name: "defaults not sorted alphabetically (duration before autoplay)",
+      },
+      {
+        code: 'const { name = "default", age = 0, active = true, data = {}, x, y, z } = foo;',
+        errors: [
+          {
+            messageId: "unsortedDestructuring",
+          },
+        ],
+        name: "defaults not sorted alphabetically (name, age, active, data should be active, age, data, name)",
       },
     ],
   });
