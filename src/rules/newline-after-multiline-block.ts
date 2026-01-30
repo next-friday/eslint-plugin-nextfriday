@@ -28,19 +28,15 @@ function checkStatements(
       return;
     }
 
-    const isMultiline = current.loc.start.line !== current.loc.end.line;
-
-    if (!isMultiline) {
-      return;
-    }
-
     if (isImportDeclaration(current) && isImportDeclaration(next)) {
       return;
     }
 
+    const currentIsMultiline = current.loc.start.line !== current.loc.end.line;
+    const nextIsMultiline = next.loc.start.line !== next.loc.end.line;
     const lineGap = next.loc.start.line - current.loc.end.line;
 
-    if (lineGap < 2) {
+    if ((currentIsMultiline || nextIsMultiline) && lineGap < 2) {
       context.report({
         node: next,
         messageId: "requireNewline",
