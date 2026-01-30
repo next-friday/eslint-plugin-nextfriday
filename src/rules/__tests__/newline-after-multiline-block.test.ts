@@ -93,7 +93,7 @@ const b = {
   x: 1,
 };
         `,
-        name: "single-line before multi-line is fine",
+        name: "single-line before multi-line with blank line is fine",
       },
       {
         code: `
@@ -375,6 +375,54 @@ import {
 const baz = 1;
         `,
         name: "missing blank line after multi-line import followed by non-import",
+      },
+      {
+        code: `
+const a = 1;
+const b = {
+  x: 1,
+};
+        `,
+        errors: [
+          {
+            messageId: "requireNewline",
+          },
+        ],
+        output: `
+const a = 1;
+
+const b = {
+  x: 1,
+};
+        `,
+        name: "missing blank line before multi-line statement",
+      },
+      {
+        code: `
+const topLevelCategory = CATEGORIES.find((category) => category.href === pathname);
+const nestedCategory = CATEGORIES.flatMap((category) => category.children ?? []).find(
+  (child) => child.href === pathname,
+);
+const activeCategoryId = topLevelCategory?.id ?? nestedCategory?.id ?? "1";
+        `,
+        errors: [
+          {
+            messageId: "requireNewline",
+          },
+          {
+            messageId: "requireNewline",
+          },
+        ],
+        output: `
+const topLevelCategory = CATEGORIES.find((category) => category.href === pathname);
+
+const nestedCategory = CATEGORIES.flatMap((category) => category.children ?? []).find(
+  (child) => child.href === pathname,
+);
+
+const activeCategoryId = topLevelCategory?.id ?? nestedCategory?.id ?? "1";
+        `,
+        name: "missing blank lines around multi-line chained method call",
       },
     ],
   });
