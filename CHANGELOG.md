@@ -1,5 +1,13 @@
 # eslint-plugin-nextfriday
 
+## 1.12.1
+
+### Patch Changes
+
+- [#59](https://github.com/next-friday/eslint-plugin-nextfriday/pull/59) [`04c313f`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/04c313f5fcdbbae469d472e7a481197cf891fb9e) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - fix(newline-after-multiline-block): require blank line before multi-line statements
+
+  The rule now enforces blank lines both before AND after multi-line statements, not just after.
+
 ## 1.12.0
 
 ### Minor Changes
