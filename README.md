@@ -63,6 +63,7 @@ export default [
       "nextfriday/no-single-char-variables": "error",
       "nextfriday/no-lazy-identifiers": "error",
       "nextfriday/boolean-naming-prefix": "error",
+      "nextfriday/enforce-constant-case": "error",
 
       // File Naming
       "nextfriday/file-kebab-case": "error",
@@ -76,14 +77,21 @@ export default [
       "nextfriday/require-explicit-return-type": "error",
       "nextfriday/no-complex-inline-return": "error",
       "nextfriday/no-logic-in-params": "error",
+      "nextfriday/enforce-hook-naming": "error",
+      "nextfriday/enforce-service-naming": "error",
       "nextfriday/enforce-sorted-destructuring": "error",
       "nextfriday/no-env-fallback": "error",
       "nextfriday/no-inline-default-export": "error",
       "nextfriday/newline-after-multiline-block": "error",
       "nextfriday/newline-before-return": "error",
       "nextfriday/no-inline-nested-object": "error",
+      "nextfriday/prefer-async-await": "error",
+      "nextfriday/enforce-curly-newline": "error",
+      "nextfriday/no-nested-ternary": "error",
+      "nextfriday/prefer-guard-clause": "error",
 
       // Import Optimization
+      "nextfriday/no-relative-imports": "error",
       "nextfriday/prefer-import-type": "error",
       "nextfriday/prefer-react-import-types": "error",
 
@@ -93,11 +101,17 @@ export default [
 
       // React/JSX
       "nextfriday/jsx-newline-between-elements": "error",
+      "nextfriday/jsx-no-inline-object-prop": "error",
       "nextfriday/jsx-no-non-component-function": "error",
       "nextfriday/jsx-no-variable-in-callback": "error",
+      "nextfriday/jsx-require-suspense": "error",
       "nextfriday/prefer-jsx-template-literals": "error",
       "nextfriday/react-props-destructure": "error",
+      "nextfriday/enforce-props-suffix": "error",
       "nextfriday/enforce-readonly-component-props": "error",
+
+      // Next.js
+      "nextfriday/nextjs-require-public-env": "error",
     },
   },
 ];
@@ -141,6 +155,7 @@ module.exports = {
 | [no-single-char-variables](docs/rules/NO_SINGLE_CHAR_VARIABLES.md) | Disallow single character variable names (e.g., `d`, `u`, `l`)        | ❌      |
 | [no-lazy-identifiers](docs/rules/NO_LAZY_IDENTIFIERS.md)           | Disallow lazy identifiers like `xxx`, `asdf`, `qwerty`                | ❌      |
 | [boolean-naming-prefix](docs/rules/BOOLEAN_NAMING_PREFIX.md)       | Enforce boolean variables to have prefix (is, has, should, can, etc.) | ❌      |
+| [enforce-constant-case](docs/rules/ENFORCE_CONSTANT_CASE.md)       | Enforce SCREAMING_SNAKE_CASE for constant primitive values            | ❌      |
 
 ### File Naming Rules
 
@@ -160,6 +175,8 @@ module.exports = {
 | [require-explicit-return-type](docs/rules/REQUIRE_EXPLICIT_RETURN_TYPE.md)   | Require explicit return types on functions for better documentation    | ❌      |
 | [no-complex-inline-return](docs/rules/NO_COMPLEX_INLINE_RETURN.md)           | Disallow complex inline expressions in return - extract to const first | ❌      |
 | [no-logic-in-params](docs/rules/NO_LOGIC_IN_PARAMS.md)                       | Disallow logic/conditions in function parameters - extract to const    | ❌      |
+| [enforce-hook-naming](docs/rules/ENFORCE_HOOK_NAMING.md)                     | Enforce 'use' prefix for functions in \*.hook.ts files                 | ❌      |
+| [enforce-service-naming](docs/rules/ENFORCE_SERVICE_NAMING.md)               | Enforce 'fetch' prefix for async functions in \*.service.ts files      | ❌      |
 | [enforce-sorted-destructuring](docs/rules/ENFORCE_SORTED_DESTRUCTURING.md)   | Enforce alphabetical sorting of destructured properties                | ❌      |
 | [no-env-fallback](docs/rules/NO_ENV_FALLBACK.md)                             | Disallow fallback values for environment variables                     | ❌      |
 | [no-inline-default-export](docs/rules/NO_INLINE_DEFAULT_EXPORT.md)           | Disallow inline default exports - declare first, then export           | ❌      |
@@ -167,13 +184,18 @@ module.exports = {
 | [newline-after-multiline-block](docs/rules/NEWLINE_AFTER_MULTILINE_BLOCK.md) | Require a blank line after multi-line statements                       | ✅      |
 | [newline-before-return](docs/rules/NEWLINE_BEFORE_RETURN.md)                 | Require a blank line before return statements                          | ✅      |
 | [no-inline-nested-object](docs/rules/NO_INLINE_NESTED_OBJECT.md)             | Require nested objects and arrays to span multiple lines               | ✅      |
+| [prefer-async-await](docs/rules/PREFER_ASYNC_AWAIT.md)                       | Enforce async/await over .then() promise chains                        | ❌      |
+| [enforce-curly-newline](docs/rules/ENFORCE_CURLY_NEWLINE.md)                 | Enforce curly braces for multi-line if, forbid for single-line         | ✅      |
+| [no-nested-ternary](docs/rules/NO_NESTED_TERNARY.md)                         | Disallow nested ternary expressions                                    | ❌      |
+| [prefer-guard-clause](docs/rules/PREFER_GUARD_CLAUSE.md)                     | Enforce guard clause pattern instead of nested if statements           | ❌      |
 
 ### Import Optimization Rules
 
-| Rule                                                                 | Description                                            | Fixable |
-| -------------------------------------------------------------------- | ------------------------------------------------------ | ------- |
-| [prefer-import-type](docs/rules/PREFER_IMPORT_TYPE.md)               | Enforce using 'import type' for type-only imports      | ✅      |
-| [prefer-react-import-types](docs/rules/PREFER_REACT_IMPORT_TYPES.md) | Enforce direct imports from 'react' instead of React.X | ✅      |
+| Rule                                                                 | Description                                               | Fixable |
+| -------------------------------------------------------------------- | --------------------------------------------------------- | ------- |
+| [no-relative-imports](docs/rules/NO_RELATIVE_IMPORTS.md)             | Disallow relative imports with ../ - use absolute imports | ❌      |
+| [prefer-import-type](docs/rules/PREFER_IMPORT_TYPE.md)               | Enforce using 'import type' for type-only imports         | ✅      |
+| [prefer-react-import-types](docs/rules/PREFER_REACT_IMPORT_TYPES.md) | Enforce direct imports from 'react' instead of React.X    | ✅      |
 
 ### Type Pattern Rules
 
@@ -187,30 +209,43 @@ module.exports = {
 | Rule                                                                               | Description                                                          | Fixable |
 | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ------- |
 | [jsx-newline-between-elements](docs/rules/JSX_NEWLINE_BETWEEN_ELEMENTS.md)         | Require empty lines between sibling multi-line JSX elements          | ✅      |
+| [jsx-no-inline-object-prop](docs/rules/JSX_NO_INLINE_OBJECT_PROP.md)               | Disallow inline object literals in JSX props                         | ❌      |
 | [jsx-no-non-component-function](docs/rules/JSX_NO_NON_COMPONENT_FUNCTION.md)       | Disallow non-component functions at top level in .tsx/.jsx files     | ❌      |
 | [jsx-no-variable-in-callback](docs/rules/JSX_NO_VARIABLE_IN_CALLBACK.md)           | Disallow variable declarations inside callback functions in JSX      | ❌      |
+| [jsx-require-suspense](docs/rules/JSX_REQUIRE_SUSPENSE.md)                         | Require lazy-loaded components to be wrapped in Suspense             | ❌      |
 | [prefer-jsx-template-literals](docs/rules/PREFER_JSX_TEMPLATE_LITERALS.md)         | Enforce template literals instead of mixing text and JSX expressions | ✅      |
 | [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                   | Enforce destructuring props inside React component body              | ❌      |
+| [enforce-props-suffix](docs/rules/ENFORCE_PROPS_SUFFIX.md)                         | Enforce 'Props' suffix for interfaces and types in \*.tsx files      | ❌      |
 | [enforce-readonly-component-props](docs/rules/ENFORCE_READONLY_COMPONENT_PROPS.md) | Enforce Readonly wrapper for React component props                   | ✅      |
+
+### Next.js Rules
+
+| Rule                                                                 | Description                                                   | Fixable |
+| -------------------------------------------------------------------- | ------------------------------------------------------------- | ------- |
+| [nextjs-require-public-env](docs/rules/NEXTJS_REQUIRE_PUBLIC_ENV.md) | Require NEXT*PUBLIC* prefix for env vars in client components | ❌      |
 
 ## Configurations
 
 ### Configuration Presets Overview
 
-| Preset               | Severity | Base Rules | JSX Rules | Total Rules |
-| -------------------- | -------- | ---------- | --------- | ----------- |
-| `base`               | warn     | 21         | 0         | 21          |
-| `base/recommended`   | error    | 21         | 0         | 21          |
-| `react`              | warn     | 21         | 8         | 29          |
-| `react/recommended`  | error    | 21         | 8         | 29          |
-| `nextjs`             | warn     | 21         | 8         | 29          |
-| `nextjs/recommended` | error    | 21         | 8         | 29          |
+| Preset               | Severity | Base Rules | JSX Rules | Next.js Rules | Total Rules |
+| -------------------- | -------- | ---------- | --------- | ------------- | ----------- |
+| `base`               | warn     | 29         | 0         | 0             | 29          |
+| `base/recommended`   | error    | 29         | 0         | 0             | 29          |
+| `react`              | warn     | 29         | 11        | 0             | 40          |
+| `react/recommended`  | error    | 29         | 11        | 0             | 40          |
+| `nextjs`             | warn     | 29         | 11        | 1             | 41          |
+| `nextjs/recommended` | error    | 29         | 11        | 1             | 41          |
 
-### Base Configuration Rules (21 rules)
+### Base Configuration Rules (29 rules)
 
 Included in `base`, `base/recommended`, and all other presets:
 
 - `nextfriday/boolean-naming-prefix`
+- `nextfriday/enforce-constant-case`
+- `nextfriday/enforce-curly-newline`
+- `nextfriday/enforce-hook-naming`
+- `nextfriday/enforce-service-naming`
 - `nextfriday/enforce-sorted-destructuring`
 - `nextfriday/file-kebab-case`
 - `nextfriday/md-filename-case-restriction`
@@ -224,26 +259,39 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/no-inline-nested-object`
 - `nextfriday/no-lazy-identifiers`
 - `nextfriday/no-logic-in-params`
+- `nextfriday/no-nested-ternary`
+- `nextfriday/no-relative-imports`
 - `nextfriday/no-single-char-variables`
+- `nextfriday/prefer-async-await`
 - `nextfriday/prefer-destructuring-params`
 - `nextfriday/prefer-function-declaration`
+- `nextfriday/prefer-guard-clause`
 - `nextfriday/prefer-import-type`
 - `nextfriday/prefer-named-param-types`
 - `nextfriday/prefer-react-import-types`
 - `nextfriday/require-explicit-return-type`
 
-### JSX Rules (8 rules)
+### JSX Rules (11 rules)
 
 Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recommended`:
 
+- `nextfriday/enforce-props-suffix`
 - `nextfriday/enforce-readonly-component-props`
 - `nextfriday/jsx-newline-between-elements`
+- `nextfriday/jsx-no-inline-object-prop`
 - `nextfriday/jsx-no-non-component-function`
 - `nextfriday/jsx-no-variable-in-callback`
 - `nextfriday/jsx-pascal-case`
+- `nextfriday/jsx-require-suspense`
 - `nextfriday/prefer-interface-over-inline-types`
 - `nextfriday/prefer-jsx-template-literals`
 - `nextfriday/react-props-destructure`
+
+### Next.js Only Rules (1 rule)
+
+Additionally included in `nextjs`, `nextjs/recommended` only:
+
+- `nextfriday/nextjs-require-public-env`
 
 ### Severity Levels
 
