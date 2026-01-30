@@ -1,10 +1,10 @@
 # newline-after-multiline-block
 
-Require a blank line after multi-line statements before the next statement.
+Require a blank line before and after multi-line statements.
 
 ## Rule Details
 
-This rule enforces a blank line after any statement that spans multiple lines before the next statement. This improves code readability by visually separating logical blocks. Single-line statements do not require blank lines after them.
+This rule enforces a blank line before and after any statement that spans multiple lines. This improves code readability by visually separating logical blocks. Single-line statements do not require blank lines between them.
 
 ### Examples
 
@@ -36,9 +36,18 @@ function formatCurrency(amount: number): string {
 }
 ```
 
+Missing blank line before a multi-line statement:
+
+```ts
+const pathname = "/categories/electronics";
+const nestedCategory = CATEGORIES.flatMap((category) => category.children ?? []).find(
+  (child) => child.href === pathname,
+);
+```
+
 #### Correct
 
-Multi-line statements need a blank line after them:
+Multi-line statements need a blank line before and after them:
 
 ```ts
 const apiClient = axios.create({
@@ -67,6 +76,16 @@ function calculateTotal(items: CartItem[]): number {
 function formatCurrency(amount: number): string {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(amount);
 }
+```
+
+Blank line before a multi-line statement:
+
+```ts
+const pathname = "/categories/electronics";
+
+const nestedCategory = CATEGORIES.flatMap((category) => category.children ?? []).find(
+  (child) => child.href === pathname,
+);
 ```
 
 Single-line statements do not require blank lines:
