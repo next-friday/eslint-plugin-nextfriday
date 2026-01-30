@@ -1,5 +1,14 @@
 # eslint-plugin-nextfriday
 
+## 1.12.0
+
+### Minor Changes
+
+- [#57](https://github.com/next-friday/eslint-plugin-nextfriday/pull/57) [`8e93469`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/8e93469f96340af0cc92586a72aa36b0b88041d8) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - feat: add enforce-curly-newline, no-nested-ternary, and prefer-guard-clause rules
+  - enforce-curly-newline: Enforce curly braces for multi-line if statements and forbid them for single-line
+  - no-nested-ternary: Disallow nested ternary expressions
+  - prefer-guard-clause: Enforce guard clause pattern instead of nested if statements
+
 ## 1.11.1
 
 ### Patch Changes
