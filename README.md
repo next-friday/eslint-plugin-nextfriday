@@ -105,6 +105,7 @@ export default [
       "nextfriday/jsx-no-non-component-function": "error",
       "nextfriday/jsx-no-variable-in-callback": "error",
       "nextfriday/jsx-require-suspense": "error",
+      "nextfriday/jsx-simple-props": "error",
       "nextfriday/prefer-jsx-template-literals": "error",
       "nextfriday/react-props-destructure": "error",
       "nextfriday/enforce-props-suffix": "error",
@@ -206,17 +207,18 @@ module.exports = {
 
 ### React/JSX Rules
 
-| Rule                                                                               | Description                                                          | Fixable |
-| ---------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ------- |
-| [jsx-newline-between-elements](docs/rules/JSX_NEWLINE_BETWEEN_ELEMENTS.md)         | Require empty lines between sibling multi-line JSX elements          | ✅      |
-| [jsx-no-inline-object-prop](docs/rules/JSX_NO_INLINE_OBJECT_PROP.md)               | Disallow inline object literals in JSX props                         | ❌      |
-| [jsx-no-non-component-function](docs/rules/JSX_NO_NON_COMPONENT_FUNCTION.md)       | Disallow non-component functions at top level in .tsx/.jsx files     | ❌      |
-| [jsx-no-variable-in-callback](docs/rules/JSX_NO_VARIABLE_IN_CALLBACK.md)           | Disallow variable declarations inside callback functions in JSX      | ❌      |
-| [jsx-require-suspense](docs/rules/JSX_REQUIRE_SUSPENSE.md)                         | Require lazy-loaded components to be wrapped in Suspense             | ❌      |
-| [prefer-jsx-template-literals](docs/rules/PREFER_JSX_TEMPLATE_LITERALS.md)         | Enforce template literals instead of mixing text and JSX expressions | ✅      |
-| [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                   | Enforce destructuring props inside React component body              | ❌      |
-| [enforce-props-suffix](docs/rules/ENFORCE_PROPS_SUFFIX.md)                         | Enforce 'Props' suffix for interfaces and types in \*.tsx files      | ❌      |
-| [enforce-readonly-component-props](docs/rules/ENFORCE_READONLY_COMPONENT_PROPS.md) | Enforce Readonly wrapper for React component props                   | ✅      |
+| Rule                                                                               | Description                                                           | Fixable |
+| ---------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------- |
+| [jsx-newline-between-elements](docs/rules/JSX_NEWLINE_BETWEEN_ELEMENTS.md)         | Require empty lines between sibling multi-line JSX elements           | ✅      |
+| [jsx-no-inline-object-prop](docs/rules/JSX_NO_INLINE_OBJECT_PROP.md)               | Disallow inline object literals in JSX props                          | ❌      |
+| [jsx-no-non-component-function](docs/rules/JSX_NO_NON_COMPONENT_FUNCTION.md)       | Disallow non-component functions at top level in .tsx/.jsx files      | ❌      |
+| [jsx-no-variable-in-callback](docs/rules/JSX_NO_VARIABLE_IN_CALLBACK.md)           | Disallow variable declarations inside callback functions in JSX       | ❌      |
+| [jsx-require-suspense](docs/rules/JSX_REQUIRE_SUSPENSE.md)                         | Require lazy-loaded components to be wrapped in Suspense              | ❌      |
+| [jsx-simple-props](docs/rules/JSX_SIMPLE_PROPS.md)                                 | Enforce simple prop values (strings, variables, callbacks, ReactNode) | ❌      |
+| [prefer-jsx-template-literals](docs/rules/PREFER_JSX_TEMPLATE_LITERALS.md)         | Enforce template literals instead of mixing text and JSX expressions  | ✅      |
+| [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                   | Enforce destructuring props inside React component body               | ❌      |
+| [enforce-props-suffix](docs/rules/ENFORCE_PROPS_SUFFIX.md)                         | Enforce 'Props' suffix for interfaces and types in \*.tsx files       | ❌      |
+| [enforce-readonly-component-props](docs/rules/ENFORCE_READONLY_COMPONENT_PROPS.md) | Enforce Readonly wrapper for React component props                    | ✅      |
 
 ### Next.js Rules
 
@@ -232,10 +234,10 @@ module.exports = {
 | -------------------- | -------- | ---------- | --------- | ------------- | ----------- |
 | `base`               | warn     | 29         | 0         | 0             | 29          |
 | `base/recommended`   | error    | 29         | 0         | 0             | 29          |
-| `react`              | warn     | 29         | 11        | 0             | 40          |
-| `react/recommended`  | error    | 29         | 11        | 0             | 40          |
-| `nextjs`             | warn     | 29         | 11        | 1             | 41          |
-| `nextjs/recommended` | error    | 29         | 11        | 1             | 41          |
+| `react`              | warn     | 29         | 12        | 0             | 41          |
+| `react/recommended`  | error    | 29         | 12        | 0             | 41          |
+| `nextjs`             | warn     | 29         | 12        | 1             | 42          |
+| `nextjs/recommended` | error    | 29         | 12        | 1             | 42          |
 
 ### Base Configuration Rules (29 rules)
 
@@ -271,7 +273,7 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/prefer-react-import-types`
 - `nextfriday/require-explicit-return-type`
 
-### JSX Rules (11 rules)
+### JSX Rules (12 rules)
 
 Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recommended`:
 
@@ -283,6 +285,7 @@ Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recomme
 - `nextfriday/jsx-no-variable-in-callback`
 - `nextfriday/jsx-pascal-case`
 - `nextfriday/jsx-require-suspense`
+- `nextfriday/jsx-simple-props`
 - `nextfriday/prefer-interface-over-inline-types`
 - `nextfriday/prefer-jsx-template-literals`
 - `nextfriday/react-props-destructure`
