@@ -13,6 +13,7 @@ import jsxNewlineBetweenElements from "./rules/jsx-newline-between-elements";
 import jsxNoInlineObjectProp from "./rules/jsx-no-inline-object-prop";
 import jsxPascalCase from "./rules/jsx-pascal-case";
 import jsxRequireSuspense from "./rules/jsx-require-suspense";
+import jsxSimpleProps from "./rules/jsx-simple-props";
 import noDirectDate from "./rules/no-direct-date";
 import jsxNoVariableInCallback from "./rules/jsx-no-variable-in-callback";
 import mdFilenameCaseRestriction from "./rules/md-filename-case-restriction";
@@ -63,6 +64,7 @@ const rules = {
   "jsx-no-inline-object-prop": jsxNoInlineObjectProp,
   "jsx-pascal-case": jsxPascalCase,
   "jsx-require-suspense": jsxRequireSuspense,
+  "jsx-simple-props": jsxSimpleProps,
   "jsx-no-non-component-function": jsxNoNonComponentFunction,
   "jsx-no-variable-in-callback": jsxNoVariableInCallback,
   "md-filename-case-restriction": mdFilenameCaseRestriction,
@@ -171,6 +173,7 @@ const jsxRules = {
   "nextfriday/jsx-no-variable-in-callback": "warn",
   "nextfriday/jsx-pascal-case": "warn",
   "nextfriday/jsx-require-suspense": "warn",
+  "nextfriday/jsx-simple-props": "warn",
   "nextfriday/prefer-interface-over-inline-types": "warn",
   "nextfriday/prefer-jsx-template-literals": "warn",
   "nextfriday/react-props-destructure": "warn",
@@ -185,6 +188,7 @@ const jsxRecommendedRules = {
   "nextfriday/jsx-no-variable-in-callback": "error",
   "nextfriday/jsx-pascal-case": "error",
   "nextfriday/jsx-require-suspense": "error",
+  "nextfriday/jsx-simple-props": "error",
   "nextfriday/prefer-interface-over-inline-types": "error",
   "nextfriday/prefer-jsx-template-literals": "error",
   "nextfriday/react-props-destructure": "error",
