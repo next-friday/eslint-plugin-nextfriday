@@ -1,5 +1,20 @@
 # eslint-plugin-nextfriday
 
+## 1.13.0
+
+### Minor Changes
+
+- [#62](https://github.com/next-friday/eslint-plugin-nextfriday/pull/62) [`254a8e6`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/254a8e6d0e3d75b00d64ed3caad662457fd597e1) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - feat(rules): add jsx-simple-props rule
+
+  Adds a new rule that enforces JSX props to only contain simple values:
+  - String literals (`foo="bar"`)
+  - Simple variables (`foo={bar}`)
+  - Member expressions (`foo={bar.baz}`)
+  - JSX elements (`foo={<Icon />}`)
+  - Arrow functions and function expressions (`foo={() => {}}`)
+
+  Disallows complex expressions like function calls, inline objects, arrays, and operators.
+
 ## 1.12.1
 
 ### Patch Changes
