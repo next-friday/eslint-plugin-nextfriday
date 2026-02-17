@@ -35,6 +35,9 @@ describe("no-logic-in-params", () => {
       "const checked = a && b; functionFoo(checked);",
       "functionFoo({ a: 1, b: 2 });",
       "functionFoo([1, 2, 3]);",
+      "functionFoo(['a', 'b', 'c']);",
+      "functionFoo([foo, bar]);",
+      "functionFoo([foo.bar, baz]);",
       "functionFoo(getSomeValue());",
       "functionFoo(obj.method());",
       "functionFoo(obj.prop);",
@@ -197,6 +200,54 @@ describe("no-logic-in-params", () => {
       },
       {
         code: "functionFoo((a && b) || c);",
+        errors: [
+          {
+            messageId: "noLogicInParams",
+          },
+        ],
+      },
+      {
+        code: "functionFoo([condition ? value1 : value2]);",
+        errors: [
+          {
+            messageId: "noLogicInParams",
+          },
+        ],
+      },
+      {
+        code: "functionFoo([a && b]);",
+        errors: [
+          {
+            messageId: "noLogicInParams",
+          },
+        ],
+      },
+      {
+        code: "functionFoo([a || b]);",
+        errors: [
+          {
+            messageId: "noLogicInParams",
+          },
+        ],
+      },
+      {
+        code: "functionFoo(['a', condition ? 'b' : 'c', 'd']);",
+        errors: [
+          {
+            messageId: "noLogicInParams",
+          },
+        ],
+      },
+      {
+        code: "functionFoo([a === b]);",
+        errors: [
+          {
+            messageId: "noLogicInParams",
+          },
+        ],
+      },
+      {
+        code: "functionFoo([!value]);",
         errors: [
           {
             messageId: "noLogicInParams",
