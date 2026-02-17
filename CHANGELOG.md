@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.13.1
+
+### Patch Changes
+
+- [#64](https://github.com/next-friday/eslint-plugin-nextfriday/pull/64) [`d204681`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/d2046810c0cb39cea3c205af5cea6e00936dbfa7) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - fix(rules): detect logic inside array elements in no-logic-in-params
+
 ## 1.13.0
 
 ### Minor Changes
