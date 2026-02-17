@@ -45,26 +45,34 @@ const noLogicInParams = createRule({
       return false;
     };
 
+    const checkArguments = (args: TSESTree.CallExpressionArgument[]): void => {
+      args.forEach((arg) => {
+        if (isComplexExpression(arg)) {
+          context.report({
+            node: arg,
+            messageId: "noLogicInParams",
+          });
+        }
+
+        if (arg.type === AST_NODE_TYPES.ArrayExpression) {
+          arg.elements.forEach((element) => {
+            if (element && isComplexExpression(element)) {
+              context.report({
+                node: element,
+                messageId: "noLogicInParams",
+              });
+            }
+          });
+        }
+      });
+    };
+
     return {
       CallExpression(node) {
-        node.arguments.forEach((arg) => {
-          if (isComplexExpression(arg)) {
-            context.report({
-              node: arg,
-              messageId: "noLogicInParams",
-            });
-          }
-        });
+        checkArguments(node.arguments);
       },
       NewExpression(node) {
-        node.arguments.forEach((arg) => {
-          if (isComplexExpression(arg)) {
-            context.report({
-              node: arg,
-              messageId: "noLogicInParams",
-            });
-          }
-        });
+        checkArguments(node.arguments);
       },
     };
   },

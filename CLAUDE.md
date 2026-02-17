@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is `eslint-plugin-nextfriday`, an ESLint plugin providing custom rules and configurations for Next Friday development workflows. Supports ESLint 9+ flat config with presets for base (JS/TS), React, and Next.js projects.
+This is `eslint-plugin-nextfriday`, an ESLint plugin providing custom rules and configurations for Next Friday development workflows. Supports ESLint 9+ flat config with presets for base (JS/TS), React, and Next.js projects. Built with tsup for dual CJS/ESM output.
 
 ## Development Commands
 
@@ -24,32 +24,37 @@ pnpm changeset           # Create a changeset for version bumping
 `src/index.ts` - Main plugin export containing:
 
 - `meta` - Plugin name and version from package.json
-- `rules` - All 41 rule implementations
+- `rules` - All 42 rule implementations keyed by hyphenated name
 - `configs` - Six configuration presets generated via `createConfig()`
+
+The plugin is exported both as default and as named exports `{ meta, configs, rules }`.
 
 ### Rule Structure
 
-- `src/rules/{rule-name}.ts` - Individual rule implementations using `ESLintUtils.RuleCreator()`
+- `src/rules/{rule-name}.ts` - Rule implementations using `ESLintUtils.RuleCreator()`
 - `src/rules/__tests__/{rule-name}.test.ts` - Tests using `@typescript-eslint/rule-tester`
 - `docs/rules/{RULE_NAME_UPPERCASE}.md` - Rule documentation (hyphens become underscores)
 
+All rules use `schema: []` and `defaultOptions: []` (no configurable options).
+
 ### Configuration Presets
 
-Three rule sets combined into six configs:
-
-**Base rules (29 rules):** Variable naming, file naming, code style, import optimization
-**JSX rules (11 rules):** React component conventions, JSX formatting
-**Next.js rules (1 rule):** Next.js-specific rules (e.g., `nextjs-require-public-env`)
+Six configs built from three rule set tiers. Each tier has a `warn` variant and a `Recommended` (`error`) variant defined as separate constants in `src/index.ts` (e.g., `baseRules`/`baseRecommendedRules`, `jsxRules`/`jsxRecommendedRules`, `nextjsOnlyRules`/`nextjsOnlyRecommendedRules`).
 
 | Preset                          | Rules                       | Severity     |
 | ------------------------------- | --------------------------- | ------------ |
 | `base` / `base/recommended`     | 29 base                     | warn / error |
-| `react` / `react/recommended`   | 29 base + 11 JSX            | warn / error |
-| `nextjs` / `nextjs/recommended` | 29 base + 11 JSX + 1 nextjs | warn / error |
+| `react` / `react/recommended`   | 29 base + 12 JSX            | warn / error |
+| `nextjs` / `nextjs/recommended` | 29 base + 12 JSX + 1 nextjs | warn / error |
 
 ### Utilities
 
-`src/utils.ts` - Shared functions for filename parsing, file type detection, and function parameter analysis.
+`src/utils.ts` - Shared functions for filename parsing (`getFileExtension`, `getBaseName`), file type detection (`isJsFile`, `isJsxFile`, `isConfigFile`), and function parameter analysis (`getFunctionParams`, `hasMultipleParams`, `hasNonDestructuredParams`).
+
+### Test Structure
+
+- **Per-rule tests** use `@typescript-eslint/rule-tester` wired to Jest hooks (`RuleTester.afterAll = afterAll`, etc.). Each test file has valid/invalid cases plus a structural `describe` block asserting `meta` and `create` exist.
+- **Integration test** at `src/__tests__/rules.test.ts` asserts the exact rule count and that every rule name is present. This must be updated when adding/removing rules.
 
 ## Creating New Rules
 
@@ -58,12 +63,13 @@ Three rule sets combined into six configs:
 3. Register in `src/index.ts`:
    - Import the rule
    - Add to `rules` object
-   - Add to appropriate rule set: `baseRules`/`baseRecommendedRules`, `jsxRules`/`jsxRecommendedRules`, or `nextjsOnlyRules`/`nextjsOnlyRecommendedRules`
+   - Add to both the warn and recommended variants of the appropriate rule set (e.g., `jsxRules` AND `jsxRecommendedRules`)
 4. Create documentation: `docs/rules/{RULE_NAME_UPPERCASE}.md`
 5. Update README.md rules table
 6. Update `src/__tests__/rules.test.ts`:
-   - Update rule count in "should have exactly X rules" test
+   - Update rule count in "should have exactly N rules" test
    - Add rule name to "should have correct rule names" test
+7. Create a changeset: `pnpm changeset` (required for CI to pass on PRs that change `src/` or `docs/`)
 
 ### Rule Documentation URL Pattern
 
@@ -71,6 +77,22 @@ Three rule sets combined into six configs:
 (name) =>
   `https://github.com/next-friday/eslint-plugin-nextfriday/blob/main/docs/rules/${name.replaceAll("-", "_").toUpperCase()}.md`;
 ```
+
+## Commit Conventions
+
+Commits are validated by commitlint (conventional commits). Requirements:
+
+- Format: `type(scope): subject` - scope is **required**, body and footer are **forbidden**
+- Subject: max 50 chars, must not start with uppercase
+- Types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`
+
+Git hooks (husky): `pre-commit` runs lint-staged, `pre-push` runs tests + typecheck + build, `commit-msg` runs commitlint.
+
+## CI Requirements
+
+- PRs changing `src/` or `docs/` (excluding tests) must include a `.changeset/*.md` file
+- Manual edits to `package.json` or `CHANGELOG.md` will fail CI (must go through changesets)
+- PR titles must follow semantic format with required scope, max 50 char subject, no uppercase start
 
 ## Code Style
 
