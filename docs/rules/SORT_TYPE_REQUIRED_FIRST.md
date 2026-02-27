@@ -2,6 +2,8 @@
 
 Enforce required properties come before optional properties in TypeScript interfaces and type aliases.
 
+This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+
 ## Rule Details
 
 This rule enforces that TypeScript interface and type alias required (non-optional) properties come before optional properties.

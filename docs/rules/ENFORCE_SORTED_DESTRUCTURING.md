@@ -2,6 +2,8 @@
 
 Enforce alphabetical sorting of destructured properties with defaults first.
 
+This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+
 ## Rule Details
 
 This rule enforces that object destructuring properties are sorted alphabetically, with properties that have default values coming first. Both groups (defaults and non-defaults) are sorted alphabetically (A-Z).

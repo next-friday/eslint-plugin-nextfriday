@@ -2,6 +2,8 @@
 
 Enforce a consistent ordering of export groups.
 
+This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+
 ## Rule Details
 
 This rule enforces that named export statements (without declarations) are grouped and ordered by their source type. It does not enforce alphabetical sorting within groups.

@@ -2,6 +2,8 @@
 
 Enforce alphabetical sorting of properties within required and optional groups in TypeScript interfaces and type aliases.
 
+This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+
 ## Rule Details
 
 This rule enforces that TypeScript interface and type alias properties are sorted alphabetically (A-Z) within their respective groups (required and optional). It checks each group independently.

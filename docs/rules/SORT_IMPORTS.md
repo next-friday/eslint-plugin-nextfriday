@@ -2,6 +2,8 @@
 
 Enforce a consistent ordering of import groups.
 
+This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+
 ## Rule Details
 
 This rule enforces that import statements are grouped and ordered by their source type. It does not enforce alphabetical sorting within groups.
