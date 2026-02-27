@@ -83,6 +83,10 @@ describe("prefer-import-type", () => {
         code: 'import { Factory } from "./factory";\nconst instance = new Factory();',
         name: "should not flag constructor usage",
       },
+      {
+        code: 'import { Component } from "src/components/base";',
+        name: "should not flag unused import (not yet referenced)",
+      },
     ],
     invalid: [
       {

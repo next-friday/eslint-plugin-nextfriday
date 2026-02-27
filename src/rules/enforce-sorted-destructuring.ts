@@ -14,6 +14,7 @@ const enforceSortedDestructuring = createRule({
     docs: {
       description: "Enforce alphabetical sorting of destructured properties with defaults first",
     },
+    fixable: "code",
     schema: [],
     messages: {
       unsortedDestructuring:
@@ -79,6 +80,12 @@ const enforceSortedDestructuring = createRule({
         context.report({
           node: node.id,
           messageId: "unsortedDestructuring",
+          fix(fixer) {
+            const { sourceCode } = context;
+            const sortedTexts = sorted.map((info) => sourceCode.getText(info.property));
+
+            return propertyInfo.map((info, index) => fixer.replaceText(info.property, sortedTexts[index]));
+          },
         });
       }
     }

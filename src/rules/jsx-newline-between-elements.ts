@@ -18,6 +18,7 @@ const jsxNewlineBetweenElements = createRule({
     schema: [],
     messages: {
       requireNewline: "Expected empty line between sibling JSX elements",
+      forbidNewline: "Unexpected empty line between single-line sibling JSX elements",
     },
   },
   defaultOptions: [],

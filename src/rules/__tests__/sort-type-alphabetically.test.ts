@@ -1,7 +1,7 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 import { afterAll, describe, it } from "@jest/globals";
 
-import sortTypeRequiredFirst from "../sort-type-required-first";
+import sortTypeAlphabetically from "../sort-type-alphabetically";
 
 RuleTester.afterAll = afterAll;
 RuleTester.it = it;
@@ -17,16 +17,16 @@ const ruleTester = new RuleTester({
   },
 });
 
-describe("sort-type-required-first", () => {
+describe("sort-type-alphabetically", () => {
   it("should have meta property", () => {
-    expect(sortTypeRequiredFirst).toHaveProperty("meta");
+    expect(sortTypeAlphabetically).toHaveProperty("meta");
   });
 
   it("should have create property", () => {
-    expect(sortTypeRequiredFirst).toHaveProperty("create");
+    expect(sortTypeAlphabetically).toHaveProperty("create");
   });
 
-  ruleTester.run("sort-type-required-first", sortTypeRequiredFirst, {
+  ruleTester.run("sort-type-alphabetically", sortTypeAlphabetically, {
     valid: [
       {
         code: `
@@ -34,9 +34,11 @@ interface Props {
   alt: string;
   size: string;
   src: string;
+  className?: string;
   label?: string;
+  onClick?: () => void;
 }`,
-        name: "required first then optional",
+        name: "required A-Z then optional A-Z",
       },
       {
         code: `
@@ -48,20 +50,20 @@ interface Props {
       {
         code: `
 interface Props {
-  c: boolean;
   a: string;
   b: number;
+  c: boolean;
 }`,
-        name: "all required, any order is fine",
+        name: "all required sorted A-Z",
       },
       {
         code: `
 interface Props {
-  b?: number;
   a?: string;
+  b?: number;
   c?: boolean;
 }`,
-        name: "all optional, any order is fine",
+        name: "all optional sorted A-Z",
       },
       {
         code: `interface Props {}`,
@@ -70,21 +72,12 @@ interface Props {
       {
         code: `
 type Props = {
-  src: string;
   alt: string;
+  size: string;
+  src: string;
   label?: string;
 }`,
-        name: "type alias with required first then optional",
-      },
-      {
-        code: `
-interface Props {
-  src: string;
-  alt: string;
-  visible?: boolean;
-  label?: string;
-}`,
-        name: "required first then optional, not alphabetical",
+        name: "type alias with A-Z within groups",
       },
       {
         code: `type Foo = string;`,
@@ -97,121 +90,116 @@ interface Props {
       {
         code: `
 interface Props {
-  onClick: () => void;
-  title: string;
   className?: string;
+  alt: string;
+  src: string;
+  label?: string;
 }`,
-        name: "required with function type first then optional",
+        name: "optional mixed with required but each group A-Z",
       },
     ],
     invalid: [
       {
         code: `
 interface Props {
-  alt: string;
-  label?: string;
-  size: string;
   src: string;
+  alt: string;
 }`,
         output: `
 interface Props {
   alt: string;
-  size: string;
   src: string;
-  label?: string;
 }`,
         errors: [{ messageId: "unsortedTypeMembers" }],
-        name: "optional mixed in with required properties",
+        name: "required not sorted A-Z",
       },
       {
         code: `
 interface Props {
-  label?: string;
-  alt: string;
+  b?: number;
+  a?: string;
+}`,
+        output: `
+interface Props {
+  a?: string;
+  b?: number;
+}`,
+        errors: [{ messageId: "unsortedTypeMembers" }],
+        name: "optional not sorted A-Z",
+      },
+      {
+        code: `
+interface Props {
   src: string;
+  alt: string;
+  label?: string;
+  className?: string;
 }`,
         output: `
 interface Props {
   alt: string;
   src: string;
+  className?: string;
   label?: string;
 }`,
         errors: [{ messageId: "unsortedTypeMembers" }],
-        name: "optional before required",
+        name: "both groups unsorted",
       },
       {
         code: `
 type Props = {
-  label?: string;
-  alt: string;
   size: string;
-  src: string;
+  alt: string;
+  label?: string;
 }`,
         output: `
 type Props = {
   alt: string;
   size: string;
-  src: string;
   label?: string;
 }`,
         errors: [{ messageId: "unsortedTypeMembers" }],
-        name: "type alias with optional before required",
+        name: "type alias with unsorted required group",
       },
       {
         code: `
-interface Props {
-  visible?: boolean;
-  alt: string;
-  label?: string;
-  size: string;
-  src: string;
-}`,
-        output: `
 interface Props {
   alt: string;
   size: string;
   src: string;
-  visible?: boolean;
+  label?: string;
+  className?: string;
+}`,
+        output: `
+interface Props {
+  alt: string;
+  size: string;
+  src: string;
+  className?: string;
   label?: string;
 }`,
         errors: [{ messageId: "unsortedTypeMembers" }],
-        name: "multiple optional mixed with required",
+        name: "required A-Z but optional not A-Z",
       },
       {
         code: `
 interface HeroBannerRootProps {
-  alt: string;
-  label?: string;
   size: "detail" | "highlight" | "main";
+  alt: string;
   src: string;
+  className?: string;
+  label?: string;
 }`,
         output: `
 interface HeroBannerRootProps {
   alt: string;
   size: "detail" | "highlight" | "main";
   src: string;
+  className?: string;
   label?: string;
 }`,
         errors: [{ messageId: "unsortedTypeMembers" }],
-        name: "optional in middle of required properties",
-      },
-      {
-        code: `
-interface Props {
-  a: string;
-  b: string;
-  c?: string;
-  d: string;
-}`,
-        output: `
-interface Props {
-  a: string;
-  b: string;
-  d: string;
-  c?: string;
-}`,
-        errors: [{ messageId: "unsortedTypeMembers" }],
-        name: "required after optional",
+        name: "required group not sorted A-Z",
       },
     ],
   });
