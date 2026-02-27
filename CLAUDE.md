@@ -98,6 +98,8 @@ Git hooks (husky): `pre-commit` runs lint-staged, `pre-push` runs tests + typech
 
 - No comments in code files - keep code self-documenting
 - Use clear, descriptive variable and function names
+- Never add "Generated with Claude Code" or any AI branding/attribution to PR descriptions, commit messages, or any public-facing content
+- No Co-Authored-By trailers in commits (commitlint forbids body/footer anyway)
 
 ## Requirements
 
