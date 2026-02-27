@@ -46,6 +46,21 @@ export default [nextfriday.configs.nextjs];
 export default [nextfriday.configs["nextjs/recommended"]];
 ```
 
+#### Bundled Plugin Configs
+
+Pre-configured configs for popular plugins. No extra install needed — they ship as dependencies.
+
+```js
+import nextfriday from "eslint-plugin-nextfriday";
+
+export default [nextfriday.configs["react/recommended"], ...nextfriday.configs.sonarjs, ...nextfriday.configs.unicorn];
+```
+
+| Config    | Plugin                | Description                                                                                                |
+| --------- | --------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `sonarjs` | eslint-plugin-sonarjs | SonarJS recommended rules for bug detection and code quality                                               |
+| `unicorn` | eslint-plugin-unicorn | Unicorn recommended rules (with `filename-case` and `prevent-abbreviations` off, `no-null` off in JSX/TSX) |
+
 ### Manual Configuration
 
 If you prefer to configure rules manually:
@@ -184,7 +199,7 @@ module.exports = {
 | [no-logic-in-params](docs/rules/NO_LOGIC_IN_PARAMS.md)                       | Disallow logic/conditions in function parameters - extract to const    | ❌      |
 | [enforce-hook-naming](docs/rules/ENFORCE_HOOK_NAMING.md)                     | Enforce 'use' prefix for functions in \*.hook.ts files                 | ❌      |
 | [enforce-service-naming](docs/rules/ENFORCE_SERVICE_NAMING.md)               | Enforce 'fetch' prefix for async functions in \*.service.ts files      | ❌      |
-| [enforce-sorted-destructuring](docs/rules/ENFORCE_SORTED_DESTRUCTURING.md)   | Enforce alphabetical sorting of destructured properties                | ❌      |
+| [enforce-sorted-destructuring](docs/rules/ENFORCE_SORTED_DESTRUCTURING.md)   | Enforce alphabetical sorting of destructured properties                | ✅      |
 | [no-env-fallback](docs/rules/NO_ENV_FALLBACK.md)                             | Disallow fallback values for environment variables                     | ❌      |
 | [no-inline-default-export](docs/rules/NO_INLINE_DEFAULT_EXPORT.md)           | Disallow inline default exports - declare first, then export           | ❌      |
 | [no-direct-date](docs/rules/NO_DIRECT_DATE.md)                               | Disallow direct usage of Date constructor and methods                  | ❌      |
@@ -203,8 +218,8 @@ module.exports = {
 | [no-relative-imports](docs/rules/NO_RELATIVE_IMPORTS.md)             | Disallow relative imports with ../ - use absolute imports | ❌      |
 | [prefer-import-type](docs/rules/PREFER_IMPORT_TYPE.md)               | Enforce using 'import type' for type-only imports         | ✅      |
 | [prefer-react-import-types](docs/rules/PREFER_REACT_IMPORT_TYPES.md) | Enforce direct imports from 'react' instead of React.X    | ✅      |
-| [sort-exports](docs/rules/SORT_EXPORTS.md)                           | Enforce a consistent ordering of export groups            | ❌      |
-| [sort-imports](docs/rules/SORT_IMPORTS.md)                           | Enforce a consistent ordering of import groups            | ❌      |
+| [sort-exports](docs/rules/SORT_EXPORTS.md)                           | Enforce a consistent ordering of export groups            | ✅      |
+| [sort-imports](docs/rules/SORT_IMPORTS.md)                           | Enforce a consistent ordering of import groups            | ✅      |
 
 ### Type Pattern Rules
 
@@ -212,8 +227,8 @@ module.exports = {
 | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------- |
 | [prefer-named-param-types](docs/rules/PREFER_NAMED_PARAM_TYPES.md)                     | Enforce named types for function parameters with object types    | ❌      |
 | [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md) | Enforce interface declarations over inline types for React props | ❌      |
-| [sort-type-alphabetically](docs/rules/SORT_TYPE_ALPHABETICALLY.md)                     | Enforce A-Z sorting of properties within type groups             | ❌      |
-| [sort-type-required-first](docs/rules/SORT_TYPE_REQUIRED_FIRST.md)                     | Enforce required properties before optional in types/interfaces  | ❌      |
+| [sort-type-alphabetically](docs/rules/SORT_TYPE_ALPHABETICALLY.md)                     | Enforce A-Z sorting of properties within type groups             | ✅      |
+| [sort-type-required-first](docs/rules/SORT_TYPE_REQUIRED_FIRST.md)                     | Enforce required properties before optional in types/interfaces  | ✅      |
 
 ### React/JSX Rules
 
