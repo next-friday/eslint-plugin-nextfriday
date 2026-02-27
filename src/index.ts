@@ -41,6 +41,7 @@ import preferJSXTemplateLiterals from "./rules/prefer-jsx-template-literals";
 import preferNamedParamTypes from "./rules/prefer-named-param-types";
 import preferReactImportTypes from "./rules/prefer-react-import-types";
 import reactPropsDestructure from "./rules/react-props-destructure";
+import sortTypeRequiredFirst from "./rules/sort-type-required-first";
 import nextjsRequirePublicEnv from "./rules/nextjs-require-public-env";
 
 import type { TSESLint } from "@typescript-eslint/utils";
@@ -92,6 +93,7 @@ const rules = {
   "prefer-named-param-types": preferNamedParamTypes,
   "prefer-react-import-types": preferReactImportTypes,
   "react-props-destructure": reactPropsDestructure,
+  "sort-type-required-first": sortTypeRequiredFirst,
   "nextjs-require-public-env": nextjsRequirePublicEnv,
 } as const satisfies Record<string, TSESLint.RuleModule<string, readonly unknown[]>>;
 
@@ -130,6 +132,7 @@ const baseRules = {
   "nextfriday/no-relative-imports": "warn",
   "nextfriday/no-single-char-variables": "warn",
   "nextfriday/prefer-async-await": "warn",
+  "nextfriday/sort-type-required-first": "warn",
 } as const;
 
 const baseRecommendedRules = {
@@ -162,6 +165,7 @@ const baseRecommendedRules = {
   "nextfriday/no-relative-imports": "error",
   "nextfriday/no-single-char-variables": "error",
   "nextfriday/prefer-async-await": "error",
+  "nextfriday/sort-type-required-first": "error",
 } as const;
 
 const jsxRules = {

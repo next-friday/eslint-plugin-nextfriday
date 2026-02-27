@@ -98,6 +98,7 @@ export default [
       // Type Patterns
       "nextfriday/prefer-named-param-types": "error",
       "nextfriday/prefer-interface-over-inline-types": "error",
+      "nextfriday/sort-type-required-first": "error",
 
       // React/JSX
       "nextfriday/jsx-newline-between-elements": "error",
@@ -204,6 +205,7 @@ module.exports = {
 | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------- |
 | [prefer-named-param-types](docs/rules/PREFER_NAMED_PARAM_TYPES.md)                     | Enforce named types for function parameters with object types    | ❌      |
 | [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md) | Enforce interface declarations over inline types for React props | ❌      |
+| [sort-type-required-first](docs/rules/SORT_TYPE_REQUIRED_FIRST.md)                     | Enforce required properties before optional in types/interfaces  | ❌      |
 
 ### React/JSX Rules
 
@@ -232,14 +234,14 @@ module.exports = {
 
 | Preset               | Severity | Base Rules | JSX Rules | Next.js Rules | Total Rules |
 | -------------------- | -------- | ---------- | --------- | ------------- | ----------- |
-| `base`               | warn     | 29         | 0         | 0             | 29          |
-| `base/recommended`   | error    | 29         | 0         | 0             | 29          |
-| `react`              | warn     | 29         | 12        | 0             | 41          |
-| `react/recommended`  | error    | 29         | 12        | 0             | 41          |
-| `nextjs`             | warn     | 29         | 12        | 1             | 42          |
-| `nextjs/recommended` | error    | 29         | 12        | 1             | 42          |
+| `base`               | warn     | 30         | 0         | 0             | 30          |
+| `base/recommended`   | error    | 30         | 0         | 0             | 30          |
+| `react`              | warn     | 30         | 12        | 0             | 42          |
+| `react/recommended`  | error    | 30         | 12        | 0             | 42          |
+| `nextjs`             | warn     | 30         | 12        | 1             | 43          |
+| `nextjs/recommended` | error    | 30         | 12        | 1             | 43          |
 
-### Base Configuration Rules (29 rules)
+### Base Configuration Rules (30 rules)
 
 Included in `base`, `base/recommended`, and all other presets:
 
@@ -272,6 +274,7 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/prefer-named-param-types`
 - `nextfriday/prefer-react-import-types`
 - `nextfriday/require-explicit-return-type`
+- `nextfriday/sort-type-required-first`
 
 ### JSX Rules (12 rules)
 

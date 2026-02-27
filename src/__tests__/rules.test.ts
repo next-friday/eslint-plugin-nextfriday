@@ -96,8 +96,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 42 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(42);
+  it("should have exactly 43 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(43);
   });
 
   it("should have correct rule names", () => {
@@ -144,6 +144,7 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("prefer-guard-clause");
     expect(ruleNames).toContain("no-direct-date");
     expect(ruleNames).toContain("nextjs-require-public-env");
+    expect(ruleNames).toContain("sort-type-required-first");
   });
 
   it("should have prefer-interface-over-inline-types rule", () => {
