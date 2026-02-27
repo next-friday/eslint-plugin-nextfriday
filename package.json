@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-nextfriday",
-  "version": "1.14.0",
+  "version": "1.15.0",
   "description": "A comprehensive ESLint plugin providing custom rules and configurations for Next Friday development workflows.",
   "keywords": [
     "eslint",

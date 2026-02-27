@@ -1,5 +1,15 @@
 # eslint-plugin-nextfriday
 
+## 1.15.0
+
+### Minor Changes
+
+- [#68](https://github.com/next-friday/eslint-plugin-nextfriday/pull/68) [`857906e`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/857906e5264ef87a988ba5429019c004360fa2a1) Thanks [@nextfridaydeveloper](https://github.com/nextfridaydeveloper)! - Add sort-imports, sort-exports, sort-type-alphabetically, jsx-sort-props, jsx-no-newline-single-line-elements rules. Add auto-fix to sorting rules. Bundle eslint-plugin-unicorn and eslint-plugin-sonarjs configs.
+
+### Patch Changes
+
+- [#69](https://github.com/next-friday/eslint-plugin-nextfriday/pull/69) [`2475fc5`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/2475fc5e7d80c2b158cddbed961dbb7e4e348188) Thanks [@joetakara](https://github.com/joetakara)! - Fix CJS compatibility for bundled eslint-plugin-sonarjs and eslint-plugin-unicorn configs.
+
 ## 1.14.0
 
 ### Minor Changes
