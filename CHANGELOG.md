@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.14.0
+
+### Minor Changes
+
+- [#66](https://github.com/next-friday/eslint-plugin-nextfriday/pull/66) [`8a1b394`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/8a1b3948d559e3436d85cf8210aa7360c8498151) Thanks [@joetakara](https://github.com/joetakara)! - feat(rules): add sort-type-required-first rule
+
 ## 1.13.1
 
 ### Patch Changes
