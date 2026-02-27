@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.15.1
+
+### Patch Changes
+
+- [#71](https://github.com/next-friday/eslint-plugin-nextfriday/pull/71) [`4831ea6`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/4831ea697e9dfe38361b3a3577b67692ea1cd862) Thanks [@joetakara](https://github.com/joetakara)! - Update docs: add fixable info to sorting rules, add bundled plugin configs section to README.
+
 ## 1.15.0
 
 ### Minor Changes
