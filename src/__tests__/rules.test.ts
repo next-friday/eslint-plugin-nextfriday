@@ -96,8 +96,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 43 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(43);
+  it("should have exactly 48 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(48);
   });
 
   it("should have correct rule names", () => {
@@ -109,6 +109,7 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("jsx-pascal-case");
     expect(ruleNames).toContain("jsx-require-suspense");
     expect(ruleNames).toContain("jsx-simple-props");
+    expect(ruleNames).toContain("jsx-no-newline-single-line-elements");
     expect(ruleNames).toContain("jsx-no-non-component-function");
     expect(ruleNames).toContain("jsx-no-variable-in-callback");
     expect(ruleNames).toContain("md-filename-case-restriction");
@@ -144,6 +145,10 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("prefer-guard-clause");
     expect(ruleNames).toContain("no-direct-date");
     expect(ruleNames).toContain("nextjs-require-public-env");
+    expect(ruleNames).toContain("jsx-sort-props");
+    expect(ruleNames).toContain("sort-exports");
+    expect(ruleNames).toContain("sort-imports");
+    expect(ruleNames).toContain("sort-type-alphabetically");
     expect(ruleNames).toContain("sort-type-required-first");
   });
 

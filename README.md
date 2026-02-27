@@ -94,19 +94,24 @@ export default [
       "nextfriday/no-relative-imports": "error",
       "nextfriday/prefer-import-type": "error",
       "nextfriday/prefer-react-import-types": "error",
+      "nextfriday/sort-exports": "error",
+      "nextfriday/sort-imports": "error",
 
       // Type Patterns
       "nextfriday/prefer-named-param-types": "error",
       "nextfriday/prefer-interface-over-inline-types": "error",
+      "nextfriday/sort-type-alphabetically": "error",
       "nextfriday/sort-type-required-first": "error",
 
       // React/JSX
       "nextfriday/jsx-newline-between-elements": "error",
       "nextfriday/jsx-no-inline-object-prop": "error",
+      "nextfriday/jsx-no-newline-single-line-elements": "error",
       "nextfriday/jsx-no-non-component-function": "error",
       "nextfriday/jsx-no-variable-in-callback": "error",
       "nextfriday/jsx-require-suspense": "error",
       "nextfriday/jsx-simple-props": "error",
+      "nextfriday/jsx-sort-props": "error",
       "nextfriday/prefer-jsx-template-literals": "error",
       "nextfriday/react-props-destructure": "error",
       "nextfriday/enforce-props-suffix": "error",
@@ -198,6 +203,8 @@ module.exports = {
 | [no-relative-imports](docs/rules/NO_RELATIVE_IMPORTS.md)             | Disallow relative imports with ../ - use absolute imports | ❌      |
 | [prefer-import-type](docs/rules/PREFER_IMPORT_TYPE.md)               | Enforce using 'import type' for type-only imports         | ✅      |
 | [prefer-react-import-types](docs/rules/PREFER_REACT_IMPORT_TYPES.md) | Enforce direct imports from 'react' instead of React.X    | ✅      |
+| [sort-exports](docs/rules/SORT_EXPORTS.md)                           | Enforce a consistent ordering of export groups            | ❌      |
+| [sort-imports](docs/rules/SORT_IMPORTS.md)                           | Enforce a consistent ordering of import groups            | ❌      |
 
 ### Type Pattern Rules
 
@@ -205,22 +212,25 @@ module.exports = {
 | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------- |
 | [prefer-named-param-types](docs/rules/PREFER_NAMED_PARAM_TYPES.md)                     | Enforce named types for function parameters with object types    | ❌      |
 | [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md) | Enforce interface declarations over inline types for React props | ❌      |
+| [sort-type-alphabetically](docs/rules/SORT_TYPE_ALPHABETICALLY.md)                     | Enforce A-Z sorting of properties within type groups             | ❌      |
 | [sort-type-required-first](docs/rules/SORT_TYPE_REQUIRED_FIRST.md)                     | Enforce required properties before optional in types/interfaces  | ❌      |
 
 ### React/JSX Rules
 
-| Rule                                                                               | Description                                                           | Fixable |
-| ---------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------- |
-| [jsx-newline-between-elements](docs/rules/JSX_NEWLINE_BETWEEN_ELEMENTS.md)         | Require empty lines between sibling multi-line JSX elements           | ✅      |
-| [jsx-no-inline-object-prop](docs/rules/JSX_NO_INLINE_OBJECT_PROP.md)               | Disallow inline object literals in JSX props                          | ❌      |
-| [jsx-no-non-component-function](docs/rules/JSX_NO_NON_COMPONENT_FUNCTION.md)       | Disallow non-component functions at top level in .tsx/.jsx files      | ❌      |
-| [jsx-no-variable-in-callback](docs/rules/JSX_NO_VARIABLE_IN_CALLBACK.md)           | Disallow variable declarations inside callback functions in JSX       | ❌      |
-| [jsx-require-suspense](docs/rules/JSX_REQUIRE_SUSPENSE.md)                         | Require lazy-loaded components to be wrapped in Suspense              | ❌      |
-| [jsx-simple-props](docs/rules/JSX_SIMPLE_PROPS.md)                                 | Enforce simple prop values (strings, variables, callbacks, ReactNode) | ❌      |
-| [prefer-jsx-template-literals](docs/rules/PREFER_JSX_TEMPLATE_LITERALS.md)         | Enforce template literals instead of mixing text and JSX expressions  | ✅      |
-| [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                   | Enforce destructuring props inside React component body               | ❌      |
-| [enforce-props-suffix](docs/rules/ENFORCE_PROPS_SUFFIX.md)                         | Enforce 'Props' suffix for interfaces and types in \*.tsx files       | ❌      |
-| [enforce-readonly-component-props](docs/rules/ENFORCE_READONLY_COMPONENT_PROPS.md) | Enforce Readonly wrapper for React component props                    | ✅      |
+| Rule                                                                                     | Description                                                           | Fixable |
+| ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------- |
+| [jsx-newline-between-elements](docs/rules/JSX_NEWLINE_BETWEEN_ELEMENTS.md)               | Require empty lines between sibling multi-line JSX elements           | ✅      |
+| [jsx-no-inline-object-prop](docs/rules/JSX_NO_INLINE_OBJECT_PROP.md)                     | Disallow inline object literals in JSX props                          | ❌      |
+| [jsx-no-newline-single-line-elements](docs/rules/JSX_NO_NEWLINE_SINGLE_LINE_ELEMENTS.md) | Disallow empty lines between single-line sibling JSX elements         | ✅      |
+| [jsx-no-non-component-function](docs/rules/JSX_NO_NON_COMPONENT_FUNCTION.md)             | Disallow non-component functions at top level in .tsx/.jsx files      | ❌      |
+| [jsx-no-variable-in-callback](docs/rules/JSX_NO_VARIABLE_IN_CALLBACK.md)                 | Disallow variable declarations inside callback functions in JSX       | ❌      |
+| [jsx-require-suspense](docs/rules/JSX_REQUIRE_SUSPENSE.md)                               | Require lazy-loaded components to be wrapped in Suspense              | ❌      |
+| [jsx-simple-props](docs/rules/JSX_SIMPLE_PROPS.md)                                       | Enforce simple prop values (strings, variables, callbacks, ReactNode) | ❌      |
+| [jsx-sort-props](docs/rules/JSX_SORT_PROPS.md)                                           | Enforce JSX props are sorted by value type                            | ❌      |
+| [prefer-jsx-template-literals](docs/rules/PREFER_JSX_TEMPLATE_LITERALS.md)               | Enforce template literals instead of mixing text and JSX expressions  | ✅      |
+| [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                         | Enforce destructuring props inside React component body               | ❌      |
+| [enforce-props-suffix](docs/rules/ENFORCE_PROPS_SUFFIX.md)                               | Enforce 'Props' suffix for interfaces and types in \*.tsx files       | ❌      |
+| [enforce-readonly-component-props](docs/rules/ENFORCE_READONLY_COMPONENT_PROPS.md)       | Enforce Readonly wrapper for React component props                    | ✅      |
 
 ### Next.js Rules
 
@@ -234,14 +244,14 @@ module.exports = {
 
 | Preset               | Severity | Base Rules | JSX Rules | Next.js Rules | Total Rules |
 | -------------------- | -------- | ---------- | --------- | ------------- | ----------- |
-| `base`               | warn     | 30         | 0         | 0             | 30          |
-| `base/recommended`   | error    | 30         | 0         | 0             | 30          |
-| `react`              | warn     | 30         | 12        | 0             | 42          |
-| `react/recommended`  | error    | 30         | 12        | 0             | 42          |
-| `nextjs`             | warn     | 30         | 12        | 1             | 43          |
-| `nextjs/recommended` | error    | 30         | 12        | 1             | 43          |
+| `base`               | warn     | 33         | 0         | 0             | 33          |
+| `base/recommended`   | error    | 33         | 0         | 0             | 33          |
+| `react`              | warn     | 33         | 14        | 0             | 47          |
+| `react/recommended`  | error    | 33         | 14        | 0             | 47          |
+| `nextjs`             | warn     | 33         | 14        | 1             | 48          |
+| `nextjs/recommended` | error    | 33         | 14        | 1             | 48          |
 
-### Base Configuration Rules (30 rules)
+### Base Configuration Rules (33 rules)
 
 Included in `base`, `base/recommended`, and all other presets:
 
@@ -274,9 +284,12 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/prefer-named-param-types`
 - `nextfriday/prefer-react-import-types`
 - `nextfriday/require-explicit-return-type`
+- `nextfriday/sort-exports`
+- `nextfriday/sort-imports`
+- `nextfriday/sort-type-alphabetically`
 - `nextfriday/sort-type-required-first`
 
-### JSX Rules (12 rules)
+### JSX Rules (14 rules)
 
 Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recommended`:
 
@@ -284,11 +297,13 @@ Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recomme
 - `nextfriday/enforce-readonly-component-props`
 - `nextfriday/jsx-newline-between-elements`
 - `nextfriday/jsx-no-inline-object-prop`
+- `nextfriday/jsx-no-newline-single-line-elements`
 - `nextfriday/jsx-no-non-component-function`
 - `nextfriday/jsx-no-variable-in-callback`
 - `nextfriday/jsx-pascal-case`
 - `nextfriday/jsx-require-suspense`
 - `nextfriday/jsx-simple-props`
+- `nextfriday/jsx-sort-props`
 - `nextfriday/prefer-interface-over-inline-types`
 - `nextfriday/prefer-jsx-template-literals`
 - `nextfriday/react-props-destructure`

@@ -60,7 +60,7 @@ const preferImportType = createRule({
       }
 
       if (variable.references.length === 0) {
-        return false;
+        return true;
       }
 
       return variable.references.some((ref) => {

@@ -1,3 +1,6 @@
+import pluginSonarjs from "eslint-plugin-sonarjs";
+import pluginUnicorn from "eslint-plugin-unicorn";
+
 import packageJson from "../package.json" assert { type: "json" };
 
 import booleanNamingPrefix from "./rules/boolean-naming-prefix";
@@ -11,9 +14,11 @@ import enforceSortedDestructuring from "./rules/enforce-sorted-destructuring";
 import fileKebabCase from "./rules/file-kebab-case";
 import jsxNewlineBetweenElements from "./rules/jsx-newline-between-elements";
 import jsxNoInlineObjectProp from "./rules/jsx-no-inline-object-prop";
+import jsxNoNewlineSingleLineElements from "./rules/jsx-no-newline-single-line-elements";
 import jsxPascalCase from "./rules/jsx-pascal-case";
 import jsxRequireSuspense from "./rules/jsx-require-suspense";
 import jsxSimpleProps from "./rules/jsx-simple-props";
+import jsxSortProps from "./rules/jsx-sort-props";
 import noDirectDate from "./rules/no-direct-date";
 import jsxNoVariableInCallback from "./rules/jsx-no-variable-in-callback";
 import mdFilenameCaseRestriction from "./rules/md-filename-case-restriction";
@@ -41,6 +46,9 @@ import preferJSXTemplateLiterals from "./rules/prefer-jsx-template-literals";
 import preferNamedParamTypes from "./rules/prefer-named-param-types";
 import preferReactImportTypes from "./rules/prefer-react-import-types";
 import reactPropsDestructure from "./rules/react-props-destructure";
+import sortExports from "./rules/sort-exports";
+import sortImports from "./rules/sort-imports";
+import sortTypeAlphabetically from "./rules/sort-type-alphabetically";
 import sortTypeRequiredFirst from "./rules/sort-type-required-first";
 import nextjsRequirePublicEnv from "./rules/nextjs-require-public-env";
 
@@ -66,6 +74,8 @@ const rules = {
   "jsx-pascal-case": jsxPascalCase,
   "jsx-require-suspense": jsxRequireSuspense,
   "jsx-simple-props": jsxSimpleProps,
+  "jsx-sort-props": jsxSortProps,
+  "jsx-no-newline-single-line-elements": jsxNoNewlineSingleLineElements,
   "jsx-no-non-component-function": jsxNoNonComponentFunction,
   "jsx-no-variable-in-callback": jsxNoVariableInCallback,
   "md-filename-case-restriction": mdFilenameCaseRestriction,
@@ -93,6 +103,9 @@ const rules = {
   "prefer-named-param-types": preferNamedParamTypes,
   "prefer-react-import-types": preferReactImportTypes,
   "react-props-destructure": reactPropsDestructure,
+  "sort-exports": sortExports,
+  "sort-imports": sortImports,
+  "sort-type-alphabetically": sortTypeAlphabetically,
   "sort-type-required-first": sortTypeRequiredFirst,
   "nextjs-require-public-env": nextjsRequirePublicEnv,
 } as const satisfies Record<string, TSESLint.RuleModule<string, readonly unknown[]>>;
@@ -132,6 +145,9 @@ const baseRules = {
   "nextfriday/no-relative-imports": "warn",
   "nextfriday/no-single-char-variables": "warn",
   "nextfriday/prefer-async-await": "warn",
+  "nextfriday/sort-exports": "warn",
+  "nextfriday/sort-imports": "warn",
+  "nextfriday/sort-type-alphabetically": "warn",
   "nextfriday/sort-type-required-first": "warn",
 } as const;
 
@@ -165,6 +181,9 @@ const baseRecommendedRules = {
   "nextfriday/no-relative-imports": "error",
   "nextfriday/no-single-char-variables": "error",
   "nextfriday/prefer-async-await": "error",
+  "nextfriday/sort-exports": "error",
+  "nextfriday/sort-imports": "error",
+  "nextfriday/sort-type-alphabetically": "error",
   "nextfriday/sort-type-required-first": "error",
 } as const;
 
@@ -173,11 +192,13 @@ const jsxRules = {
   "nextfriday/enforce-readonly-component-props": "warn",
   "nextfriday/jsx-newline-between-elements": "warn",
   "nextfriday/jsx-no-inline-object-prop": "warn",
+  "nextfriday/jsx-no-newline-single-line-elements": "warn",
   "nextfriday/jsx-no-non-component-function": "warn",
   "nextfriday/jsx-no-variable-in-callback": "warn",
   "nextfriday/jsx-pascal-case": "warn",
   "nextfriday/jsx-require-suspense": "warn",
   "nextfriday/jsx-simple-props": "warn",
+  "nextfriday/jsx-sort-props": "warn",
   "nextfriday/prefer-interface-over-inline-types": "warn",
   "nextfriday/prefer-jsx-template-literals": "warn",
   "nextfriday/react-props-destructure": "warn",
@@ -188,11 +209,13 @@ const jsxRecommendedRules = {
   "nextfriday/enforce-readonly-component-props": "error",
   "nextfriday/jsx-newline-between-elements": "error",
   "nextfriday/jsx-no-inline-object-prop": "error",
+  "nextfriday/jsx-no-newline-single-line-elements": "error",
   "nextfriday/jsx-no-non-component-function": "error",
   "nextfriday/jsx-no-variable-in-callback": "error",
   "nextfriday/jsx-pascal-case": "error",
   "nextfriday/jsx-require-suspense": "error",
   "nextfriday/jsx-simple-props": "error",
+  "nextfriday/jsx-sort-props": "error",
   "nextfriday/prefer-interface-over-inline-types": "error",
   "nextfriday/prefer-jsx-template-literals": "error",
   "nextfriday/react-props-destructure": "error",
@@ -212,6 +235,9 @@ const createConfig = (configRules: Record<string, string>) => ({
   },
   rules: configRules,
 });
+
+const sonarjsRecommendedRules = pluginSonarjs.configs.recommended.rules as Record<string, string>;
+const unicornRecommendedRules = pluginUnicorn.configs.recommended.rules as Record<string, string>;
 
 const configs = {
   base: createConfig(baseRules),
@@ -234,7 +260,38 @@ const configs = {
     ...jsxRecommendedRules,
     ...nextjsOnlyRecommendedRules,
   }),
-} as const;
+  sonarjs: [
+    {
+      name: "sonarjs/config",
+      plugins: {
+        sonarjs: pluginSonarjs as unknown as TSESLint.FlatConfig.Plugin,
+      },
+      rules: {
+        ...sonarjsRecommendedRules,
+      },
+    },
+  ],
+  unicorn: [
+    {
+      name: "unicorn/config",
+      plugins: {
+        unicorn: pluginUnicorn as unknown as TSESLint.FlatConfig.Plugin,
+      },
+      rules: {
+        ...unicornRecommendedRules,
+        "unicorn/filename-case": "off",
+        "unicorn/prevent-abbreviations": "off",
+      },
+    },
+    {
+      name: "unicorn/jsx-tsx-exceptions",
+      files: ["**/*.jsx", "**/*.tsx"],
+      rules: {
+        "unicorn/no-null": "off",
+      },
+    },
+  ],
+};
 
 const nextfridayPlugin = {
   meta,

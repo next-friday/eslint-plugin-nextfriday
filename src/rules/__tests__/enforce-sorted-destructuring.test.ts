@@ -80,6 +80,7 @@ describe("enforce-sorted-destructuring", () => {
     invalid: [
       {
         code: "const { d, b, a, c } = foo;",
+        output: "const { a, b, c, d } = foo;",
         errors: [
           {
             messageId: "unsortedDestructuring",
@@ -89,6 +90,7 @@ describe("enforce-sorted-destructuring", () => {
       },
       {
         code: "const { z, a, m } = foo;",
+        output: "const { a, m, z } = foo;",
         errors: [
           {
             messageId: "unsortedDestructuring",
@@ -98,6 +100,7 @@ describe("enforce-sorted-destructuring", () => {
       },
       {
         code: "const { b, a } = foo;",
+        output: "const { a, b } = foo;",
         errors: [
           {
             messageId: "unsortedDestructuring",
@@ -107,6 +110,7 @@ describe("enforce-sorted-destructuring", () => {
       },
       {
         code: 'const { a, b, d = "string", c } = foo;',
+        output: 'const { d = "string", a, b, c } = foo;',
         errors: [
           {
             messageId: "unsortedDestructuring",
@@ -116,6 +120,7 @@ describe("enforce-sorted-destructuring", () => {
       },
       {
         code: 'const { a, d = "string", e = 0 } = foo;',
+        output: 'const { d = "string", e = 0, a } = foo;',
         errors: [
           {
             messageId: "unsortedDestructuring",
@@ -125,6 +130,7 @@ describe("enforce-sorted-destructuring", () => {
       },
       {
         code: 'const { e = 0, d = "string", a, b } = foo;',
+        output: 'const { d = "string", e = 0, a, b } = foo;',
         errors: [
           {
             messageId: "unsortedDestructuring",
@@ -134,6 +140,7 @@ describe("enforce-sorted-destructuring", () => {
       },
       {
         code: 'const { b = "beta", a = "alpha", c } = foo;',
+        output: 'const { a = "alpha", b = "beta", c } = foo;',
         errors: [
           {
             messageId: "unsortedDestructuring",
@@ -143,6 +150,7 @@ describe("enforce-sorted-destructuring", () => {
       },
       {
         code: "const { b = 2, a = 1, c } = foo;",
+        output: "const { a = 1, b = 2, c } = foo;",
         errors: [
           {
             messageId: "unsortedDestructuring",
@@ -152,6 +160,7 @@ describe("enforce-sorted-destructuring", () => {
       },
       {
         code: "const { z, y, x, a, b, c } = foo;",
+        output: "const { a, b, c, x, y, z } = foo;",
         errors: [
           {
             messageId: "unsortedDestructuring",
@@ -161,6 +170,7 @@ describe("enforce-sorted-destructuring", () => {
       },
       {
         code: 'const { c, a, name = "default", age = 0 } = foo;',
+        output: 'const { age = 0, name = "default", a, c } = foo;',
         errors: [
           {
             messageId: "unsortedDestructuring",
@@ -170,6 +180,7 @@ describe("enforce-sorted-destructuring", () => {
       },
       {
         code: "const { duration = 5000, autoplay = false, totalSlides } = options;",
+        output: "const { autoplay = false, duration = 5000, totalSlides } = options;",
         errors: [
           {
             messageId: "unsortedDestructuring",
@@ -179,6 +190,7 @@ describe("enforce-sorted-destructuring", () => {
       },
       {
         code: 'const { name = "default", age = 0, active = true, data = {}, x, y, z } = foo;',
+        output: 'const { active = true, age = 0, data = {}, name = "default", x, y, z } = foo;',
         errors: [
           {
             messageId: "unsortedDestructuring",

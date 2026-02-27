@@ -9,6 +9,8 @@ const config: Config = {
   coverageReporters: ["text", "lcov", "html"],
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1",
+    "^eslint-plugin-sonarjs$": "<rootDir>/src/__mocks__/eslint-plugin-sonarjs.ts",
+    "^eslint-plugin-unicorn$": "<rootDir>/src/__mocks__/eslint-plugin-unicorn.ts",
   },
   transform: {
     "^.+\\.ts$": [

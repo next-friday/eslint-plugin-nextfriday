@@ -7,15 +7,7 @@ const createRule = ESLintUtils.RuleCreator(
     `https://github.com/next-friday/eslint-plugin-nextfriday/blob/main/docs/rules/${name.replaceAll("-", "_").toUpperCase()}.md`,
 );
 
-function getPropertyName(prop: TSESTree.TypeElement): string | null {
-  if (prop.type !== AST_NODE_TYPES.TSPropertySignature || prop.key.type !== AST_NODE_TYPES.Identifier) {
-    return null;
-  }
-
-  return prop.key.name;
-}
-
-function isMembersSorted(members: TSESTree.TypeElement[]): boolean {
+function isRequiredBeforeOptional(members: TSESTree.TypeElement[]): boolean {
   const properties = members.filter(
     (member): member is TSESTree.TSPropertySignature =>
       member.type === AST_NODE_TYPES.TSPropertySignature && member.key.type === AST_NODE_TYPES.Identifier,
@@ -25,23 +17,13 @@ function isMembersSorted(members: TSESTree.TypeElement[]): boolean {
     return true;
   }
 
-  const propertyInfo = properties.map((prop) => ({
-    name: getPropertyName(prop)!,
-    optional: prop.optional === true,
-  }));
+  const firstOptionalIndex = properties.findIndex((prop) => prop.optional);
 
-  const sorted = [...propertyInfo].sort((a, b) => {
-    if (!a.optional && b.optional) {
-      return -1;
-    }
-    if (a.optional && !b.optional) {
-      return 1;
-    }
+  if (firstOptionalIndex === -1) {
+    return true;
+  }
 
-    return a.name.localeCompare(b.name);
-  });
-
-  return propertyInfo.every((info, index) => info.name === sorted[index].name);
+  return properties.slice(firstOptionalIndex).every((prop) => prop.optional);
 }
 
 const sortTypeRequiredFirst = createRule({
@@ -50,28 +32,62 @@ const sortTypeRequiredFirst = createRule({
     type: "suggestion",
     docs: {
       description:
-        "Enforce required properties come before optional properties in TypeScript interfaces and type aliases, with alphabetical sorting within each group",
+        "Enforce required properties come before optional properties in TypeScript interfaces and type aliases",
     },
+    fixable: "code",
     schema: [],
     messages: {
-      unsortedTypeMembers:
-        "Type members should be sorted with required properties first, then optional. Each group should be sorted alphabetically.",
+      unsortedTypeMembers: "Required type members should come before optional members.",
     },
   },
   defaultOptions: [],
   create(context) {
+    function fixMembers(
+      fixer: Parameters<NonNullable<Parameters<typeof context.report>[0]["fix"]>>[0],
+      members: TSESTree.TypeElement[],
+    ) {
+      const { sourceCode } = context;
+      const properties = members.filter(
+        (member): member is TSESTree.TSPropertySignature =>
+          member.type === AST_NODE_TYPES.TSPropertySignature && member.key.type === AST_NODE_TYPES.Identifier,
+      );
+
+      const required = properties.filter((prop) => !prop.optional);
+      const optional = properties.filter((prop) => prop.optional);
+      const sorted = [...required, ...optional];
+
+      const sortedTexts = sorted.map((prop) => sourceCode.getText(prop));
+
+      return properties.map((prop, index) => fixer.replaceText(prop, sortedTexts[index]));
+    }
+
     return {
       TSInterfaceDeclaration(node) {
-        if (!isMembersSorted(node.body.body)) {
-          context.report({ node, messageId: "unsortedTypeMembers" });
+        if (!isRequiredBeforeOptional(node.body.body)) {
+          context.report({
+            node,
+            messageId: "unsortedTypeMembers",
+            fix(fixer) {
+              return fixMembers(fixer, node.body.body);
+            },
+          });
         }
       },
       TSTypeAliasDeclaration(node) {
-        if (
-          node.typeAnnotation.type === AST_NODE_TYPES.TSTypeLiteral &&
-          !isMembersSorted(node.typeAnnotation.members)
-        ) {
-          context.report({ node, messageId: "unsortedTypeMembers" });
+        if (node.typeAnnotation.type !== AST_NODE_TYPES.TSTypeLiteral) {
+          return;
+        }
+
+        const { members } = node.typeAnnotation;
+
+        if (!isRequiredBeforeOptional(members)) {
+          context.report({
+            node,
+            messageId: "unsortedTypeMembers",
+            fix(fixer) {
+              return fixMembers(fixer, members);
+            },
+          });
         }
       },
     };
