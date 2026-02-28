@@ -106,6 +106,27 @@ describe("jsx-no-newline-single-line-elements", () => {
         `,
         name: "single child element",
       },
+      {
+        code: `
+          <div>
+            <Headerstrip />
+            <Header />
+            {children}
+            <Footer />
+          </div>
+        `,
+        name: "expression between elements breaks adjacency",
+      },
+      {
+        code: `
+          <div>
+            <Header />
+            {isLoading && <Spinner />}
+            <Footer />
+          </div>
+        `,
+        name: "conditional expression between elements breaks adjacency",
+      },
     ],
     invalid: [
       {
