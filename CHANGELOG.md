@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.15.2
+
+### Patch Changes
+
+- [#73](https://github.com/next-friday/eslint-plugin-nextfriday/pull/73) [`d383b44`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/d383b44f38adaf864ed0ef8aaa257cd15d7cbf81) Thanks [@joetakara](https://github.com/joetakara)! - Fix jsx-no-newline-single-line-elements false positive when JSX expressions (e.g. {children}) appear between elements.
+
 ## 1.15.1
 
 ### Patch Changes
