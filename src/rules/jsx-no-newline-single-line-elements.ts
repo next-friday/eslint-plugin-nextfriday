@@ -33,16 +33,20 @@ const jsxNoNewlineSingleLineElements = createRule({
     const { sourceCode } = context;
 
     function checkSiblings(children: TSESTree.JSXChild[]): void {
-      const jsxElements = children.filter((child): child is TSESTree.JSXElement | TSESTree.JSXFragment =>
-        isJSXElementOrFragment(child),
+      const nonWhitespace = children.filter(
+        (child) => !(child.type === AST_NODE_TYPES.JSXText && child.value.trim() === ""),
       );
 
-      jsxElements.forEach((next, index) => {
+      nonWhitespace.forEach((next, index) => {
         if (index === 0) {
           return;
         }
 
-        const current = jsxElements[index - 1];
+        const current = nonWhitespace[index - 1];
+
+        if (!isJSXElementOrFragment(current) || !isJSXElementOrFragment(next)) {
+          return;
+        }
 
         if (!isSingleLine(current) || !isSingleLine(next)) {
           return;
