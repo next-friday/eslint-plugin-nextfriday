@@ -12,8 +12,10 @@ This is `eslint-plugin-nextfriday`, an ESLint plugin providing custom rules and 
 pnpm build               # Build plugin using tsup (outputs to lib/)
 pnpm test                # Run all tests with Jest
 pnpm test src/rules/__tests__/file-kebab-case.test.ts  # Run single test
+pnpm test:watch          # Run tests in watch mode
 pnpm eslint              # Lint and auto-fix
 pnpm typecheck           # Run TypeScript type checking
+pnpm prettier            # Format all files with Prettier
 pnpm changeset           # Create a changeset for version bumping
 ```
 
@@ -141,9 +143,11 @@ Git hooks (husky): `pre-commit` runs lint-staged, `pre-push` runs tests + typech
 
 ## CI Requirements
 
-- PRs changing `src/` or `docs/` (excluding tests) must include a `.changeset/*.md` file
+- PRs changing `src/` or `docs/` (excluding tests) must include a `.changeset/*.md` file. For non-version-bumping changes (refactors, docs-only), use an empty changeset (no package in frontmatter `---\n---`)
 - Manual edits to `package.json` or `CHANGELOG.md` will fail CI (must go through changesets)
 - PR titles must follow semantic format with required scope, max 50 char subject, no uppercase start
+- If a PR has only one commit, the commit message must match the PR title
+- CI also runs `prettier:check` and `sort-package-json:check` — run `pnpm prettier` before pushing
 
 ## Code Style
 

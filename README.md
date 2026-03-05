@@ -63,86 +63,23 @@ export default [nextfriday.configs["react/recommended"], ...nextfriday.configs.s
 
 ### Manual Configuration
 
-If you prefer to configure rules manually:
+You can also configure individual rules by registering the plugin and enabling rules manually. See the [rules reference](#rules) below for the full list of available rules.
 
 ```js
 import nextfriday from "eslint-plugin-nextfriday";
 
 export default [
   {
-    plugins: {
-      nextfriday,
-    },
+    plugins: { nextfriday },
     rules: {
-      // Variable Naming
-      "nextfriday/no-single-char-variables": "error",
-      "nextfriday/no-lazy-identifiers": "error",
       "nextfriday/boolean-naming-prefix": "error",
-      "nextfriday/enforce-constant-case": "error",
-
-      // File Naming
-      "nextfriday/file-kebab-case": "error",
-      "nextfriday/jsx-pascal-case": "error",
-      "nextfriday/md-filename-case-restriction": "error",
-
-      // Code Style
-      "nextfriday/no-emoji": "error",
-      "nextfriday/prefer-destructuring-params": "error",
-      "nextfriday/prefer-function-declaration": "error",
-      "nextfriday/require-explicit-return-type": "error",
-      "nextfriday/no-complex-inline-return": "error",
-      "nextfriday/no-logic-in-params": "error",
-      "nextfriday/enforce-hook-naming": "error",
-      "nextfriday/enforce-service-naming": "error",
-      "nextfriday/enforce-sorted-destructuring": "error",
-      "nextfriday/no-env-fallback": "error",
-      "nextfriday/no-inline-default-export": "error",
-      "nextfriday/newline-after-multiline-block": "error",
-      "nextfriday/newline-before-return": "error",
-      "nextfriday/no-inline-nested-object": "error",
-      "nextfriday/prefer-async-await": "error",
-      "nextfriday/enforce-curly-newline": "error",
-      "nextfriday/no-nested-ternary": "error",
-      "nextfriday/prefer-guard-clause": "error",
-
-      // Import Optimization
-      "nextfriday/no-relative-imports": "error",
-      "nextfriday/prefer-import-type": "error",
-      "nextfriday/prefer-react-import-types": "error",
-      "nextfriday/sort-exports": "error",
-      "nextfriday/sort-imports": "error",
-
-      // Type Patterns
-      "nextfriday/enforce-type-declaration-order": "error",
-      "nextfriday/no-nested-interface-declaration": "error",
-      "nextfriday/prefer-named-param-types": "error",
-      "nextfriday/prefer-inline-literal-union": "error",
-      "nextfriday/prefer-interface-over-inline-types": "error",
-      "nextfriday/sort-type-alphabetically": "error",
-      "nextfriday/sort-type-required-first": "error",
-
-      // React/JSX
-      "nextfriday/jsx-newline-between-elements": "error",
-      "nextfriday/jsx-no-inline-object-prop": "error",
-      "nextfriday/jsx-no-newline-single-line-elements": "error",
-      "nextfriday/jsx-no-non-component-function": "error",
-      "nextfriday/jsx-no-variable-in-callback": "error",
-      "nextfriday/jsx-require-suspense": "error",
-      "nextfriday/jsx-simple-props": "error",
-      "nextfriday/jsx-sort-props": "error",
-      "nextfriday/prefer-jsx-template-literals": "error",
-      "nextfriday/react-props-destructure": "error",
-      "nextfriday/enforce-props-suffix": "error",
-      "nextfriday/enforce-readonly-component-props": "error",
-
-      // Next.js
-      "nextfriday/nextjs-require-public-env": "error",
+      "nextfriday/enforce-constant-case": "warn",
     },
   },
 ];
 ```
 
-> **Note:** This plugin requires ESLint 9+ and only supports the flat config format. Legacy `.eslintrc` configurations are not supported.
+> **Note:** This plugin requires ESLint 9+ and only supports the flat config format.
 
 ## Rules
 
@@ -234,115 +171,29 @@ export default [
 
 ## Configurations
 
-### Configuration Presets Overview
+Each preset includes all rules from the tiers below it. The `warn` variant uses `"warn"` severity; the `recommended` variant uses `"error"`.
 
-| Preset               | Severity | Base Rules | JSX Rules | Next.js Rules | Total Rules |
-| -------------------- | -------- | ---------- | --------- | ------------- | ----------- |
-| `base`               | warn     | 36         | 0         | 0             | 36          |
-| `base/recommended`   | error    | 36         | 0         | 0             | 36          |
-| `react`              | warn     | 36         | 14        | 0             | 50          |
-| `react/recommended`  | error    | 36         | 14        | 0             | 50          |
-| `nextjs`             | warn     | 36         | 14        | 1             | 51          |
-| `nextjs/recommended` | error    | 36         | 14        | 1             | 51          |
+| Preset               | Base (36) | JSX (14) | Next.js (1) | Total |
+| -------------------- | --------- | -------- | ----------- | ----- |
+| `base`               | warn      | -        | -           | 36    |
+| `base/recommended`   | error     | -        | -           | 36    |
+| `react`              | warn      | warn     | -           | 50    |
+| `react/recommended`  | error     | error    | -           | 50    |
+| `nextjs`             | warn      | warn     | warn        | 51    |
+| `nextjs/recommended` | error     | error    | error       | 51    |
 
-### Base Configuration Rules (36 rules)
+## Requirements
 
-Included in `base`, `base/recommended`, and all other presets:
-
-- `nextfriday/boolean-naming-prefix`
-- `nextfriday/enforce-constant-case`
-- `nextfriday/enforce-curly-newline`
-- `nextfriday/enforce-hook-naming`
-- `nextfriday/enforce-service-naming`
-- `nextfriday/enforce-sorted-destructuring`
-- `nextfriday/enforce-type-declaration-order`
-- `nextfriday/file-kebab-case`
-- `nextfriday/md-filename-case-restriction`
-- `nextfriday/newline-after-multiline-block`
-- `nextfriday/newline-before-return`
-- `nextfriday/no-complex-inline-return`
-- `nextfriday/no-direct-date`
-- `nextfriday/no-emoji`
-- `nextfriday/no-env-fallback`
-- `nextfriday/no-inline-default-export`
-- `nextfriday/no-inline-nested-object`
-- `nextfriday/no-lazy-identifiers`
-- `nextfriday/no-logic-in-params`
-- `nextfriday/no-nested-interface-declaration`
-- `nextfriday/no-nested-ternary`
-- `nextfriday/no-relative-imports`
-- `nextfriday/no-single-char-variables`
-- `nextfriday/prefer-async-await`
-- `nextfriday/prefer-destructuring-params`
-- `nextfriday/prefer-function-declaration`
-- `nextfriday/prefer-guard-clause`
-- `nextfriday/prefer-import-type`
-- `nextfriday/prefer-inline-literal-union`
-- `nextfriday/prefer-named-param-types`
-- `nextfriday/prefer-react-import-types`
-- `nextfriday/require-explicit-return-type`
-- `nextfriday/sort-exports`
-- `nextfriday/sort-imports`
-- `nextfriday/sort-type-alphabetically`
-- `nextfriday/sort-type-required-first`
-
-### JSX Rules (14 rules)
-
-Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recommended`:
-
-- `nextfriday/enforce-props-suffix`
-- `nextfriday/enforce-readonly-component-props`
-- `nextfriday/jsx-newline-between-elements`
-- `nextfriday/jsx-no-inline-object-prop`
-- `nextfriday/jsx-no-newline-single-line-elements`
-- `nextfriday/jsx-no-non-component-function`
-- `nextfriday/jsx-no-variable-in-callback`
-- `nextfriday/jsx-pascal-case`
-- `nextfriday/jsx-require-suspense`
-- `nextfriday/jsx-simple-props`
-- `nextfriday/jsx-sort-props`
-- `nextfriday/prefer-interface-over-inline-types`
-- `nextfriday/prefer-jsx-template-literals`
-- `nextfriday/react-props-destructure`
-
-### Next.js Only Rules (1 rule)
-
-Additionally included in `nextjs`, `nextjs/recommended` only:
-
-- `nextfriday/nextjs-require-public-env`
-
-### Severity Levels
-
-- **`base` / `react` / `nextjs`**: All rules set to `"warn"`
-- **`base/recommended` / `react/recommended` / `nextjs/recommended`**: All rules set to `"error"`
-
-## Features
-
-- **Variable naming enforcement**: Prevent cryptic single-character names and enforce boolean prefixes
-- **File naming enforcement**: Ensure consistent file naming conventions (kebab-case, PascalCase, SNAKE_CASE)
-- **Function style**: Enforce function declarations over arrow functions in utility files
-- **Import optimization**: Automatically suggests better import patterns for TypeScript
-- **Code cleanup**: Helps remove unnecessary explicit type annotations
-- **React component conventions**: Enforces naming standards and patterns for JSX/TSX files
-- **Clean code practices**: Prevents emoji usage, enforces parameter destructuring, and more
-- **Formatting rules**: Enforces consistent blank lines around multi-line blocks and return statements
+- Node.js >= 22.0.0
+- ESLint >= 9.0.0 (flat config only)
 
 ## Agent Skill
 
-This plugin ships with an [Agent Skill](https://github.com/anthropics/skills) that teaches AI coding assistants (Claude Code, Cursor, etc.) all 51 rules so they generate compliant code from the start.
+This plugin ships with an [Agent Skill](https://github.com/anthropics/skills) that teaches AI coding assistants all 51 rules so they generate compliant code from the start.
 
 ```bash
 npx skills add next-friday/eslint-plugin-nextfriday --skill eslint-plugin-nextfriday
 ```
-
-Once installed, AI assistants will automatically follow the naming, code style, type, JSX, import, and formatting patterns enforced by this plugin — reducing lint errors to zero.
-
-## Need Help?
-
-If you encounter any issues or have questions:
-
-- Check the [rule documentation](docs/rules) for detailed examples
-- Report bugs or request features at: <https://github.com/next-friday/eslint-plugin-nextfriday/issues>
 
 ## License
 
