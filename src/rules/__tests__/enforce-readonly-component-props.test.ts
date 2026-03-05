@@ -10,8 +10,6 @@ RuleTester.it = it;
 const ruleTester = new RuleTester({
   languageOptions: {
     parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
       ecmaFeatures: {
         jsx: true,
       },
@@ -20,8 +18,12 @@ const ruleTester = new RuleTester({
 });
 
 describe("enforce-readonly-component-props", () => {
-  it("should be defined", () => {
-    expect(enforceReadonlyComponentProps).toBeDefined();
+  it("should have meta property", () => {
+    expect(enforceReadonlyComponentProps.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof enforceReadonlyComponentProps.create).toBe("function");
   });
 
   ruleTester.run("enforce-readonly-component-props", enforceReadonlyComponentProps, {

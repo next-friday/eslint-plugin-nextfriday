@@ -6,7 +6,9 @@ Enforce destructuring props inside React component body instead of parameters.
 
 This rule enforces a consistent pattern for handling props in React components by requiring destructuring to be done inside the component body rather than in the parameter list. This promotes better code readability and makes prop usage more explicit.
 
-Examples of **incorrect** code for this rule:
+## Examples
+
+### Incorrect
 
 ```jsx
 const Component = ({ children }) => <div>{children}</div>;
@@ -37,7 +39,7 @@ const Component = ({ show, children }) => {
 };
 ```
 
-Examples of **correct** code for this rule:
+### Correct
 
 ```jsx
 const Component = (props) => {
@@ -91,68 +93,7 @@ const regularFunction = ({ data }) => {
 };
 ```
 
-## Why?
-
-### Benefits of destructuring inside component body
-
-1. **Explicit prop usage**: Makes it clear which props are being used within the component
-2. **Better readability**: Separates prop extraction from component signature
-3. **Easier refactoring**: Props can be easily modified without changing the function signature
-4. **Consistent patterns**: Promotes a uniform approach across the codebase
-5. **Better TypeScript integration**: Works better with prop type definitions
-
 ## When Not To Use It
 
-This rule should not be used if you:
-
-- Prefer parameter destructuring for brevity
-- Are working on a codebase that already consistently uses parameter destructuring
-- Need to maintain compatibility with existing patterns
-
-## Rule Scope
-
-This rule only applies to:
-
-- Functions that return JSX elements or fragments
-- Functions with exactly one parameter that is object destructuring
-- Arrow functions, function expressions, and function declarations
-
-The rule ignores:
-
-- Non-React functions (functions that don't return JSX)
-- Functions with multiple parameters
-- Functions with no parameters
-- Functions already using a `props` parameter without destructuring
-
-## Configuration
-
-This rule is included in the following configurations:
-
-- `nextfriday/react`
-- `nextfriday/react/recommended`
-- `nextfriday/nextjs`
-- `nextfriday/nextjs/recommended`
-
-To enable this rule manually:
-
-```json
-{
-  "rules": {
-    "nextfriday/react-props-destructure": "error"
-  }
-}
-```
-
-## Compatibility
-
-- React functional components
-- Arrow functions with JSX
-- Function declarations with JSX
-- Function expressions with JSX
-- Conditional JSX returns
-- Logical operator JSX returns
-- JSX fragments
-
-## Version
-
-This rule was introduced in eslint-plugin-nextfriday v1.0.0.
+- If you prefer parameter destructuring for brevity
+- When working on a codebase that already consistently uses parameter destructuring

@@ -15,9 +15,9 @@ This rule flags the use of `.then()` method calls and encourages using async/awa
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
-```typescript
+```ts
 fetch(url)
   .then((res) => res.json())
   .then((data) => setData(data));
@@ -31,9 +31,9 @@ fetchData().then(handleSuccess).catch(handleError);
 promise.then(step1).then(step2).then(step3);
 ```
 
-### ✅ Correct
+### Correct
 
-```typescript
+```ts
 async function fetchData() {
   const res = await fetch(url);
   const data = await res.json();

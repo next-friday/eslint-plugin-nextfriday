@@ -14,9 +14,9 @@ This rule flags imports that use `../` to traverse parent directories. Sibling i
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
-```typescript
+```ts
 import { Button } from "../../../components/base/button";
 import { Header } from "../components/Header";
 import { utils } from "../utils";
@@ -24,9 +24,9 @@ import type { Props } from "../types";
 export { foo } from "../shared";
 ```
 
-### ✅ Correct
+### Correct
 
-```typescript
+```ts
 import { Button } from "src/components/base/button";
 import { Header } from "@/components/Header";
 import { mapper } from "./article.mapper"; // sibling imports are OK

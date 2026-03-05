@@ -23,7 +23,7 @@ Use with `sort-type-alphabetically` to also enforce A-Z ordering within each gro
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
 ```ts
 // Bad: Optional mixed in with required
@@ -54,7 +54,7 @@ interface Props {
 }
 ```
 
-### ✅ Correct
+### Correct
 
 ```ts
 // Good: Required first, then optional

@@ -1,20 +1,15 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
-import { afterAll, describe, it, expect } from "@jest/globals";
-import parser from "@typescript-eslint/parser";
+import { afterAll, describe, it } from "@jest/globals";
 
 import requireExplicitReturnType from "../require-explicit-return-type";
 
 RuleTester.afterAll = afterAll;
-RuleTester.it = it;
-RuleTester.itOnly = it.only;
 RuleTester.describe = describe;
+RuleTester.it = it;
 
 const ruleTester = new RuleTester({
   languageOptions: {
-    parser,
     parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
       ecmaFeatures: {
         jsx: true,
       },
@@ -23,8 +18,12 @@ const ruleTester = new RuleTester({
 });
 
 describe("require-explicit-return-type", () => {
-  it("should be defined", () => {
-    expect(requireExplicitReturnType).toBeDefined();
+  it("should have meta property", () => {
+    expect(requireExplicitReturnType.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof requireExplicitReturnType.create).toBe("function");
   });
 
   ruleTester.run("require-explicit-return-type", requireExplicitReturnType, {

@@ -6,9 +6,11 @@ Disallow single character variable and parameter names for better code readabili
 
 This rule enforces descriptive variable and parameter names by disallowing single character identifiers. Single character names like `d`, `u`, `l`, `r` are cryptic and make code harder to understand. They require readers to guess or track what each variable represents.
 
-**Incorrect** code for this rule:
+## Examples
 
-```typescript
+### Incorrect
+
+```ts
 const d = new Date();
 const u = await getUser();
 const l = list.length;
@@ -31,9 +33,9 @@ try {
 } catch (e) {}
 ```
 
-**Correct** code for this rule:
+### Correct
 
-```typescript
+```ts
 const currentDate = new Date();
 const currentUser = await getUser();
 const itemCount = list.length;
@@ -66,7 +68,7 @@ The rule allows the following exceptions:
 
 Single character loop counters `i`, `j`, `k`, `n` are allowed in traditional for loops:
 
-```typescript
+```ts
 for (let i = 0; i < 10; i++) {}
 for (let j = 0; j < items.length; j++) {}
 for (let i = 0, j = 10; i < j; i++, j--) {}
@@ -78,29 +80,17 @@ Note: These are only allowed in traditional `for` loops, not in `for...of` or `f
 
 A single underscore `_` is allowed to indicate intentionally unused variables:
 
-```typescript
+```ts
 const _ = unusedValue;
 const [_, second] = array;
 array.map((_, index) => index);
 ```
 
-## Benefits
-
-- **Self-documenting code**: Descriptive names make code readable without additional comments
-- **Reduced cognitive load**: No need to track or guess what single letters represent
-- **Better IDE support**: Meaningful names provide better autocomplete and search results
-- **Easier debugging**: Clear variable names make debugging and code review faster
-- **Improved collaboration**: Team members can understand code without additional context
-
-## When Not To Use
+## When Not To Use It
 
 - For very short scripts or throwaway code
 - When working with mathematical formulas where single letters are conventional (e.g., `x`, `y` for coordinates)
 - In legacy codebases where this pattern is established and changing would be disruptive
-
-## Configuration
-
-This rule has no configuration options.
 
 ## Related Rules
 

@@ -114,8 +114,11 @@ Use template literals instead of mixing text and JSX expressions.
 
 Sort JSX props by value type in this order:
 
-1. Shorthand boolean (e.g., `disabled`)
-2. String literals (e.g., `type="submit"`)
-3. Expressions/variables (e.g., `value={count}`)
-4. Callbacks (e.g., `onClick={handleClick}`)
-5. Spread (e.g., `{...rest}`)
+1. String literals (e.g., `type="submit"`)
+2. Number/Boolean/Null (e.g., `count={42}`)
+3. Object/Array (e.g., `style={chartStyle}`)
+4. Function (e.g., `onClick={handleClick}`)
+5. JSX Element (e.g., `icon={<HomeIcon />}`)
+6. Shorthand boolean (e.g., `disabled`)
+
+Variables, member expressions, and call expressions are skipped. Spread attributes reset ordering.

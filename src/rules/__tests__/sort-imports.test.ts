@@ -4,26 +4,18 @@ import { afterAll, describe, it } from "@jest/globals";
 import sortImports from "../sort-imports";
 
 RuleTester.afterAll = afterAll;
-RuleTester.it = it;
-RuleTester.itOnly = it.only;
 RuleTester.describe = describe;
+RuleTester.it = it;
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
-    },
-  },
-});
+const ruleTester = new RuleTester();
 
 describe("sort-imports", () => {
   it("should have meta property", () => {
-    expect(sortImports).toHaveProperty("meta");
+    expect(sortImports.meta).toBeDefined();
   });
 
-  it("should have create property", () => {
-    expect(sortImports).toHaveProperty("create");
+  it("should have create method", () => {
+    expect(typeof sortImports.create).toBe("function");
   });
 
   ruleTester.run("sort-imports", sortImports, {

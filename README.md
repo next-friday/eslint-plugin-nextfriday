@@ -48,7 +48,7 @@ export default [nextfriday.configs["nextjs/recommended"]];
 
 #### Bundled Plugin Configs
 
-Pre-configured configs for popular plugins. No extra install needed — they ship as dependencies.
+Pre-configured configs for popular plugins. No extra install needed — they ship as dependencies. These configs are arrays, so use the spread operator (`...`) to merge them into your flat config.
 
 ```js
 import nextfriday from "eslint-plugin-nextfriday";
@@ -142,34 +142,7 @@ export default [
 ];
 ```
 
-### Legacy Config (ESLint 8 and below)
-
-#### Base Legacy Configuration
-
-```js
-module.exports = {
-  plugins: ["nextfriday"],
-  extends: ["plugin:nextfriday/base"], // or "plugin:nextfriday/base/recommended"
-};
-```
-
-#### React Legacy Configuration
-
-```js
-module.exports = {
-  plugins: ["nextfriday"],
-  extends: ["plugin:nextfriday/react"], // or "plugin:nextfriday/react/recommended"
-};
-```
-
-#### Next.js Legacy Configuration
-
-```js
-module.exports = {
-  plugins: ["nextfriday"],
-  extends: ["plugin:nextfriday/nextjs"], // or "plugin:nextfriday/nextjs/recommended"
-};
-```
+> **Note:** This plugin requires ESLint 9+ and only supports the flat config format. Legacy `.eslintrc` configurations are not supported.
 
 ## Rules
 
@@ -373,4 +346,4 @@ If you encounter any issues or have questions:
 
 ## License
 
-MIT - feel free to use this plugin in your projects!
+MIT

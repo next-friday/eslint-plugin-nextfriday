@@ -83,22 +83,23 @@ function getUser(): User {
 }
 ```
 
-## Curly Braces for Multi-Line If
+## Curly Braces for If Statements
 
-Multi-line if bodies require curly braces. Single-line if bodies must not have curly braces.
+If the `if` consequent fits on one line, omit braces. If it spans multiple lines, use braces.
 
 ```ts
-// Bad
+// Bad: single-line body with braces
 if (isValid) {
   process();
-} // single statement, multi-line braces OK
+}
 
-if (isValid) doSomething();
-doSomethingElse(); // misleading
+// Bad: multi-line body without braces
+if (veryLongCondition && anotherCondition) process();
 
-// Good
-if (isValid) process(); // single-line, no braces
+// Good: single-line body, no braces
+if (isValid) process();
 
+// Good: multi-line body, with braces
 if (isValid) {
   doSomething();
   doSomethingElse();

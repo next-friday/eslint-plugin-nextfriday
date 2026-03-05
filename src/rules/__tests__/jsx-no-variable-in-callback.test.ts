@@ -4,15 +4,12 @@ import { afterAll, describe, it } from "@jest/globals";
 import jsxNoVariableInCallback from "../jsx-no-variable-in-callback";
 
 RuleTester.afterAll = afterAll;
-RuleTester.it = it;
-RuleTester.itOnly = it.only;
 RuleTester.describe = describe;
+RuleTester.it = it;
 
 const ruleTester = new RuleTester({
   languageOptions: {
     parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
       ecmaFeatures: {
         jsx: true,
       },
@@ -21,8 +18,12 @@ const ruleTester = new RuleTester({
 });
 
 describe("jsx-no-variable-in-callback", () => {
-  it("should be defined", () => {
-    expect(jsxNoVariableInCallback).toBeDefined();
+  it("should have meta property", () => {
+    expect(jsxNoVariableInCallback.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof jsxNoVariableInCallback.create).toBe("function");
   });
 
   ruleTester.run("jsx-no-variable-in-callback", jsxNoVariableInCallback, {

@@ -1,27 +1,21 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
-import { afterAll, describe, it, expect } from "@jest/globals";
-import parser from "@typescript-eslint/parser";
+import { afterAll, describe, it } from "@jest/globals";
 
 import booleanNamingPrefix from "../boolean-naming-prefix";
 
 RuleTester.afterAll = afterAll;
-RuleTester.it = it;
-RuleTester.itOnly = it.only;
 RuleTester.describe = describe;
+RuleTester.it = it;
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
-    },
-  },
-});
+const ruleTester = new RuleTester();
 
 describe("boolean-naming-prefix", () => {
-  it("should be defined", () => {
-    expect(booleanNamingPrefix).toBeDefined();
+  it("should have meta property", () => {
+    expect(booleanNamingPrefix.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof booleanNamingPrefix.create).toBe("function");
   });
 
   ruleTester.run("boolean-naming-prefix", booleanNamingPrefix, {

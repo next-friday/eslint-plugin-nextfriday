@@ -4,22 +4,18 @@ import { afterAll, describe, it } from "@jest/globals";
 import newlineBeforeReturn from "../newline-before-return";
 
 RuleTester.afterAll = afterAll;
-RuleTester.it = it;
-RuleTester.itOnly = it.only;
 RuleTester.describe = describe;
+RuleTester.it = it;
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
-    },
-  },
-});
+const ruleTester = new RuleTester();
 
 describe("newline-before-return", () => {
-  it("should be defined", () => {
-    expect(newlineBeforeReturn).toBeDefined();
+  it("should have meta property", () => {
+    expect(newlineBeforeReturn.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof newlineBeforeReturn.create).toBe("function");
   });
 
   ruleTester.run("newline-before-return", newlineBeforeReturn, {

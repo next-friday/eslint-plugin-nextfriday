@@ -2,6 +2,8 @@
 
 Enforce using template literals instead of mixing text and JSX expressions.
 
+> This rule is auto-fixable using `--fix`.
+
 ## Rule Details
 
 This rule prevents mixing plain text with JSX expressions in JSX elements, which can lead to incorrect spacing and readability issues. Instead, it enforces using template literals to combine text and expressions.
@@ -23,7 +25,7 @@ Using template literals ensures:
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
 ```tsx
 // Bad: Text followed by expression
@@ -39,7 +41,7 @@ Using template literals ensures:
 <div>{price}$</div>
 ```
 
-### ✅ Correct
+### Correct
 
 ```tsx
 // Good: Using template literals

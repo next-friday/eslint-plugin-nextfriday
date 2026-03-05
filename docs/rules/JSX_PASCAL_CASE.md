@@ -10,7 +10,7 @@ This rule enforces that JSX and TSX files use PascalCase naming convention for t
 
 ## Examples
 
-**Incorrect** filenames for this rule:
+### Incorrect
 
 - `my-component.jsx` (kebab-case)
 - `userProfile.jsx` (camelCase)
@@ -20,7 +20,7 @@ This rule enforces that JSX and TSX files use PascalCase naming convention for t
 - `My Component.jsx` (contains spaces)
 - `My.Component.tsx` (contains dots)
 
-**Correct** filenames for this rule:
+### Correct
 
 - `MyComponent.jsx`
 - `UserProfile.tsx`
@@ -28,47 +28,7 @@ This rule enforces that JSX and TSX files use PascalCase naming convention for t
 - `LoginForm.tsx`
 - `UserProfile2.jsx` (PascalCase with numbers)
 
-## Code Examples
-
-The content of the file doesn't matter - only the filename is checked:
-
-```jsx
-// INCORRECT: File: my-component.jsx (incorrect filename)
-function MyComponent() {
-  return <div>Hello</div>;
-}
-
-export default MyComponent;
-```
-
-```jsx
-// CORRECT: File: MyComponent.jsx (correct filename)
-function MyComponent() {
-  return <div>Hello</div>;
-}
-
-export default MyComponent;
-```
-
-```tsx
-// INCORRECT: File: user-profile.tsx (incorrect filename)
-function UserProfile() {
-  return <div>Profile</div>;
-}
-
-export default UserProfile;
-```
-
-```tsx
-// CORRECT: File: UserProfile.tsx (correct filename)
-function UserProfile() {
-  return <div>Profile</div>;
-}
-
-export default UserProfile;
-```
-
-## When Not To Use
+## When Not To Use It
 
 If your project uses different naming conventions for JSX/TSX files, you can disable this rule.
 

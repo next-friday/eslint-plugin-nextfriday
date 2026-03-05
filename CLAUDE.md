@@ -73,6 +73,55 @@ Eight configs total. Six nextfriday presets built from three rule set tiers, eac
    - Add rule name to "should have correct rule names" test
 7. Create a changeset: `pnpm changeset` (required for CI to pass on PRs that change `src/` or `docs/`)
 
+### Rule Import Pattern
+
+All rule files follow a standardized import pattern:
+
+```typescript
+import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
+```
+
+- Runtime imports (`AST_NODE_TYPES`, `ESLintUtils`) use a regular import
+- Type-only imports (`TSESTree`) use a separate `import type`
+- Imports are sorted alphabetically by specifier
+
+### Rule Documentation Format
+
+Standard structure for `docs/rules/{RULE_NAME}.md`:
+
+1. `# rule-name` — hyphenated name
+2. One-line description
+3. Optional fixable notice: `> This rule is auto-fixable using \`--fix\`.`
+4. `## Rule Details` — explanation, optional `### Why?` subsection
+5. `## Examples` with `### Incorrect` / `### Correct` subsections
+6. Optional reference sections (e.g., `## What This Rule Checks`, `## Exceptions`, `## Allowed Prefixes`)
+7. `## When Not To Use It`
+8. Optional `## Related Rules`
+
+Code blocks use `ts` for TypeScript, `tsx` for JSX — never `typescript`, `javascript`, or `jsx`. No emoji in docs. No `## Benefits`, `## Compatibility`, `## Version`, `## Code Examples`, or `## Applies To` sections.
+
+### Test Boilerplate
+
+```typescript
+import { afterAll, describe, it } from "@jest/globals";
+import { RuleTester } from "@typescript-eslint/rule-tester";
+import rule from "../rule-name";
+
+RuleTester.afterAll = afterAll;
+RuleTester.describe = describe;
+RuleTester.it = it;
+
+const ruleTester = new RuleTester();
+```
+
+- Hooks are sorted alphabetically: `afterAll`, `describe`, `it`
+- No `RuleTester.itOnly` — omit it
+- No `import parser` — RuleTester uses its built-in parser
+- No `expect` import — structural tests use `toBeDefined()` from the `it` callback
+- Add `parserOptions: { ecmaFeatures: { jsx: true } }` only for JSX rules
+- Each test file ends with a `describe("rule structure", ...)` block asserting `meta` and `create` exist
+
 ### Rule Documentation URL Pattern
 
 ```typescript
@@ -100,6 +149,7 @@ Git hooks (husky): `pre-commit` runs lint-staged, `pre-push` runs tests + typech
 
 - No comments in code files - keep code self-documenting
 - Use clear, descriptive variable and function names
+- In `src/index.ts`: all imports, `rules` object keys, and rule set entries (`baseRules`, `jsxRules`, etc.) must be sorted alphabetically
 - Never add "Generated with Claude Code" or any AI branding/attribution to PR descriptions, commit messages, or any public-facing content
 - No Co-Authored-By trailers in commits (commitlint forbids body/footer anyway)
 

@@ -6,9 +6,9 @@ Require nested objects and arrays to span multiple lines.
 
 This rule enforces that when an object property's value is another object or array, it should span multiple lines rather than being written inline. This improves readability and makes diffs cleaner when properties are added or removed.
 
-### Examples
+## Examples
 
-#### Incorrect
+### Incorrect
 
 ```ts
 const config = {
@@ -23,13 +23,7 @@ const routes = {
 };
 ```
 
-```ts
-const validationRules = {
-  required: ["name", "email", "password"],
-};
-```
-
-#### Correct
+### Correct
 
 ```ts
 const config = {

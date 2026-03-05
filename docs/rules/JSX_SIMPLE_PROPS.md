@@ -15,7 +15,7 @@ This rule flags complex expressions used as JSX prop values. Props should only c
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
 ```tsx
 <Component onClick={handleClick()} />
@@ -28,7 +28,7 @@ This rule flags complex expressions used as JSX prop values. Props should only c
 <Component visible={a && b} />
 ```
 
-### ✅ Correct
+### Correct
 
 ```tsx
 <Component name="test" />

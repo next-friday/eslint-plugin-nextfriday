@@ -10,8 +10,6 @@ RuleTester.it = it;
 const ruleTester = new RuleTester({
   languageOptions: {
     parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
       ecmaFeatures: {
         jsx: true,
       },
@@ -20,8 +18,12 @@ const ruleTester = new RuleTester({
 });
 
 describe("prefer-react-import-types", () => {
-  it("should be defined", () => {
-    expect(preferReactImportTypes).toBeDefined();
+  it("should have meta property", () => {
+    expect(preferReactImportTypes.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof preferReactImportTypes.create).toBe("function");
   });
 
   ruleTester.run("prefer-react-import-types", preferReactImportTypes, {

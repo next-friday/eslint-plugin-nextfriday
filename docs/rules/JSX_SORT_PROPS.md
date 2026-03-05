@@ -23,7 +23,7 @@ Props with values that cannot be statically determined (variables, member expres
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
 ```tsx
 <Component disabled title="hello" />
@@ -31,7 +31,7 @@ Props with values that cannot be statically determined (variables, member expres
 <Component icon={<Icon />} style={{ color: "red" }} />
 ```
 
-### ✅ Correct
+### Correct
 
 ```tsx
 <Component

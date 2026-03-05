@@ -4,22 +4,18 @@ import { afterAll, describe, it } from "@jest/globals";
 import enforceSortedDestructuring from "../enforce-sorted-destructuring";
 
 RuleTester.afterAll = afterAll;
-RuleTester.it = it;
-RuleTester.itOnly = it.only;
 RuleTester.describe = describe;
+RuleTester.it = it;
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
-    },
-  },
-});
+const ruleTester = new RuleTester();
 
 describe("enforce-sorted-destructuring", () => {
-  it("should be defined", () => {
-    expect(enforceSortedDestructuring).toBeDefined();
+  it("should have meta property", () => {
+    expect(enforceSortedDestructuring.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof enforceSortedDestructuring.create).toBe("function");
   });
 
   ruleTester.run("enforce-sorted-destructuring", enforceSortedDestructuring, {

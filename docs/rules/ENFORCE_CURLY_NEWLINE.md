@@ -13,9 +13,9 @@ This rule manages curly braces for `IfStatement` based on visual layout (line br
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
-```tsx
+```ts
 // Single-line with braces (BAD)
 if (!data) {
   return [];
@@ -30,9 +30,9 @@ if (veryLongCondition && anotherCondition) return [];
 if (condition) doSomething();
 ```
 
-### ✅ Correct
+### Correct
 
-```tsx
+```ts
 // Single-line without braces (GOOD)
 if (!data) return [];
 if (x > 0) doSomething();

@@ -6,9 +6,11 @@ Disallow complex inline expressions in return statements - prefer extracting to 
 
 This rule enforces a pattern where complex expressions (ternary operators, logical expressions, new expressions) are extracted to a const variable before being returned. This improves code readability and makes debugging easier by allowing you to inspect intermediate values.
 
-**Incorrect** code for this rule:
+## Examples
 
-```typescript
+### Incorrect
+
+```ts
 function waitForLoad(targetWindow: Window) {
   return targetWindow.document.readyState === "complete"
     ? Promise.resolve()
@@ -42,9 +44,9 @@ function checkStatus(a: boolean, b: boolean) {
 }
 ```
 
-**Correct** code for this rule:
+### Correct
 
-```typescript
+```ts
 function waitForLoad(targetWindow: Window) {
   const loadPromise =
     targetWindow.document.readyState === "complete"
@@ -102,14 +104,7 @@ function getMath() {
 }
 ```
 
-## Benefits
-
-- **Better readability**: Complex logic is separated from the return statement
-- **Easier debugging**: Intermediate values can be inspected in debuggers
-- **Self-documenting**: Variable names can describe what the complex expression represents
-- **Consistent style**: Enforces a uniform approach to handling complex return values
-
-## When Not To Use
+## When Not To Use It
 
 - For very simple projects where inline expressions are preferred
 - When you prefer a more compact coding style
@@ -130,7 +125,3 @@ The following are allowed in return statements:
 - Binary expressions (math operations like `a + b`)
 - Object/array literals
 - Member expressions (`obj.prop`)
-
-## Related Rules
-
-- No related rules

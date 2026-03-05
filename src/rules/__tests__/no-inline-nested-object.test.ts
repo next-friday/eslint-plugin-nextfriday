@@ -4,22 +4,18 @@ import { afterAll, describe, it } from "@jest/globals";
 import noInlineNestedObject from "../no-inline-nested-object";
 
 RuleTester.afterAll = afterAll;
-RuleTester.it = it;
-RuleTester.itOnly = it.only;
 RuleTester.describe = describe;
+RuleTester.it = it;
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
-    },
-  },
-});
+const ruleTester = new RuleTester();
 
 describe("no-inline-nested-object", () => {
-  it("should be defined", () => {
-    expect(noInlineNestedObject).toBeDefined();
+  it("should have meta property", () => {
+    expect(noInlineNestedObject.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof noInlineNestedObject.create).toBe("function");
   });
 
   ruleTester.run("no-inline-nested-object", noInlineNestedObject, {

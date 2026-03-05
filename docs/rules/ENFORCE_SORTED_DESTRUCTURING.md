@@ -24,7 +24,7 @@ Properties are sorted in this order:
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
 ```js
 // Bad: Not sorted alphabetically
@@ -66,7 +66,7 @@ const { b, a } = foo;
 const { duration = 5000, autoplay = false, totalSlides } = options;
 ```
 
-### ✅ Correct
+### Correct
 
 ```js
 // Good: Alphabetically sorted without defaults

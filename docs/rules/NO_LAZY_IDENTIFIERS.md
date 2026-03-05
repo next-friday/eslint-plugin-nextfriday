@@ -6,9 +6,11 @@ Disallow lazy, meaningless variable names that hurt code readability.
 
 This rule enforces meaningful variable names by detecting and disallowing lazy identifiers. It uses pattern-based detection to find repeated characters and keyboard sequences.
 
-**Incorrect** code for this rule:
+## Examples
 
-```typescript
+### Incorrect
+
+```ts
 const xxx = "value";
 const yyy = 123;
 const zzz = true;
@@ -29,9 +31,9 @@ const { xxx } = obj;
 const [aaa, bbb] = array;
 ```
 
-**Correct** code for this rule:
+### Correct
 
-```typescript
+```ts
 const userName = "john";
 const itemCount = 123;
 const isActive = true;
@@ -80,25 +82,14 @@ Identifiers shorter than 3 characters are ignored (use `no-single-char-variables
 
 Variables starting with `_` are allowed (commonly used for unused variables):
 
-```typescript
+```ts
 const _unused = getValue();
 ```
 
-## Benefits
-
-- **Readable code**: Meaningful names make code self-documenting
-- **Maintainability**: Other developers can understand the purpose of variables
-- **Professionalism**: Clean code reflects well on the team
-- **Debugging**: Clear names make debugging easier
-
-## When Not To Use
+## When Not To Use It
 
 - In test files where placeholder data is acceptable
 - When working with legacy code that would be disruptive to change
-
-## Configuration
-
-This rule has no configuration options.
 
 ## Related Rules
 

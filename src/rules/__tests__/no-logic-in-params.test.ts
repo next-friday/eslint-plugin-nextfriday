@@ -1,27 +1,21 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 import { afterAll, describe, it } from "@jest/globals";
-import parser from "@typescript-eslint/parser";
 
 import noLogicInParams from "../no-logic-in-params";
 
 RuleTester.afterAll = afterAll;
-RuleTester.it = it;
-RuleTester.itOnly = it.only;
 RuleTester.describe = describe;
+RuleTester.it = it;
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
-    },
-  },
-});
+const ruleTester = new RuleTester();
 
 describe("no-logic-in-params", () => {
-  it("should be defined", () => {
-    expect(noLogicInParams).toBeDefined();
+  it("should have meta property", () => {
+    expect(noLogicInParams.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof noLogicInParams.create).toBe("function");
   });
 
   ruleTester.run("no-logic-in-params", noLogicInParams, {

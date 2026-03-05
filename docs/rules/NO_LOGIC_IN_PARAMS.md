@@ -6,9 +6,11 @@ Disallow logic or conditions in function parameters - extract to a const variabl
 
 This rule enforces a pattern where complex expressions (logical operators, ternary operators, comparison operators) are extracted to a const variable before being passed as function arguments. This improves code readability, makes debugging easier, and helps maintain cleaner function calls.
 
-**Incorrect** code for this rule:
+## Examples
 
-```typescript
+### Incorrect
+
+```ts
 // Nullish coalescing
 functionFoo(bar ?? baz);
 
@@ -35,9 +37,9 @@ createUser(username, age >= 18, status === "active");
 new MyClass(a || b);
 ```
 
-**Correct** code for this rule:
+### Correct
 
-```typescript
+```ts
 // Extract logic to a variable first
 const value = bar ?? baz;
 functionFoo(value);
@@ -83,15 +85,7 @@ configure({ key: "value" });
 process([1, 2, 3]);
 ```
 
-## Benefits
-
-- **Better readability**: Logic is separated from function calls, making code easier to scan
-- **Easier debugging**: Intermediate values can be inspected in debuggers before being passed to functions
-- **Self-documenting**: Variable names describe what the complex expression represents
-- **Consistent style**: Enforces a uniform approach to handling complex function arguments
-- **Reduced cognitive load**: Readers don't need to mentally evaluate expressions while also understanding function calls
-
-## When Not To Use
+## When Not To Use It
 
 - For very simple projects where inline expressions are preferred
 - When you prefer a more compact coding style

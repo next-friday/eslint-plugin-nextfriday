@@ -4,7 +4,7 @@ Enforce `fetch` prefix for async functions in `*.service.ts` files instead of `g
 
 ## Rule Details
 
-This rule ensures consistent naming conventions for service layer functions. In service files, async data-fetching functions should use the `fetch` prefix to clearly indicate they perform network/API calls.
+This rule ensures consistent naming conventions for service layer functions. In `*.service.ts` files, async data-fetching functions should use the `fetch` prefix to clearly indicate they perform network/API calls.
 
 ### Why?
 
@@ -14,9 +14,9 @@ This rule ensures consistent naming conventions for service layer functions. In 
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
-```typescript
+```ts
 // article.service.ts
 export async function getArticles() {}
 export async function loadFaq() {}
@@ -24,9 +24,9 @@ export async function getUserById() {}
 export const getUsers = async () => {};
 ```
 
-### ✅ Correct
+### Correct
 
-```typescript
+```ts
 // article.service.ts
 export async function fetchArticles() {}
 export async function fetchFaqList() {}
@@ -46,7 +46,3 @@ export async function deleteComment() {}
 
 - If your project uses different naming conventions for service functions
 - If you prefer `get`/`load` prefixes for data-fetching operations
-
-## Applies To
-
-This rule only applies to files matching `*.service.ts`.

@@ -1,27 +1,21 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
-import { afterAll, describe, it, expect } from "@jest/globals";
-import parser from "@typescript-eslint/parser";
+import { afterAll, describe, it } from "@jest/globals";
 
 import preferFunctionDeclaration from "../prefer-function-declaration";
 
 RuleTester.afterAll = afterAll;
-RuleTester.it = it;
-RuleTester.itOnly = it.only;
 RuleTester.describe = describe;
+RuleTester.it = it;
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
-    },
-  },
-});
+const ruleTester = new RuleTester();
 
 describe("prefer-function-declaration", () => {
-  it("should be defined", () => {
-    expect(preferFunctionDeclaration).toBeDefined();
+  it("should have meta property", () => {
+    expect(preferFunctionDeclaration.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof preferFunctionDeclaration.create).toBe("function");
   });
 
   ruleTester.run("prefer-function-declaration", preferFunctionDeclaration, {

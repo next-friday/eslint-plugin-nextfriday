@@ -2,6 +2,8 @@
 
 Disallow empty lines between single-line sibling JSX elements.
 
+> This rule is auto-fixable using `--fix`.
+
 ## Rule Details
 
 This rule enforces that sibling JSX elements which are both single-line should not have empty lines between them. Single-line elements should be compact and grouped together.
@@ -16,7 +18,7 @@ Use with `jsx-newline-between-elements` which requires empty lines between multi
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
 ```tsx
 // Bad: Unnecessary empty line between single-line siblings
@@ -38,7 +40,7 @@ Use with `jsx-newline-between-elements` which requires empty lines between multi
 </ul>
 ```
 
-### ✅ Correct
+### Correct
 
 ```tsx
 // Good: Single-line siblings are compact

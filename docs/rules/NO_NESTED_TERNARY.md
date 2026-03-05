@@ -8,9 +8,9 @@ Nested ternary expressions are difficult to read and understand. This rule enfor
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
-```tsx
+```ts
 const status = isLoading ? "loading" : isError ? "error" : "success";
 
 const value = a ? (b ? 1 : 2) : 3;
@@ -18,9 +18,9 @@ const value = a ? (b ? 1 : 2) : 3;
 const result = condition1 ? value1 : condition2 ? value2 : condition3 ? value3 : defaultValue;
 ```
 
-### ✅ Correct
+### Correct
 
-```tsx
+```ts
 // Simple ternary (no nesting)
 const status = isLoading ? "loading" : "success";
 
