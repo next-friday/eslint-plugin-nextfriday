@@ -354,6 +354,16 @@ Additionally included in `nextjs`, `nextjs/recommended` only:
 - **Clean code practices**: Prevents emoji usage, enforces parameter destructuring, and more
 - **Formatting rules**: Enforces consistent blank lines around multi-line blocks and return statements
 
+## Agent Skill
+
+This plugin ships with an [Agent Skill](https://github.com/anthropics/skills) that teaches AI coding assistants (Claude Code, Cursor, etc.) all 51 rules so they generate compliant code from the start.
+
+```bash
+npx skills add next-friday/eslint-plugin-nextfriday --skill eslint-plugin-nextfriday
+```
+
+Once installed, AI assistants will automatically follow the naming, code style, type, JSX, import, and formatting patterns enforced by this plugin — reducing lint errors to zero.
+
 ## Need Help?
 
 If you encounter any issues or have questions:
