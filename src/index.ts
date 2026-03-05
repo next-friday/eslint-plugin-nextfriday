@@ -11,6 +11,7 @@ import enforcePropsSuffix from "./rules/enforce-props-suffix";
 import enforceReadonlyComponentProps from "./rules/enforce-readonly-component-props";
 import enforceServiceNaming from "./rules/enforce-service-naming";
 import enforceSortedDestructuring from "./rules/enforce-sorted-destructuring";
+import enforceTypeDeclarationOrder from "./rules/enforce-type-declaration-order";
 import fileKebabCase from "./rules/file-kebab-case";
 import jsxNewlineBetweenElements from "./rules/jsx-newline-between-elements";
 import jsxNoInlineObjectProp from "./rules/jsx-no-inline-object-prop";
@@ -30,6 +31,7 @@ import noInlineNestedObject from "./rules/no-inline-nested-object";
 import requireExplicitReturnType from "./rules/require-explicit-return-type";
 import jsxNoNonComponentFunction from "./rules/jsx-no-non-component-function";
 import noLogicInParams from "./rules/no-logic-in-params";
+import noNestedInterfaceDeclaration from "./rules/no-nested-interface-declaration";
 import noNestedTernary from "./rules/no-nested-ternary";
 import newlineAfterMultilineBlock from "./rules/newline-after-multiline-block";
 import newlineBeforeReturn from "./rules/newline-before-return";
@@ -41,6 +43,7 @@ import preferDestructuringParams from "./rules/prefer-destructuring-params";
 import preferFunctionDeclaration from "./rules/prefer-function-declaration";
 import preferGuardClause from "./rules/prefer-guard-clause";
 import preferImportType from "./rules/prefer-import-type";
+import preferInlineLiteralUnion from "./rules/prefer-inline-literal-union";
 import preferInterfaceOverInlineTypes from "./rules/prefer-interface-over-inline-types";
 import preferJSXTemplateLiterals from "./rules/prefer-jsx-template-literals";
 import preferNamedParamTypes from "./rules/prefer-named-param-types";
@@ -73,6 +76,7 @@ const rules = {
   "enforce-readonly-component-props": enforceReadonlyComponentProps,
   "enforce-service-naming": enforceServiceNaming,
   "enforce-sorted-destructuring": enforceSortedDestructuring,
+  "enforce-type-declaration-order": enforceTypeDeclarationOrder,
   "file-kebab-case": fileKebabCase,
   "jsx-newline-between-elements": jsxNewlineBetweenElements,
   "jsx-no-inline-object-prop": jsxNoInlineObjectProp,
@@ -95,6 +99,7 @@ const rules = {
   "require-explicit-return-type": requireExplicitReturnType,
   "no-lazy-identifiers": noLazyIdentifiers,
   "no-logic-in-params": noLogicInParams,
+  "no-nested-interface-declaration": noNestedInterfaceDeclaration,
   "no-nested-ternary": noNestedTernary,
   "no-relative-imports": noRelativeImports,
   "no-single-char-variables": noSingleCharVariables,
@@ -103,6 +108,7 @@ const rules = {
   "prefer-function-declaration": preferFunctionDeclaration,
   "prefer-guard-clause": preferGuardClause,
   "prefer-import-type": preferImportType,
+  "prefer-inline-literal-union": preferInlineLiteralUnion,
   "prefer-interface-over-inline-types": preferInterfaceOverInlineTypes,
   "prefer-jsx-template-literals": preferJSXTemplateLiterals,
   "prefer-named-param-types": preferNamedParamTypes,
@@ -128,6 +134,7 @@ const baseRules = {
   "nextfriday/enforce-hook-naming": "warn",
   "nextfriday/enforce-service-naming": "warn",
   "nextfriday/enforce-sorted-destructuring": "warn",
+  "nextfriday/enforce-type-declaration-order": "warn",
   "nextfriday/file-kebab-case": "warn",
   "nextfriday/md-filename-case-restriction": "warn",
   "nextfriday/newline-after-multiline-block": "warn",
@@ -137,11 +144,13 @@ const baseRules = {
   "nextfriday/prefer-guard-clause": "warn",
   "nextfriday/require-explicit-return-type": "warn",
   "nextfriday/prefer-import-type": "warn",
+  "nextfriday/prefer-inline-literal-union": "warn",
   "nextfriday/prefer-named-param-types": "warn",
   "nextfriday/prefer-react-import-types": "warn",
   "nextfriday/no-complex-inline-return": "warn",
   "nextfriday/no-direct-date": "warn",
   "nextfriday/no-logic-in-params": "warn",
+  "nextfriday/no-nested-interface-declaration": "warn",
   "nextfriday/no-nested-ternary": "warn",
   "nextfriday/no-env-fallback": "warn",
   "nextfriday/no-inline-default-export": "warn",
@@ -164,6 +173,7 @@ const baseRecommendedRules = {
   "nextfriday/enforce-hook-naming": "error",
   "nextfriday/enforce-service-naming": "error",
   "nextfriday/enforce-sorted-destructuring": "error",
+  "nextfriday/enforce-type-declaration-order": "error",
   "nextfriday/file-kebab-case": "error",
   "nextfriday/md-filename-case-restriction": "error",
   "nextfriday/newline-after-multiline-block": "error",
@@ -173,11 +183,13 @@ const baseRecommendedRules = {
   "nextfriday/prefer-guard-clause": "error",
   "nextfriday/require-explicit-return-type": "error",
   "nextfriday/prefer-import-type": "error",
+  "nextfriday/prefer-inline-literal-union": "error",
   "nextfriday/prefer-named-param-types": "error",
   "nextfriday/prefer-react-import-types": "error",
   "nextfriday/no-complex-inline-return": "error",
   "nextfriday/no-direct-date": "error",
   "nextfriday/no-logic-in-params": "error",
+  "nextfriday/no-nested-interface-declaration": "error",
   "nextfriday/no-nested-ternary": "error",
   "nextfriday/no-env-fallback": "error",
   "nextfriday/no-inline-default-export": "error",

@@ -113,7 +113,10 @@ export default [
       "nextfriday/sort-imports": "error",
 
       // Type Patterns
+      "nextfriday/enforce-type-declaration-order": "error",
+      "nextfriday/no-nested-interface-declaration": "error",
       "nextfriday/prefer-named-param-types": "error",
+      "nextfriday/prefer-inline-literal-union": "error",
       "nextfriday/prefer-interface-over-inline-types": "error",
       "nextfriday/sort-type-alphabetically": "error",
       "nextfriday/sort-type-required-first": "error",
@@ -225,7 +228,10 @@ module.exports = {
 
 | Rule                                                                                   | Description                                                      | Fixable |
 | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------- |
+| [enforce-type-declaration-order](docs/rules/ENFORCE_TYPE_DECLARATION_ORDER.md)         | Enforce referenced types are declared after their consumer       | ❌      |
+| [no-nested-interface-declaration](docs/rules/NO_NESTED_INTERFACE_DECLARATION.md)       | Disallow inline object types in interface/type properties        | ❌      |
 | [prefer-named-param-types](docs/rules/PREFER_NAMED_PARAM_TYPES.md)                     | Enforce named types for function parameters with object types    | ❌      |
+| [prefer-inline-literal-union](docs/rules/PREFER_INLINE_LITERAL_UNION.md)               | Enforce inlining literal union types for better IDE hover info   | ✅      |
 | [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md) | Enforce interface declarations over inline types for React props | ❌      |
 | [sort-type-alphabetically](docs/rules/SORT_TYPE_ALPHABETICALLY.md)                     | Enforce A-Z sorting of properties within type groups             | ✅      |
 | [sort-type-required-first](docs/rules/SORT_TYPE_REQUIRED_FIRST.md)                     | Enforce required properties before optional in types/interfaces  | ✅      |
@@ -259,14 +265,14 @@ module.exports = {
 
 | Preset               | Severity | Base Rules | JSX Rules | Next.js Rules | Total Rules |
 | -------------------- | -------- | ---------- | --------- | ------------- | ----------- |
-| `base`               | warn     | 33         | 0         | 0             | 33          |
-| `base/recommended`   | error    | 33         | 0         | 0             | 33          |
-| `react`              | warn     | 33         | 14        | 0             | 47          |
-| `react/recommended`  | error    | 33         | 14        | 0             | 47          |
-| `nextjs`             | warn     | 33         | 14        | 1             | 48          |
-| `nextjs/recommended` | error    | 33         | 14        | 1             | 48          |
+| `base`               | warn     | 36         | 0         | 0             | 36          |
+| `base/recommended`   | error    | 36         | 0         | 0             | 36          |
+| `react`              | warn     | 36         | 14        | 0             | 50          |
+| `react/recommended`  | error    | 36         | 14        | 0             | 50          |
+| `nextjs`             | warn     | 36         | 14        | 1             | 51          |
+| `nextjs/recommended` | error    | 36         | 14        | 1             | 51          |
 
-### Base Configuration Rules (33 rules)
+### Base Configuration Rules (36 rules)
 
 Included in `base`, `base/recommended`, and all other presets:
 
@@ -276,6 +282,7 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/enforce-hook-naming`
 - `nextfriday/enforce-service-naming`
 - `nextfriday/enforce-sorted-destructuring`
+- `nextfriday/enforce-type-declaration-order`
 - `nextfriday/file-kebab-case`
 - `nextfriday/md-filename-case-restriction`
 - `nextfriday/newline-after-multiline-block`
@@ -288,6 +295,7 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/no-inline-nested-object`
 - `nextfriday/no-lazy-identifiers`
 - `nextfriday/no-logic-in-params`
+- `nextfriday/no-nested-interface-declaration`
 - `nextfriday/no-nested-ternary`
 - `nextfriday/no-relative-imports`
 - `nextfriday/no-single-char-variables`
@@ -296,6 +304,7 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/prefer-function-declaration`
 - `nextfriday/prefer-guard-clause`
 - `nextfriday/prefer-import-type`
+- `nextfriday/prefer-inline-literal-union`
 - `nextfriday/prefer-named-param-types`
 - `nextfriday/prefer-react-import-types`
 - `nextfriday/require-explicit-return-type`
