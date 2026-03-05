@@ -4,19 +4,13 @@ Enforce SCREAMING_SNAKE_CASE for constant primitive values.
 
 ## Rule Details
 
-This rule ensures that `const` declarations with primitive values (strings, numbers, booleans, template literals) use SCREAMING_SNAKE_CASE naming convention.
-
-### Why?
-
-- **Clarity**: SCREAMING_SNAKE_CASE clearly indicates a value is a constant that shouldn't change
-- **Convention**: Follows common JavaScript/TypeScript naming patterns for constants
-- **Readability**: Makes it easy to distinguish constants from regular variables
+This rule ensures that `const` declarations with primitive values (strings, numbers, booleans, template literals) use SCREAMING_SNAKE_CASE naming convention. Objects, arrays, and functions are not checked. Only `const` declarations are checked; `let` and `var` are ignored.
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
-```typescript
+```ts
 const defaultCover = "/images/default.jpg";
 const pageLimit = 10;
 const isEnabled = true;
@@ -24,9 +18,9 @@ const apiBaseUrl = "https://api.example.com";
 const template = `hello world`;
 ```
 
-### ✅ Correct
+### Correct
 
-```typescript
+```ts
 const DEFAULT_COVER = "/images/default.jpg";
 const PAGE_LIMIT = 10;
 const IS_ENABLED = true;
@@ -47,10 +41,3 @@ var pageLimit = 10;
 
 - If your project uses different naming conventions for constants
 - If you prefer camelCase for all variable declarations
-
-## Notes
-
-- Only applies to `const` declarations
-- Only applies to primitive values: strings, numbers, booleans, template literals
-- Objects, arrays, and functions are not checked (can use camelCase/PascalCase)
-- `let` and `var` declarations are not checked

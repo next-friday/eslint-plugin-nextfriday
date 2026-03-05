@@ -25,7 +25,7 @@ Use with `sort-type-required-first` to also enforce required properties come bef
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
 ```ts
 // Bad: Required not sorted A-Z
@@ -54,7 +54,7 @@ interface HeroBannerRootProps {
 }
 ```
 
-### ✅ Correct
+### Correct
 
 ```ts
 // Good: Required A-Z, optional A-Z

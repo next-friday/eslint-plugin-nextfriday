@@ -6,9 +6,9 @@ Require a blank line before return statements.
 
 This rule enforces a blank line before `return` statements when they are preceded by other statements. This improves readability by visually separating the return value from the logic that precedes it. A blank line is not required when the return statement is the only statement in the function body.
 
-### Examples
+## Examples
 
-#### Incorrect
+### Incorrect
 
 ```ts
 function findUserById(users: User[], id: string): User | null {
@@ -34,7 +34,7 @@ function getNodeValue(node: ASTNode): ASTNode {
 }
 ```
 
-#### Correct
+### Correct
 
 ```ts
 function findUserById(users: User[], id: string): User | null {

@@ -4,15 +4,12 @@ import { afterAll, describe, it } from "@jest/globals";
 import preferJSXTemplateLiterals from "../prefer-jsx-template-literals";
 
 RuleTester.afterAll = afterAll;
-RuleTester.it = it;
-RuleTester.itOnly = it.only;
 RuleTester.describe = describe;
+RuleTester.it = it;
 
 const ruleTester = new RuleTester({
   languageOptions: {
     parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
       ecmaFeatures: {
         jsx: true,
       },
@@ -21,8 +18,12 @@ const ruleTester = new RuleTester({
 });
 
 describe("prefer-jsx-template-literals", () => {
-  it("should be defined", () => {
-    expect(preferJSXTemplateLiterals).toBeDefined();
+  it("should have meta property", () => {
+    expect(preferJSXTemplateLiterals.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof preferJSXTemplateLiterals.create).toBe("function");
   });
 
   ruleTester.run("prefer-jsx-template-literals", preferJSXTemplateLiterals, {

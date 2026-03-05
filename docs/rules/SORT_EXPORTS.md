@@ -26,7 +26,7 @@ Non-contiguous exports (separated by other statements) are checked independently
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
 ```ts
 // Bad: Local before re-export
@@ -40,7 +40,7 @@ export { bar } from "../bar";
 export { foo } from "react";
 ```
 
-### ✅ Correct
+### Correct
 
 ```ts
 // Good: All 3 groups in correct order

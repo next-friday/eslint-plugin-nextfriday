@@ -4,26 +4,18 @@ import { afterAll, describe, it } from "@jest/globals";
 import sortTypeAlphabetically from "../sort-type-alphabetically";
 
 RuleTester.afterAll = afterAll;
-RuleTester.it = it;
-RuleTester.itOnly = it.only;
 RuleTester.describe = describe;
+RuleTester.it = it;
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
-    },
-  },
-});
+const ruleTester = new RuleTester();
 
 describe("sort-type-alphabetically", () => {
   it("should have meta property", () => {
-    expect(sortTypeAlphabetically).toHaveProperty("meta");
+    expect(sortTypeAlphabetically.meta).toBeDefined();
   });
 
-  it("should have create property", () => {
-    expect(sortTypeAlphabetically).toHaveProperty("create");
+  it("should have create method", () => {
+    expect(typeof sortTypeAlphabetically.create).toBe("function");
   });
 
   ruleTester.run("sort-type-alphabetically", sortTypeAlphabetically, {

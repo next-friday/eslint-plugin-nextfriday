@@ -7,18 +7,15 @@ RuleTester.afterAll = afterAll;
 RuleTester.describe = describe;
 RuleTester.it = it;
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
-    },
-  },
-});
+const ruleTester = new RuleTester();
 
 describe("prefer-named-param-types", () => {
-  it("should be defined", () => {
-    expect(preferNamedParamTypes).toBeDefined();
+  it("should have meta property", () => {
+    expect(preferNamedParamTypes.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof preferNamedParamTypes.create).toBe("function");
   });
 
   ruleTester.run("prefer-named-param-types", preferNamedParamTypes, {

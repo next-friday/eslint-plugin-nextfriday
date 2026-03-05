@@ -1,27 +1,21 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
-import { afterAll, describe, it, expect } from "@jest/globals";
-import parser from "@typescript-eslint/parser";
+import { afterAll, describe, it } from "@jest/globals";
 
 import noInlineDefaultExport from "../no-inline-default-export";
 
 RuleTester.afterAll = afterAll;
-RuleTester.it = it;
-RuleTester.itOnly = it.only;
 RuleTester.describe = describe;
+RuleTester.it = it;
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
-    },
-  },
-});
+const ruleTester = new RuleTester();
 
 describe("no-inline-default-export", () => {
-  it("should be defined", () => {
-    expect(noInlineDefaultExport).toBeDefined();
+  it("should have meta property", () => {
+    expect(noInlineDefaultExport.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof noInlineDefaultExport.create).toBe("function");
   });
 
   ruleTester.run("no-inline-default-export", noInlineDefaultExport, {

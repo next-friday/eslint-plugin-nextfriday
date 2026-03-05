@@ -28,7 +28,7 @@ Non-contiguous imports (separated by other statements) are checked independently
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
 ```ts
 // Bad: Relative before external
@@ -48,7 +48,7 @@ import React from "react";
 import "./setup";
 ```
 
-### ✅ Correct
+### Correct
 
 ```ts
 // Good: All 5 groups in correct order

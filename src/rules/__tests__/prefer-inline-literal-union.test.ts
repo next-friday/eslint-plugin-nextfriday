@@ -7,14 +7,7 @@ RuleTester.afterAll = afterAll;
 RuleTester.describe = describe;
 RuleTester.it = it;
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
-    },
-  },
-});
+const ruleTester = new RuleTester();
 
 describe("prefer-inline-literal-union", () => {
   it("should have meta property", () => {

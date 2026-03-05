@@ -8,7 +8,7 @@ This rule prevents the use of the native JavaScript `Date` constructor and its s
 
 ## Examples
 
-**Incorrect** code for this rule:
+### Incorrect
 
 ```js
 const now = new Date();
@@ -19,7 +19,7 @@ const dateFromTimestamp = new Date(1704067200000);
 const dateFromParts = new Date(2024, 0, 1);
 ```
 
-**Correct** code for this rule:
+### Correct
 
 ```js
 import dayjs from "dayjs";

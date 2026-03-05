@@ -6,9 +6,9 @@ Require empty lines between sibling JSX elements when at least one spans multipl
 
 This rule enforces empty lines between sibling JSX elements when either element spans multiple lines. This improves visual separation and readability of complex component structures. Single-line elements do not require empty lines between them.
 
-### Examples
+## Examples
 
-#### Incorrect
+### Incorrect
 
 ```jsx
 function Dashboard() {
@@ -37,7 +37,7 @@ function UserProfile() {
 }
 ```
 
-#### Correct
+### Correct
 
 Multi-line elements need empty lines between them:
 

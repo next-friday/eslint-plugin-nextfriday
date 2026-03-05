@@ -4,22 +4,18 @@ import { afterAll, describe, it } from "@jest/globals";
 import newlineAfterMultilineBlock from "../newline-after-multiline-block";
 
 RuleTester.afterAll = afterAll;
-RuleTester.it = it;
-RuleTester.itOnly = it.only;
 RuleTester.describe = describe;
+RuleTester.it = it;
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
-    },
-  },
-});
+const ruleTester = new RuleTester();
 
 describe("newline-after-multiline-block", () => {
-  it("should be defined", () => {
-    expect(newlineAfterMultilineBlock).toBeDefined();
+  it("should have meta property", () => {
+    expect(newlineAfterMultilineBlock.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof newlineAfterMultilineBlock.create).toBe("function");
   });
 
   ruleTester.run("newline-after-multiline-block", newlineAfterMultilineBlock, {

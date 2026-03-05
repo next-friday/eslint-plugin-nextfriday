@@ -6,9 +6,11 @@ Disallow inline exports. Declare first, then export separately.
 
 This rule enforces separating declarations from exports. Instead of `export function`, declare the function first, then export it.
 
-**Incorrect** code for this rule:
+## Examples
 
-```typescript
+### Incorrect
+
+```ts
 // Inline named export
 export function fetchData() {
   return fetch("/api");
@@ -42,9 +44,9 @@ export default function () {
 export default () => "arrow";
 ```
 
-**Correct** code for this rule:
+### Correct
 
-```typescript
+```ts
 // Declare function, then export
 function fetchData() {
   return fetch("/api");
@@ -86,13 +88,7 @@ export default "literal";
 export default { key: "value" };
 ```
 
-## Benefits
-
-- **Readability**: Easy to see what a module exports at a glance
-- **Consistency**: All exports follow the same pattern
-- **Refactoring**: Easier to rename or move declarations
-
-## When Not To Use
+## When Not To Use It
 
 If your project prefers inline exports for brevity, you may want to disable this rule.
 

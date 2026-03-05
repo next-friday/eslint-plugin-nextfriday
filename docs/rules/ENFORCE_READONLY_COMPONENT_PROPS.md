@@ -8,7 +8,7 @@ This rule enforces that React component props using named types (interfaces or t
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
 ```tsx
 interface Props {
@@ -35,7 +35,7 @@ function Layout(props: LayoutProps) {
 }
 ```
 
-### ✅ Correct
+### Correct
 
 ```tsx
 interface Props {
@@ -77,7 +77,7 @@ const helper = (props: HelperProps) => {
 };
 ```
 
-## When Not To Use
+## When Not To Use It
 
 This rule should not be used if:
 
@@ -93,12 +93,3 @@ This rule is fixable using ESLint's `--fix` option. The fixer will automatically
 
 - [`prefer-interface-over-inline-types`](./PREFER_INTERFACE_OVER_INLINE_TYPES.md) - Enforces interface declarations over inline types
 - [`react-props-destructure`](./REACT_PROPS_DESTRUCTURE.md) - Enforces destructuring props inside component body
-
-## Configuration
-
-This rule is included in the following configurations:
-
-- `react` (warn)
-- `react/recommended` (error)
-- `nextjs` (warn)
-- `nextjs/recommended` (error)

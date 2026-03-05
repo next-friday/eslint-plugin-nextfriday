@@ -14,7 +14,7 @@ This rule ensures that components created with `lazy()` or `React.lazy()` are al
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
 ```tsx
 const AsyncComponent = lazy(() => import("./Component"));
@@ -29,7 +29,7 @@ const LazyModal = React.lazy(() => import("./Modal"));
 </div>
 ```
 
-### ✅ Correct
+### Correct
 
 ```tsx
 const AsyncComponent = lazy(() => import("./Component"));

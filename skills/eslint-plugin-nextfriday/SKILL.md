@@ -33,7 +33,7 @@ See [naming-conventions.md](./naming-conventions.md) for hook/service naming and
 Function declarations in `.ts` files. Explicit return types. Destructured params for 2+ arguments.
 
 ```ts
-function fetchUser({ userId }: FetchUserParams): Promise<User> {
+async function fetchUser({ userId }: FetchUserParams): Promise<User> {
   const response = await fetch(url);
   const data = await response.json();
 

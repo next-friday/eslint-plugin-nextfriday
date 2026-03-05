@@ -4,17 +4,11 @@ Require `NEXT_PUBLIC_` prefix for environment variables in client components.
 
 ## Rule Details
 
-This rule ensures that environment variables accessed in Next.js client components (files with `"use client"` directive) use the `NEXT_PUBLIC_` prefix. In Next.js, only environment variables prefixed with `NEXT_PUBLIC_` are exposed to the browser.
-
-### Why?
-
-- **Security**: Prevents accidental exposure of server-only secrets to the client bundle
-- **Runtime Errors**: Non-public env vars will be `undefined` in client components
-- **Next.js Requirement**: Only `NEXT_PUBLIC_` prefixed variables are available client-side
+This rule ensures that environment variables accessed in Next.js client components (files with `"use client"` directive) use the `NEXT_PUBLIC_` prefix. In Next.js, only environment variables prefixed with `NEXT_PUBLIC_` are exposed to the browser. Only files with `"use client"` directive are checked. `NODE_ENV` is always allowed.
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
 ```tsx
 "use client";
@@ -25,7 +19,7 @@ const secret = process.env.DATABASE_SECRET;
 const key = process.env.PRIVATE_API_KEY;
 ```
 
-### ✅ Correct
+### Correct
 
 ```tsx
 "use client";
@@ -48,13 +42,3 @@ const secret = process.env.API_SECRET;
 
 - If you're not using Next.js
 - If you have a custom build setup that exposes env vars differently
-
-## Notes
-
-- Only applies to files with `"use client"` directive
-- `NODE_ENV` is always allowed (built into Next.js)
-- Server components (without `"use client"`) are not checked
-
-## Related
-
-- [Next.js Environment Variables Documentation](https://nextjs.org/docs/app/building-your-application/configuring/environment-variables)

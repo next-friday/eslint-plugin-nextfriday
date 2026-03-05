@@ -8,18 +8,18 @@ This rule prevents the use of emoji characters in JavaScript and TypeScript sour
 
 ## Examples
 
-**Incorrect** code for this rule:
+### Incorrect
 
-```js
+```ts
 const message = "Hello 🌍 world";
 const greeting = "Hi there! 👋";
 // Comment with emoji 😀
 const celebration = "🎉 Party time! 🎊";
 ```
 
-**Correct** code for this rule:
+### Correct
 
-```js
+```ts
 const message = "Hello world";
 const greeting = "Hi there!";
 // Comment without emoji

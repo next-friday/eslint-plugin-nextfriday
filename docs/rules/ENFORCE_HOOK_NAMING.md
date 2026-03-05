@@ -4,7 +4,7 @@ Enforce `use` prefix for functions in custom hook files (`*.hook.ts`, `*.hooks.t
 
 ## Rule Details
 
-This rule ensures that all exported functions in custom hook files follow React's hook naming convention by starting with `use`.
+This rule ensures that all exported functions in custom hook files (`*.hook.ts`, `*.hooks.ts`) follow React's hook naming convention by starting with `use`.
 
 ### Why?
 
@@ -14,9 +14,9 @@ This rule ensures that all exported functions in custom hook files follow React'
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
-```typescript
+```ts
 // search-params.hook.ts
 export function searchParamsHandler() {}
 export default handleSearch;
@@ -26,9 +26,9 @@ export const authManager = () => {};
 export default function customHook() {}
 ```
 
-### ✅ Correct
+### Correct
 
-```typescript
+```ts
 // search-params.hook.ts
 export function useSearchParamsHandler() {}
 export default useSearchParamsHandler;
@@ -42,10 +42,3 @@ export default function useCustomHook() {}
 
 - If your project uses a different naming convention for hook files
 - If you don't use the `*.hook.ts` or `*.hooks.ts` file naming pattern
-
-## Applies To
-
-This rule only applies to files matching:
-
-- `*.hook.ts`
-- `*.hooks.ts`

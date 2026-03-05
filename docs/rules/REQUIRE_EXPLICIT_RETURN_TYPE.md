@@ -6,9 +6,11 @@ Require explicit return types on functions for better code documentation and typ
 
 This rule enforces that all functions have explicit return type annotations. Explicit return types serve as documentation, help catch bugs early, and make the codebase more maintainable.
 
-**Incorrect** code for this rule:
+## Examples
 
-```typescript
+### Incorrect
+
+```ts
 function getName() {
   return "John Doe";
 }
@@ -34,9 +36,9 @@ function validateEmail(email: string) {
 }
 ```
 
-**Correct** code for this rule:
+### Correct
 
-```typescript
+```ts
 function getName(): string {
   return "John Doe";
 }
@@ -68,7 +70,7 @@ This rule does NOT require return types for:
 
 ### Callback Functions
 
-```typescript
+```ts
 // All of these are allowed without return types
 items.map((item) => item.name);
 items.filter((item) => item.active);
@@ -79,7 +81,7 @@ promise.then((result) => result.data);
 
 ### Object Properties
 
-```typescript
+```ts
 const handler = {
   onClick: () => console.log("clicked"),
 };
@@ -87,13 +89,13 @@ const handler = {
 
 ### Array Elements
 
-```typescript
+```ts
 const callbacks = [() => 1, () => 2];
 ```
 
 ### React Components (PascalCase)
 
-```typescript
+```ts
 // React components don't need explicit return types
 const MyComponent = () => <div>Hello</div>;
 
@@ -106,23 +108,11 @@ const Button = () => {
 };
 ```
 
-## Benefits
-
-- **Self-documenting code**: Return types serve as documentation for function contracts
-- **Early error detection**: Type mismatches are caught at compile time
-- **Better IDE support**: Explicit types improve autocomplete and refactoring
-- **API clarity**: Public functions have clear type signatures
-- **Maintainability**: Easier to understand function behavior at a glance
-
-## When Not To Use
+## When Not To Use It
 
 - When you prefer TypeScript's type inference for all functions
 - In rapid prototyping where explicit types slow down development
 - When the inferred type is exactly what you want
-
-## Configuration
-
-This rule has no configuration options.
 
 ## Related Rules
 

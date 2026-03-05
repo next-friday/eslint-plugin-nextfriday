@@ -18,7 +18,7 @@ This rule prevents non-component functions from being defined at the top level i
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
 ```tsx
 // Bad: Non-component function defined at top level in .tsx file
@@ -62,7 +62,7 @@ const OrderSummary = () => {
 export { OrderSummary };
 ```
 
-### ✅ Correct
+### Correct
 
 ```tsx
 // Good: Function imported from separate file
@@ -91,7 +91,7 @@ const Component = () => {
 };
 ```
 
-```typescript
+```ts
 // Good: Functions in .ts or .js files are allowed
 // utils.ts
 function helper(name: string) {

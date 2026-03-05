@@ -1,27 +1,21 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
-import { afterAll, describe, it, expect } from "@jest/globals";
-import parser from "@typescript-eslint/parser";
+import { afterAll, describe, it } from "@jest/globals";
 
 import noDirectDate from "../no-direct-date";
 
 RuleTester.afterAll = afterAll;
-RuleTester.it = it;
-RuleTester.itOnly = it.only;
 RuleTester.describe = describe;
+RuleTester.it = it;
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
-    },
-  },
-});
+const ruleTester = new RuleTester();
 
 describe("no-direct-date", () => {
-  it("should be defined", () => {
-    expect(noDirectDate).toBeDefined();
+  it("should have meta property", () => {
+    expect(noDirectDate.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof noDirectDate.create).toBe("function");
   });
 
   ruleTester.run("no-direct-date", noDirectDate, {

@@ -10,8 +10,6 @@ RuleTester.it = it;
 const ruleTester = new RuleTester({
   languageOptions: {
     parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
       ecmaFeatures: {
         jsx: true,
       },
@@ -20,8 +18,12 @@ const ruleTester = new RuleTester({
 });
 
 describe("prefer-interface-over-inline-types", () => {
-  it("should be defined", () => {
-    expect(preferInterfaceOverInlineTypes).toBeDefined();
+  it("should have meta property", () => {
+    expect(preferInterfaceOverInlineTypes.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof preferInterfaceOverInlineTypes.create).toBe("function");
   });
 
   ruleTester.run("prefer-interface-over-inline-types", preferInterfaceOverInlineTypes, {

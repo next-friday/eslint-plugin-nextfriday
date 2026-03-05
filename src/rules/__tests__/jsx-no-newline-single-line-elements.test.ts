@@ -4,15 +4,12 @@ import { afterAll, describe, it } from "@jest/globals";
 import jsxNoNewlineSingleLineElements from "../jsx-no-newline-single-line-elements";
 
 RuleTester.afterAll = afterAll;
-RuleTester.it = it;
-RuleTester.itOnly = it.only;
 RuleTester.describe = describe;
+RuleTester.it = it;
 
 const ruleTester = new RuleTester({
   languageOptions: {
     parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
       ecmaFeatures: {
         jsx: true,
       },
@@ -22,11 +19,11 @@ const ruleTester = new RuleTester({
 
 describe("jsx-no-newline-single-line-elements", () => {
   it("should have meta property", () => {
-    expect(jsxNoNewlineSingleLineElements).toHaveProperty("meta");
+    expect(jsxNoNewlineSingleLineElements.meta).toBeDefined();
   });
 
-  it("should have create property", () => {
-    expect(jsxNoNewlineSingleLineElements).toHaveProperty("create");
+  it("should have create method", () => {
+    expect(typeof jsxNoNewlineSingleLineElements.create).toBe("function");
   });
 
   ruleTester.run("jsx-no-newline-single-line-elements", jsxNoNewlineSingleLineElements, {

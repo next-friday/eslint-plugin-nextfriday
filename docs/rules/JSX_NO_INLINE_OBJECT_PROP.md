@@ -14,7 +14,7 @@ This rule flags inline object literals used directly as JSX prop values. Inline 
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
 ```tsx
 <Component style={{ color: "red" }} />
@@ -23,7 +23,7 @@ This rule flags inline object literals used directly as JSX prop values. Inline 
 <div style={{ margin: 0 }} />
 ```
 
-### ✅ Correct
+### Correct
 
 ```tsx
 const style = { color: "red" };

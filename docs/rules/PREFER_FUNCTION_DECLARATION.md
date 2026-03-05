@@ -8,9 +8,11 @@ This rule requires using function declarations instead of arrow functions or fun
 
 **Target:** `.ts` files only (not `.tsx`, `.js`, or `.d.ts`)
 
-**Incorrect** code for this rule:
+## Examples
 
-```typescript
+### Incorrect
+
+```ts
 // Arrow function assigned to variable
 const formatDate = (date: Date) => {
   return date.toLocaleDateString("th-TH");
@@ -30,9 +32,9 @@ const fetchUser = async (id: string) => {
 };
 ```
 
-**Correct** code for this rule:
+### Correct
 
-```typescript
+```ts
 // Function declaration
 function formatDate(date: Date) {
   return date.toLocaleDateString("th-TH");
@@ -60,7 +62,7 @@ Arrow functions are still allowed in the following contexts:
 
 ### Callbacks
 
-```typescript
+```ts
 const years = dates.map((date) => date.getFullYear());
 const active = items.filter((item) => item.active);
 const sorted = items.sort((a, b) => a.name.localeCompare(b.name));
@@ -70,7 +72,7 @@ setTimeout(() => console.log("done"), 1000);
 
 ### Object Properties
 
-```typescript
+```ts
 const handler = {
   onClick: () => console.log("clicked"),
   onHover: () => setHovered(true),
@@ -79,13 +81,13 @@ const handler = {
 
 ### Array Elements
 
-```typescript
+```ts
 const callbacks = [() => 1, () => 2, () => 3];
 ```
 
 ### Return Values
 
-```typescript
+```ts
 function createHandler() {
   return () => console.log("handled");
 }
@@ -93,32 +95,19 @@ function createHandler() {
 
 ### Conditional/Logical Expressions
 
-```typescript
+```ts
 const fn = condition ? () => valueA : () => valueB;
 const handler = defaultFn || (() => fallback);
 ```
 
 ### TSX Files
 
-```typescript
+```ts
 // components/Button.tsx - Arrow functions allowed
 const Button = () => <button>Click me</button>;
 ```
 
-## Benefits
-
-- **Hoisting**: Function declarations are hoisted
-- **Better readability**: Function declarations are more explicit
-- **Clearer stack traces**: Named function declarations provide better debugging
-- **Self-documenting**: `function formatDate()` is clearer than `const formatDate = () =>`
-
-## Why Only `.ts` Files?
-
-- **`.tsx` files**: Arrow functions are commonly used for React components
-- **`.js` files**: JavaScript projects may have different conventions
-- **`.d.ts` files**: Declaration files don't contain implementations
-
-## When Not To Use
+## When Not To Use It
 
 - When you prefer arrow functions for all function definitions
 - In projects where arrow function style is established

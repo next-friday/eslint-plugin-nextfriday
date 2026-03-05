@@ -15,7 +15,7 @@ This rule prevents variable declarations inside callback functions that are dire
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
 ```tsx
 // Bad: Variable declared inside map callback in JSX
@@ -61,7 +61,7 @@ const OrderSummary = ({ orders }) => {
 };
 ```
 
-### ✅ Correct
+### Correct
 
 ```tsx
 // Good: Extract logic to a separate function

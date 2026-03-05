@@ -4,15 +4,12 @@ import { afterAll, describe, it } from "@jest/globals";
 import preferImportType from "../prefer-import-type";
 
 RuleTester.afterAll = afterAll;
-RuleTester.it = it;
-RuleTester.itOnly = it.only;
 RuleTester.describe = describe;
+RuleTester.it = it;
 
 const ruleTester = new RuleTester({
   languageOptions: {
     parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
       ecmaFeatures: {
         jsx: true,
       },
@@ -21,8 +18,12 @@ const ruleTester = new RuleTester({
 });
 
 describe("prefer-import-type", () => {
-  it("should be defined", () => {
-    expect(preferImportType).toBeDefined();
+  it("should have meta property", () => {
+    expect(preferImportType.meta).toBeDefined();
+  });
+
+  it("should have create method", () => {
+    expect(typeof preferImportType.create).toBe("function");
   });
 
   ruleTester.run("prefer-import-type", preferImportType, {

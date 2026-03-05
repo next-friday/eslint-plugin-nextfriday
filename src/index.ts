@@ -16,26 +16,26 @@ import fileKebabCase from "./rules/file-kebab-case";
 import jsxNewlineBetweenElements from "./rules/jsx-newline-between-elements";
 import jsxNoInlineObjectProp from "./rules/jsx-no-inline-object-prop";
 import jsxNoNewlineSingleLineElements from "./rules/jsx-no-newline-single-line-elements";
+import jsxNoNonComponentFunction from "./rules/jsx-no-non-component-function";
+import jsxNoVariableInCallback from "./rules/jsx-no-variable-in-callback";
 import jsxPascalCase from "./rules/jsx-pascal-case";
 import jsxRequireSuspense from "./rules/jsx-require-suspense";
 import jsxSimpleProps from "./rules/jsx-simple-props";
 import jsxSortProps from "./rules/jsx-sort-props";
-import noDirectDate from "./rules/no-direct-date";
-import jsxNoVariableInCallback from "./rules/jsx-no-variable-in-callback";
 import mdFilenameCaseRestriction from "./rules/md-filename-case-restriction";
+import newlineAfterMultilineBlock from "./rules/newline-after-multiline-block";
+import newlineBeforeReturn from "./rules/newline-before-return";
+import nextjsRequirePublicEnv from "./rules/nextjs-require-public-env";
 import noComplexInlineReturn from "./rules/no-complex-inline-return";
+import noDirectDate from "./rules/no-direct-date";
 import noEmoji from "./rules/no-emoji";
 import noEnvFallback from "./rules/no-env-fallback";
 import noInlineDefaultExport from "./rules/no-inline-default-export";
 import noInlineNestedObject from "./rules/no-inline-nested-object";
-import requireExplicitReturnType from "./rules/require-explicit-return-type";
-import jsxNoNonComponentFunction from "./rules/jsx-no-non-component-function";
+import noLazyIdentifiers from "./rules/no-lazy-identifiers";
 import noLogicInParams from "./rules/no-logic-in-params";
 import noNestedInterfaceDeclaration from "./rules/no-nested-interface-declaration";
 import noNestedTernary from "./rules/no-nested-ternary";
-import newlineAfterMultilineBlock from "./rules/newline-after-multiline-block";
-import newlineBeforeReturn from "./rules/newline-before-return";
-import noLazyIdentifiers from "./rules/no-lazy-identifiers";
 import noRelativeImports from "./rules/no-relative-imports";
 import noSingleCharVariables from "./rules/no-single-char-variables";
 import preferAsyncAwait from "./rules/prefer-async-await";
@@ -49,11 +49,11 @@ import preferJSXTemplateLiterals from "./rules/prefer-jsx-template-literals";
 import preferNamedParamTypes from "./rules/prefer-named-param-types";
 import preferReactImportTypes from "./rules/prefer-react-import-types";
 import reactPropsDestructure from "./rules/react-props-destructure";
+import requireExplicitReturnType from "./rules/require-explicit-return-type";
 import sortExports from "./rules/sort-exports";
 import sortImports from "./rules/sort-imports";
 import sortTypeAlphabetically from "./rules/sort-type-alphabetically";
 import sortTypeRequiredFirst from "./rules/sort-type-required-first";
-import nextjsRequirePublicEnv from "./rules/nextjs-require-public-env";
 
 import type { TSESLint } from "@typescript-eslint/utils";
 
@@ -80,23 +80,23 @@ const rules = {
   "file-kebab-case": fileKebabCase,
   "jsx-newline-between-elements": jsxNewlineBetweenElements,
   "jsx-no-inline-object-prop": jsxNoInlineObjectProp,
+  "jsx-no-newline-single-line-elements": jsxNoNewlineSingleLineElements,
+  "jsx-no-non-component-function": jsxNoNonComponentFunction,
+  "jsx-no-variable-in-callback": jsxNoVariableInCallback,
   "jsx-pascal-case": jsxPascalCase,
   "jsx-require-suspense": jsxRequireSuspense,
   "jsx-simple-props": jsxSimpleProps,
   "jsx-sort-props": jsxSortProps,
-  "jsx-no-newline-single-line-elements": jsxNoNewlineSingleLineElements,
-  "jsx-no-non-component-function": jsxNoNonComponentFunction,
-  "jsx-no-variable-in-callback": jsxNoVariableInCallback,
   "md-filename-case-restriction": mdFilenameCaseRestriction,
   "newline-after-multiline-block": newlineAfterMultilineBlock,
   "newline-before-return": newlineBeforeReturn,
+  "nextjs-require-public-env": nextjsRequirePublicEnv,
   "no-complex-inline-return": noComplexInlineReturn,
   "no-direct-date": noDirectDate,
   "no-emoji": noEmoji,
   "no-env-fallback": noEnvFallback,
   "no-inline-default-export": noInlineDefaultExport,
   "no-inline-nested-object": noInlineNestedObject,
-  "require-explicit-return-type": requireExplicitReturnType,
   "no-lazy-identifiers": noLazyIdentifiers,
   "no-logic-in-params": noLogicInParams,
   "no-nested-interface-declaration": noNestedInterfaceDeclaration,
@@ -114,11 +114,11 @@ const rules = {
   "prefer-named-param-types": preferNamedParamTypes,
   "prefer-react-import-types": preferReactImportTypes,
   "react-props-destructure": reactPropsDestructure,
+  "require-explicit-return-type": requireExplicitReturnType,
   "sort-exports": sortExports,
   "sort-imports": sortImports,
   "sort-type-alphabetically": sortTypeAlphabetically,
   "sort-type-required-first": sortTypeRequiredFirst,
-  "nextjs-require-public-env": nextjsRequirePublicEnv,
 } as const satisfies Record<string, TSESLint.RuleModule<string, readonly unknown[]>>;
 
 const plugin = {
@@ -130,7 +130,6 @@ const baseRules = {
   "nextfriday/boolean-naming-prefix": "warn",
   "nextfriday/enforce-constant-case": "warn",
   "nextfriday/enforce-curly-newline": "warn",
-  "nextfriday/no-emoji": "warn",
   "nextfriday/enforce-hook-naming": "warn",
   "nextfriday/enforce-service-naming": "warn",
   "nextfriday/enforce-sorted-destructuring": "warn",
@@ -139,26 +138,27 @@ const baseRules = {
   "nextfriday/md-filename-case-restriction": "warn",
   "nextfriday/newline-after-multiline-block": "warn",
   "nextfriday/newline-before-return": "warn",
-  "nextfriday/prefer-destructuring-params": "warn",
-  "nextfriday/prefer-function-declaration": "warn",
-  "nextfriday/prefer-guard-clause": "warn",
-  "nextfriday/require-explicit-return-type": "warn",
-  "nextfriday/prefer-import-type": "warn",
-  "nextfriday/prefer-inline-literal-union": "warn",
-  "nextfriday/prefer-named-param-types": "warn",
-  "nextfriday/prefer-react-import-types": "warn",
   "nextfriday/no-complex-inline-return": "warn",
   "nextfriday/no-direct-date": "warn",
-  "nextfriday/no-logic-in-params": "warn",
-  "nextfriday/no-nested-interface-declaration": "warn",
-  "nextfriday/no-nested-ternary": "warn",
+  "nextfriday/no-emoji": "warn",
   "nextfriday/no-env-fallback": "warn",
   "nextfriday/no-inline-default-export": "warn",
   "nextfriday/no-inline-nested-object": "warn",
   "nextfriday/no-lazy-identifiers": "warn",
+  "nextfriday/no-logic-in-params": "warn",
+  "nextfriday/no-nested-interface-declaration": "warn",
+  "nextfriday/no-nested-ternary": "warn",
   "nextfriday/no-relative-imports": "warn",
   "nextfriday/no-single-char-variables": "warn",
   "nextfriday/prefer-async-await": "warn",
+  "nextfriday/prefer-destructuring-params": "warn",
+  "nextfriday/prefer-function-declaration": "warn",
+  "nextfriday/prefer-guard-clause": "warn",
+  "nextfriday/prefer-import-type": "warn",
+  "nextfriday/prefer-inline-literal-union": "warn",
+  "nextfriday/prefer-named-param-types": "warn",
+  "nextfriday/prefer-react-import-types": "warn",
+  "nextfriday/require-explicit-return-type": "warn",
   "nextfriday/sort-exports": "warn",
   "nextfriday/sort-imports": "warn",
   "nextfriday/sort-type-alphabetically": "warn",
@@ -169,7 +169,6 @@ const baseRecommendedRules = {
   "nextfriday/boolean-naming-prefix": "error",
   "nextfriday/enforce-constant-case": "error",
   "nextfriday/enforce-curly-newline": "error",
-  "nextfriday/no-emoji": "error",
   "nextfriday/enforce-hook-naming": "error",
   "nextfriday/enforce-service-naming": "error",
   "nextfriday/enforce-sorted-destructuring": "error",
@@ -178,26 +177,27 @@ const baseRecommendedRules = {
   "nextfriday/md-filename-case-restriction": "error",
   "nextfriday/newline-after-multiline-block": "error",
   "nextfriday/newline-before-return": "error",
-  "nextfriday/prefer-destructuring-params": "error",
-  "nextfriday/prefer-function-declaration": "error",
-  "nextfriday/prefer-guard-clause": "error",
-  "nextfriday/require-explicit-return-type": "error",
-  "nextfriday/prefer-import-type": "error",
-  "nextfriday/prefer-inline-literal-union": "error",
-  "nextfriday/prefer-named-param-types": "error",
-  "nextfriday/prefer-react-import-types": "error",
   "nextfriday/no-complex-inline-return": "error",
   "nextfriday/no-direct-date": "error",
-  "nextfriday/no-logic-in-params": "error",
-  "nextfriday/no-nested-interface-declaration": "error",
-  "nextfriday/no-nested-ternary": "error",
+  "nextfriday/no-emoji": "error",
   "nextfriday/no-env-fallback": "error",
   "nextfriday/no-inline-default-export": "error",
   "nextfriday/no-inline-nested-object": "error",
   "nextfriday/no-lazy-identifiers": "error",
+  "nextfriday/no-logic-in-params": "error",
+  "nextfriday/no-nested-interface-declaration": "error",
+  "nextfriday/no-nested-ternary": "error",
   "nextfriday/no-relative-imports": "error",
   "nextfriday/no-single-char-variables": "error",
   "nextfriday/prefer-async-await": "error",
+  "nextfriday/prefer-destructuring-params": "error",
+  "nextfriday/prefer-function-declaration": "error",
+  "nextfriday/prefer-guard-clause": "error",
+  "nextfriday/prefer-import-type": "error",
+  "nextfriday/prefer-inline-literal-union": "error",
+  "nextfriday/prefer-named-param-types": "error",
+  "nextfriday/prefer-react-import-types": "error",
+  "nextfriday/require-explicit-return-type": "error",
   "nextfriday/sort-exports": "error",
   "nextfriday/sort-imports": "error",
   "nextfriday/sort-type-alphabetically": "error",

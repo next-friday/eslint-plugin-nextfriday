@@ -10,7 +10,7 @@ It's safer to let the application fail explicitly when required environment vari
 
 ## Examples
 
-**Incorrect** code for this rule:
+### Incorrect
 
 ```js
 const apiKey = process.env.API_KEY || "default-key";
@@ -27,7 +27,7 @@ function getToken() {
 }
 ```
 
-**Correct** code for this rule:
+### Correct
 
 ```js
 const apiKey = process.env.API_KEY;

@@ -6,9 +6,9 @@ Require a blank line before and after multi-line statements.
 
 This rule enforces a blank line before and after any statement that spans multiple lines. This improves code readability by visually separating logical blocks. Single-line statements do not require blank lines between them.
 
-### Examples
+## Examples
 
-#### Incorrect
+### Incorrect
 
 ```ts
 const apiClient = axios.create({
@@ -45,7 +45,7 @@ const nestedCategory = CATEGORIES.flatMap((category) => category.children ?? [])
 );
 ```
 
-#### Correct
+### Correct
 
 Multi-line statements need a blank line before and after them:
 

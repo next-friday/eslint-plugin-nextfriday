@@ -8,9 +8,11 @@ This rule enforces that boolean variables and parameters use a descriptive prefi
 
 **Recommended prefixes:** `is`, `has`, `should`, `can`, `did`, `will`, `was`, `are`, `does`, `had`
 
-**Incorrect** code for this rule:
+## Examples
 
-```typescript
+### Incorrect
+
+```ts
 const valid = true;
 const user = false;
 const open = true;
@@ -30,9 +32,9 @@ const fn = (enabled: boolean) => {};
 function toggle(active = true) {}
 ```
 
-**Correct** code for this rule:
+### Correct
 
-```typescript
+```ts
 const isValid = true;
 const hasUser = false;
 const isOpen = true;
@@ -78,23 +80,11 @@ The rule identifies boolean variables and parameters by:
 | `does`   | Action capability             | `doesExist`, `doesMatch`, `doesContain`       |
 | `had`    | Past possession               | `hadError`, `hadAccess`, `hadPrevious`        |
 
-## Benefits
-
-- **Self-documenting code**: Boolean intent is immediately clear
-- **Reads like English**: `if (isActive)` reads as "if is active"
-- **Reduced ambiguity**: `user = false` vs `hasUser = false` - the latter is clear
-- **Consistent codebase**: Enforces uniform boolean naming across the project
-- **Better code review**: Reviewers can quickly understand boolean logic
-
-## When Not To Use
+## When Not To Use It
 
 - When working with external APIs that return boolean fields with different naming conventions
 - In mathematical or scientific code where single-letter variables are conventional
 - When interfacing with legacy code that would require extensive refactoring
-
-## Configuration
-
-This rule has no configuration options.
 
 ## Related Rules
 

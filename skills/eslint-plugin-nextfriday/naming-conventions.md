@@ -35,18 +35,16 @@ const API_URL = "https://api.example.com";
 
 ## Variable Names
 
-No single-character variables (`d`, `u`, `l`) or lazy identifiers (`xxx`, `asdf`, `qwerty`, `temp`, `foo`, `bar`).
+No single-character variables (`d`, `u`, `l`) or lazy identifiers (`xxx`, `asdf`, `qwerty`).
 
 ```ts
 // Bad
 const d = new Date();
 const u = getUser();
-const temp = calculate();
 
 // Good
 const currentDate = new Date();
 const user = getUser();
-const calculatedValue = calculate();
 ```
 
 ## File Naming

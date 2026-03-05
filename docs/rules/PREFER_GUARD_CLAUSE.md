@@ -8,9 +8,9 @@ Nested if statements increase code complexity and make it harder to read. This r
 
 ## Examples
 
-### ❌ Incorrect
+### Incorrect
 
-```tsx
+```ts
 function process(data) {
   if (data) {
     if (data.items) {
@@ -30,9 +30,9 @@ function validate(user) {
 }
 ```
 
-### ✅ Correct
+### Correct
 
-```tsx
+```ts
 function process(data) {
   if (!data) return [];
   if (!data.items) return [];

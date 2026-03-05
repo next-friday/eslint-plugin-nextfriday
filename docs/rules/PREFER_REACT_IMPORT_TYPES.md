@@ -6,7 +6,9 @@ Enforce importing React types and utilities from 'react' instead of using React.
 
 This rule enforces direct imports of React types and utilities instead of using the React namespace notation (`React.ReactNode`, `React.useState`, etc.). This promotes cleaner imports and better tree-shaking in modern bundlers.
 
-Examples of **incorrect** code for this rule:
+## Examples
+
+### Incorrect
 
 ```tsx
 // Types with React namespace
@@ -45,7 +47,7 @@ const MyFragment = () => (
 );
 ```
 
-Examples of **correct** code for this rule:
+### Correct
 
 ```tsx
 // Direct type imports
@@ -90,24 +92,6 @@ const MyFragment = () => (
 );
 ```
 
-## Why?
-
-### Benefits of direct imports
-
-1. **Better tree-shaking**: Bundlers can more easily eliminate unused code when imports are explicit
-2. **Cleaner code**: Reduces namespace pollution and makes dependencies more explicit
-3. **Improved IDE support**: Better autocomplete and refactoring capabilities
-4. **Smaller bundle sizes**: Only import what you actually use
-5. **TypeScript optimization**: Better type checking and inference with explicit imports
-6. **Modern practices**: Aligns with current React ecosystem conventions
-
-## Automatic Fixing
-
-This rule provides automatic fixing that replaces `React.X` with the direct import name. However, you will need to manually add the appropriate import statements:
-
-- **Types**: Use `import type { TypeName } from "react"`
-- **Runtime code**: Use `import { functionName } from "react"`
-
 ## Supported React Exports
 
 ### Types (use `import type`)
@@ -136,40 +120,5 @@ This rule provides automatic fixing that replaces `React.X` with the direct impo
 
 ## When Not To Use It
 
-This rule should not be used if you:
-
-- Prefer the React namespace for consistency across a large codebase
-- Are working with legacy code that heavily uses React namespace
-- Need to maintain compatibility with older bundlers that don't support tree-shaking
-
-## Configuration
-
-This rule is included in the following configurations:
-
-- `nextfriday/base`
-- `nextfriday/base/recommended`
-- `nextfriday/react`
-- `nextfriday/react/recommended`
-- `nextfriday/nextjs`
-- `nextfriday/nextjs/recommended`
-
-To enable this rule manually:
-
-```json
-{
-  "rules": {
-    "nextfriday/prefer-react-import-types": "error"
-  }
-}
-```
-
-## Compatibility
-
-- React 16.8+ (hooks support)
-- TypeScript 3.8+ (type-only imports)
-- Modern bundlers with tree-shaking support
-- ESLint 9+ with flat config
-
-## Version
-
-This rule was introduced in eslint-plugin-nextfriday v1.1.0.
+- If you prefer the React namespace for consistency across a large codebase
+- When working with legacy code that heavily uses React namespace
