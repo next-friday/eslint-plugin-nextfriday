@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.16.0
+
+### Minor Changes
+
+- [#75](https://github.com/next-friday/eslint-plugin-nextfriday/pull/75) [`f506561`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/f506561c1587af4a129801dee87c7ed08154b090) Thanks [@joetakara](https://github.com/joetakara)! - feat(rules): add prefer-inline-literal-union, no-nested-interface-declaration, and enforce-type-declaration-order rules
+
 ## 1.15.2
 
 ### Patch Changes
