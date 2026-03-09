@@ -110,7 +110,21 @@ describe("jsx-newline-between-elements", () => {
           </div>
         `,
         filename: "Component.tsx",
-        name: "self-closing components do not require empty lines",
+        name: "single-line self-closing components do not require empty lines",
+      },
+      {
+        code: `
+          <div>
+            <Input
+              type="text"
+              placeholder="Search"
+            />
+
+            <Button>Submit</Button>
+          </div>
+        `,
+        filename: "Component.tsx",
+        name: "multi-line self-closing with empty line before sibling",
       },
       {
         code: `
@@ -282,6 +296,60 @@ describe("jsx-newline-between-elements", () => {
           </div>
         `,
         name: "single-line before multi-line needs empty line",
+      },
+      {
+        code: `
+          <div>
+            <Input
+              type="text"
+              placeholder="Search"
+            />
+            <Button>Submit</Button>
+          </div>
+        `,
+        filename: "Component.tsx",
+        errors: [
+          {
+            messageId: "requireNewline",
+          },
+        ],
+        output: `
+          <div>
+            <Input
+              type="text"
+              placeholder="Search"
+            />
+
+            <Button>Submit</Button>
+          </div>
+        `,
+        name: "multi-line self-closing before sibling needs empty line",
+      },
+      {
+        code: `
+          <div>
+            <hr />
+            <section>
+              content
+            </section>
+          </div>
+        `,
+        filename: "Component.tsx",
+        errors: [
+          {
+            messageId: "requireNewline",
+          },
+        ],
+        output: `
+          <div>
+            <hr />
+
+            <section>
+              content
+            </section>
+          </div>
+        `,
+        name: "single-line self-closing before multi-line sibling needs empty line",
       },
     ],
   });

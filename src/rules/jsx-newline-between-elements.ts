@@ -26,13 +26,7 @@ const jsxNewlineBetweenElements = createRule({
     const { sourceCode } = context;
 
     function isJSXElementOrFragment(node: TSESTree.Node): boolean {
-      if (node.type === AST_NODE_TYPES.JSXFragment) {
-        return true;
-      }
-      if (node.type === AST_NODE_TYPES.JSXElement) {
-        return node.closingElement !== null;
-      }
-      return false;
+      return node.type === AST_NODE_TYPES.JSXElement || node.type === AST_NODE_TYPES.JSXFragment;
     }
 
     function isMultiLine(node: TSESTree.Node): boolean {
