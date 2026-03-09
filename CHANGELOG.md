@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.17.0
+
+### Minor Changes
+
+- [#79](https://github.com/next-friday/eslint-plugin-nextfriday/pull/79) [`cb5ab46`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/cb5ab460f758e1e57f9604417b673362ec6c71d8) Thanks [@joetakara](https://github.com/joetakara)! - Add expression group to jsx-sort-props rule for variable references, member expressions, and other dynamic values
+
 ## 1.16.0
 
 ### Minor Changes
