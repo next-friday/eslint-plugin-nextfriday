@@ -9,16 +9,16 @@ const createRule = ESLintUtils.RuleCreator(
 
 const TYPE_GROUP = {
   STRING: 1,
-  NUMBER_BOOLEAN_NULL: 2,
-  EXPRESSION: 3,
-  OBJECT_ARRAY: 4,
-  FUNCTION: 5,
-  JSX: 6,
-  SHORTHAND: 7,
+  HYPHENATED_STRING: 2,
+  NUMBER_BOOLEAN_NULL: 3,
+  EXPRESSION: 4,
+  OBJECT_ARRAY: 5,
+  FUNCTION: 6,
+  JSX: 7,
+  SHORTHAND: 8,
 } as const;
 
 const EXPRESSION_TYPE_TO_GROUP = new Map<AST_NODE_TYPES, number>([
-  [AST_NODE_TYPES.TemplateLiteral, TYPE_GROUP.STRING],
   [AST_NODE_TYPES.ObjectExpression, TYPE_GROUP.OBJECT_ARRAY],
   [AST_NODE_TYPES.ArrayExpression, TYPE_GROUP.OBJECT_ARRAY],
   [AST_NODE_TYPES.ArrowFunctionExpression, TYPE_GROUP.FUNCTION],
@@ -27,9 +27,17 @@ const EXPRESSION_TYPE_TO_GROUP = new Map<AST_NODE_TYPES, number>([
   [AST_NODE_TYPES.JSXFragment, TYPE_GROUP.JSX],
 ]);
 
-function getLiteralGroup(value: TSESTree.Literal["value"]): number {
+function isHyphenatedName(node: TSESTree.JSXAttribute): boolean {
+  return node.name.type === AST_NODE_TYPES.JSXIdentifier && node.name.name.includes("-");
+}
+
+function getStringGroup(node: TSESTree.JSXAttribute): number {
+  return isHyphenatedName(node) ? TYPE_GROUP.HYPHENATED_STRING : TYPE_GROUP.STRING;
+}
+
+function getLiteralValueGroup(value: TSESTree.Literal["value"]): number | null {
   if (typeof value === "string") {
-    return TYPE_GROUP.STRING;
+    return null;
   }
 
   return TYPE_GROUP.NUMBER_BOOLEAN_NULL;
@@ -37,7 +45,11 @@ function getLiteralGroup(value: TSESTree.Literal["value"]): number {
 
 function getExpressionGroup(expression: TSESTree.Expression): number | null {
   if (expression.type === AST_NODE_TYPES.Literal) {
-    return getLiteralGroup(expression.value);
+    return getLiteralValueGroup(expression.value);
+  }
+
+  if (expression.type === AST_NODE_TYPES.TemplateLiteral) {
+    return null;
   }
 
   if (expression.type === AST_NODE_TYPES.Identifier && expression.name === "undefined") {
@@ -53,7 +65,11 @@ function getTypeGroup(node: TSESTree.JSXAttribute): number | null {
   }
 
   if (node.value.type === AST_NODE_TYPES.Literal) {
-    return getLiteralGroup(node.value.value);
+    if (typeof node.value.value === "string") {
+      return getStringGroup(node);
+    }
+
+    return TYPE_GROUP.NUMBER_BOOLEAN_NULL;
   }
 
   if (node.value.type !== AST_NODE_TYPES.JSXExpressionContainer) {
@@ -66,7 +82,13 @@ function getTypeGroup(node: TSESTree.JSXAttribute): number | null {
     return null;
   }
 
-  return getExpressionGroup(expression);
+  const group = getExpressionGroup(expression);
+
+  if (group === null) {
+    return getStringGroup(node);
+  }
+
+  return group;
 }
 
 function hasUnsortedProps(attributes: TSESTree.JSXOpeningElement["attributes"]): boolean {
@@ -101,11 +123,11 @@ const jsxSortProps = createRule({
     type: "suggestion",
     docs: {
       description:
-        "Enforce JSX props are sorted by value type: strings, numbers/booleans, expressions, objects/arrays, functions, JSX elements, then shorthand booleans",
+        "Enforce JSX props are sorted by value type: strings, hyphenated strings, numbers/booleans, expressions, objects/arrays, functions, JSX elements, then shorthand booleans",
     },
     messages: {
       unsortedProps:
-        "JSX props should be sorted by value type: strings, numbers/booleans/null, expressions, objects/arrays, functions, JSX elements, then shorthand booleans.",
+        "JSX props should be sorted by value type: strings, hyphenated strings, numbers/booleans/null, expressions, objects/arrays, functions, JSX elements, then shorthand booleans.",
     },
     schema: [],
   },
