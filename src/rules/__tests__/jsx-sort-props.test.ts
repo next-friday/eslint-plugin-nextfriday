@@ -29,8 +29,8 @@ describe("jsx-sort-props", () => {
   ruleTester.run("jsx-sort-props", jsxSortProps, {
     valid: [
       {
-        code: `<Component title="hello" count={100} value={someVar} style={{ color: "red" }} onClick={() => {}} icon={<Icon />} disabled />`,
-        name: "should allow correctly ordered props (all 7 groups)",
+        code: `<Component title="hello" aria-label="label" count={100} value={someVar} style={{ color: "red" }} onClick={() => {}} icon={<Icon />} disabled />`,
+        name: "should allow correctly ordered props (all 8 groups)",
       },
       {
         code: `<Component title="hello" />`,
@@ -89,12 +89,24 @@ describe("jsx-sort-props", () => {
         name: "should allow shorthand before spread then string after spread",
       },
       {
-        code: `<Component title="hello" count={42} value={ref} items={[1]} onClick={() => {}} icon={<A />} active />`,
-        name: "should allow all seven groups in order",
+        code: `<Component title="hello" aria-label="label" count={42} value={ref} items={[1]} onClick={() => {}} icon={<A />} active />`,
+        name: "should allow all eight groups in order",
       },
       {
         code: `<Component className="cover" src={src} alt={alt} sizes={sizes} fill />`,
         name: "should allow expressions before shorthand",
+      },
+      {
+        code: `<Component title="hello" aria-label="label" data-slot="slot" />`,
+        name: "should allow string before hyphenated strings",
+      },
+      {
+        code: `<Component aria-label="label" data-slot="slot" />`,
+        name: "should allow multiple hyphenated strings",
+      },
+      {
+        code: `<Component sample="sample" aria-label="Previous page" data-slot="pagination-prev" className={itemClass} isDisabled={isDisabled} onPress={handlePress} />`,
+        name: "should allow string then hyphenated string then expressions",
       },
     ],
     invalid: [
@@ -151,6 +163,16 @@ describe("jsx-sort-props", () => {
       {
         code: `<Component className="cover" src={src} alt={alt} fill sizes={sizes} />`,
         name: "should disallow expression after shorthand",
+        errors: [{ messageId: "unsortedProps" }],
+      },
+      {
+        code: `<Component aria-label="label" title="hello" />`,
+        name: "should disallow hyphenated string before string",
+        errors: [{ messageId: "unsortedProps" }],
+      },
+      {
+        code: `<Component sample="sample" aria-label="Previous page" className={itemClass} data-slot="pagination-prev" />`,
+        name: "should disallow hyphenated string after expression",
         errors: [{ messageId: "unsortedProps" }],
       },
     ],

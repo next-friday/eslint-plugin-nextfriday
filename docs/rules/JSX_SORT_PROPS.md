@@ -6,13 +6,14 @@ Enforce JSX props are sorted by value type.
 
 This rule enforces a consistent ordering of JSX props based on the type of their value. Props must appear in the following order:
 
-1. **String** - String literals and template literals
-2. **Number/Boolean/Null** - Numeric literals, boolean literals, null, and undefined
-3. **Expression** - Variable references, member expressions, call expressions, and other dynamic values
-4. **Object/Array** - Inline objects and arrays
-5. **Function** - Arrow functions and function expressions
-6. **JSX Element** - JSX elements and fragments
-7. **Shorthand boolean** - Props with no value (e.g., `disabled`, `required`)
+1. **String** - String literals and template literals (e.g., `className="cover"`)
+2. **Hyphenated string** - Props with hyphenated names and string values (e.g., `aria-label="label"`, `data-slot="nav"`)
+3. **Number/Boolean/Null** - Numeric literals, boolean literals, null, and undefined
+4. **Expression** - Variable references, member expressions, call expressions, and other dynamic values
+5. **Object/Array** - Inline objects and arrays
+6. **Function** - Arrow functions and function expressions
+7. **JSX Element** - JSX elements and fragments
+8. **Shorthand boolean** - Props with no value (e.g., `disabled`, `required`)
 
 Spread attributes (`{...props}`) reset the ordering context.
 
@@ -29,7 +30,6 @@ Spread attributes (`{...props}`) reset the ordering context.
 ```tsx
 <Component disabled title="hello" />
 <Component onClick={() => {}} count={42} />
-<Component icon={<Icon />} style={{ color: "red" }} />
 <Component className="cover" src={src} fill sizes={sizes} />
 ```
 
@@ -38,6 +38,7 @@ Spread attributes (`{...props}`) reset the ordering context.
 ```tsx
 <Component
   title="hello"
+  aria-label="close"
   count={100}
   src={src}
   style={{ color: "red" }}
