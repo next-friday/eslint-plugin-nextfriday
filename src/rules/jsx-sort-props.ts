@@ -10,10 +10,11 @@ const createRule = ESLintUtils.RuleCreator(
 const TYPE_GROUP = {
   STRING: 1,
   NUMBER_BOOLEAN_NULL: 2,
-  OBJECT_ARRAY: 3,
-  FUNCTION: 4,
-  JSX: 5,
-  SHORTHAND: 6,
+  EXPRESSION: 3,
+  OBJECT_ARRAY: 4,
+  FUNCTION: 5,
+  JSX: 6,
+  SHORTHAND: 7,
 } as const;
 
 const EXPRESSION_TYPE_TO_GROUP = new Map<AST_NODE_TYPES, number>([
@@ -43,7 +44,7 @@ function getExpressionGroup(expression: TSESTree.Expression): number | null {
     return TYPE_GROUP.NUMBER_BOOLEAN_NULL;
   }
 
-  return EXPRESSION_TYPE_TO_GROUP.get(expression.type) ?? null;
+  return EXPRESSION_TYPE_TO_GROUP.get(expression.type) ?? TYPE_GROUP.EXPRESSION;
 }
 
 function getTypeGroup(node: TSESTree.JSXAttribute): number | null {
@@ -100,11 +101,11 @@ const jsxSortProps = createRule({
     type: "suggestion",
     docs: {
       description:
-        "Enforce JSX props are sorted by value type: strings, numbers/booleans, objects/arrays, functions, JSX elements, then shorthand booleans",
+        "Enforce JSX props are sorted by value type: strings, numbers/booleans, expressions, objects/arrays, functions, JSX elements, then shorthand booleans",
     },
     messages: {
       unsortedProps:
-        "JSX props should be sorted by value type: strings, numbers/booleans/null, objects/arrays, functions, JSX elements, then shorthand booleans.",
+        "JSX props should be sorted by value type: strings, numbers/booleans/null, expressions, objects/arrays, functions, JSX elements, then shorthand booleans.",
     },
     schema: [],
   },

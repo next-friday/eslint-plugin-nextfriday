@@ -8,12 +8,13 @@ This rule enforces a consistent ordering of JSX props based on the type of their
 
 1. **String** - String literals and template literals
 2. **Number/Boolean/Null** - Numeric literals, boolean literals, null, and undefined
-3. **Object/Array** - Inline objects and arrays
-4. **Function** - Arrow functions and function expressions
-5. **JSX Element** - JSX elements and fragments
-6. **Shorthand boolean** - Props with no value (e.g., `disabled`)
+3. **Expression** - Variable references, member expressions, call expressions, and other dynamic values
+4. **Object/Array** - Inline objects and arrays
+5. **Function** - Arrow functions and function expressions
+6. **JSX Element** - JSX elements and fragments
+7. **Shorthand boolean** - Props with no value (e.g., `disabled`, `required`)
 
-Props with values that cannot be statically determined (variables, member expressions, call expressions, etc.) are skipped and do not affect the ordering check. Spread attributes (`{...props}`) reset the ordering context.
+Spread attributes (`{...props}`) reset the ordering context.
 
 ### Why?
 
@@ -29,6 +30,7 @@ Props with values that cannot be statically determined (variables, member expres
 <Component disabled title="hello" />
 <Component onClick={() => {}} count={42} />
 <Component icon={<Icon />} style={{ color: "red" }} />
+<Component className="cover" src={src} fill sizes={sizes} />
 ```
 
 ### Correct
@@ -37,6 +39,7 @@ Props with values that cannot be statically determined (variables, member expres
 <Component
   title="hello"
   count={100}
+  src={src}
   style={{ color: "red" }}
   onClick={() => handleClick()}
   icon={<HomeIcon />}
@@ -45,7 +48,7 @@ Props with values that cannot be statically determined (variables, member expres
 
 <Component title="hello" count={42} disabled />
 
-<Component value={someVar} disabled />
+<Component className="cover" src={src} alt={alt} sizes={sizes} fill />
 ```
 
 ## When Not To Use It

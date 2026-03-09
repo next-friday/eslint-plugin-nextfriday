@@ -1,5 +1,5 @@
-import { RuleTester } from "@typescript-eslint/rule-tester";
 import { afterAll, describe, it } from "@jest/globals";
+import { RuleTester } from "@typescript-eslint/rule-tester";
 
 import jsxSortProps from "../jsx-sort-props";
 
@@ -29,8 +29,8 @@ describe("jsx-sort-props", () => {
   ruleTester.run("jsx-sort-props", jsxSortProps, {
     valid: [
       {
-        code: `<Component title="hello" count={100} style={{ color: "red" }} onClick={() => {}} icon={<Icon />} disabled />`,
-        name: "should allow correctly ordered props (all 6 groups)",
+        code: `<Component title="hello" count={100} value={someVar} style={{ color: "red" }} onClick={() => {}} icon={<Icon />} disabled />`,
+        name: "should allow correctly ordered props (all 7 groups)",
       },
       {
         code: `<Component title="hello" />`,
@@ -45,8 +45,8 @@ describe("jsx-sort-props", () => {
         name: "should allow multiple number/boolean/null props",
       },
       {
-        code: `<Component title="hello" value={someVar} count={42} />`,
-        name: "should allow unknown types mixed in without affecting order",
+        code: `<Component title="hello" count={42} value={someVar} />`,
+        name: "should allow string before number before expression",
       },
       {
         code: `<Component onClick={() => {}} disabled {...props} title="hello" />`,
@@ -82,15 +82,19 @@ describe("jsx-sort-props", () => {
       },
       {
         code: `<Component title="hello" value={someVar} disabled />`,
-        name: "should skip unknown and check remaining order",
+        name: "should allow string before expression before shorthand",
       },
       {
         code: `<Component disabled {...overrides} title="hello" count={42} />`,
         name: "should allow shorthand before spread then string after spread",
       },
       {
-        code: `<Component title="hello" count={42} items={[1]} onClick={() => {}} icon={<A />} active />`,
-        name: "should allow all six groups in order",
+        code: `<Component title="hello" count={42} value={ref} items={[1]} onClick={() => {}} icon={<A />} active />`,
+        name: "should allow all seven groups in order",
+      },
+      {
+        code: `<Component className="cover" src={src} alt={alt} sizes={sizes} fill />`,
+        name: "should allow expressions before shorthand",
       },
     ],
     invalid: [
@@ -132,6 +136,21 @@ describe("jsx-sort-props", () => {
       {
         code: `<Component items={[1, 2]} count={42} />`,
         name: "should disallow array before number",
+        errors: [{ messageId: "unsortedProps" }],
+      },
+      {
+        code: `<Component className="cover" fill sizes={sizes} />`,
+        name: "should disallow shorthand before expression",
+        errors: [{ messageId: "unsortedProps" }],
+      },
+      {
+        code: `<Component value={someVar} title="hello" />`,
+        name: "should disallow expression before string",
+        errors: [{ messageId: "unsortedProps" }],
+      },
+      {
+        code: `<Component className="cover" src={src} alt={alt} fill sizes={sizes} />`,
+        name: "should disallow expression after shorthand",
         errors: [{ messageId: "unsortedProps" }],
       },
     ],
