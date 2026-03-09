@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.18.0
+
+### Minor Changes
+
+- [#81](https://github.com/next-friday/eslint-plugin-nextfriday/pull/81) [`081326a`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/081326adf199aee711e97b1627def3bf867ad89c) Thanks [@joetakara](https://github.com/joetakara)! - Add hyphenated string group to jsx-sort-props for props like aria-label and data-slot. Fix jsx-newline-between-elements to include self-closing elements
+
 ## 1.17.0
 
 ### Minor Changes
