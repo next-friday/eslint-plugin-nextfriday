@@ -126,6 +126,7 @@ export default [
       "nextfriday/jsx-no-inline-object-prop": "error",
       "nextfriday/jsx-no-newline-single-line-elements": "error",
       "nextfriday/jsx-no-non-component-function": "error",
+      "nextfriday/jsx-no-ternary-null": "error",
       "nextfriday/jsx-no-variable-in-callback": "error",
       "nextfriday/jsx-require-suspense": "error",
       "nextfriday/jsx-simple-props": "error",
@@ -217,6 +218,7 @@ export default [
 | [jsx-no-inline-object-prop](docs/rules/JSX_NO_INLINE_OBJECT_PROP.md)                     | Disallow inline object literals in JSX props                          | ❌      |
 | [jsx-no-newline-single-line-elements](docs/rules/JSX_NO_NEWLINE_SINGLE_LINE_ELEMENTS.md) | Disallow empty lines between single-line sibling JSX elements         | ✅      |
 | [jsx-no-non-component-function](docs/rules/JSX_NO_NON_COMPONENT_FUNCTION.md)             | Disallow non-component functions at top level in .tsx/.jsx files      | ❌      |
+| [jsx-no-ternary-null](docs/rules/JSX_NO_TERNARY_NULL.md)                                 | Enforce logical AND over ternary with null/undefined in JSX           | ✅      |
 | [jsx-no-variable-in-callback](docs/rules/JSX_NO_VARIABLE_IN_CALLBACK.md)                 | Disallow variable declarations inside callback functions in JSX       | ❌      |
 | [jsx-require-suspense](docs/rules/JSX_REQUIRE_SUSPENSE.md)                               | Require lazy-loaded components to be wrapped in Suspense              | ❌      |
 | [jsx-simple-props](docs/rules/JSX_SIMPLE_PROPS.md)                                       | Enforce simple prop values (strings, variables, callbacks, ReactNode) | ❌      |
@@ -240,10 +242,10 @@ export default [
 | -------------------- | -------- | ---------- | --------- | ------------- | ----------- |
 | `base`               | warn     | 36         | 0         | 0             | 36          |
 | `base/recommended`   | error    | 36         | 0         | 0             | 36          |
-| `react`              | warn     | 36         | 14        | 0             | 50          |
-| `react/recommended`  | error    | 36         | 14        | 0             | 50          |
-| `nextjs`             | warn     | 36         | 14        | 1             | 51          |
-| `nextjs/recommended` | error    | 36         | 14        | 1             | 51          |
+| `react`              | warn     | 36         | 15        | 0             | 51          |
+| `react/recommended`  | error    | 36         | 15        | 0             | 51          |
+| `nextjs`             | warn     | 36         | 15        | 1             | 52          |
+| `nextjs/recommended` | error    | 36         | 15        | 1             | 52          |
 
 ### Base Configuration Rules (36 rules)
 
@@ -286,7 +288,7 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/sort-type-alphabetically`
 - `nextfriday/sort-type-required-first`
 
-### JSX Rules (14 rules)
+### JSX Rules (15 rules)
 
 Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recommended`:
 
@@ -296,6 +298,7 @@ Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recomme
 - `nextfriday/jsx-no-inline-object-prop`
 - `nextfriday/jsx-no-newline-single-line-elements`
 - `nextfriday/jsx-no-non-component-function`
+- `nextfriday/jsx-no-ternary-null`
 - `nextfriday/jsx-no-variable-in-callback`
 - `nextfriday/jsx-pascal-case`
 - `nextfriday/jsx-require-suspense`
@@ -329,7 +332,7 @@ Additionally included in `nextjs`, `nextjs/recommended` only:
 
 ## Agent Skill
 
-This plugin ships with an [Agent Skill](https://github.com/anthropics/skills) that teaches AI coding assistants (Claude Code, Cursor, etc.) all 51 rules so they generate compliant code from the start.
+This plugin ships with an [Agent Skill](https://github.com/anthropics/skills) that teaches AI coding assistants (Claude Code, Cursor, etc.) all 52 rules so they generate compliant code from the start.
 
 ```bash
 npx skills add next-friday/eslint-plugin-nextfriday --skill eslint-plugin-nextfriday
