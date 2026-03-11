@@ -17,6 +17,7 @@ import jsxNewlineBetweenElements from "./rules/jsx-newline-between-elements";
 import jsxNoInlineObjectProp from "./rules/jsx-no-inline-object-prop";
 import jsxNoNewlineSingleLineElements from "./rules/jsx-no-newline-single-line-elements";
 import jsxNoNonComponentFunction from "./rules/jsx-no-non-component-function";
+import jsxNoTernaryNull from "./rules/jsx-no-ternary-null";
 import jsxNoVariableInCallback from "./rules/jsx-no-variable-in-callback";
 import jsxPascalCase from "./rules/jsx-pascal-case";
 import jsxRequireSuspense from "./rules/jsx-require-suspense";
@@ -82,6 +83,7 @@ const rules = {
   "jsx-no-inline-object-prop": jsxNoInlineObjectProp,
   "jsx-no-newline-single-line-elements": jsxNoNewlineSingleLineElements,
   "jsx-no-non-component-function": jsxNoNonComponentFunction,
+  "jsx-no-ternary-null": jsxNoTernaryNull,
   "jsx-no-variable-in-callback": jsxNoVariableInCallback,
   "jsx-pascal-case": jsxPascalCase,
   "jsx-require-suspense": jsxRequireSuspense,
@@ -211,6 +213,7 @@ const jsxRules = {
   "nextfriday/jsx-no-inline-object-prop": "warn",
   "nextfriday/jsx-no-newline-single-line-elements": "warn",
   "nextfriday/jsx-no-non-component-function": "warn",
+  "nextfriday/jsx-no-ternary-null": "warn",
   "nextfriday/jsx-no-variable-in-callback": "warn",
   "nextfriday/jsx-pascal-case": "warn",
   "nextfriday/jsx-require-suspense": "warn",
@@ -228,6 +231,7 @@ const jsxRecommendedRules = {
   "nextfriday/jsx-no-inline-object-prop": "error",
   "nextfriday/jsx-no-newline-single-line-elements": "error",
   "nextfriday/jsx-no-non-component-function": "error",
+  "nextfriday/jsx-no-ternary-null": "error",
   "nextfriday/jsx-no-variable-in-callback": "error",
   "nextfriday/jsx-pascal-case": "error",
   "nextfriday/jsx-require-suspense": "error",

@@ -1,6 +1,6 @@
 ---
 name: eslint-plugin-nextfriday
-description: Code patterns for projects using eslint-plugin-nextfriday (51 rules covering naming, style, types, JSX, imports, and formatting)
+description: Code patterns for projects using eslint-plugin-nextfriday (52 rules covering naming, style, types, JSX, imports, and formatting)
 user-invocable: false
 ---
 

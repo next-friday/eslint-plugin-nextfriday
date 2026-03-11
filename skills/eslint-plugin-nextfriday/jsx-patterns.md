@@ -110,6 +110,20 @@ Use template literals instead of mixing text and JSX expressions.
 <p>{`Hello ${name}, welcome!`}</p>
 ```
 
+## Logical AND Over Ternary with Null
+
+Use `&&` instead of ternary when one branch is `null` or `undefined`.
+
+```tsx
+// Bad
+<div>{condition ? <span>Hello</span> : null}</div>
+<div>{condition ? <Component /> : undefined}</div>
+
+// Good
+<div>{condition && <span>Hello</span>}</div>
+<div>{!condition && <span>Fallback</span>}</div>
+```
+
 ## JSX Props Sort Order
 
 Sort JSX props by value type in this order:

@@ -1,6 +1,6 @@
 # Complete Examples
 
-These are full file examples that pass ALL 51 eslint-plugin-nextfriday rules with zero errors. Use these as templates when generating code.
+These are full file examples that pass ALL 52 eslint-plugin-nextfriday rules with zero errors. Use these as templates when generating code.
 
 ## React Component File (`UserProfile.tsx`)
 

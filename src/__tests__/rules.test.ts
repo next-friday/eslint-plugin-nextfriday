@@ -96,8 +96,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 51 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(51);
+  it("should have exactly 52 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(52);
   });
 
   it("should have correct rule names", () => {
@@ -111,6 +111,7 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("jsx-simple-props");
     expect(ruleNames).toContain("jsx-no-newline-single-line-elements");
     expect(ruleNames).toContain("jsx-no-non-component-function");
+    expect(ruleNames).toContain("jsx-no-ternary-null");
     expect(ruleNames).toContain("jsx-no-variable-in-callback");
     expect(ruleNames).toContain("md-filename-case-restriction");
     expect(ruleNames).toContain("prefer-destructuring-params");
