@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.19.0
+
+### Minor Changes
+
+- [#83](https://github.com/next-friday/eslint-plugin-nextfriday/pull/83) [`b7143d2`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/b7143d2f779ca1ca34f6562d09c1a6168b74c338) Thanks [@joetakara](https://github.com/joetakara)! - Add jsx-no-ternary-null rule to enforce logical AND over ternary with null/undefined in JSX
+
 ## 1.18.0
 
 ### Minor Changes
