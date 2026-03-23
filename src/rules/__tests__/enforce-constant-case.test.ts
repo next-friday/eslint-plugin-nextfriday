@@ -1,5 +1,5 @@
-import { RuleTester } from "@typescript-eslint/rule-tester";
 import { afterAll, describe, it } from "@jest/globals";
+import { RuleTester } from "@typescript-eslint/rule-tester";
 
 import enforceConstantCase from "../enforce-constant-case";
 
@@ -37,38 +37,6 @@ describe("enforce-constant-case", () => {
         name: "should allow SCREAMING_SNAKE_CASE url constant",
       },
       {
-        code: `const MAX_RETRY_COUNT = 3;`,
-        name: "should allow multi-word SCREAMING_SNAKE_CASE",
-      },
-      {
-        code: `const A = 1;`,
-        name: "should allow single letter uppercase constant",
-      },
-      {
-        code: `const config = { key: "value" };`,
-        name: "should allow camelCase for object constants",
-      },
-      {
-        code: `const items = [1, 2, 3];`,
-        name: "should allow camelCase for array constants",
-      },
-      {
-        code: `const handleClick = () => {};`,
-        name: "should allow camelCase for function constants",
-      },
-      {
-        code: `const Component = () => {};`,
-        name: "should allow PascalCase for component constants",
-      },
-      {
-        code: `let defaultCover = "/images/default.jpg";`,
-        name: "should allow camelCase for let declarations",
-      },
-      {
-        code: `var pageLimit = 10;`,
-        name: "should allow camelCase for var declarations",
-      },
-      {
         code: `const NEGATIVE_VALUE = -1;`,
         name: "should allow SCREAMING_SNAKE_CASE for negative numbers",
       },
@@ -77,12 +45,28 @@ describe("enforce-constant-case", () => {
         name: "should allow SCREAMING_SNAKE_CASE for template literals",
       },
       {
-        code: `const pendingHref = \`/branch/\${branch.branchNumber}\`;`,
-        name: "should allow camelCase for template literals with expressions",
+        code: `const PHONE_REGEX = /^[0-9]{10}$/;`,
+        name: "should allow SCREAMING_SNAKE_CASE for RegExp",
       },
       {
-        code: `const greeting = \`Hello, \${user.name}!\`;`,
-        name: "should allow camelCase for dynamic template literals",
+        code: `const STATUS_MAP = { ACTIVE: "active", INACTIVE: "inactive" } as const;`,
+        name: "should allow SCREAMING_SNAKE_CASE for as const object",
+      },
+      {
+        code: `const CATEGORIES = [{ id: "1", label: "one" }] as const;`,
+        name: "should allow SCREAMING_SNAKE_CASE for as const array",
+      },
+      {
+        code: `const SKELETON_ITEMS = [1, 2, 3, 4, 5];`,
+        name: "should allow SCREAMING_SNAKE_CASE for static array",
+      },
+      {
+        code: `const MAP_STYLE = { height: "320px", width: "100%" };`,
+        name: "should allow SCREAMING_SNAKE_CASE for static object",
+      },
+      {
+        code: `export const MAX_RETRY = 3;`,
+        name: "should allow exported SCREAMING_SNAKE_CASE constant",
       },
       {
         code: `const isEnabled = true;`,
@@ -93,94 +77,122 @@ describe("enforce-constant-case", () => {
         name: "should allow boolean with has prefix",
       },
       {
-        code: `const shouldRender = true;`,
-        name: "should allow boolean with should prefix",
+        code: `const config = { key: getValue() };`,
+        name: "should ignore objects with dynamic values",
       },
       {
-        code: `const canSubmit = false;`,
-        name: "should allow boolean with can prefix",
+        code: `const handleClick = () => {};`,
+        name: "should ignore functions",
       },
       {
-        code: `export const API_URL = "https://api.example.com";`,
-        name: "should allow exported SCREAMING_SNAKE_CASE constant",
+        code: `const MyComponent = () => {};`,
+        name: "should ignore components",
+      },
+      {
+        code: `let defaultCover = "/images/default.jpg";`,
+        name: "should ignore let declarations",
+      },
+      {
+        code: `function foo() { const maxRetry = 3; }`,
+        name: "should ignore local scope constants",
+      },
+      {
+        code: `const pendingHref = \`/branch/\${branch}\`;`,
+        name: "should ignore dynamic template literals",
+      },
+      {
+        code: `const result = getData();`,
+        name: "should ignore dynamic values",
       },
     ],
     invalid: [
       {
         code: `const defaultCover = "/images/default.jpg";`,
-        name: "should disallow camelCase for string constant",
+        name: "should disallow camelCase for global string constant",
         errors: [
           {
             messageId: "useScreamingSnakeCase",
-            data: {
-              name: "defaultCover",
-              suggestion: "DEFAULT_COVER",
-            },
+            data: { name: "defaultCover", suggestion: "DEFAULT_COVER" },
           },
         ],
       },
       {
         code: `const pageLimit = 10;`,
-        name: "should disallow camelCase for number constant",
+        name: "should disallow camelCase for global number constant",
         errors: [
           {
             messageId: "useScreamingSnakeCase",
-            data: {
-              name: "pageLimit",
-              suggestion: "PAGE_LIMIT",
-            },
+            data: { name: "pageLimit", suggestion: "PAGE_LIMIT" },
           },
         ],
       },
       {
         code: `const apiBaseUrl = "https://api.example.com";`,
-        name: "should disallow camelCase for URL constant",
+        name: "should disallow camelCase for global URL constant",
         errors: [
           {
             messageId: "useScreamingSnakeCase",
-            data: {
-              name: "apiBaseUrl",
-              suggestion: "API_BASE_URL",
-            },
-          },
-        ],
-      },
-      {
-        code: `const maxRetryCount = 5;`,
-        name: "should disallow camelCase for multi-word constant",
-        errors: [
-          {
-            messageId: "useScreamingSnakeCase",
-            data: {
-              name: "maxRetryCount",
-              suggestion: "MAX_RETRY_COUNT",
-            },
+            data: { name: "apiBaseUrl", suggestion: "API_BASE_URL" },
           },
         ],
       },
       {
         code: `const template = \`hello\`;`,
-        name: "should disallow camelCase for template literal constant",
+        name: "should disallow camelCase for global template literal constant",
         errors: [
           {
             messageId: "useScreamingSnakeCase",
-            data: {
-              name: "template",
-              suggestion: "TEMPLATE",
-            },
+            data: { name: "template", suggestion: "TEMPLATE" },
           },
         ],
       },
       {
         code: `const negativeOne = -1;`,
-        name: "should disallow camelCase for negative number constant",
+        name: "should disallow camelCase for global negative number constant",
         errors: [
           {
             messageId: "useScreamingSnakeCase",
-            data: {
-              name: "negativeOne",
-              suggestion: "NEGATIVE_ONE",
-            },
+            data: { name: "negativeOne", suggestion: "NEGATIVE_ONE" },
+          },
+        ],
+      },
+      {
+        code: `export const maxRetryCount = 3;`,
+        name: "should disallow camelCase for exported global constant",
+        errors: [
+          {
+            messageId: "useScreamingSnakeCase",
+            data: { name: "maxRetryCount", suggestion: "MAX_RETRY_COUNT" },
+          },
+        ],
+      },
+      {
+        code: `const default_theme = "dark";`,
+        name: "should disallow snake_case for global constant",
+        errors: [
+          {
+            messageId: "noSnakeCase",
+            data: { name: "default_theme", suggestion: "DEFAULT_THEME" },
+          },
+        ],
+      },
+      {
+        code: `const categories = [{ id: "1" }] as const;`,
+        name: "should disallow camelCase for global as const array",
+        errors: [
+          {
+            messageId: "useScreamingSnakeCase",
+            data: { name: "categories", suggestion: "CATEGORIES" },
+          },
+        ],
+      },
+      {
+        code: `const phoneRegex = /^[0-9]{10}$/;`,
+        name: "should disallow camelCase for global RegExp",
+        errors: [
+          {
+            messageId: "useScreamingSnakeCase",
+            data: { name: "phoneRegex", suggestion: "PHONE_REGEX" },
           },
         ],
       },

@@ -155,8 +155,10 @@ export default [
 | [no-single-char-variables](docs/rules/NO_SINGLE_CHAR_VARIABLES.md)       | Disallow single character variable names (e.g., `d`, `u`, `l`)        | ❌      |
 | [no-lazy-identifiers](docs/rules/NO_LAZY_IDENTIFIERS.md)                 | Disallow lazy identifiers like `xxx`, `asdf`, `qwerty`                | ❌      |
 | [boolean-naming-prefix](docs/rules/BOOLEAN_NAMING_PREFIX.md)             | Enforce boolean variables to have prefix (is, has, should, can, etc.) | ❌      |
-| [enforce-constant-case](docs/rules/ENFORCE_CONSTANT_CASE.md)             | Enforce SCREAMING_SNAKE_CASE for static constant primitive values     | ❌      |
-| [no-misleading-constant-case](docs/rules/NO_MISLEADING_CONSTANT_CASE.md) | Disallow SCREAMING_SNAKE_CASE for non-constant or non-static values   | ❌      |
+| [enforce-camel-case](docs/rules/ENFORCE_CAMEL_CASE.md)                   | Ban snake_case and restrict PascalCase to React components            | ❌      |
+| [enforce-constant-case](docs/rules/ENFORCE_CONSTANT_CASE.md)             | Enforce SCREAMING_SNAKE_CASE for global static constant values        | ❌      |
+| [enforce-property-case](docs/rules/ENFORCE_PROPERTY_CASE.md)             | Enforce camelCase for unquoted object property keys                   | ❌      |
+| [no-misleading-constant-case](docs/rules/NO_MISLEADING_CONSTANT_CASE.md) | Disallow SCREAMING_SNAKE_CASE in local scope and for dynamic values   | ❌      |
 
 ### File Naming Rules
 

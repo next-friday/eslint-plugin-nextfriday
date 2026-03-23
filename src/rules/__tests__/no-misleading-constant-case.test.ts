@@ -22,171 +22,77 @@ describe("no-misleading-constant-case", () => {
     valid: [
       {
         code: `const API_URL = "https://api.example.com";`,
-        name: "should allow SCREAMING_SNAKE_CASE for string literal",
+        name: "should allow global SCREAMING_SNAKE_CASE for string literal",
       },
       {
         code: `const MAX = 100;`,
-        name: "should allow SCREAMING_SNAKE_CASE for number literal",
+        name: "should allow global SCREAMING_SNAKE_CASE for number literal",
       },
       {
-        code: `const IS_PRODUCTION = true;`,
-        name: "should allow SCREAMING_SNAKE_CASE for boolean literal",
+        code: `const ITEMS = [1, 2, 3];`,
+        name: "should allow global SCREAMING_SNAKE_CASE for static array",
       },
       {
-        code: `const TEMPLATE = \`hello world\`;`,
-        name: "should allow SCREAMING_SNAKE_CASE for static template literal",
+        code: `const CONFIG = { key: "value" };`,
+        name: "should allow global SCREAMING_SNAKE_CASE for static object",
       },
       {
-        code: `const NEGATIVE = -1;`,
-        name: "should allow SCREAMING_SNAKE_CASE for negative number",
+        code: `const VARIANTS = ["a", "b"] as const;`,
+        name: "should allow global SCREAMING_SNAKE_CASE for as const",
       },
       {
         code: `const config = getConfig();`,
-        name: "should allow camelCase for function call",
+        name: "should allow camelCase for dynamic value",
       },
       {
-        code: `const items = [1, 2, 3];`,
-        name: "should allow camelCase for array",
-      },
-      {
-        code: `const settings = { key: "value" };`,
-        name: "should allow camelCase for object",
-      },
-      {
-        code: `const pathname = \`/news/\${slug}\`;`,
-        name: "should allow camelCase for dynamic template literal",
-      },
-      {
-        code: `let count = 10;`,
-        name: "should allow camelCase for let declaration",
-      },
-      {
-        code: `var name = "foo";`,
-        name: "should allow camelCase for var declaration",
-      },
-      {
-        code: `const result = a + b;`,
-        name: "should allow camelCase for computed value",
-      },
-      {
-        code: `const userId = await fetchId();`,
-        name: "should allow camelCase for await expression",
+        code: `function foo() { const totalCount = 10; }`,
+        name: "should allow camelCase in local scope",
       },
       {
         code: `export const API_URL = "https://api.example.com";`,
-        name: "should allow exported SCREAMING_SNAKE_CASE for static primitive",
+        name: "should allow exported global SCREAMING_SNAKE_CASE",
       },
     ],
     invalid: [
       {
         code: `let API_URL = "https://api.example.com";`,
         name: "should reject SCREAMING_SNAKE_CASE with let",
-        errors: [
-          {
-            messageId: "mutableScreamingCase",
-            data: { name: "API_URL", kind: "let" },
-          },
-        ],
+        errors: [{ messageId: "mutableScreamingCase", data: { name: "API_URL", kind: "let" } }],
       },
       {
         code: `var MAX_COUNT = 10;`,
         name: "should reject SCREAMING_SNAKE_CASE with var",
-        errors: [
-          {
-            messageId: "mutableScreamingCase",
-            data: { name: "MAX_COUNT", kind: "var" },
-          },
-        ],
-      },
-      {
-        code: `let TEMPLATE = \`hello\`;`,
-        name: "should reject SCREAMING_SNAKE_CASE template literal with let",
-        errors: [
-          {
-            messageId: "mutableScreamingCase",
-            data: { name: "TEMPLATE", kind: "let" },
-          },
-        ],
+        errors: [{ messageId: "mutableScreamingCase", data: { name: "MAX_COUNT", kind: "var" } }],
       },
       {
         code: `const API_URL = getUrl();`,
-        name: "should reject SCREAMING_SNAKE_CASE for function call",
-        errors: [
-          {
-            messageId: "dynamicScreamingCase",
-            data: { name: "API_URL" },
-          },
-        ],
-      },
-      {
-        code: `const USER_ID = await fetchId();`,
-        name: "should reject SCREAMING_SNAKE_CASE for await expression",
-        errors: [
-          {
-            messageId: "dynamicScreamingCase",
-            data: { name: "USER_ID" },
-          },
-        ],
+        name: "should reject global SCREAMING_SNAKE_CASE for dynamic value",
+        errors: [{ messageId: "dynamicScreamingCase", data: { name: "API_URL" } }],
       },
       {
         code: `const PATHNAME = \`/news/\${slug}\`;`,
-        name: "should reject SCREAMING_SNAKE_CASE for dynamic template literal",
-        errors: [
-          {
-            messageId: "dynamicScreamingCase",
-            data: { name: "PATHNAME" },
-          },
-        ],
+        name: "should reject global SCREAMING_SNAKE_CASE for dynamic template",
+        errors: [{ messageId: "dynamicScreamingCase", data: { name: "PATHNAME" } }],
       },
       {
-        code: `const CONFIG = { key: "value" };`,
-        name: "should reject SCREAMING_SNAKE_CASE for object literal",
-        errors: [
-          {
-            messageId: "dynamicScreamingCase",
-            data: { name: "CONFIG" },
-          },
-        ],
+        code: `const CONFIG = { key: getValue() };`,
+        name: "should reject global SCREAMING_SNAKE_CASE for object with dynamic value",
+        errors: [{ messageId: "dynamicScreamingCase", data: { name: "CONFIG" } }],
       },
       {
-        code: `const ITEMS = [1, 2, 3];`,
-        name: "should reject SCREAMING_SNAKE_CASE for array literal",
-        errors: [
-          {
-            messageId: "dynamicScreamingCase",
-            data: { name: "ITEMS" },
-          },
-        ],
+        code: `function foo() { const MAX_RETRY = 3; }`,
+        name: "should reject SCREAMING_SNAKE_CASE in local scope",
+        errors: [{ messageId: "localScreamingCase", data: { name: "MAX_RETRY" } }],
       },
       {
-        code: `const RESULT = a + b;`,
-        name: "should reject SCREAMING_SNAKE_CASE for binary expression",
-        errors: [
-          {
-            messageId: "dynamicScreamingCase",
-            data: { name: "RESULT" },
-          },
-        ],
+        code: `const MyComponent = () => { const ACTIVE_ITEMS = ITEMS.filter(i => i.active); };`,
+        name: "should reject SCREAMING_SNAKE_CASE in component scope",
+        errors: [{ messageId: "localScreamingCase", data: { name: "ACTIVE_ITEMS" } }],
       },
       {
-        code: `const ACTIVE_USERS = users.filter(u => u.active);`,
-        name: "should reject SCREAMING_SNAKE_CASE for method call",
-        errors: [
-          {
-            messageId: "dynamicScreamingCase",
-            data: { name: "ACTIVE_USERS" },
-          },
-        ],
-      },
-      {
-        code: `const CLIENT = new ApiClient();`,
-        name: "should reject SCREAMING_SNAKE_CASE for new expression",
-        errors: [
-          {
-            messageId: "dynamicScreamingCase",
-            data: { name: "CLIENT" },
-          },
-        ],
+        code: `function foo() { const TOTAL_COUNT = 10; }`,
+        name: "should reject SCREAMING_SNAKE_CASE static value in local scope",
+        errors: [{ messageId: "localScreamingCase", data: { name: "TOTAL_COUNT" } }],
       },
     ],
   });

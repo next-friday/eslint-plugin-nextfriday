@@ -4,47 +4,62 @@ Disallow SCREAMING_SNAKE_CASE for non-constant or non-static values.
 
 ## Rule Details
 
-SCREAMING_SNAKE_CASE conventionally signals a compile-time constant with a static, immutable value. Using it for mutable bindings (`let`/`var`) or dynamic values (function calls, objects, arrays, computed expressions) is misleading because the name implies immutability that the value does not have.
+SCREAMING_SNAKE_CASE is reserved for global static constants. This rule flags it when used incorrectly:
+
+- **Mutable bindings**: `let` or `var` with SCREAMING_SNAKE_CASE
+- **Dynamic values**: `const` with function calls, await, dynamic templates, objects with dynamic values
+- **Local scope**: SCREAMING_SNAKE_CASE inside functions, even for static values
 
 ### Why?
 
-When reading `const API_URL = getUrl()`, the SCREAMING_SNAKE_CASE name suggests a hardcoded value, but it is actually computed at runtime. This mismatch makes code harder to reason about. Reserving SCREAMING_SNAKE_CASE for true static primitives keeps the convention meaningful.
+SCREAMING_SNAKE_CASE signals a compile-time constant at the module level. Using it for local variables or dynamic values is misleading. Local constants should use camelCase regardless of whether the value is static.
 
 ## Examples
 
 ### Incorrect
 
 ```ts
-// Mutable bindings should not use SCREAMING_SNAKE_CASE
+// Mutable bindings
 let API_URL = "https://api.example.com";
 var MAX_COUNT = 10;
 
-// Dynamic or computed values should use camelCase
+// Dynamic values at global scope
 const API_URL = getUrl();
 const USER_ID = await fetchId();
 const PATHNAME = `/news/${slug}`;
-const CONFIG = { key: "value" };
-const ITEMS = [1, 2, 3];
-const RESULT = a + b;
-const ACTIVE_USERS = users.filter((u) => u.active);
+const CONFIG = { key: getValue() };
+
+// SCREAMING_SNAKE_CASE in local scope (even static values)
+function foo() {
+  const MAX_RETRY = 3;
+  const TOTAL_COUNT = items.length;
+}
+
+const MyComponent = () => {
+  const ACTIVE_ITEMS = ITEMS.filter((i) => i.active);
+};
 ```
 
 ### Correct
 
 ```ts
-// Static primitive constants use SCREAMING_SNAKE_CASE
+// Global static constants use SCREAMING_SNAKE_CASE
 const API_URL = "https://api.example.com";
 const MAX_COUNT = 10;
-const IS_PRODUCTION = true;
-const TEMPLATE = `hello world`;
+const ITEMS = [1, 2, 3];
+const CONFIG = { key: "value" };
+const VARIANTS = ["a", "b"] as const;
 
-// Dynamic or computed values use camelCase
+// Dynamic values use camelCase
 const apiUrl = getUrl();
 const userId = await fetchId();
 const pathname = `/news/${slug}`;
-const config = { key: "value" };
-const items = [1, 2, 3];
-const result = a + b;
+
+// Local scope uses camelCase
+function foo() {
+  const maxRetry = 3;
+  const totalCount = items.length;
+}
 
 // Mutable bindings use camelCase
 let count = 10;
@@ -53,8 +68,9 @@ var name = "foo";
 
 ## When Not To Use It
 
-If your project does not follow the convention that SCREAMING_SNAKE_CASE is reserved for static primitive constants.
+If your project does not follow the convention that SCREAMING_SNAKE_CASE is reserved for global static constants.
 
 ## Related Rules
 
-- [enforce-constant-case](ENFORCE_CONSTANT_CASE.md) - The complementary rule that enforces SCREAMING_SNAKE_CASE for static primitive constants
+- [enforce-constant-case](ENFORCE_CONSTANT_CASE.md) - The complementary rule that enforces SCREAMING_SNAKE_CASE for global static constants
+- [enforce-camel-case](ENFORCE_CAMEL_CASE.md) - Enforces camelCase for variables and functions

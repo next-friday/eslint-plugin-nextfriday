@@ -4,9 +4,11 @@ import rawUnicorn from "eslint-plugin-unicorn";
 import packageJson from "../package.json" assert { type: "json" };
 
 import booleanNamingPrefix from "./rules/boolean-naming-prefix";
+import enforceCamelCase from "./rules/enforce-camel-case";
 import enforceConstantCase from "./rules/enforce-constant-case";
 import enforceCurlyNewline from "./rules/enforce-curly-newline";
 import enforceHookNaming from "./rules/enforce-hook-naming";
+import enforcePropertyCase from "./rules/enforce-property-case";
 import enforcePropsSuffix from "./rules/enforce-props-suffix";
 import enforceReadonlyComponentProps from "./rules/enforce-readonly-component-props";
 import enforceServiceNaming from "./rules/enforce-service-naming";
@@ -73,9 +75,11 @@ const meta = {
 
 const rules = {
   "boolean-naming-prefix": booleanNamingPrefix,
+  "enforce-camel-case": enforceCamelCase,
   "enforce-constant-case": enforceConstantCase,
   "enforce-curly-newline": enforceCurlyNewline,
   "enforce-hook-naming": enforceHookNaming,
+  "enforce-property-case": enforcePropertyCase,
   "enforce-props-suffix": enforcePropsSuffix,
   "enforce-readonly-component-props": enforceReadonlyComponentProps,
   "enforce-service-naming": enforceServiceNaming,
@@ -136,9 +140,11 @@ const plugin = {
 
 const baseRules = {
   "nextfriday/boolean-naming-prefix": "warn",
+  "nextfriday/enforce-camel-case": "warn",
   "nextfriday/enforce-constant-case": "warn",
   "nextfriday/enforce-curly-newline": "warn",
   "nextfriday/enforce-hook-naming": "warn",
+  "nextfriday/enforce-property-case": "warn",
   "nextfriday/enforce-service-naming": "warn",
   "nextfriday/enforce-sorted-destructuring": "warn",
   "nextfriday/enforce-type-declaration-order": "warn",
@@ -178,9 +184,11 @@ const baseRules = {
 
 const baseRecommendedRules = {
   "nextfriday/boolean-naming-prefix": "error",
+  "nextfriday/enforce-camel-case": "error",
   "nextfriday/enforce-constant-case": "error",
   "nextfriday/enforce-curly-newline": "error",
   "nextfriday/enforce-hook-naming": "error",
+  "nextfriday/enforce-property-case": "error",
   "nextfriday/enforce-service-naming": "error",
   "nextfriday/enforce-sorted-destructuring": "error",
   "nextfriday/enforce-type-declaration-order": "error",
