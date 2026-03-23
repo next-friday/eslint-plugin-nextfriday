@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.21.0
+
+### Minor Changes
+
+- [#87](https://github.com/next-friday/eslint-plugin-nextfriday/pull/87) [`ed401e3`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/ed401e39db04857995ddcc29d7444298181ee60b) Thanks [@joetakara](https://github.com/joetakara)! - Add `no-inline-return-properties` rule that enforces shorthand-only properties in return objects
+
 ## 1.20.0
 
 ### Minor Changes
