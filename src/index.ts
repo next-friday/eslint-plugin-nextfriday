@@ -35,6 +35,7 @@ import noInlineDefaultExport from "./rules/no-inline-default-export";
 import noInlineNestedObject from "./rules/no-inline-nested-object";
 import noLazyIdentifiers from "./rules/no-lazy-identifiers";
 import noLogicInParams from "./rules/no-logic-in-params";
+import noMisleadingConstantCase from "./rules/no-misleading-constant-case";
 import noNestedInterfaceDeclaration from "./rules/no-nested-interface-declaration";
 import noNestedTernary from "./rules/no-nested-ternary";
 import noRelativeImports from "./rules/no-relative-imports";
@@ -45,6 +46,7 @@ import preferFunctionDeclaration from "./rules/prefer-function-declaration";
 import preferGuardClause from "./rules/prefer-guard-clause";
 import preferImportType from "./rules/prefer-import-type";
 import preferInlineLiteralUnion from "./rules/prefer-inline-literal-union";
+import preferInlineTypeExport from "./rules/prefer-inline-type-export";
 import preferInterfaceOverInlineTypes from "./rules/prefer-interface-over-inline-types";
 import preferJSXTemplateLiterals from "./rules/prefer-jsx-template-literals";
 import preferNamedParamTypes from "./rules/prefer-named-param-types";
@@ -101,6 +103,7 @@ const rules = {
   "no-inline-nested-object": noInlineNestedObject,
   "no-lazy-identifiers": noLazyIdentifiers,
   "no-logic-in-params": noLogicInParams,
+  "no-misleading-constant-case": noMisleadingConstantCase,
   "no-nested-interface-declaration": noNestedInterfaceDeclaration,
   "no-nested-ternary": noNestedTernary,
   "no-relative-imports": noRelativeImports,
@@ -111,6 +114,7 @@ const rules = {
   "prefer-guard-clause": preferGuardClause,
   "prefer-import-type": preferImportType,
   "prefer-inline-literal-union": preferInlineLiteralUnion,
+  "prefer-inline-type-export": preferInlineTypeExport,
   "prefer-interface-over-inline-types": preferInterfaceOverInlineTypes,
   "prefer-jsx-template-literals": preferJSXTemplateLiterals,
   "prefer-named-param-types": preferNamedParamTypes,
@@ -148,6 +152,7 @@ const baseRules = {
   "nextfriday/no-inline-nested-object": "warn",
   "nextfriday/no-lazy-identifiers": "warn",
   "nextfriday/no-logic-in-params": "warn",
+  "nextfriday/no-misleading-constant-case": "warn",
   "nextfriday/no-nested-interface-declaration": "warn",
   "nextfriday/no-nested-ternary": "warn",
   "nextfriday/no-relative-imports": "warn",
@@ -158,6 +163,7 @@ const baseRules = {
   "nextfriday/prefer-guard-clause": "warn",
   "nextfriday/prefer-import-type": "warn",
   "nextfriday/prefer-inline-literal-union": "warn",
+  "nextfriday/prefer-inline-type-export": "warn",
   "nextfriday/prefer-named-param-types": "warn",
   "nextfriday/prefer-react-import-types": "warn",
   "nextfriday/require-explicit-return-type": "warn",
@@ -187,6 +193,7 @@ const baseRecommendedRules = {
   "nextfriday/no-inline-nested-object": "error",
   "nextfriday/no-lazy-identifiers": "error",
   "nextfriday/no-logic-in-params": "error",
+  "nextfriday/no-misleading-constant-case": "error",
   "nextfriday/no-nested-interface-declaration": "error",
   "nextfriday/no-nested-ternary": "error",
   "nextfriday/no-relative-imports": "error",
@@ -197,6 +204,7 @@ const baseRecommendedRules = {
   "nextfriday/prefer-guard-clause": "error",
   "nextfriday/prefer-import-type": "error",
   "nextfriday/prefer-inline-literal-union": "error",
+  "nextfriday/prefer-inline-type-export": "error",
   "nextfriday/prefer-named-param-types": "error",
   "nextfriday/prefer-react-import-types": "error",
   "nextfriday/require-explicit-return-type": "error",

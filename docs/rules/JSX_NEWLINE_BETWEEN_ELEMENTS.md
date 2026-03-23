@@ -1,10 +1,10 @@
 # jsx-newline-between-elements
 
-Require empty lines between sibling JSX elements when at least one spans multiple lines.
+Require empty lines between sibling JSX elements and expression containers when at least one spans multiple lines.
 
 ## Rule Details
 
-This rule enforces empty lines between sibling JSX elements when either element spans multiple lines. This improves visual separation and readability of complex component structures. Single-line elements do not require empty lines between them.
+This rule enforces empty lines between sibling JSX elements, fragments, and expression containers (e.g., `{condition && (...)}`) when either sibling spans multiple lines. This improves visual separation and readability of complex component structures. Single-line siblings do not require empty lines between them.
 
 ## Examples
 
@@ -65,6 +65,28 @@ function UserProfile() {
       <Avatar src={user.avatar} alt={user.name} size="large" />
 
       <UserInfo name={user.name} email={user.email} />
+    </div>
+  );
+}
+```
+
+Expression containers also need empty lines:
+
+```tsx
+function StudentInfo({ studentId, name }) {
+  return (
+    <div>
+      {studentId && (
+        <div className="flex items-center gap-x-1">
+          <Text size="lg">{studentId}</Text>
+        </div>
+      )}
+
+      {name && (
+        <div className="flex items-center gap-x-1">
+          <Text size="lg">{name}</Text>
+        </div>
+      )}
     </div>
   );
 }

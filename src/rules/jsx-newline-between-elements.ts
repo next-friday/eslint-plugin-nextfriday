@@ -25,8 +25,12 @@ const jsxNewlineBetweenElements = createRule({
   create(context) {
     const { sourceCode } = context;
 
-    function isJSXElementOrFragment(node: TSESTree.Node): boolean {
-      return node.type === AST_NODE_TYPES.JSXElement || node.type === AST_NODE_TYPES.JSXFragment;
+    function isSignificantJSXChild(node: TSESTree.Node): boolean {
+      return (
+        node.type === AST_NODE_TYPES.JSXElement ||
+        node.type === AST_NODE_TYPES.JSXFragment ||
+        node.type === AST_NODE_TYPES.JSXExpressionContainer
+      );
     }
 
     function isMultiLine(node: TSESTree.Node): boolean {
@@ -34,8 +38,9 @@ const jsxNewlineBetweenElements = createRule({
     }
 
     function checkSiblings(children: TSESTree.JSXChild[]) {
-      const jsxElements = children.filter((child): child is TSESTree.JSXElement | TSESTree.JSXFragment =>
-        isJSXElementOrFragment(child),
+      const jsxElements = children.filter(
+        (child): child is TSESTree.JSXElement | TSESTree.JSXFragment | TSESTree.JSXExpressionContainer =>
+          isSignificantJSXChild(child),
       );
 
       for (let i = 0; i < jsxElements.length - 1; i += 1) {

@@ -76,6 +76,34 @@ describe("enforce-constant-case", () => {
         code: `const TEMPLATE = \`hello world\`;`,
         name: "should allow SCREAMING_SNAKE_CASE for template literals",
       },
+      {
+        code: `const pendingHref = \`/branch/\${branch.branchNumber}\`;`,
+        name: "should allow camelCase for template literals with expressions",
+      },
+      {
+        code: `const greeting = \`Hello, \${user.name}!\`;`,
+        name: "should allow camelCase for dynamic template literals",
+      },
+      {
+        code: `const isEnabled = true;`,
+        name: "should allow boolean with is prefix",
+      },
+      {
+        code: `const hasAccess = false;`,
+        name: "should allow boolean with has prefix",
+      },
+      {
+        code: `const shouldRender = true;`,
+        name: "should allow boolean with should prefix",
+      },
+      {
+        code: `const canSubmit = false;`,
+        name: "should allow boolean with can prefix",
+      },
+      {
+        code: `export const API_URL = "https://api.example.com";`,
+        name: "should allow exported SCREAMING_SNAKE_CASE constant",
+      },
     ],
     invalid: [
       {
@@ -100,19 +128,6 @@ describe("enforce-constant-case", () => {
             data: {
               name: "pageLimit",
               suggestion: "PAGE_LIMIT",
-            },
-          },
-        ],
-      },
-      {
-        code: `const isEnabled = true;`,
-        name: "should disallow camelCase for boolean constant",
-        errors: [
-          {
-            messageId: "useScreamingSnakeCase",
-            data: {
-              name: "isEnabled",
-              suggestion: "IS_ENABLED",
             },
           },
         ],
