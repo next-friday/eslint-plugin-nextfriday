@@ -33,6 +33,7 @@ import noEmoji from "./rules/no-emoji";
 import noEnvFallback from "./rules/no-env-fallback";
 import noInlineDefaultExport from "./rules/no-inline-default-export";
 import noInlineNestedObject from "./rules/no-inline-nested-object";
+import noInlineReturnProperties from "./rules/no-inline-return-properties";
 import noLazyIdentifiers from "./rules/no-lazy-identifiers";
 import noLogicInParams from "./rules/no-logic-in-params";
 import noMisleadingConstantCase from "./rules/no-misleading-constant-case";
@@ -101,6 +102,7 @@ const rules = {
   "no-env-fallback": noEnvFallback,
   "no-inline-default-export": noInlineDefaultExport,
   "no-inline-nested-object": noInlineNestedObject,
+  "no-inline-return-properties": noInlineReturnProperties,
   "no-lazy-identifiers": noLazyIdentifiers,
   "no-logic-in-params": noLogicInParams,
   "no-misleading-constant-case": noMisleadingConstantCase,
@@ -150,6 +152,7 @@ const baseRules = {
   "nextfriday/no-env-fallback": "warn",
   "nextfriday/no-inline-default-export": "warn",
   "nextfriday/no-inline-nested-object": "warn",
+  "nextfriday/no-inline-return-properties": "warn",
   "nextfriday/no-lazy-identifiers": "warn",
   "nextfriday/no-logic-in-params": "warn",
   "nextfriday/no-misleading-constant-case": "warn",
@@ -191,6 +194,7 @@ const baseRecommendedRules = {
   "nextfriday/no-env-fallback": "error",
   "nextfriday/no-inline-default-export": "error",
   "nextfriday/no-inline-nested-object": "error",
+  "nextfriday/no-inline-return-properties": "error",
   "nextfriday/no-lazy-identifiers": "error",
   "nextfriday/no-logic-in-params": "error",
   "nextfriday/no-misleading-constant-case": "error",

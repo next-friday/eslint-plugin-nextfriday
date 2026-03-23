@@ -185,6 +185,7 @@ export default [
 | [newline-after-multiline-block](docs/rules/NEWLINE_AFTER_MULTILINE_BLOCK.md) | Require a blank line after multi-line statements                       | ✅      |
 | [newline-before-return](docs/rules/NEWLINE_BEFORE_RETURN.md)                 | Require a blank line before return statements                          | ✅      |
 | [no-inline-nested-object](docs/rules/NO_INLINE_NESTED_OBJECT.md)             | Require nested objects and arrays to span multiple lines               | ✅      |
+| [no-inline-return-properties](docs/rules/NO_INLINE_RETURN_PROPERTIES.md)     | Require return object properties to use shorthand notation             | ❌      |
 | [prefer-async-await](docs/rules/PREFER_ASYNC_AWAIT.md)                       | Enforce async/await over .then() promise chains                        | ❌      |
 | [enforce-curly-newline](docs/rules/ENFORCE_CURLY_NEWLINE.md)                 | Enforce curly braces for multi-line if, forbid for single-line         | ✅      |
 | [no-nested-ternary](docs/rules/NO_NESTED_TERNARY.md)                         | Disallow nested ternary expressions                                    | ❌      |

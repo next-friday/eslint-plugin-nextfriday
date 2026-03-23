@@ -96,8 +96,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 54 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(54);
+  it("should have exactly 55 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(55);
   });
 
   it("should have correct rule names", () => {
@@ -134,6 +134,7 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("no-nested-ternary");
     expect(ruleNames).toContain("no-env-fallback");
     expect(ruleNames).toContain("no-inline-default-export");
+    expect(ruleNames).toContain("no-inline-return-properties");
     expect(ruleNames).toContain("no-inline-nested-object");
     expect(ruleNames).toContain("no-lazy-identifiers");
     expect(ruleNames).toContain("no-relative-imports");
