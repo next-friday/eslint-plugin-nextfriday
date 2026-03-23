@@ -77,6 +77,10 @@ describe("no-lazy-identifiers", () => {
         name: "should allow two repeated chars (not lazy)",
       },
       {
+        code: "const ProfileProgressSkeleton = () => {};",
+        name: "should allow compound names where repeated chars span word boundaries",
+      },
+      {
         code: "const qwe = 1;",
         name: "should allow short keyboard patterns under threshold",
       },

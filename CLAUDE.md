@@ -24,7 +24,7 @@ pnpm changeset           # Create a changeset for version bumping
 `src/index.ts` - Main plugin export containing:
 
 - `meta` - Plugin name and version from package.json
-- `rules` - All 52 rule implementations keyed by hyphenated name
+- `rules` - All 54 rule implementations keyed by hyphenated name
 - `configs` - Eight configuration presets (six nextfriday presets via `createConfig()`, plus lazy `sonarjs` and `unicorn` getters that wrap external plugins)
 
 The plugin is exported both as default and as named exports `{ meta, configs, rules }`.
@@ -43,9 +43,9 @@ Eight configs total. Six nextfriday presets built from three rule set tiers, eac
 
 | Preset                          | Rules                             | Severity     |
 | ------------------------------- | --------------------------------- | ------------ |
-| `base` / `base/recommended`     | 36 base                           | warn / error |
-| `react` / `react/recommended`   | 36 base + 15 JSX                  | warn / error |
-| `nextjs` / `nextjs/recommended` | 36 base + 15 JSX + 1 nextjs       | warn / error |
+| `base` / `base/recommended`     | 38 base                           | warn / error |
+| `react` / `react/recommended`   | 38 base + 15 JSX                  | warn / error |
+| `nextjs` / `nextjs/recommended` | 38 base + 15 JSX + 1 nextjs       | warn / error |
 | `sonarjs`                       | eslint-plugin-sonarjs recommended | -            |
 | `unicorn`                       | eslint-plugin-unicorn recommended | -            |
 
@@ -137,7 +137,7 @@ Commits are validated by commitlint (conventional commits). Requirements:
 - Subject: max 50 chars, must not start with uppercase
 - Types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`
 
-Git hooks (husky): `pre-commit` runs lint-staged, `pre-push` runs tests + typecheck + build, `commit-msg` runs commitlint.
+Git hooks (husky): `pre-commit` runs lint-staged, `pre-push` runs `test:coverage` + typecheck + build, `commit-msg` runs commitlint.
 
 ## CI Requirements
 

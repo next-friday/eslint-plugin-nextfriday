@@ -60,9 +60,11 @@ The rule detects two types of lazy patterns:
 
 ### Repeated Characters (3+)
 
-Variables with 3 or more consecutive identical characters:
+Variables with 3 or more consecutive identical characters (case-sensitive):
 
 - `xxx`, `aaa`, `zzz`, `qqqq`, `aaaa`
+
+Compound names where repeated characters span word boundaries are not flagged (e.g., `ProfileProgressSkeleton` is allowed because `ss` and `S` are different cases).
 
 ### Keyboard Sequences (4+)
 

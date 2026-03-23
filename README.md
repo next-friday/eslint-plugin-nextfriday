@@ -117,6 +117,7 @@ export default [
       "nextfriday/no-nested-interface-declaration": "error",
       "nextfriday/prefer-named-param-types": "error",
       "nextfriday/prefer-inline-literal-union": "error",
+      "nextfriday/prefer-inline-type-export": "error",
       "nextfriday/prefer-interface-over-inline-types": "error",
       "nextfriday/sort-type-alphabetically": "error",
       "nextfriday/sort-type-required-first": "error",
@@ -149,12 +150,13 @@ export default [
 
 ### Variable Naming Rules
 
-| Rule                                                               | Description                                                           | Fixable |
-| ------------------------------------------------------------------ | --------------------------------------------------------------------- | ------- |
-| [no-single-char-variables](docs/rules/NO_SINGLE_CHAR_VARIABLES.md) | Disallow single character variable names (e.g., `d`, `u`, `l`)        | ❌      |
-| [no-lazy-identifiers](docs/rules/NO_LAZY_IDENTIFIERS.md)           | Disallow lazy identifiers like `xxx`, `asdf`, `qwerty`                | ❌      |
-| [boolean-naming-prefix](docs/rules/BOOLEAN_NAMING_PREFIX.md)       | Enforce boolean variables to have prefix (is, has, should, can, etc.) | ❌      |
-| [enforce-constant-case](docs/rules/ENFORCE_CONSTANT_CASE.md)       | Enforce SCREAMING_SNAKE_CASE for constant primitive values            | ❌      |
+| Rule                                                                     | Description                                                           | Fixable |
+| ------------------------------------------------------------------------ | --------------------------------------------------------------------- | ------- |
+| [no-single-char-variables](docs/rules/NO_SINGLE_CHAR_VARIABLES.md)       | Disallow single character variable names (e.g., `d`, `u`, `l`)        | ❌      |
+| [no-lazy-identifiers](docs/rules/NO_LAZY_IDENTIFIERS.md)                 | Disallow lazy identifiers like `xxx`, `asdf`, `qwerty`                | ❌      |
+| [boolean-naming-prefix](docs/rules/BOOLEAN_NAMING_PREFIX.md)             | Enforce boolean variables to have prefix (is, has, should, can, etc.) | ❌      |
+| [enforce-constant-case](docs/rules/ENFORCE_CONSTANT_CASE.md)             | Enforce SCREAMING_SNAKE_CASE for static constant primitive values     | ❌      |
+| [no-misleading-constant-case](docs/rules/NO_MISLEADING_CONSTANT_CASE.md) | Disallow SCREAMING_SNAKE_CASE for non-constant or non-static values   | ❌      |
 
 ### File Naming Rules
 
@@ -206,6 +208,7 @@ export default [
 | [no-nested-interface-declaration](docs/rules/NO_NESTED_INTERFACE_DECLARATION.md)       | Disallow inline object types in interface/type properties        | ❌      |
 | [prefer-named-param-types](docs/rules/PREFER_NAMED_PARAM_TYPES.md)                     | Enforce named types for function parameters with object types    | ❌      |
 | [prefer-inline-literal-union](docs/rules/PREFER_INLINE_LITERAL_UNION.md)               | Enforce inlining literal union types for better IDE hover info   | ✅      |
+| [prefer-inline-type-export](docs/rules/PREFER_INLINE_TYPE_EXPORT.md)                   | Require type/interface exports inline at the declaration         | ✅      |
 | [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md) | Enforce interface declarations over inline types for React props | ❌      |
 | [sort-type-alphabetically](docs/rules/SORT_TYPE_ALPHABETICALLY.md)                     | Enforce A-Z sorting of properties within type groups             | ✅      |
 | [sort-type-required-first](docs/rules/SORT_TYPE_REQUIRED_FIRST.md)                     | Enforce required properties before optional in types/interfaces  | ✅      |
@@ -214,7 +217,7 @@ export default [
 
 | Rule                                                                                     | Description                                                           | Fixable |
 | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------- |
-| [jsx-newline-between-elements](docs/rules/JSX_NEWLINE_BETWEEN_ELEMENTS.md)               | Require empty lines between sibling multi-line JSX elements           | ✅      |
+| [jsx-newline-between-elements](docs/rules/JSX_NEWLINE_BETWEEN_ELEMENTS.md)               | Require empty lines between sibling multi-line JSX children           | ✅      |
 | [jsx-no-inline-object-prop](docs/rules/JSX_NO_INLINE_OBJECT_PROP.md)                     | Disallow inline object literals in JSX props                          | ❌      |
 | [jsx-no-newline-single-line-elements](docs/rules/JSX_NO_NEWLINE_SINGLE_LINE_ELEMENTS.md) | Disallow empty lines between single-line sibling JSX elements         | ✅      |
 | [jsx-no-non-component-function](docs/rules/JSX_NO_NON_COMPONENT_FUNCTION.md)             | Disallow non-component functions at top level in .tsx/.jsx files      | ❌      |
@@ -240,14 +243,14 @@ export default [
 
 | Preset               | Severity | Base Rules | JSX Rules | Next.js Rules | Total Rules |
 | -------------------- | -------- | ---------- | --------- | ------------- | ----------- |
-| `base`               | warn     | 36         | 0         | 0             | 36          |
-| `base/recommended`   | error    | 36         | 0         | 0             | 36          |
-| `react`              | warn     | 36         | 15        | 0             | 51          |
-| `react/recommended`  | error    | 36         | 15        | 0             | 51          |
-| `nextjs`             | warn     | 36         | 15        | 1             | 52          |
-| `nextjs/recommended` | error    | 36         | 15        | 1             | 52          |
+| `base`               | warn     | 37         | 0         | 0             | 37          |
+| `base/recommended`   | error    | 37         | 0         | 0             | 37          |
+| `react`              | warn     | 37         | 15        | 0             | 52          |
+| `react/recommended`  | error    | 37         | 15        | 0             | 52          |
+| `nextjs`             | warn     | 37         | 15        | 1             | 53          |
+| `nextjs/recommended` | error    | 37         | 15        | 1             | 53          |
 
-### Base Configuration Rules (36 rules)
+### Base Configuration Rules (37 rules)
 
 Included in `base`, `base/recommended`, and all other presets:
 
@@ -280,6 +283,7 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/prefer-guard-clause`
 - `nextfriday/prefer-import-type`
 - `nextfriday/prefer-inline-literal-union`
+- `nextfriday/prefer-inline-type-export`
 - `nextfriday/prefer-named-param-types`
 - `nextfriday/prefer-react-import-types`
 - `nextfriday/require-explicit-return-type`
@@ -332,7 +336,7 @@ Additionally included in `nextjs`, `nextjs/recommended` only:
 
 ## Agent Skill
 
-This plugin ships with an [Agent Skill](https://github.com/anthropics/skills) that teaches AI coding assistants (Claude Code, Cursor, etc.) all 52 rules so they generate compliant code from the start.
+This plugin ships with an [Agent Skill](https://github.com/anthropics/skills) that teaches AI coding assistants (Claude Code, Cursor, etc.) all 53 rules so they generate compliant code from the start.
 
 ```bash
 npx skills add next-friday/eslint-plugin-nextfriday --skill eslint-plugin-nextfriday

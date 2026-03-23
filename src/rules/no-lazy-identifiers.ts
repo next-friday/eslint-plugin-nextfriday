@@ -12,15 +12,13 @@ const KEYBOARD_ROWS = ["qwertyuiop", "asdfghjkl", "zxcvbnm", "1234567890"];
 const MIN_LENGTH = 3;
 const MIN_SEQUENCE_LENGTH = 4;
 
-const hasRepeatedChars = (name: string): boolean => {
-  const lowerName = name.toLowerCase();
-  return lowerName.split("").some((char, index) => {
-    if (index > lowerName.length - 3) {
+const hasRepeatedChars = (name: string): boolean =>
+  name.split("").some((char, index) => {
+    if (index > name.length - 3) {
       return false;
     }
-    return char === lowerName[index + 1] && char === lowerName[index + 2];
+    return char === name[index + 1] && char === name[index + 2];
   });
-};
 
 const hasKeyboardSequence = (name: string): boolean => {
   const lowerName = name.toLowerCase();

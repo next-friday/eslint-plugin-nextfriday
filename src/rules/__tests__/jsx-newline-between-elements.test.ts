@@ -139,6 +139,42 @@ describe("jsx-newline-between-elements", () => {
         filename: "Component.tsx",
         name: "multi-line p followed by single-line h3 with empty line",
       },
+      {
+        code: `
+          <div>
+            {studentId && (
+              <div>
+                <Text>{studentId}</Text>
+              </div>
+            )}
+
+            {name && (
+              <div>
+                <Text>{name}</Text>
+              </div>
+            )}
+          </div>
+        `,
+        filename: "Component.tsx",
+        name: "multi-line expression containers with empty line between",
+      },
+      {
+        code: `
+          <div>
+            {studentId && (
+              <div>
+                <Text>{studentId}</Text>
+              </div>
+            )}
+
+            <div>
+              <Text>Static</Text>
+            </div>
+          </div>
+        `,
+        filename: "Component.tsx",
+        name: "multi-line expression container followed by element with empty line",
+      },
     ],
     invalid: [
       {
@@ -350,6 +386,78 @@ describe("jsx-newline-between-elements", () => {
           </div>
         `,
         name: "single-line self-closing before multi-line sibling needs empty line",
+      },
+      {
+        code: `
+          <div>
+            {studentId && (
+              <div>
+                <Text>{studentId}</Text>
+              </div>
+            )}
+            {name && (
+              <div>
+                <Text>{name}</Text>
+              </div>
+            )}
+          </div>
+        `,
+        filename: "Component.tsx",
+        errors: [
+          {
+            messageId: "requireNewline",
+          },
+        ],
+        output: `
+          <div>
+            {studentId && (
+              <div>
+                <Text>{studentId}</Text>
+              </div>
+            )}
+
+            {name && (
+              <div>
+                <Text>{name}</Text>
+              </div>
+            )}
+          </div>
+        `,
+        name: "missing empty line between multi-line expression containers",
+      },
+      {
+        code: `
+          <div>
+            {studentId && (
+              <div>
+                <Text>{studentId}</Text>
+              </div>
+            )}
+            <div>
+              <Text>Static</Text>
+            </div>
+          </div>
+        `,
+        filename: "Component.tsx",
+        errors: [
+          {
+            messageId: "requireNewline",
+          },
+        ],
+        output: `
+          <div>
+            {studentId && (
+              <div>
+                <Text>{studentId}</Text>
+              </div>
+            )}
+
+            <div>
+              <Text>Static</Text>
+            </div>
+          </div>
+        `,
+        name: "missing empty line between expression container and element",
       },
     ],
   });
