@@ -24,7 +24,7 @@ pnpm changeset           # Create a changeset for version bumping
 `src/index.ts` - Main plugin export containing:
 
 - `meta` - Plugin name and version from package.json
-- `rules` - All 55 rule implementations keyed by hyphenated name
+- `rules` - All 57 rule implementations keyed by hyphenated name
 - `configs` - Eight configuration presets (six nextfriday presets via `createConfig()`, plus lazy `sonarjs` and `unicorn` getters that wrap external plugins)
 
 The plugin is exported both as default and as named exports `{ meta, configs, rules }`.
@@ -43,9 +43,9 @@ Eight configs total. Six nextfriday presets built from three rule set tiers, eac
 
 | Preset                          | Rules                             | Severity     |
 | ------------------------------- | --------------------------------- | ------------ |
-| `base` / `base/recommended`     | 39 base                           | warn / error |
-| `react` / `react/recommended`   | 39 base + 15 JSX                  | warn / error |
-| `nextjs` / `nextjs/recommended` | 39 base + 15 JSX + 1 nextjs       | warn / error |
+| `base` / `base/recommended`     | 41 base                           | warn / error |
+| `react` / `react/recommended`   | 41 base + 15 JSX                  | warn / error |
+| `nextjs` / `nextjs/recommended` | 41 base + 15 JSX + 1 nextjs       | warn / error |
 | `sonarjs`                       | eslint-plugin-sonarjs recommended | -            |
 | `unicorn`                       | eslint-plugin-unicorn recommended | -            |
 

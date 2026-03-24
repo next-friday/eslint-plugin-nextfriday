@@ -100,6 +100,7 @@ const preferImportType = createRule({
           case AST_NODE_TYPES.AwaitExpression:
           case AST_NODE_TYPES.YieldExpression:
           case AST_NODE_TYPES.Property:
+          case AST_NODE_TYPES.JSXExpressionContainer:
             return true;
 
           default:

@@ -77,6 +77,10 @@ describe("prefer-import-type", () => {
         name: "should not flag component with Type suffix used in JSX",
       },
       {
+        code: 'import { fetchData } from "./api";\nfunction App() { return <Component fetchData={fetchData} />; }',
+        name: "should not flag function passed as JSX prop value",
+      },
+      {
         code: 'import { config } from "./config";\nconst value = config.apiUrl;',
         name: "should not flag object used for member access",
       },

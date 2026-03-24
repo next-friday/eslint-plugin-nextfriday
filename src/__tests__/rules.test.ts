@@ -96,8 +96,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 55 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(55);
+  it("should have exactly 57 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(57);
   });
 
   it("should have correct rule names", () => {
@@ -122,9 +122,11 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("prefer-jsx-template-literals");
     expect(ruleNames).toContain("prefer-react-import-types");
     expect(ruleNames).toContain("react-props-destructure");
+    expect(ruleNames).toContain("enforce-camel-case");
     expect(ruleNames).toContain("enforce-constant-case");
     expect(ruleNames).toContain("enforce-curly-newline");
     expect(ruleNames).toContain("enforce-hook-naming");
+    expect(ruleNames).toContain("enforce-property-case");
     expect(ruleNames).toContain("enforce-props-suffix");
     expect(ruleNames).toContain("enforce-readonly-component-props");
     expect(ruleNames).toContain("enforce-service-naming");
