@@ -1,5 +1,18 @@
 # eslint-plugin-nextfriday
 
+## 1.21.0
+
+### Minor Changes
+
+- [#87](https://github.com/next-friday/eslint-plugin-nextfriday/pull/87) [`ed401e3`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/ed401e39db04857995ddcc29d7444298181ee60b) Thanks [@joetakara](https://github.com/joetakara)! - Add `no-inline-return-properties` rule that enforces shorthand-only properties in return objects
+
+- [#90](https://github.com/next-friday/eslint-plugin-nextfriday/pull/90) [`d5e9db5`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/d5e9db562cb9e38beadd59da39f8618b6f5825ed) Thanks [@joetakara](https://github.com/joetakara)! - Add comprehensive naming convention rules and fix prefer-import-type JSX prop bug
+  - Add `enforce-camel-case` rule: ban snake_case variables/functions, restrict PascalCase to React components
+  - Add `enforce-property-case` rule: enforce camelCase for unquoted object property keys
+  - Refactor `enforce-constant-case` to only check global scope, support RegExp/objects/arrays/as const
+  - Refactor `no-misleading-constant-case` to flag SCREAMING_SNAKE_CASE in local scope
+  - Fix `prefer-import-type` incorrectly converting imports used as JSX prop values to type imports
+
 ## 1.20.0
 
 ### Minor Changes
