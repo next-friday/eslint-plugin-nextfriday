@@ -83,7 +83,6 @@ export default [
       // File Naming
       "nextfriday/file-kebab-case": "error",
       "nextfriday/jsx-pascal-case": "error",
-      "nextfriday/md-filename-case-restriction": "error",
 
       // Code Style
       "nextfriday/no-emoji": "error",
@@ -162,11 +161,10 @@ export default [
 
 ### File Naming Rules
 
-| Rule                                                                       | Description                                          | Fixable |
-| -------------------------------------------------------------------------- | ---------------------------------------------------- | ------- |
-| [file-kebab-case](docs/rules/FILE_KEBAB_CASE.md)                           | Enforce kebab-case filenames for .ts and .js files   | ❌      |
-| [jsx-pascal-case](docs/rules/JSX_PASCAL_CASE.md)                           | Enforce PascalCase filenames for .jsx and .tsx files | ❌      |
-| [md-filename-case-restriction](docs/rules/MD_FILENAME_CASE_RESTRICTION.md) | Enforce SNAKE_CASE filenames for .md files           | ❌      |
+| Rule                                             | Description                                          | Fixable |
+| ------------------------------------------------ | ---------------------------------------------------- | ------- |
+| [file-kebab-case](docs/rules/FILE_KEBAB_CASE.md) | Enforce kebab-case filenames for .ts and .js files   | ❌      |
+| [jsx-pascal-case](docs/rules/JSX_PASCAL_CASE.md) | Enforce PascalCase filenames for .jsx and .tsx files | ❌      |
 
 ### Code Style Rules
 
@@ -265,7 +263,6 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/enforce-sorted-destructuring`
 - `nextfriday/enforce-type-declaration-order`
 - `nextfriday/file-kebab-case`
-- `nextfriday/md-filename-case-restriction`
 - `nextfriday/newline-after-multiline-block`
 - `nextfriday/newline-before-return`
 - `nextfriday/no-complex-inline-return`
