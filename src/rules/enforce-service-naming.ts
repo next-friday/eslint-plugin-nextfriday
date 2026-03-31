@@ -7,18 +7,23 @@ const createRule = ESLintUtils.RuleCreator(
     `https://github.com/next-friday/eslint-plugin-nextfriday/blob/main/docs/rules/${name.replaceAll("-", "_").toUpperCase()}.md`,
 );
 
-const DISALLOWED_PREFIXES = ["get", "load"];
+const BANNED_PREFIXES: Record<string, string[]> = {
+  delete: ["remove", "archive"],
+  do: ["submit", "process"],
+  handle: ["create", "verify"],
+  set: ["update", "save", "patch"],
+};
 
 const enforceServiceNaming = createRule({
   name: "enforce-service-naming",
   meta: {
     type: "suggestion",
     docs: {
-      description: "Enforce 'fetch' prefix for async functions in *.service.ts files instead of 'get' or 'load'",
+      description: "Ban misleading function name prefixes in *.service.ts files",
     },
     messages: {
-      usesFetchPrefix:
-        "Use 'fetch' prefix instead of '{{ prefix }}' for service functions. Rename '{{ name }}' to '{{ suggestion }}'.",
+      bannedPrefix:
+        "Avoid '{{ prefix }}' prefix in service functions. Rename '{{ name }}' to use a more descriptive prefix (e.g. {{ suggestions }}).",
     },
     schema: [],
   },
@@ -32,21 +37,21 @@ const enforceServiceNaming = createRule({
     }
 
     const checkFunctionName = (name: string, node: TSESTree.Node): void => {
-      const matchedPrefix = DISALLOWED_PREFIXES.find(
-        (prefix) => name.startsWith(prefix) && name.length > prefix.length,
+      const matchedPrefix = Object.keys(BANNED_PREFIXES).find(
+        (prefix) =>
+          name.startsWith(prefix) &&
+          name.length > prefix.length &&
+          name[prefix.length] === name[prefix.length]?.toUpperCase(),
       );
 
       if (matchedPrefix) {
-        const restOfName = name.slice(matchedPrefix.length);
-        const suggestion = `fetch${restOfName}`;
-
         context.report({
           node,
-          messageId: "usesFetchPrefix",
+          messageId: "bannedPrefix",
           data: {
             prefix: matchedPrefix,
             name,
-            suggestion,
+            suggestions: BANNED_PREFIXES[matchedPrefix].join(", "),
           },
         });
       }

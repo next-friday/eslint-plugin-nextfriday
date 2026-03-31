@@ -1,5 +1,5 @@
-import { RuleTester } from "@typescript-eslint/rule-tester";
 import { afterAll, describe, it } from "@jest/globals";
+import { RuleTester } from "@typescript-eslint/rule-tester";
 
 import enforceServiceNaming from "../enforce-service-naming";
 
@@ -21,54 +21,74 @@ describe("enforce-service-naming", () => {
   ruleTester.run("enforce-service-naming", enforceServiceNaming, {
     valid: [
       {
-        code: `export async function fetchArticleList() {}`,
+        code: `export async function getArticles() {}`,
+        filename: "article.service.ts",
+        name: "should allow get prefix in service file",
+      },
+      {
+        code: `export async function fetchArticles() {}`,
         filename: "article.service.ts",
         name: "should allow fetch prefix in service file",
       },
       {
-        code: `export async function fetchFaqList() {}`,
-        filename: "faq.service.ts",
-        name: "should allow fetch prefix for FAQ service",
+        code: `export async function loadData() {}`,
+        filename: "data.service.ts",
+        name: "should allow load prefix in service file",
       },
       {
-        code: `export async function fetchUserById() {}`,
-        filename: "user.service.ts",
-        name: "should allow fetch prefix with different naming",
+        code: `export async function searchArticles(query: string) {}`,
+        filename: "article.service.ts",
+        name: "should allow search prefix",
       },
       {
-        code: `export async function createUser() {}`,
-        filename: "user.service.ts",
+        code: `export async function createOrder() {}`,
+        filename: "order.service.ts",
         name: "should allow create prefix",
       },
       {
-        code: `export async function updateArticle() {}`,
-        filename: "article.service.ts",
+        code: `export async function updateProfile() {}`,
+        filename: "profile.service.ts",
         name: "should allow update prefix",
       },
       {
-        code: `export async function deleteComment() {}`,
+        code: `export async function removeComment() {}`,
         filename: "comment.service.ts",
-        name: "should allow delete prefix",
+        name: "should allow remove prefix",
       },
       {
-        code: `export async function getArticles() {}`,
-        filename: "article.ts",
-        name: "should allow get prefix in non-service files",
+        code: `export async function verifyEmail() {}`,
+        filename: "auth.service.ts",
+        name: "should allow verify prefix",
       },
       {
-        code: `export async function loadData() {}`,
-        filename: "utils.ts",
-        name: "should allow load prefix in non-service files",
+        code: `export async function setProfile() {}`,
+        filename: "profile.ts",
+        name: "should allow set prefix in non-service files",
       },
       {
-        code: `export function getArticles() {}`,
+        code: `export async function deleteComment() {}`,
+        filename: "comment.ts",
+        name: "should allow delete prefix in non-service files",
+      },
+      {
+        code: `export function setProfile() {}`,
+        filename: "profile.service.ts",
+        name: "should allow set prefix for non-async functions",
+      },
+      {
+        code: `function deleteComment() {}`,
+        filename: "comment.service.ts",
+        name: "should allow delete prefix for non-exported functions",
+      },
+      {
+        code: `export async function set() {}`,
         filename: "article.service.ts",
-        name: "should allow get prefix for non-async functions",
+        name: "should allow 'set' as full function name (not prefix)",
       },
       {
-        code: `function getArticles() {}`,
+        code: `export async function handle() {}`,
         filename: "article.service.ts",
-        name: "should allow get prefix for non-exported functions",
+        name: "should allow 'handle' as full function name (not prefix)",
       },
       {
         code: `export const fetchUsers = async () => {}`,
@@ -76,98 +96,103 @@ describe("enforce-service-naming", () => {
         name: "should allow fetch prefix with arrow function",
       },
       {
-        code: `export async function get() {}`,
-        filename: "article.service.ts",
-        name: "should allow 'get' as full function name (not prefix)",
+        code: `export async function settings() {}`,
+        filename: "config.service.ts",
+        name: "should not flag words that start with banned prefix but are not camelCase",
+      },
+      {
+        code: `export async function domestic() {}`,
+        filename: "shipping.service.ts",
+        name: "should not flag 'domestic' even though it starts with 'do'",
       },
     ],
     invalid: [
       {
-        code: `export async function getArticles() {}`,
-        filename: "article.service.ts",
-        name: "should disallow get prefix in service file",
+        code: `export async function setProfile(data: ProfileRequest) {}`,
+        filename: "profile.service.ts",
+        name: "should disallow set prefix in service file",
         errors: [
           {
-            messageId: "usesFetchPrefix",
+            messageId: "bannedPrefix",
             data: {
-              prefix: "get",
-              name: "getArticles",
-              suggestion: "fetchArticles",
+              prefix: "set",
+              name: "setProfile",
+              suggestions: "update, save, patch",
             },
           },
         ],
       },
       {
-        code: `export async function loadFaq() {}`,
-        filename: "faq.service.ts",
-        name: "should disallow load prefix in service file",
+        code: `export async function deleteComment(id: string) {}`,
+        filename: "comment.service.ts",
+        name: "should disallow delete prefix in service file",
         errors: [
           {
-            messageId: "usesFetchPrefix",
+            messageId: "bannedPrefix",
             data: {
-              prefix: "load",
-              name: "loadFaq",
-              suggestion: "fetchFaq",
+              prefix: "delete",
+              name: "deleteComment",
+              suggestions: "remove, archive",
             },
           },
         ],
       },
       {
-        code: `export async function getUserById() {}`,
+        code: `export async function doLogin(credentials: LoginRequest) {}`,
+        filename: "auth.service.ts",
+        name: "should disallow do prefix in service file",
+        errors: [
+          {
+            messageId: "bannedPrefix",
+            data: {
+              prefix: "do",
+              name: "doLogin",
+              suggestions: "submit, process",
+            },
+          },
+        ],
+      },
+      {
+        code: `export async function handlePayment(data: PaymentRequest) {}`,
+        filename: "payment.service.ts",
+        name: "should disallow handle prefix in service file",
+        errors: [
+          {
+            messageId: "bannedPrefix",
+            data: {
+              prefix: "handle",
+              name: "handlePayment",
+              suggestions: "create, verify",
+            },
+          },
+        ],
+      },
+      {
+        code: `export const setUsers = async () => {}`,
         filename: "user.service.ts",
-        name: "should disallow get prefix with camelCase",
+        name: "should disallow set prefix with arrow function",
         errors: [
           {
-            messageId: "usesFetchPrefix",
+            messageId: "bannedPrefix",
             data: {
-              prefix: "get",
-              name: "getUserById",
-              suggestion: "fetchUserById",
+              prefix: "set",
+              name: "setUsers",
+              suggestions: "update, save, patch",
             },
           },
         ],
       },
       {
-        code: `export async function loadAllUsers() {}`,
-        filename: "user.service.ts",
-        name: "should disallow load prefix with longer name",
+        code: `export const handleOrder = async () => {}`,
+        filename: "order.service.ts",
+        name: "should disallow handle prefix with arrow function",
         errors: [
           {
-            messageId: "usesFetchPrefix",
+            messageId: "bannedPrefix",
             data: {
-              prefix: "load",
-              name: "loadAllUsers",
-              suggestion: "fetchAllUsers",
-            },
-          },
-        ],
-      },
-      {
-        code: `export const getUsers = async () => {}`,
-        filename: "user.service.ts",
-        name: "should disallow get prefix with arrow function",
-        errors: [
-          {
-            messageId: "usesFetchPrefix",
-            data: {
-              prefix: "get",
-              name: "getUsers",
-              suggestion: "fetchUsers",
-            },
-          },
-        ],
-      },
-      {
-        code: `export const loadItems = async () => {}`,
-        filename: "item.service.ts",
-        name: "should disallow load prefix with arrow function",
-        errors: [
-          {
-            messageId: "usesFetchPrefix",
-            data: {
-              prefix: "load",
-              name: "loadItems",
-              suggestion: "fetchItems",
+              prefix: "handle",
+              name: "handleOrder",
+              suggestions: "create, verify",
             },
           },
         ],
