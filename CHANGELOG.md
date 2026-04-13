@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.22.0
+
+### Minor Changes
+
+- [#92](https://github.com/next-friday/eslint-plugin-nextfriday/pull/92) [`432b4b4`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/432b4b49cabc0d6ea9289441b13e7442d328614f) Thanks [@joetakara](https://github.com/joetakara)! - Rework enforce-service-naming rule to ban misleading prefixes (set, delete, do, handle) instead of forcing fetch prefix. Allow single-property inline nested objects in no-inline-nested-object rule. Fix documentation inconsistencies across README, rule docs, and configuration presets. Update dependencies to resolve security vulnerabilities.
+
 ## 1.21.0
 
 ### Minor Changes
