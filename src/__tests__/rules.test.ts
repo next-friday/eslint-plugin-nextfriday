@@ -64,14 +64,6 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["prefer-named-param-types"].create).toBe("function");
   });
 
-  it("should have md-filename-case-restriction rule", () => {
-    expect(rules).toHaveProperty("md-filename-case-restriction");
-    expect(typeof rules["md-filename-case-restriction"]).toBe("object");
-    expect(rules["md-filename-case-restriction"]).toHaveProperty("meta");
-    expect(rules["md-filename-case-restriction"]).toHaveProperty("create");
-    expect(typeof rules["md-filename-case-restriction"].create).toBe("function");
-  });
-
   it("should have no-complex-inline-return rule", () => {
     expect(rules).toHaveProperty("no-complex-inline-return");
     expect(typeof rules["no-complex-inline-return"]).toBe("object");
@@ -96,8 +88,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 57 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(57);
+  it("should have exactly 56 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(56);
   });
 
   it("should have correct rule names", () => {
@@ -113,7 +105,6 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("jsx-no-non-component-function");
     expect(ruleNames).toContain("jsx-no-ternary-null");
     expect(ruleNames).toContain("jsx-no-variable-in-callback");
-    expect(ruleNames).toContain("md-filename-case-restriction");
     expect(ruleNames).toContain("prefer-destructuring-params");
     expect(ruleNames).toContain("require-explicit-return-type");
     expect(ruleNames).toContain("prefer-import-type");

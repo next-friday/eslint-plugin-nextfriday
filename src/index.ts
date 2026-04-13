@@ -25,7 +25,6 @@ import jsxPascalCase from "./rules/jsx-pascal-case";
 import jsxRequireSuspense from "./rules/jsx-require-suspense";
 import jsxSimpleProps from "./rules/jsx-simple-props";
 import jsxSortProps from "./rules/jsx-sort-props";
-import mdFilenameCaseRestriction from "./rules/md-filename-case-restriction";
 import newlineAfterMultilineBlock from "./rules/newline-after-multiline-block";
 import newlineBeforeReturn from "./rules/newline-before-return";
 import nextjsRequirePublicEnv from "./rules/nextjs-require-public-env";
@@ -96,7 +95,6 @@ const rules = {
   "jsx-require-suspense": jsxRequireSuspense,
   "jsx-simple-props": jsxSimpleProps,
   "jsx-sort-props": jsxSortProps,
-  "md-filename-case-restriction": mdFilenameCaseRestriction,
   "newline-after-multiline-block": newlineAfterMultilineBlock,
   "newline-before-return": newlineBeforeReturn,
   "nextjs-require-public-env": nextjsRequirePublicEnv,
@@ -149,7 +147,6 @@ const baseRules = {
   "nextfriday/enforce-sorted-destructuring": "warn",
   "nextfriday/enforce-type-declaration-order": "warn",
   "nextfriday/file-kebab-case": "warn",
-  "nextfriday/md-filename-case-restriction": "warn",
   "nextfriday/newline-after-multiline-block": "warn",
   "nextfriday/newline-before-return": "warn",
   "nextfriday/no-complex-inline-return": "warn",
@@ -193,7 +190,6 @@ const baseRecommendedRules = {
   "nextfriday/enforce-sorted-destructuring": "error",
   "nextfriday/enforce-type-declaration-order": "error",
   "nextfriday/file-kebab-case": "error",
-  "nextfriday/md-filename-case-restriction": "error",
   "nextfriday/newline-after-multiline-block": "error",
   "nextfriday/newline-before-return": "error",
   "nextfriday/no-complex-inline-return": "error",

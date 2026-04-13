@@ -104,6 +104,10 @@ describe("enforce-constant-case", () => {
         code: `const result = getData();`,
         name: "should ignore dynamic values",
       },
+      {
+        code: `const API_URL = process.env.API_URL;`,
+        name: "should ignore process.env assignment",
+      },
     ],
     invalid: [
       {

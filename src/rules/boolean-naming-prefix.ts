@@ -9,11 +9,9 @@ const createRule = ESLintUtils.RuleCreator(
 
 const BOOLEAN_PREFIXES = ["is", "has", "should", "can", "did", "will", "was", "are", "does", "had"];
 
-const startsWithBooleanPrefix = (name: string): boolean => {
-  const lowerName = name.toLowerCase();
-
-  return BOOLEAN_PREFIXES.some((prefix) => {
-    if (!lowerName.startsWith(prefix)) {
+const startsWithBooleanPrefix = (name: string): boolean =>
+  BOOLEAN_PREFIXES.some((prefix) => {
+    if (!name.startsWith(prefix)) {
       return false;
     }
 
@@ -22,9 +20,8 @@ const startsWithBooleanPrefix = (name: string): boolean => {
     }
 
     const nextChar = name.charAt(prefix.length);
-    return nextChar === nextChar.toUpperCase();
+    return nextChar === nextChar.toUpperCase() && nextChar !== nextChar.toLowerCase();
   });
-};
 
 const isBooleanLiteral = (node: TSESTree.Expression): boolean =>
   node.type === AST_NODE_TYPES.Literal && typeof node.value === "boolean";

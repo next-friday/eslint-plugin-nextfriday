@@ -1,48 +1,60 @@
 # enforce-service-naming
 
-Enforce `fetch` prefix for async functions in `*.service.ts` files instead of `get` or `load`.
+Ban misleading function name prefixes in `*.service.ts` files.
 
 ## Rule Details
 
-This rule ensures consistent naming conventions for service layer functions. In `*.service.ts` files, async data-fetching functions should use the `fetch` prefix to clearly indicate they perform network/API calls.
+This rule flags misleading prefixes on async exported functions in `*.service.ts` files. It does not force a specific prefix — developers choose based on intent.
 
 ### Why?
 
-- **Clarity**: `fetch` clearly indicates a network operation, while `get` is ambiguous (could be synchronous accessor)
-- **Consistency**: Standardizes naming across all service files
-- **Semantics**: `fetch` aligns with the Fetch API and implies async data retrieval
+Service functions represent API/network calls. Certain prefixes are misleading in this context:
+
+- `set` implies a local setter, not an API call
+- `delete` is a JS reserved word that may conflict
+- `do` is vague and conveys no intent
+- `handle` is typically for UI event handlers, not service operations
+
+### Banned Prefixes
+
+| Prefix   | Why banned                                | Suggested alternatives    |
+| -------- | ----------------------------------------- | ------------------------- |
+| `set`    | Implies local setter, not API call        | `update`, `save`, `patch` |
+| `delete` | JS reserved word, may conflict            | `remove`, `archive`       |
+| `do`     | Vague, no intent                          | `submit`, `process`       |
+| `handle` | Vague, typically for event handlers in UI | `create`, `verify`        |
 
 ## Examples
 
 ### Incorrect
 
 ```ts
-// article.service.ts
-export async function getArticles() {}
-export async function loadFaq() {}
-export async function getUserById() {}
-export const getUsers = async () => {};
+// profile.service.ts
+export async function setProfile(data: ProfileRequest) {}
+export async function deleteComment(id: string) {}
+export async function doLogin(credentials: LoginRequest) {}
+export async function handlePayment(data: PaymentRequest) {}
 ```
 
 ### Correct
 
 ```ts
-// article.service.ts
+// profile.service.ts
+export async function getArticles() {}
 export async function fetchArticles() {}
-export async function fetchFaqList() {}
-export async function fetchUserById() {}
-export const fetchUsers = async () => {};
+export async function searchArticles(query: string) {}
+export async function createOrder(data: OrderRequest) {}
+export async function updateProfile(id: string, data: ProfileRequest) {}
+export async function removeComment(id: string) {}
+export async function verifyEmail(token: string) {}
 
 // Non-async functions can use any prefix
-export function getArticleById(id: string) {}
+export function setLocalState(value: string) {}
 
-// Other prefixes are allowed
-export async function createUser() {}
-export async function updateArticle() {}
-export async function deleteComment() {}
+// Non-exported functions are not checked
+async function handleInternal() {}
 ```
 
 ## When Not To Use It
 
-- If your project uses different naming conventions for service functions
-- If you prefer `get`/`load` prefixes for data-fetching operations
+If your project does not follow a service layer pattern or has different naming conventions for service functions.

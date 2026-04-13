@@ -70,7 +70,7 @@ const noInlineNestedObject = createRule({
 
         const elements = valueNode.type === AST_NODE_TYPES.ObjectExpression ? valueNode.properties : valueNode.elements;
 
-        if (elements.length === 0) {
+        if (elements.length <= 1) {
           return;
         }
 

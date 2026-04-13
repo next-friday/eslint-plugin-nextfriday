@@ -238,6 +238,16 @@ describe("boolean-naming-prefix", () => {
         name: "should reject closed without prefix",
         errors: [{ messageId: "missingPrefix", data: { name: "closed", suggestedName: "Closed" } }],
       },
+      {
+        code: "const IS_ACTIVE = false;",
+        name: "should reject SCREAMING_SNAKE_CASE boolean literal",
+        errors: [{ messageId: "missingPrefix", data: { name: "IS_ACTIVE", suggestedName: "IS_ACTIVE" } }],
+      },
+      {
+        code: "const HAS_ITEMS = items.length > 0;",
+        name: "should reject SCREAMING_SNAKE_CASE boolean expression",
+        errors: [{ messageId: "missingPrefix", data: { name: "HAS_ITEMS", suggestedName: "HAS_ITEMS" } }],
+      },
     ],
   });
 });

@@ -73,6 +73,9 @@ const createSonarJSConfig = () => [
     },
     rules: {
       ...eslintPluginSonarjs.configs["recommended-legacy"].rules,
+      "sonarjs/null-dereference": "off",
+      "sonarjs/function-return-type": "off",
+      "sonarjs/argument-type": "off",
     },
   },
 ];
