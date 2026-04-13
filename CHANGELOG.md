@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 1.23.0
+
+### Minor Changes
+
+- [#94](https://github.com/next-friday/eslint-plugin-nextfriday/pull/94) [`7eaf83e`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/7eaf83e365bb0867679f9abe764ade784eeb4594) Thanks [@joetakara](https://github.com/joetakara)! - Add auto-fix support to jsx-sort-props rule. Running eslint --fix will automatically reorder JSX props by value type.
+
 ## 1.22.0
 
 ### Minor Changes
