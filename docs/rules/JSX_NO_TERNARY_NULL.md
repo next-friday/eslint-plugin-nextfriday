@@ -39,4 +39,4 @@ If your team prefers explicit ternary expressions for conditional rendering, eve
 
 ## Related Rules
 
-- [no-nested-ternary](JSX_NO_TERNARY_NULL.md)
+- [no-nested-ternary](NO_NESTED_TERNARY.md)

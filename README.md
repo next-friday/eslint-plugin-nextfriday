@@ -78,7 +78,10 @@ export default [
       "nextfriday/no-single-char-variables": "error",
       "nextfriday/no-lazy-identifiers": "error",
       "nextfriday/boolean-naming-prefix": "error",
+      "nextfriday/enforce-camel-case": "error",
       "nextfriday/enforce-constant-case": "error",
+      "nextfriday/enforce-property-case": "error",
+      "nextfriday/no-misleading-constant-case": "error",
 
       // File Naming
       "nextfriday/file-kebab-case": "error",
@@ -96,9 +99,11 @@ export default [
       "nextfriday/enforce-sorted-destructuring": "error",
       "nextfriday/no-env-fallback": "error",
       "nextfriday/no-inline-default-export": "error",
+      "nextfriday/no-direct-date": "error",
       "nextfriday/newline-after-multiline-block": "error",
       "nextfriday/newline-before-return": "error",
       "nextfriday/no-inline-nested-object": "error",
+      "nextfriday/no-inline-return-properties": "error",
       "nextfriday/prefer-async-await": "error",
       "nextfriday/enforce-curly-newline": "error",
       "nextfriday/no-nested-ternary": "error",
@@ -244,21 +249,23 @@ export default [
 
 | Preset               | Severity | Base Rules | JSX Rules | Next.js Rules | Total Rules |
 | -------------------- | -------- | ---------- | --------- | ------------- | ----------- |
-| `base`               | warn     | 37         | 0         | 0             | 37          |
-| `base/recommended`   | error    | 37         | 0         | 0             | 37          |
-| `react`              | warn     | 37         | 15        | 0             | 52          |
-| `react/recommended`  | error    | 37         | 15        | 0             | 52          |
-| `nextjs`             | warn     | 37         | 15        | 1             | 53          |
-| `nextjs/recommended` | error    | 37         | 15        | 1             | 53          |
+| `base`               | warn     | 40         | 0         | 0             | 40          |
+| `base/recommended`   | error    | 40         | 0         | 0             | 40          |
+| `react`              | warn     | 40         | 15        | 0             | 55          |
+| `react/recommended`  | error    | 40         | 15        | 0             | 55          |
+| `nextjs`             | warn     | 40         | 15        | 1             | 56          |
+| `nextjs/recommended` | error    | 40         | 15        | 1             | 56          |
 
-### Base Configuration Rules (37 rules)
+### Base Configuration Rules (40 rules)
 
 Included in `base`, `base/recommended`, and all other presets:
 
 - `nextfriday/boolean-naming-prefix`
+- `nextfriday/enforce-camel-case`
 - `nextfriday/enforce-constant-case`
 - `nextfriday/enforce-curly-newline`
 - `nextfriday/enforce-hook-naming`
+- `nextfriday/enforce-property-case`
 - `nextfriday/enforce-service-naming`
 - `nextfriday/enforce-sorted-destructuring`
 - `nextfriday/enforce-type-declaration-order`
@@ -271,8 +278,10 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/no-env-fallback`
 - `nextfriday/no-inline-default-export`
 - `nextfriday/no-inline-nested-object`
+- `nextfriday/no-inline-return-properties`
 - `nextfriday/no-lazy-identifiers`
 - `nextfriday/no-logic-in-params`
+- `nextfriday/no-misleading-constant-case`
 - `nextfriday/no-nested-interface-declaration`
 - `nextfriday/no-nested-ternary`
 - `nextfriday/no-relative-imports`
@@ -336,7 +345,7 @@ Additionally included in `nextjs`, `nextjs/recommended` only:
 
 ## Agent Skill
 
-This plugin ships with an [Agent Skill](https://github.com/anthropics/skills) that teaches AI coding assistants (Claude Code, Cursor, etc.) all 53 rules so they generate compliant code from the start.
+This plugin ships with an [Agent Skill](https://github.com/anthropics/skills) that teaches AI coding assistants (Claude Code, Cursor, etc.) all 56 rules so they generate compliant code from the start.
 
 ```bash
 npx skills add next-friday/eslint-plugin-nextfriday --skill eslint-plugin-nextfriday

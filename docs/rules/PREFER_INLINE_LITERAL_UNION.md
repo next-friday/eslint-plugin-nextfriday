@@ -10,17 +10,17 @@ This rule detects type aliases that are unions of only literal values (strings, 
 
 ### Why?
 
-When you hover over a prop in your IDE, a type alias shows the alias name (e.g., `ArticleFaqCategoryId`) instead of the actual values (`"articles" | "dharma" | "faq"`). Inlining literal unions gives immediate visibility into the allowed values without needing to jump to the type definition.
+When you hover over a prop in your IDE, a type alias shows the alias name (e.g., `Theme`) instead of the actual values (`"light" | "dark" | "system"`). Inlining literal unions gives immediate visibility into the allowed values without needing to jump to the type definition.
 
 ## Examples
 
 ### Incorrect
 
 ```ts
-type ArticleFaqCategoryId = "articles" | "dharma" | "faq";
+type Theme = "light" | "dark" | "system";
 
-interface ArticleFaqCategoryFilterProps {
-  activeCategoryId?: ArticleFaqCategoryId;
+interface SettingsProps {
+  theme?: Theme;
 }
 ```
 
@@ -43,8 +43,8 @@ interface Props {
 ### Correct
 
 ```ts
-interface ArticleFaqCategoryFilterProps {
-  activeCategoryId?: "articles" | "dharma" | "faq";
+interface SettingsProps {
+  theme?: "light" | "dark" | "system";
 }
 ```
 

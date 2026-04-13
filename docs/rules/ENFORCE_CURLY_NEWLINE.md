@@ -16,34 +16,28 @@ This rule manages curly braces for `IfStatement` based on visual layout (line br
 ### Incorrect
 
 ```ts
-// Single-line with braces (BAD)
 if (!data) {
   return [];
 }
 if (x > 0) {
   doSomething();
 }
+```
 
-// Multi-line without braces (BAD)
+```ts
 if (veryLongCondition && anotherCondition) return [];
-
-if (condition) doSomething();
 ```
 
 ### Correct
 
 ```ts
-// Single-line without braces (GOOD)
 if (!data) return [];
 if (x > 0) doSomething();
+```
 
-// Multi-line with braces (GOOD)
+```ts
 if (veryLongCondition && anotherCondition) {
   return [];
-}
-
-if (condition) {
-  doSomething();
 }
 ```
 

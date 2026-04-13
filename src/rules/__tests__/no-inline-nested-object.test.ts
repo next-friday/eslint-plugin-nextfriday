@@ -115,8 +115,6 @@ const obj = {
         `,
         name: "inline array with identifiers is allowed",
       },
-    ],
-    invalid: [
       {
         code: `
 const obj = {
@@ -125,22 +123,19 @@ const obj = {
   c: { d: "e" },
 };
         `,
-        errors: [
-          {
-            messageId: "requireMultiline",
-          },
-        ],
-        output: `
+        name: "inline nested object with single property is allowed",
+      },
+      {
+        code: `
 const obj = {
-  a: true,
-  b: "sm",
-  c: {
-    d: "e",
-  },
+  a: { b: 1 },
+  c: { d: 2 },
 };
         `,
-        name: "inline nested object should be multiline",
+        name: "multiple inline nested objects each with single property are allowed",
       },
+    ],
+    invalid: [
       {
         code: `
 const obj = {
@@ -161,33 +156,6 @@ const obj = {
 };
         `,
         name: "inline array with objects should be multiline",
-      },
-      {
-        code: `
-const obj = {
-  a: { b: 1 },
-  c: { d: 2 },
-};
-        `,
-        errors: [
-          {
-            messageId: "requireMultiline",
-          },
-          {
-            messageId: "requireMultiline",
-          },
-        ],
-        output: `
-const obj = {
-  a: {
-    b: 1,
-  },
-  c: {
-    d: 2,
-  },
-};
-        `,
-        name: "multiple inline nested objects",
       },
       {
         code: `

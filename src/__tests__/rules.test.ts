@@ -88,7 +88,7 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 57 rules", () => {
+  it("should have exactly 56 rules", () => {
     expect(Object.keys(rules)).toHaveLength(56);
   });
 
