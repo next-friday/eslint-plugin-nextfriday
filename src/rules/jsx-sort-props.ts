@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
-import type { TSESTree } from "@typescript-eslint/utils";
+import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
 const createRule = ESLintUtils.RuleCreator(
   (name) =>
@@ -117,6 +117,42 @@ function hasUnsortedProps(attributes: TSESTree.JSXOpeningElement["attributes"]):
   });
 }
 
+function sortSegment(
+  segment: TSESTree.JSXAttribute[],
+  sourceCode: TSESLint.SourceCode,
+  fixer: TSESLint.RuleFixer,
+): TSESLint.RuleFix[] {
+  const sorted = [...segment].sort((a, b) => (getTypeGroup(a) ?? 0) - (getTypeGroup(b) ?? 0));
+  const sortedTexts = sorted.map((attr) => sourceCode.getText(attr));
+
+  return segment
+    .map((attr, i) => ({ attr, sortedText: sortedTexts[i] }))
+    .filter(({ attr, sortedText }) => sourceCode.getText(attr) !== sortedText)
+    .map(({ attr, sortedText }) => fixer.replaceText(attr, sortedText));
+}
+
+function getSegments(attributes: TSESTree.JSXOpeningElement["attributes"]): TSESTree.JSXAttribute[][] {
+  const result: TSESTree.JSXAttribute[][] = [];
+  let current: TSESTree.JSXAttribute[] = [];
+
+  attributes.forEach((attr) => {
+    if (attr.type === AST_NODE_TYPES.JSXSpreadAttribute) {
+      if (current.length > 0) {
+        result.push(current);
+        current = [];
+      }
+    } else {
+      current.push(attr);
+    }
+  });
+
+  if (current.length > 0) {
+    result.push(current);
+  }
+
+  return result;
+}
+
 const jsxSortProps = createRule({
   name: "jsx-sort-props",
   meta: {
@@ -125,6 +161,7 @@ const jsxSortProps = createRule({
       description:
         "Enforce JSX props are sorted by value type: strings, hyphenated strings, numbers/booleans, expressions, objects/arrays, functions, JSX elements, then shorthand booleans",
     },
+    fixable: "code",
     messages: {
       unsortedProps:
         "JSX props should be sorted by value type: strings, hyphenated strings, numbers/booleans/null, expressions, objects/arrays, functions, JSX elements, then shorthand booleans.",
@@ -133,14 +170,21 @@ const jsxSortProps = createRule({
   },
   defaultOptions: [],
   create(context) {
+    const { sourceCode } = context;
+
     return {
       JSXOpeningElement(node) {
-        if (hasUnsortedProps(node.attributes)) {
-          context.report({
-            node,
-            messageId: "unsortedProps",
-          });
+        if (!hasUnsortedProps(node.attributes)) {
+          return;
         }
+
+        context.report({
+          node,
+          messageId: "unsortedProps",
+          fix(fixer) {
+            return getSegments(node.attributes).flatMap((segment) => sortSegment(segment, sourceCode, fixer));
+          },
+        });
       },
     };
   },
