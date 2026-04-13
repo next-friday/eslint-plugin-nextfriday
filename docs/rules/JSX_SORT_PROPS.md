@@ -2,6 +2,8 @@
 
 Enforce JSX props are sorted by value type.
 
+> This rule is auto-fixable using `--fix`.
+
 ## Rule Details
 
 This rule enforces a consistent ordering of JSX props based on the type of their value. Props must appear in the following order:
