@@ -1,27 +1,4 @@
 {
-  "$schema": "https://context7.com/schema/context7.json",
-  "projectTitle": "ESLint Plugin NextFriday",
-  "description": "ESLint 9+ flat-config plugin providing 57 custom rules and six configuration presets (base, react, nextjs, each with /recommended variants) for JavaScript, TypeScript, React, and Next.js projects. Bundles eslint-plugin-sonarjs and eslint-plugin-unicorn presets.",
-  "folders": ["docs", "src/rules"],
-  "excludeFolders": [".changeset", ".github", ".husky", ".vscode", "coverage", "lib", "node_modules", "skills"],
-  "excludeFiles": [
-    "CHANGELOG.md",
-    "CODE_OF_CONDUCT.md",
-    "CONTRIBUTING.md",
-    "eslint.config.mjs",
-    "jest.config.ts",
-    "tsup.config.ts",
-    "tsconfig.json",
-    "pnpm-lock.yaml"
-  ],
-  "rules": [
-    "Requires ESLint 9+ flat config — legacy .eslintrc is not supported.",
-    "Choose the preset by project type: configs.base for JS/TS, configs.react for React, configs.nextjs for Next.js.",
-    "Append the /recommended variant (e.g. configs['react/recommended']) to upgrade severity from warn to error.",
-    "Bundled configs sonarjs and unicorn are arrays — merge them with the spread operator: export default [nextfriday.configs['react/recommended'], ...nextfriday.configs.sonarjs, ...nextfriday.configs.unicorn].",
-    "All rules are namespaced as nextfriday/<rule-name> when configured manually.",
-    "Rule documentation lives at docs/rules/<RULE_NAME_UPPERCASE>.md (hyphens in the rule name become underscores in the filename).",
-    "Auto-fixable rules are marked with a Fixable column in README.md and a fixable notice at the top of their doc."
-  ],
-  "previousVersions": []
+  "url": "https://context7.com/next-friday/eslint-plugin-nextfriday",
+  "public_key": "pk_4i1vOxLcBijuFmsLajXpk"
 }
