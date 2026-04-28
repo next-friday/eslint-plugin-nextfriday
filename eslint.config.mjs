@@ -1,4 +1,3 @@
-import { configs as airbnbConfigs, plugins as airbnbPlugins } from "eslint-config-airbnb-extended";
 import eslintConfigPrettier from "eslint-config-prettier";
 import eslintJs from "@eslint/js";
 import eslintPluginImportX from "eslint-plugin-import-x";
@@ -19,9 +18,6 @@ const createJavaScriptConfig = () => [
     name: "js/config",
     ...eslintJs.configs.recommended,
   },
-  airbnbPlugins.stylistic,
-  airbnbPlugins.importX,
-  ...airbnbConfigs.base.recommended,
 ];
 
 const createTypeScriptConfig = () => [
@@ -31,7 +27,6 @@ const createTypeScriptConfig = () => [
       "@typescript-eslint": typescriptEslint.plugin,
     },
   },
-  ...airbnbConfigs.base.typescript,
   ...typescriptEslint.configs.recommended,
 ];
 
@@ -39,7 +34,7 @@ const createImportConfig = () => [
   {
     name: "import-x/order/rules",
     plugins: {
-      import: eslintPluginImportX,
+      "import-x": eslintPluginImportX,
     },
     rules: {
       "import-x/order": [
