@@ -37,13 +37,29 @@ jobs:
         if: ${{ env.IS_TRUSTED_BOT != 'true' }}
         id: changes
         run: |
-          CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }})
+          BASE_SHA=${{ github.event.pull_request.base.sha }}
+          HEAD_SHA=${{ github.event.pull_request.head.sha }}
+          CHANGED_FILES=$(git diff --name-only "$BASE_SHA".."$HEAD_SHA")
           CODE_CHANGES=$(echo "$CHANGED_FILES" | grep -E '^(src|docs)/' | grep -v '__tests__' || true)
-          VERSION_CHANGES=$(echo "$CHANGED_FILES" | grep -E '^(package\.json|CHANGELOG\.md)$' || true)
+          PACKAGE_JSON_CHANGED=$(echo "$CHANGED_FILES" | grep -E '^package\.json$' || true)
+          CHANGELOG_CHANGED=$(echo "$CHANGED_FILES" | grep -E '^CHANGELOG\.md$' || true)
           CHANGESET_CHANGES=$(echo "$CHANGED_FILES" | grep -E '^\.changeset/.*\.md$' || true)
 
+          VERSION_FIELD_CHANGED=false
+          if [ -n "$PACKAGE_JSON_CHANGED" ]; then
+            if git diff "$BASE_SHA".."$HEAD_SHA" -- package.json | grep -E '^[+-][[:space:]]*"version":' > /dev/null; then
+              VERSION_FIELD_CHANGED=true
+            fi
+          fi
+
+          if [ "$VERSION_FIELD_CHANGED" = "true" ] || [ -n "$CHANGELOG_CHANGED" ]; then
+            VERSION_CHANGES=true
+          else
+            VERSION_CHANGES=false
+          fi
+
           echo "code=$([ -n "$CODE_CHANGES" ] && echo true || echo false)" >> $GITHUB_OUTPUT
-          echo "version=$([ -n "$VERSION_CHANGES" ] && echo true || echo false)" >> $GITHUB_OUTPUT
+          echo "version=$VERSION_CHANGES" >> $GITHUB_OUTPUT
           echo "changeset=$([ -n "$CHANGESET_CHANGES" ] && echo true || echo false)" >> $GITHUB_OUTPUT
 
       - name: Check Version Changes Authorization
