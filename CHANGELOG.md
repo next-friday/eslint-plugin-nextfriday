@@ -1,5 +1,15 @@
 # eslint-plugin-nextfriday
 
+## 1.24.0
+
+### Minor Changes
+
+- [#97](https://github.com/next-friday/eslint-plugin-nextfriday/pull/97) [`a5cada9`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/a5cada9216e31e85db990513e7f36a11a4bb5308) Thanks [@joetakara](https://github.com/joetakara)! - Add jsx-spread-props-last rule. Enforces that JSX spread attributes (`{...props}`) appear after all other props on the same element. Included in `react`, `react/recommended`, `nextjs`, and `nextjs/recommended` presets.
+
+### Patch Changes
+
+- [#97](https://github.com/next-friday/eslint-plugin-nextfriday/pull/97) [`a5cada9`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/a5cada9216e31e85db990513e7f36a11a4bb5308) Thanks [@joetakara](https://github.com/joetakara)! - Upgrade dependencies to latest compatible versions: typescript-eslint 8.58 → 8.59, eslint-plugin-unicorn 63 → 64, eslint-plugin-sonarjs 4.0.2 → 4.0.3, plus dev tooling (prettier, changesets, commitlint, swc). Pinned eslint, typescript, and @types/node to their latest 9.x/5.x/22.x lines for ecosystem and engine compatibility.
+
 ## 1.23.1
 
 ### Patch Changes
