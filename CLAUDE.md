@@ -9,13 +9,22 @@ This is `eslint-plugin-nextfriday`, an ESLint plugin providing custom rules and 
 ## Development Commands
 
 ```bash
-pnpm build               # Build plugin using tsup (outputs to lib/)
-pnpm test                # Run all tests with Jest
+pnpm build               # Build plugin using tsup (dual CJS/ESM output to lib/)
+pnpm test                # Run all tests with Jest (uses @swc/jest transformer)
 pnpm test src/rules/__tests__/file-kebab-case.test.ts  # Run single test
+pnpm test:coverage       # Jest with coverage (run by pre-push hook)
+pnpm test:watch          # Jest watch mode
 pnpm eslint              # Lint and auto-fix
+pnpm eslint:check        # Lint without auto-fix (read-only)
 pnpm typecheck           # Run TypeScript type checking
+pnpm prettier            # Format all files
+pnpm prettier:check      # Verify formatting
+pnpm sort-package-json   # Sort package.json keys
+pnpm clear               # Remove lib/, node_modules/.cache, .eslintcache
 pnpm changeset           # Create a changeset for version bumping
 ```
+
+The plugin dogfoods its own rules via `eslint.config.mjs`. Build config lives in `tsup.config.ts`, Jest config in `jest.config.ts`. Distributed exports (per `package.json`): `lib/index.js` (ESM), `lib/index.cjs` (CJS), `lib/index.d.ts` (types).
 
 ## Code Architecture
 
@@ -48,6 +57,8 @@ Eight configs total. Six nextfriday presets built from three rule set tiers, eac
 | `nextjs` / `nextjs/recommended` | 40 base + 15 JSX + 1 nextjs       | warn / error |
 | `sonarjs`                       | eslint-plugin-sonarjs recommended | -            |
 | `unicorn`                       | eslint-plugin-unicorn recommended | -            |
+
+The `unicorn` getter intentionally disables `unicorn/filename-case` and `unicorn/prevent-abbreviations` globally, plus `unicorn/no-null` for `**/*.jsx`/`**/*.tsx` files. Preserve these overrides if editing the getter — they're product decisions, not oversights.
 
 ### Utilities
 

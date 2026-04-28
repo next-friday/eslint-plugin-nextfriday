@@ -38,10 +38,7 @@ const isCallbackFunction = (node: FunctionNode): boolean => {
     return false;
   }
 
-  if (
-    parent.type === AST_NODE_TYPES.CallExpression &&
-    parent.arguments.includes(node as TSESTree.CallExpressionArgument)
-  ) {
+  if (parent.type === AST_NODE_TYPES.CallExpression && parent.arguments.includes(node)) {
     return true;
   }
 
