@@ -25,6 +25,7 @@ import jsxPascalCase from "./rules/jsx-pascal-case";
 import jsxRequireSuspense from "./rules/jsx-require-suspense";
 import jsxSimpleProps from "./rules/jsx-simple-props";
 import jsxSortProps from "./rules/jsx-sort-props";
+import jsxSpreadPropsLast from "./rules/jsx-spread-props-last";
 import newlineAfterMultilineBlock from "./rules/newline-after-multiline-block";
 import newlineBeforeReturn from "./rules/newline-before-return";
 import nextjsRequirePublicEnv from "./rules/nextjs-require-public-env";
@@ -95,6 +96,7 @@ const rules = {
   "jsx-require-suspense": jsxRequireSuspense,
   "jsx-simple-props": jsxSimpleProps,
   "jsx-sort-props": jsxSortProps,
+  "jsx-spread-props-last": jsxSpreadPropsLast,
   "newline-after-multiline-block": newlineAfterMultilineBlock,
   "newline-before-return": newlineBeforeReturn,
   "nextjs-require-public-env": nextjsRequirePublicEnv,
@@ -235,6 +237,7 @@ const jsxRules = {
   "nextfriday/jsx-require-suspense": "warn",
   "nextfriday/jsx-simple-props": "warn",
   "nextfriday/jsx-sort-props": "warn",
+  "nextfriday/jsx-spread-props-last": "warn",
   "nextfriday/prefer-interface-over-inline-types": "warn",
   "nextfriday/prefer-jsx-template-literals": "warn",
   "nextfriday/react-props-destructure": "warn",
@@ -253,6 +256,7 @@ const jsxRecommendedRules = {
   "nextfriday/jsx-require-suspense": "error",
   "nextfriday/jsx-simple-props": "error",
   "nextfriday/jsx-sort-props": "error",
+  "nextfriday/jsx-spread-props-last": "error",
   "nextfriday/prefer-interface-over-inline-types": "error",
   "nextfriday/prefer-jsx-template-literals": "error",
   "nextfriday/react-props-destructure": "error",

@@ -88,8 +88,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 56 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(56);
+  it("should have exactly 57 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(57);
   });
 
   it("should have correct rule names", () => {
@@ -141,6 +141,7 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("no-direct-date");
     expect(ruleNames).toContain("nextjs-require-public-env");
     expect(ruleNames).toContain("jsx-sort-props");
+    expect(ruleNames).toContain("jsx-spread-props-last");
     expect(ruleNames).toContain("sort-exports");
     expect(ruleNames).toContain("sort-imports");
     expect(ruleNames).toContain("sort-type-alphabetically");

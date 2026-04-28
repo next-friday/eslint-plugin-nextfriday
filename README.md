@@ -136,6 +136,7 @@ export default [
       "nextfriday/jsx-require-suspense": "error",
       "nextfriday/jsx-simple-props": "error",
       "nextfriday/jsx-sort-props": "error",
+      "nextfriday/jsx-spread-props-last": "error",
       "nextfriday/prefer-jsx-template-literals": "error",
       "nextfriday/react-props-destructure": "error",
       "nextfriday/enforce-props-suffix": "error",
@@ -232,6 +233,7 @@ export default [
 | [jsx-require-suspense](docs/rules/JSX_REQUIRE_SUSPENSE.md)                               | Require lazy-loaded components to be wrapped in Suspense              | ❌      |
 | [jsx-simple-props](docs/rules/JSX_SIMPLE_PROPS.md)                                       | Enforce simple prop values (strings, variables, callbacks, ReactNode) | ❌      |
 | [jsx-sort-props](docs/rules/JSX_SORT_PROPS.md)                                           | Enforce JSX props are sorted by value type                            | ✅      |
+| [jsx-spread-props-last](docs/rules/JSX_SPREAD_PROPS_LAST.md)                             | Enforce JSX spread attributes appear after all other props            | ❌      |
 | [prefer-jsx-template-literals](docs/rules/PREFER_JSX_TEMPLATE_LITERALS.md)               | Enforce template literals instead of mixing text and JSX expressions  | ✅      |
 | [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                         | Enforce destructuring props inside React component body               | ❌      |
 | [enforce-props-suffix](docs/rules/ENFORCE_PROPS_SUFFIX.md)                               | Enforce 'Props' suffix for interfaces and types in \*.tsx files       | ❌      |
@@ -301,7 +303,7 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/sort-type-alphabetically`
 - `nextfriday/sort-type-required-first`
 
-### JSX Rules (15 rules)
+### JSX Rules (16 rules)
 
 Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recommended`:
 
@@ -317,6 +319,7 @@ Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recomme
 - `nextfriday/jsx-require-suspense`
 - `nextfriday/jsx-simple-props`
 - `nextfriday/jsx-sort-props`
+- `nextfriday/jsx-spread-props-last`
 - `nextfriday/prefer-interface-over-inline-types`
 - `nextfriday/prefer-jsx-template-literals`
 - `nextfriday/react-props-destructure`
