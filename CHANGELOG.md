@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 2.0.0
+
+### Major Changes
+
+- [#101](https://github.com/next-friday/eslint-plugin-nextfriday/pull/101) [`f18f6d0`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/f18f6d0fbb5935ee5ca2618b3438b42f6078ea8b) Thanks [@joetakara](https://github.com/joetakara)! - Upgrade to ESLint 10. Peer dependency now requires `eslint@^10.0.0` (previously `^9.0.0`). Bumped `eslint` and `@eslint/js` to v10. Removed `eslint-config-airbnb-extended` (no ESLint 10 support upstream); local lint config now relies on `@eslint/js`, `typescript-eslint`, `eslint-plugin-import-x`, `eslint-plugin-sonarjs`, `eslint-plugin-jest`, and `eslint-plugin-prettier` directly.
+
 ## 1.24.0
 
 ### Minor Changes
