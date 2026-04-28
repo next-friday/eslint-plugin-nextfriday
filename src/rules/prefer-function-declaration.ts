@@ -20,7 +20,7 @@ const isCallbackContext = (node: TSESTree.ArrowFunctionExpression | TSESTree.Fun
     return true;
   }
 
-  if (parent.type === AST_NODE_TYPES.NewExpression && parent.arguments.includes(node as TSESTree.Expression)) {
+  if (parent.type === AST_NODE_TYPES.NewExpression && parent.arguments.includes(node)) {
     return true;
   }
 
