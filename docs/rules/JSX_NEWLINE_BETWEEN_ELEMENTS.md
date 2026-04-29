@@ -2,6 +2,8 @@
 
 Require empty lines between sibling JSX elements and expression containers when at least one spans multiple lines.
 
+> This rule is auto-fixable using `--fix`.
+
 ## Rule Details
 
 This rule enforces empty lines between sibling JSX elements, fragments, and expression containers (e.g., `{condition && (...)}`) when either sibling spans multiple lines. This improves visual separation and readability of complex component structures. Single-line siblings do not require empty lines between them.
@@ -10,7 +12,7 @@ This rule enforces empty lines between sibling JSX elements, fragments, and expr
 
 ### Incorrect
 
-```jsx
+```tsx
 function Dashboard() {
   return (
     <main>
@@ -26,7 +28,7 @@ function Dashboard() {
 }
 ```
 
-```jsx
+```tsx
 function UserProfile() {
   return (
     <div>
@@ -41,7 +43,7 @@ function UserProfile() {
 
 Multi-line elements need empty lines between them:
 
-```jsx
+```tsx
 function Dashboard() {
   return (
     <main>
@@ -58,7 +60,7 @@ function Dashboard() {
 }
 ```
 
-```jsx
+```tsx
 function UserProfile() {
   return (
     <div>
@@ -94,7 +96,7 @@ function StudentInfo({ studentId, name }) {
 
 Single-line elements do not require empty lines:
 
-```jsx
+```tsx
 function Navigation() {
   return (
     <nav>
@@ -106,7 +108,7 @@ function Navigation() {
 }
 ```
 
-```jsx
+```tsx
 function PageLayout() {
   return (
     <div>
@@ -121,7 +123,3 @@ function PageLayout() {
 ## When Not To Use It
 
 If you prefer compact JSX without empty lines between multi-line elements, or if your team has different formatting preferences.
-
-## Fixable
-
-This rule is auto-fixable. Running ESLint with the `--fix` flag will automatically insert empty lines between sibling JSX elements when needed.
