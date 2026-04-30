@@ -29,10 +29,6 @@ describe("enforce-constant-case", () => {
         name: "should allow SCREAMING_SNAKE_CASE number constant",
       },
       {
-        code: `const IS_PRODUCTION = true;`,
-        name: "should allow SCREAMING_SNAKE_CASE boolean constant",
-      },
-      {
         code: `const API_URL = "https://api.example.com";`,
         name: "should allow SCREAMING_SNAKE_CASE url constant",
       },
@@ -41,40 +37,52 @@ describe("enforce-constant-case", () => {
         name: "should allow SCREAMING_SNAKE_CASE for negative numbers",
       },
       {
-        code: `const TEMPLATE = \`hello world\`;`,
-        name: "should allow SCREAMING_SNAKE_CASE for template literals",
-      },
-      {
-        code: `const PHONE_REGEX = /^[0-9]{10}$/;`,
-        name: "should allow SCREAMING_SNAKE_CASE for RegExp",
-      },
-      {
-        code: `const STATUS_MAP = { ACTIVE: "active", INACTIVE: "inactive" } as const;`,
-        name: "should allow SCREAMING_SNAKE_CASE for as const object",
-      },
-      {
-        code: `const CATEGORIES = [{ id: "1", label: "one" }] as const;`,
-        name: "should allow SCREAMING_SNAKE_CASE for as const array",
-      },
-      {
-        code: `const SKELETON_ITEMS = [1, 2, 3, 4, 5];`,
-        name: "should allow SCREAMING_SNAKE_CASE for static array",
-      },
-      {
-        code: `const MAP_STYLE = { height: "320px", width: "100%" };`,
-        name: "should allow SCREAMING_SNAKE_CASE for static object",
-      },
-      {
         code: `export const MAX_RETRY = 3;`,
         name: "should allow exported SCREAMING_SNAKE_CASE constant",
       },
       {
         code: `const isEnabled = true;`,
-        name: "should allow boolean with is prefix",
+        name: "should ignore boolean constants",
       },
       {
         code: `const hasAccess = false;`,
-        name: "should allow boolean with has prefix",
+        name: "should ignore boolean constants regardless of prefix",
+      },
+      {
+        code: `const featureEnabled = true;`,
+        name: "should ignore boolean constants without is/has prefix",
+      },
+      {
+        code: `const template = \`hello world\`;`,
+        name: "should ignore static template literals",
+      },
+      {
+        code: `const phoneRegex = /^[0-9]{10}$/;`,
+        name: "should ignore RegExp literals",
+      },
+      {
+        code: `const skeletonItems = [1, 2, 3, 4, 5];`,
+        name: "should ignore array literals",
+      },
+      {
+        code: `const mapStyle = { height: "320px", width: "100%" };`,
+        name: "should ignore object literals",
+      },
+      {
+        code: `const statusMap = { ACTIVE: "active" } as const;`,
+        name: "should ignore as const object",
+      },
+      {
+        code: `const categories = [{ id: "1" }] as const;`,
+        name: "should ignore as const array",
+      },
+      {
+        code: `export const metadata: Metadata = { title: "404" };`,
+        name: "should ignore framework reserved object exports like Next.js metadata",
+      },
+      {
+        code: `export const viewport: Viewport = { themeColor: "#fff" };`,
+        name: "should ignore framework reserved object exports like Next.js viewport",
       },
       {
         code: `const config = { key: getValue() };`,
@@ -166,16 +174,6 @@ describe("enforce-constant-case", () => {
         ],
       },
       {
-        code: `const template = \`hello\`;`,
-        name: "should disallow camelCase for global template literal constant",
-        errors: [
-          {
-            messageId: "useScreamingSnakeCase",
-            data: { name: "template", suggestion: "TEMPLATE" },
-          },
-        ],
-      },
-      {
         code: `const negativeOne = -1;`,
         name: "should disallow camelCase for global negative number constant",
         errors: [
@@ -187,7 +185,7 @@ describe("enforce-constant-case", () => {
       },
       {
         code: `export const maxRetryCount = 3;`,
-        name: "should disallow camelCase for exported global constant",
+        name: "should disallow camelCase for exported global magic number",
         errors: [
           {
             messageId: "useScreamingSnakeCase",
@@ -197,31 +195,11 @@ describe("enforce-constant-case", () => {
       },
       {
         code: `const default_theme = "dark";`,
-        name: "should disallow snake_case for global constant",
+        name: "should disallow snake_case for global magic text",
         errors: [
           {
             messageId: "noSnakeCase",
             data: { name: "default_theme", suggestion: "DEFAULT_THEME" },
-          },
-        ],
-      },
-      {
-        code: `const categories = [{ id: "1" }] as const;`,
-        name: "should disallow camelCase for global as const array",
-        errors: [
-          {
-            messageId: "useScreamingSnakeCase",
-            data: { name: "categories", suggestion: "CATEGORIES" },
-          },
-        ],
-      },
-      {
-        code: `const phoneRegex = /^[0-9]{10}$/;`,
-        name: "should disallow camelCase for global RegExp",
-        errors: [
-          {
-            messageId: "useScreamingSnakeCase",
-            data: { name: "phoneRegex", suggestion: "PHONE_REGEX" },
           },
         ],
       },
