@@ -19,7 +19,6 @@ jobs:
     if: >-
       ${{
         github.event.pull_request.draft == false
-        && !startsWith(github.event.pull_request.title, 'chore(release):')
         && !startsWith(github.head_ref, 'changeset-release/')
       }}
 

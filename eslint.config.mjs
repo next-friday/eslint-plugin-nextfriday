@@ -3,7 +3,6 @@ import eslintJs from "@eslint/js";
 import eslintPluginImportX from "eslint-plugin-import-x";
 import eslintPluginJest from "eslint-plugin-jest";
 import eslintPluginPrettier from "eslint-plugin-prettier";
-import eslintPluginSonarjs from "eslint-plugin-sonarjs";
 import typescriptEslint from "typescript-eslint";
 
 const createGlobalIgnoresConfig = () => [
@@ -60,21 +59,6 @@ const createImportConfig = () => [
   },
 ];
 
-const createSonarJSConfig = () => [
-  {
-    name: "sonarjs/config",
-    plugins: {
-      sonarjs: eslintPluginSonarjs,
-    },
-    rules: {
-      ...eslintPluginSonarjs.configs["recommended-legacy"].rules,
-      "sonarjs/null-dereference": "off",
-      "sonarjs/function-return-type": "off",
-      "sonarjs/argument-type": "off",
-    },
-  },
-];
-
 const createJestConfig = () => [
   {
     name: "jest/config",
@@ -118,7 +102,6 @@ export default [
   ...createJavaScriptConfig(),
   ...createTypeScriptConfig(),
   ...createImportConfig(),
-  ...createSonarJSConfig(),
   ...createJestConfig(),
   ...createPrettierConfig(),
 ];

@@ -80,6 +80,19 @@ The rule identifies boolean variables and parameters by:
 | `does`   | Action capability             | `doesExist`, `doesMatch`, `doesContain`       |
 | `had`    | Past possession               | `hadError`, `hadAccess`, `hadPrevious`        |
 
+## Not Checked
+
+To keep the rule unobtrusive on patterns that are usually shaped by external APIs or framework conventions, these locations are intentionally ignored:
+
+- **Class methods, getters, and setters.** `class Foo { get valid() {...} }` and `class Foo { set valid(v) {...} }` are not checked.
+- **Class fields (property definitions).** `class Foo { valid = true }` is not checked.
+- **Object literal properties.** `{ valid: true }` and `{ open: true, closed: false }` are not checked. Object keys often mirror an external schema (API responses, config payloads, DB rows) where renaming would be incorrect.
+- **Computed property names.** `{ [key]: true }` is not checked because the name is dynamic.
+- **Destructuring patterns.** `const { valid } = result;` is not checked — rename at the source instead, or use a destructuring alias (`const { valid: isValid } = result;`).
+- **Property access.** `if (user.valid) {}` is not checked.
+
+If you need stricter coverage of object/class members, pair this rule with [`@typescript-eslint/naming-convention`](https://typescript-eslint.io/rules/naming-convention/), which can target `classProperty`, `objectLiteralProperty`, `accessor`, and other selectors with custom prefix patterns.
+
 ## When Not To Use It
 
 - When working with external APIs that return boolean fields with different naming conventions

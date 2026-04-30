@@ -1,5 +1,7 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
+import { isConfigFile } from "../utils";
+
 import type { TSESTree } from "@typescript-eslint/utils";
 
 const createRule = ESLintUtils.RuleCreator(
@@ -102,6 +104,10 @@ const enforceConstantCase = createRule({
   },
   defaultOptions: [],
   create(context) {
+    if (isConfigFile(context.filename)) {
+      return {};
+    }
+
     return {
       VariableDeclaration(node) {
         if (node.kind !== "const" || !isGlobalScope(node)) {
