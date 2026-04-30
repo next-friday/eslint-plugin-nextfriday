@@ -1,5 +1,13 @@
 # eslint-plugin-nextfriday
 
+## 3.2.0
+
+### Minor Changes
+
+- [#118](https://github.com/next-friday/eslint-plugin-nextfriday/pull/118) [`143eee9`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/143eee9fd0c6aed00e10677a6cad448dbdc9136e) Thanks [@joetakara](https://github.com/joetakara)! - Add `index-export-only` rule. Restricts `index.{js,jsx,ts,tsx}` files to imports, re-exports, and type/interface declarations only — flagging local function/class/variable declarations, inline `export const`/`export function`/`export class`, top-level expressions, and control flow. Type aliases, interfaces, and `export type` are allowed since they have no runtime cost. Included in `base`, `react`, and `nextjs` presets.
+
+- [#118](https://github.com/next-friday/eslint-plugin-nextfriday/pull/118) [`143eee9`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/143eee9fd0c6aed00e10677a6cad448dbdc9136e) Thanks [@joetakara](https://github.com/joetakara)! - Add `no-inline-type-import` rule. Disallows inline `type` markers on import specifiers (`import { type Foo }` and `import { value, type Foo }`); auto-fix hoists single inline-type imports to `import type { ... }` and splits mixed value/type imports into two separate statements while preserving aliases, default specifiers, and quote style. Also strips redundant inline markers from existing `import type { ... }` statements. Included in `base`, `react`, and `nextjs` presets.
+
 ## 3.1.0
 
 ### Minor Changes
