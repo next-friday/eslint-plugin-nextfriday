@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is `eslint-plugin-nextfriday`, an ESLint plugin providing custom rules and configurations for Next Friday development workflows. Supports ESLint 9+ flat config with presets for base (JS/TS), React, and Next.js projects. Built with tsup for dual CJS/ESM output.
+This is `eslint-plugin-nextfriday`, an ESLint plugin providing custom rules and configurations for Next Friday development workflows. Requires ESLint 10+ flat config (peer dependency `^10.0.0`) with presets for base (JS/TS), React, and Next.js projects. Built with tsup for dual CJS/ESM output.
 
 ## Development Commands
 
@@ -22,6 +22,7 @@ pnpm prettier:check      # Verify formatting
 pnpm sort-package-json   # Sort package.json keys
 pnpm clear               # Remove lib/, node_modules/.cache, .eslintcache
 pnpm changeset           # Create a changeset for version bumping
+pnpm audit               # Audit prod dependencies at high severity
 ```
 
 The plugin dogfoods its own rules via `eslint.config.mjs`. Build config lives in `tsup.config.ts`, Jest config in `jest.config.ts`. Distributed exports (per `package.json`): `lib/index.js` (ESM), `lib/index.cjs` (CJS), `lib/index.d.ts` (types).
@@ -33,7 +34,7 @@ The plugin dogfoods its own rules via `eslint.config.mjs`. Build config lives in
 `src/index.ts` - Main plugin export containing:
 
 - `meta` - Plugin name and version from package.json
-- `rules` - All 57 rule implementations keyed by hyphenated name
+- `rules` - All 59 rule implementations keyed by hyphenated name
 - `configs` - Six configuration presets (each rule set has a `warn` and `error`/`recommended` variant). `base`/`react` presets are built via `createConfig()` and return a single config object; `nextjs` presets are built via `createNextjsConfig()` and return an **array** containing the base config plus a routing override that disables both `file-kebab-case` and `jsx-pascal-case` for files under `app/**`, `src/app/**`, `pages/**`, `src/pages/**` (matched against `*.{js,jsx,ts,tsx}`) — Next.js owns these filenames (`page.tsx`, `layout.tsx`, `route.ts`, `middleware.ts`, etc.). Consumers must spread these arrays into their flat config.
 
 The plugin is exported both as default and as named exports `{ meta, configs, rules }`.
@@ -52,9 +53,9 @@ Six configs total. Three rule set tiers, each with a `warn` variant and a `Recom
 
 | Preset                          | Rules                       | Severity     |
 | ------------------------------- | --------------------------- | ------------ |
-| `base` / `base/recommended`     | 40 base                     | warn / error |
-| `react` / `react/recommended`   | 40 base + 16 JSX            | warn / error |
-| `nextjs` / `nextjs/recommended` | 40 base + 16 JSX + 1 nextjs | warn / error |
+| `base` / `base/recommended`     | 42 base                     | warn / error |
+| `react` / `react/recommended`   | 42 base + 16 JSX            | warn / error |
+| `nextjs` / `nextjs/recommended` | 42 base + 16 JSX + 1 nextjs | warn / error |
 
 ### Utilities
 
@@ -164,4 +165,4 @@ Git hooks (husky): `pre-commit` runs lint-staged, `pre-push` runs `test:coverage
 
 - Node: >=22.0.0
 - pnpm: >=9.0.0 (enforced)
-- ESLint: ^9.0.0 (peer dependency)
+- ESLint: ^10.0.0 (peer dependency)

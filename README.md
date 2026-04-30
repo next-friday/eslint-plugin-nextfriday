@@ -434,6 +434,7 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | [enforce-sorted-destructuring](docs/rules/ENFORCE_SORTED_DESTRUCTURING.md)   | Enforce alphabetical sorting of destructured properties                | ✅      |
 | [no-env-fallback](docs/rules/NO_ENV_FALLBACK.md)                             | Disallow fallback values for environment variables                     | ❌      |
 | [no-inline-default-export](docs/rules/NO_INLINE_DEFAULT_EXPORT.md)           | Disallow inline default exports - declare first, then export           | ❌      |
+| [index-export-only](docs/rules/INDEX_EXPORT_ONLY.md)                         | Restrict index files to imports, re-exports, and type declarations     | ❌      |
 | [no-direct-date](docs/rules/NO_DIRECT_DATE.md)                               | Disallow direct usage of Date constructor and methods                  | ❌      |
 | [newline-after-multiline-block](docs/rules/NEWLINE_AFTER_MULTILINE_BLOCK.md) | Require a blank line after multi-line statements                       | ✅      |
 | [newline-before-return](docs/rules/NEWLINE_BEFORE_RETURN.md)                 | Require a blank line before return statements                          | ✅      |
@@ -449,6 +450,7 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | Rule                                                                 | Description                                               | Fixable |
 | -------------------------------------------------------------------- | --------------------------------------------------------- | ------- |
 | [no-relative-imports](docs/rules/NO_RELATIVE_IMPORTS.md)             | Disallow relative imports with ../ - use absolute imports | ❌      |
+| [no-inline-type-import](docs/rules/NO_INLINE_TYPE_IMPORT.md)         | Disallow inline 'type' markers - hoist or split imports   | ✅      |
 | [prefer-import-type](docs/rules/PREFER_IMPORT_TYPE.md)               | Enforce using 'import type' for type-only imports         | ✅      |
 | [prefer-react-import-types](docs/rules/PREFER_REACT_IMPORT_TYPES.md) | Enforce direct imports from 'react' instead of React.X    | ✅      |
 | [sort-exports](docs/rules/SORT_EXPORTS.md)                           | Enforce a consistent ordering of export groups            | ✅      |
@@ -498,16 +500,16 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 
 | Preset               | Severity | Base Rules | JSX Rules | Next.js Rules | Total Rules |
 | -------------------- | -------- | ---------- | --------- | ------------- | ----------- |
-| `base`               | warn     | 40         | 0         | 0             | 40          |
-| `base/recommended`   | error    | 40         | 0         | 0             | 40          |
-| `react`              | warn     | 40         | 16        | 0             | 56          |
-| `react/recommended`  | error    | 40         | 16        | 0             | 56          |
-| `nextjs`             | warn     | 40         | 16        | 1             | 57          |
-| `nextjs/recommended` | error    | 40         | 16        | 1             | 57          |
+| `base`               | warn     | 42         | 0         | 0             | 42          |
+| `base/recommended`   | error    | 42         | 0         | 0             | 42          |
+| `react`              | warn     | 42         | 16        | 0             | 58          |
+| `react/recommended`  | error    | 42         | 16        | 0             | 58          |
+| `nextjs`             | warn     | 42         | 16        | 1             | 59          |
+| `nextjs/recommended` | error    | 42         | 16        | 1             | 59          |
 
 The `nextjs` and `nextjs/recommended` presets ship as an array of two flat-config objects: the rule set above, plus a routing override that disables `nextfriday/file-kebab-case` and `nextfriday/jsx-pascal-case` for files matching `app/**/*.{js,jsx,ts,tsx}`, `src/app/**/*.{js,jsx,ts,tsx}`, `pages/**/*.{js,jsx,ts,tsx}`, and `src/pages/**/*.{js,jsx,ts,tsx}`. Next.js owns the filenames in those directories (`page.tsx`, `layout.tsx`, `route.ts`, `middleware.ts`, etc.), so the plugin steps out of the way. ESLint 9+ flattens nested config arrays automatically, so spreading the preset works as expected.
 
-### Base Configuration Rules (40 rules)
+### Base Configuration Rules (42 rules)
 
 Included in `base`, `base/recommended`, and all other presets:
 
@@ -521,6 +523,7 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/enforce-sorted-destructuring`
 - `nextfriday/enforce-type-declaration-order`
 - `nextfriday/file-kebab-case`
+- `nextfriday/index-export-only`
 - `nextfriday/newline-after-multiline-block`
 - `nextfriday/newline-before-return`
 - `nextfriday/no-complex-inline-return`
@@ -530,6 +533,7 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/no-inline-default-export`
 - `nextfriday/no-inline-nested-object`
 - `nextfriday/no-inline-return-properties`
+- `nextfriday/no-inline-type-import`
 - `nextfriday/no-lazy-identifiers`
 - `nextfriday/no-logic-in-params`
 - `nextfriday/no-misleading-constant-case`

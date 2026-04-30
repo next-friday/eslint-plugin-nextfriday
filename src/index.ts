@@ -12,6 +12,7 @@ import enforceServiceNaming from "./rules/enforce-service-naming";
 import enforceSortedDestructuring from "./rules/enforce-sorted-destructuring";
 import enforceTypeDeclarationOrder from "./rules/enforce-type-declaration-order";
 import fileKebabCase from "./rules/file-kebab-case";
+import indexExportOnly from "./rules/index-export-only";
 import jsxNewlineBetweenElements from "./rules/jsx-newline-between-elements";
 import jsxNoInlineObjectProp from "./rules/jsx-no-inline-object-prop";
 import jsxNoNewlineSingleLineElements from "./rules/jsx-no-newline-single-line-elements";
@@ -33,6 +34,7 @@ import noEnvFallback from "./rules/no-env-fallback";
 import noInlineDefaultExport from "./rules/no-inline-default-export";
 import noInlineNestedObject from "./rules/no-inline-nested-object";
 import noInlineReturnProperties from "./rules/no-inline-return-properties";
+import noInlineTypeImport from "./rules/no-inline-type-import";
 import noLazyIdentifiers from "./rules/no-lazy-identifiers";
 import noLogicInParams from "./rules/no-logic-in-params";
 import noMisleadingConstantCase from "./rules/no-misleading-constant-case";
@@ -78,6 +80,7 @@ const rules = {
   "enforce-sorted-destructuring": enforceSortedDestructuring,
   "enforce-type-declaration-order": enforceTypeDeclarationOrder,
   "file-kebab-case": fileKebabCase,
+  "index-export-only": indexExportOnly,
   "jsx-newline-between-elements": jsxNewlineBetweenElements,
   "jsx-no-inline-object-prop": jsxNoInlineObjectProp,
   "jsx-no-newline-single-line-elements": jsxNoNewlineSingleLineElements,
@@ -99,6 +102,7 @@ const rules = {
   "no-inline-default-export": noInlineDefaultExport,
   "no-inline-nested-object": noInlineNestedObject,
   "no-inline-return-properties": noInlineReturnProperties,
+  "no-inline-type-import": noInlineTypeImport,
   "no-lazy-identifiers": noLazyIdentifiers,
   "no-logic-in-params": noLogicInParams,
   "no-misleading-constant-case": noMisleadingConstantCase,
@@ -141,6 +145,7 @@ const baseRules = {
   "nextfriday/enforce-sorted-destructuring": "warn",
   "nextfriday/enforce-type-declaration-order": "warn",
   "nextfriday/file-kebab-case": "warn",
+  "nextfriday/index-export-only": "warn",
   "nextfriday/newline-after-multiline-block": "warn",
   "nextfriday/newline-before-return": "warn",
   "nextfriday/no-complex-inline-return": "warn",
@@ -150,6 +155,7 @@ const baseRules = {
   "nextfriday/no-inline-default-export": "warn",
   "nextfriday/no-inline-nested-object": "warn",
   "nextfriday/no-inline-return-properties": "warn",
+  "nextfriday/no-inline-type-import": "warn",
   "nextfriday/no-lazy-identifiers": "warn",
   "nextfriday/no-logic-in-params": "warn",
   "nextfriday/no-misleading-constant-case": "warn",
@@ -184,6 +190,7 @@ const baseRecommendedRules = {
   "nextfriday/enforce-sorted-destructuring": "error",
   "nextfriday/enforce-type-declaration-order": "error",
   "nextfriday/file-kebab-case": "error",
+  "nextfriday/index-export-only": "error",
   "nextfriday/newline-after-multiline-block": "error",
   "nextfriday/newline-before-return": "error",
   "nextfriday/no-complex-inline-return": "error",
@@ -193,6 +200,7 @@ const baseRecommendedRules = {
   "nextfriday/no-inline-default-export": "error",
   "nextfriday/no-inline-nested-object": "error",
   "nextfriday/no-inline-return-properties": "error",
+  "nextfriday/no-inline-type-import": "error",
   "nextfriday/no-lazy-identifiers": "error",
   "nextfriday/no-logic-in-params": "error",
   "nextfriday/no-misleading-constant-case": "error",
