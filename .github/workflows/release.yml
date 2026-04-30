@@ -44,8 +44,8 @@ jobs:
         with:
           publish: pnpm changeset:publish
           createGithubReleases: true
-          title: "ci(changesets): version packages"
-          commit: "ci(changesets): version packages"
+          title: "chore(release): version packages"
+          commit: "chore(release): version packages"
         env:
           GITHUB_TOKEN: ${{ secrets.CHANGESETS_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
