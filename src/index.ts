@@ -1,4 +1,4 @@
-import packageJson from "../package.json" assert { type: "json" };
+import packageJson from "../package.json" with { type: "json" };
 
 import booleanNamingPrefix from "./rules/boolean-naming-prefix";
 import enforceCamelCase from "./rules/enforce-camel-case";
