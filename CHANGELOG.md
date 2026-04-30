@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 3.2.1
+
+### Patch Changes
+
+- [#120](https://github.com/next-friday/eslint-plugin-nextfriday/pull/120) [`6f56995`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/6f569958e538f23b699fa3ac1cb4743b87e4ab60) Thanks [@joetakara](https://github.com/joetakara)! - `enforce-constant-case` now only flags global `const` declarations bound to a magic number or magic text literal. Object literals, array literals, RegExp, template literals (static or dynamic), `as const` assertions, booleans, and any non-literal initializer are no longer checked. This unblocks Next.js App Router files where reserved exports like `metadata`, `viewport`, `dynamic`, `revalidate`, `runtime`, `fetchCache`, `dynamicParams`, `preferredRegion`, and `maxDuration` are framework-owned and must keep their exact names. The rule scope now matches the documented intent of the plugin's naming convention skill ("top-level constant primitive values") instead of every static-shaped initializer.
+
 ## 3.2.0
 
 ### Minor Changes
