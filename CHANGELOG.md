@@ -1,5 +1,20 @@
 # eslint-plugin-nextfriday
 
+## 3.1.0
+
+### Minor Changes
+
+- [#116](https://github.com/next-friday/eslint-plugin-nextfriday/pull/116) [`64ced55`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/64ced556b4099a40ca2f4750523c7a079d2c81d8) Thanks [@joetakara](https://github.com/joetakara)! - `nextjs` and `nextjs/recommended` presets now also disable `nextfriday/file-kebab-case` (in addition to `nextfriday/jsx-pascal-case`) for files under `app/**`, `src/app/**`, `pages/**`, and `src/pages/**`. The override globs are expanded from `*.{jsx,tsx}` to `*.{js,jsx,ts,tsx}` so `route.ts`, `middleware.ts`, and other framework-named `.ts`/`.js` files in those directories are no longer flagged by either filename rule. Filename conventions in routing directories are owned by the framework, not by this plugin.
+
+  The `react` and `react/recommended` presets are unchanged — projects using them still enforce `file-kebab-case` on every `.ts`/`.js` and `jsx-pascal-case` on every `.tsx`/`.jsx`.
+
+### Patch Changes
+
+- [#116](https://github.com/next-friday/eslint-plugin-nextfriday/pull/116) [`64ced55`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/64ced556b4099a40ca2f4750523c7a079d2c81d8) Thanks [@joetakara](https://github.com/joetakara)! - Documentation quality improvements targeting Context7 scoring gaps:
+  - `README.md` — "Per-Directory Configuration" section now explains how flat config resolves rules (config-array order, `files`/`ignores` precedence, why flat replaces `.eslintrc` overrides), adds a preset-tier-per-directory table, and lists common edge cases (glob ordering, top-level vs scoped `ignores`, spreading array-shaped presets, `--print-config` for debugging).
+  - `README.md` — "Migration Strategy" section is restructured around six concrete phases: surveying violations with `eslint --format json | jq`, isolating the auto-fix pass into its own PR, adopting the warn-level preset, ratcheting clean directories to `/recommended`, managing exceptions (severity override → directory override → disable comment, in that order of preference), and tracking violation count over time. The "Prioritize rules by impact" table is unchanged.
+  - `docs/rules/ENFORCE_CONSTANT_CASE.md` — Configuration section split into install / enable-just-this-rule / enable-with-related-rules / enable-via-preset / scope-to-directory subsections, plus a "Severity-only — no rule options" callout clarifying that the legacy `["error", { ... }]` array form is not accepted because no rule in this plugin has options.
+
 ## 3.0.0
 
 ### Major Changes
