@@ -58,7 +58,36 @@ function foo() {
 
 ## Configuration
 
-This rule pairs with [`no-misleading-constant-case`](./NO_MISLEADING_CONSTANT_CASE.md) so that static globals use `SCREAMING_SNAKE_CASE` while local scopes and dynamic values keep `camelCase`. ESLint 9+ flat config:
+This rule has no options — only severity is configurable (`"error"`, `"warn"`, `"off"`). It pairs with [`no-misleading-constant-case`](./NO_MISLEADING_CONSTANT_CASE.md) so that static globals use `SCREAMING_SNAKE_CASE` while local scopes and dynamic values keep `camelCase`.
+
+### Install
+
+```bash
+pnpm add -D eslint-plugin-nextfriday eslint
+# npm install --save-dev eslint-plugin-nextfriday eslint
+# yarn add --dev eslint-plugin-nextfriday eslint
+```
+
+### Enable just this rule
+
+Use this when you want the rule but not the rest of the preset (e.g., adopting one rule at a time during a migration). The `plugins` field registers the plugin under the `nextfriday` namespace; the `rules` field turns on the rule by name:
+
+```js
+import nextfriday from "eslint-plugin-nextfriday";
+
+export default [
+  {
+    plugins: { nextfriday },
+    rules: {
+      "nextfriday/enforce-constant-case": "error",
+    },
+  },
+];
+```
+
+### Enable with related rules
+
+Constants, locals, and dynamic values each need a different naming convention. Enable the trio together so violations from any direction surface:
 
 ```js
 import nextfriday from "eslint-plugin-nextfriday";
@@ -75,7 +104,9 @@ export default [
 ];
 ```
 
-Or via a preset (every preset already enables all three at the configured severity):
+### Enable via a preset
+
+Every preset includes this rule at the preset's severity (`warn` or `error`). This is the simplest setup and the recommended one for most projects:
 
 ```js
 import nextfriday from "eslint-plugin-nextfriday";
@@ -83,7 +114,38 @@ import nextfriday from "eslint-plugin-nextfriday";
 export default [nextfriday.configs["base/recommended"]];
 ```
 
-This plugin only supports ESLint 9+ flat config — legacy `.eslintrc` is not supported.
+### Scope to a directory
+
+If you're migrating an existing codebase, scope the rule to a clean directory first and leave the rest of the project on `"warn"` until you've fixed the violations there. ESLint 9+ flat config layers configs in array order; the later object's severity wins for any file matching its `files` glob:
+
+```js
+import nextfriday from "eslint-plugin-nextfriday";
+
+export default [
+  nextfriday.configs.base,
+
+  {
+    files: ["src/config/**/*.ts", "src/lib/**/*.ts"],
+    rules: {
+      "nextfriday/enforce-constant-case": "error",
+    },
+  },
+];
+```
+
+### Severity-only — no rule options
+
+Each rule in this plugin uses `schema: []` and `defaultOptions: []` (no options). The flat-config value is **only** the severity string — `"error"`, `"warn"`, or `"off"`. The legacy `["error", { ... }]` array form is not accepted because there are no options to pass.
+
+```js
+// Correct
+"nextfriday/enforce-constant-case": "error"
+
+// Won't apply — there are no options to override
+"nextfriday/enforce-constant-case": ["error", { allowCamelCase: true }]
+```
+
+This plugin only supports ESLint 9+ flat config — legacy `.eslintrc` is not supported. Projects on ESLint 8 or below cannot consume it without upgrading.
 
 ## When Not To Use It
 

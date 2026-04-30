@@ -33,8 +33,8 @@ The plugin dogfoods its own rules via `eslint.config.mjs`. Build config lives in
 `src/index.ts` - Main plugin export containing:
 
 - `meta` - Plugin name and version from package.json
-- `rules` - All 56 rule implementations keyed by hyphenated name
-- `configs` - Six configuration presets via `createConfig()` (each rule set has a `warn` and `error`/`recommended` variant)
+- `rules` - All 57 rule implementations keyed by hyphenated name
+- `configs` - Six configuration presets (each rule set has a `warn` and `error`/`recommended` variant). `base`/`react` presets are built via `createConfig()` and return a single config object; `nextjs` presets are built via `createNextjsConfig()` and return an **array** containing the base config plus a routing override that disables both `file-kebab-case` and `jsx-pascal-case` for files under `app/**`, `src/app/**`, `pages/**`, `src/pages/**` (matched against `*.{js,jsx,ts,tsx}`) — Next.js owns these filenames (`page.tsx`, `layout.tsx`, `route.ts`, `middleware.ts`, etc.). Consumers must spread these arrays into their flat config.
 
 The plugin is exported both as default and as named exports `{ meta, configs, rules }`.
 
@@ -53,8 +53,8 @@ Six configs total. Three rule set tiers, each with a `warn` variant and a `Recom
 | Preset                          | Rules                       | Severity     |
 | ------------------------------- | --------------------------- | ------------ |
 | `base` / `base/recommended`     | 40 base                     | warn / error |
-| `react` / `react/recommended`   | 40 base + 15 JSX            | warn / error |
-| `nextjs` / `nextjs/recommended` | 40 base + 15 JSX + 1 nextjs | warn / error |
+| `react` / `react/recommended`   | 40 base + 16 JSX            | warn / error |
+| `nextjs` / `nextjs/recommended` | 40 base + 16 JSX + 1 nextjs | warn / error |
 
 ### Utilities
 

@@ -30,7 +30,11 @@ This rule enforces that JSX and TSX files use PascalCase naming convention for t
 
 ## Scoping the Rule
 
-This rule has **no built-in framework detection** and no allowlist of "known" filenames. It checks every `.jsx`/`.tsx` it sees. If your project mixes component files with framework routing files that use lowercase names (e.g. Next.js App Router `page.tsx`, `layout.tsx`, `error.tsx`, or Pages Router `_app.tsx`), scope the rule explicitly via ESLint's `files` glob in flat config:
+This rule has **no built-in framework detection** and no allowlist of "known" filenames. It checks every `.jsx`/`.tsx` it sees against PascalCase.
+
+The `nextjs` and `nextjs/recommended` presets ship with an override that **automatically disables this rule** for files under `app/**`, `src/app/**`, `pages/**`, and `src/pages/**` — Next.js owns those filenames (`page.tsx`, `layout.tsx`, `error.tsx`, etc.). If you use a `nextjs` preset, you do not need to add a routing override yourself.
+
+The `base` and `react` presets do **not** include this override. If you use `react` on a Next.js project (or any project that mixes PascalCase component files with lowercase framework routing files), scope the rule explicitly via ESLint's `files` glob:
 
 ```js
 import nextfriday from "eslint-plugin-nextfriday";
@@ -56,7 +60,7 @@ export default [
 
 The first override turns the rule on only inside component directories where PascalCase is the convention. The second override explicitly disables the rule for Next.js routing directories where the framework owns the filename.
 
-The plugin deliberately does not try to detect Next.js, Remix, or other framework conventions automatically — folder structures vary across projects (monorepos, custom `app` locations, hybrid Pages + App Router setups), and a built-in allowlist would inevitably go stale. ESLint's `files` glob is the deterministic way to express the scope you actually want.
+The plugin deliberately does not try to detect Next.js, Remix, or other framework conventions outside of the `nextjs` preset — folder structures vary across projects (monorepos, custom `app` locations, hybrid Pages + App Router setups), and a built-in allowlist would inevitably go stale. ESLint's `files` glob is the deterministic way to express the scope you actually want.
 
 ## When Not To Use It
 

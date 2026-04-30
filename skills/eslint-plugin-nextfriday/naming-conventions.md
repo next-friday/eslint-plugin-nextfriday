@@ -55,6 +55,8 @@ const user = getUser();
 | `.tsx`, `.jsx` | PascalCase       | `UserProfile.tsx`    |
 | `.md`          | UPPER_SNAKE_CASE | `GETTING_STARTED.md` |
 
+**Next.js routing exception:** when using the `nextjs` or `nextjs/recommended` preset, files under `app/**`, `src/app/**`, `pages/**`, and `src/pages/**` are exempt from both `file-kebab-case` and `jsx-pascal-case`. Use the framework's own filenames there (`page.tsx`, `layout.tsx`, `error.tsx`, `not-found.tsx`, `route.ts`, `middleware.ts`, etc.) without renaming.
+
 ## Hook and Service Files
 
 - Functions in `*.hook.ts` files must start with `use` prefix

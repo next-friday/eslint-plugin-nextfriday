@@ -89,18 +89,21 @@ describe("ESLint Plugin Configs", () => {
       expect(nextjsRules).toHaveProperty("nextfriday/prefer-react-import-types", "warn");
     });
 
-    it("should disable jsx-pascal-case in Next.js routing directories", () => {
+    it("should disable filename rules in Next.js routing directories", () => {
       const override = configs.nextjs[1] as { files: string[]; rules: Record<string, string> };
       expect(override).toHaveProperty("files");
       expect(override.files).toEqual(
         expect.arrayContaining([
-          "app/**/*.{jsx,tsx}",
-          "src/app/**/*.{jsx,tsx}",
-          "pages/**/*.{jsx,tsx}",
-          "src/pages/**/*.{jsx,tsx}",
+          "app/**/*.{js,jsx,ts,tsx}",
+          "src/app/**/*.{js,jsx,ts,tsx}",
+          "pages/**/*.{js,jsx,ts,tsx}",
+          "src/pages/**/*.{js,jsx,ts,tsx}",
         ]),
       );
-      expect(override.rules).toEqual({ "nextfriday/jsx-pascal-case": "off" });
+      expect(override.rules).toEqual({
+        "nextfriday/file-kebab-case": "off",
+        "nextfriday/jsx-pascal-case": "off",
+      });
     });
   });
 

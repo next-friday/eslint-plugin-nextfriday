@@ -40,9 +40,15 @@ This rule enforces that all TypeScript (.ts) and JavaScript (.js) files use keba
 - **Numbers are allowed inside segments.** `file-with-numbers-123.ts` ✓
 - **Single-word filenames are valid.** `single.ts` ✓ (no hyphens needed)
 
+## Scoping the Rule
+
+This rule has **no built-in framework detection**. It checks every `.ts`/`.js` file it sees against kebab-case. In Next.js projects, routing directories (`app/`, `pages/`) contain framework-named files (`route.ts`, `middleware.ts`) that already happen to be kebab-case — but if you colocate helpers there with non-kebab names (`useThing.ts`, `MyHelper.ts`), the rule will flag them.
+
+The `nextjs` and `nextjs/recommended` presets ship with an override that **automatically disables this rule** for files under `app/**`, `src/app/**`, `pages/**`, and `src/pages/**` (matched against `*.{js,jsx,ts,tsx}`). Filename conventions in those directories are owned by the framework, not by this plugin. The `base` and `react` presets do **not** include this override — they enforce `file-kebab-case` on every `.ts`/`.js` regardless of directory.
+
 ## Disabling the Rule
 
-To opt out for a specific directory or file pattern, add an override in your flat config:
+To opt out for additional directories or file patterns, add an override in your flat config:
 
 ```js
 import nextfriday from "eslint-plugin-nextfriday";
