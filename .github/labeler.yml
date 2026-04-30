@@ -4,9 +4,7 @@ rules:
 
 tests:
   - changed-files:
-      - any-glob-to-any-file:
-          - "**/__tests__/**"
-          - "**/*.test.ts"
+      - any-glob-to-any-file: "**/*.test.ts"
 
 dependencies:
   - changed-files:

@@ -17,29 +17,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     if: ${{ github.event.pull_request.draft == false }}
-    env:
-      IS_TRUSTED_BOT: >-
-        ${{
-          contains(fromJson('["github-actions[bot]","changeset-bot","changeset-bot[bot]","dependabot[bot]"]'), github.actor)
-          || contains(fromJson('["github-actions[bot]","changeset-bot","changeset-bot[bot]","dependabot[bot]"]'), github.event.pull_request.user.login)
-          || github.event.pull_request.user.type == 'Bot'
-          || startsWith(github.event.pull_request.title, 'ci(changesets):')
-          || startsWith(github.head_ref, 'changeset-release/')
-        }}
 
     steps:
-      - name: Fast-pass for trusted bots
-        if: ${{ env.IS_TRUSTED_BOT == 'true' }}
-        run: echo "Trusted bot PR → skip commitlint but report success."
-
       - name: Checkout Repository
-        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Validate Commit Messages
-        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
         uses: wagoid/commitlint-github-action@v6
         with:
           configFile: .commitlintrc.json

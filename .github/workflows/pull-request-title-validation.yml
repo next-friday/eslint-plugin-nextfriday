@@ -18,23 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     if: ${{ github.event.pull_request.draft == false }}
-    env:
-      IS_TRUSTED_BOT: >-
-        ${{
-          contains(fromJson('["github-actions[bot]","changeset-bot","changeset-bot[bot]","dependabot[bot]"]'), github.actor)
-          || contains(fromJson('["github-actions[bot]","changeset-bot","changeset-bot[bot]","dependabot[bot]"]'), github.event.pull_request.user.login)
-          || github.event.pull_request.user.type == 'Bot'
-          || startsWith(github.event.pull_request.title, 'ci(changesets):')
-          || startsWith(github.head_ref, 'changeset-release/')
-        }}
 
     steps:
-      - name: Fast-pass for trusted bots
-        if: ${{ env.IS_TRUSTED_BOT == 'true' }}
-        run: echo "Trusted bot PR → skip PR title validation but report success."
-
       - name: Validate PR Title
-        if: ${{ env.IS_TRUSTED_BOT != 'true' }}
         uses: amannn/action-semantic-pull-request@v6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

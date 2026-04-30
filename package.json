@@ -45,6 +45,7 @@
     "lib"
   ],
   "scripts": {
+    "audit": "pnpm audit --prod --audit-level high",
     "build": "tsup",
     "changeset": "changeset",
     "changeset:publish": "npm publish --provenance --access public",

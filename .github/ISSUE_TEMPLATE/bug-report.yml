@@ -46,21 +46,12 @@ body:
     validations:
       required: true
 
-  - type: dropdown
+  - type: input
     id: rule_affected
     attributes:
-      label: Affected Rule
-      description: Which ESLint rule is causing the issue?
-      options:
-        - "nextfriday/no-emoji"
-        - "nextfriday/file-kebab-case"
-        - "nextfriday/jsx-pascal-case"
-        - "nextfriday/prefer-destructuring-params"
-        - "nextfriday/no-explicit-return-type"
-        - "nextfriday/prefer-import-type"
-        - "Configuration (base/react/nextjs)"
-        - "Plugin setup/installation"
-        - "Other (please describe)"
+      label: Affected Rule or Configuration
+      description: Which rule, configuration preset, or feature is causing the issue?
+      placeholder: e.g. nextfriday/jsx-pascal-case, configs.react, plugin setup
     validations:
       required: true
 
