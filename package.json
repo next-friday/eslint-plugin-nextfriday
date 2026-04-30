@@ -82,7 +82,7 @@
     "@swc/jest": "^0.2.39",
     "@types/eslint": "^9.6.1",
     "@types/jest": "^30.0.0",
-    "@types/node": "^22.19.17",
+    "@types/node": "^25.6.0",
     "@types/ramda": "^0.31.1",
     "@typescript-eslint/parser": "^8.59.1",
     "@typescript-eslint/rule-tester": "^8.59.1",
@@ -99,7 +99,7 @@
     "sort-package-json": "^3.6.1",
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.1"
   },
   "peerDependencies": {
