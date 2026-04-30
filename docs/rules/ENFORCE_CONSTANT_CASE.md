@@ -8,6 +8,8 @@ This rule ensures that global-scope `const` declarations with static values use 
 
 Only global scope (top-level of a file) is checked. Local scope constants inside functions are not checked by this rule.
 
+**Config files are exempt.** Files matching `*.config.{ts,mjs,cjs,js}`, `*.rc.*`, `*.setup.*`, `*.spec.*`, `*.test.*`, `.eslintrc*`, `.babelrc*`, and `.prettierrc*` skip this rule entirely. This avoids conflicts with framework conventions that require specific identifier names — e.g. Next.js expects `nextConfig` (not `NEXT_CONFIG`) in `next.config.ts`, Vite expects `config`, Tailwind expects `config`, etc.
+
 ## Examples
 
 ### Incorrect
@@ -53,6 +55,35 @@ function foo() {
   const maxRetry = 3;
 }
 ```
+
+## Configuration
+
+This rule pairs with [`no-misleading-constant-case`](./NO_MISLEADING_CONSTANT_CASE.md) so that static globals use `SCREAMING_SNAKE_CASE` while local scopes and dynamic values keep `camelCase`. ESLint 9+ flat config:
+
+```js
+import nextfriday from "eslint-plugin-nextfriday";
+
+export default [
+  {
+    plugins: { nextfriday },
+    rules: {
+      "nextfriday/enforce-constant-case": "error",
+      "nextfriday/no-misleading-constant-case": "error",
+      "nextfriday/enforce-camel-case": "error",
+    },
+  },
+];
+```
+
+Or via a preset (every preset already enables all three at the configured severity):
+
+```js
+import nextfriday from "eslint-plugin-nextfriday";
+
+export default [nextfriday.configs["base/recommended"]];
+```
+
+This plugin only supports ESLint 9+ flat config — legacy `.eslintrc` is not supported.
 
 ## When Not To Use It
 

@@ -63,20 +63,20 @@ describe("ESLint Plugin Configs", () => {
   });
 
   describe("Next.js configurations", () => {
-    it("should have nextjs configuration", () => {
+    it("should have nextjs configuration as an array of config objects", () => {
       expect(configs).toHaveProperty("nextjs");
-      expect(typeof configs.nextjs).toBe("object");
-      expect(configs.nextjs).toHaveProperty("rules");
+      expect(Array.isArray(configs.nextjs)).toBe(true);
+      expect(configs.nextjs[0]).toHaveProperty("rules");
     });
 
-    it("should have nextjs/recommended configuration", () => {
+    it("should have nextjs/recommended configuration as an array of config objects", () => {
       expect(configs).toHaveProperty("nextjs/recommended");
-      expect(typeof configs["nextjs/recommended"]).toBe("object");
-      expect(configs["nextjs/recommended"]).toHaveProperty("rules");
+      expect(Array.isArray(configs["nextjs/recommended"])).toBe(true);
+      expect(configs["nextjs/recommended"][0]).toHaveProperty("rules");
     });
 
     it("should have correct nextjs rules (including jsx-pascal-case)", () => {
-      const nextjsRules = configs.nextjs.rules;
+      const nextjsRules = configs.nextjs[0].rules;
       expect(nextjsRules).toHaveProperty("nextfriday/no-emoji", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/file-kebab-case", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/jsx-pascal-case", "warn");
@@ -88,14 +88,28 @@ describe("ESLint Plugin Configs", () => {
       expect(nextjsRules).toHaveProperty("nextfriday/prefer-import-type", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/prefer-react-import-types", "warn");
     });
+
+    it("should disable jsx-pascal-case in Next.js routing directories", () => {
+      const override = configs.nextjs[1] as { files: string[]; rules: Record<string, string> };
+      expect(override).toHaveProperty("files");
+      expect(override.files).toEqual(
+        expect.arrayContaining([
+          "app/**/*.{jsx,tsx}",
+          "src/app/**/*.{jsx,tsx}",
+          "pages/**/*.{jsx,tsx}",
+          "src/pages/**/*.{jsx,tsx}",
+        ]),
+      );
+      expect(override.rules).toEqual({ "nextfriday/jsx-pascal-case": "off" });
+    });
   });
 
   it("should set warn severity for regular configs and error for recommended configs", () => {
-    const regularConfigs = [configs.base, configs.react, configs.nextjs];
+    const regularConfigs = [configs.base, configs.react, configs.nextjs[0]];
     const recommendedConfigs = [
       configs["base/recommended"],
       configs["react/recommended"],
-      configs["nextjs/recommended"],
+      configs["nextjs/recommended"][0],
     ];
 
     regularConfigs.forEach((config) => {

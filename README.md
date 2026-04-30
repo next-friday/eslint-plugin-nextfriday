@@ -46,24 +46,49 @@ export default [nextfriday.configs.nextjs];
 export default [nextfriday.configs["nextjs/recommended"]];
 ```
 
-#### Bundled Plugin Configs
+### Extending a Preset with Rule Overrides
 
-Pre-configured configs for popular plugins. No extra install needed — they ship as dependencies. These configs are arrays, so use the spread operator (`...`) to merge them into your flat config.
+To use a preset and adjust individual rules, append a second config object after the preset. Later objects override earlier ones, so you can change severity, swap options, or add rules without re-declaring the entire preset.
+
+For example, enforce PascalCase for React components via the `react/recommended` preset (which already runs `nextfriday/jsx-pascal-case` and `nextfriday/enforce-camel-case` as errors), and add a rule override on top:
 
 ```js
 import nextfriday from "eslint-plugin-nextfriday";
 
-export default [nextfriday.configs["react/recommended"], ...nextfriday.configs.sonarjs, ...nextfriday.configs.unicorn];
+export default [
+  nextfriday.configs["react/recommended"],
+
+  {
+    rules: {
+      "nextfriday/jsx-pascal-case": "error",
+      "nextfriday/enforce-props-suffix": "error",
+      "nextfriday/sort-imports": "warn",
+    },
+  },
+];
 ```
 
-| Config    | Plugin                | Description                                                                                                |
-| --------- | --------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `sonarjs` | eslint-plugin-sonarjs | SonarJS recommended rules for bug detection and code quality                                               |
-| `unicorn` | eslint-plugin-unicorn | Unicorn recommended rules (with `filename-case` and `prevent-abbreviations` off, `no-null` off in JSX/TSX) |
+The first object enables every rule in `react/recommended`. The second object reaffirms `jsx-pascal-case` (already enforced — useful when you want it loud and explicit), enables `enforce-props-suffix`, and downgrades `sort-imports` from error to warning.
 
 ### Manual Configuration
 
-If you prefer to configure rules manually:
+#### When to use manual configuration vs a preset
+
+Reach for a preset (`base`, `react`, `nextjs`, or any `/recommended` variant) by default. Presets are curated, kept in sync with new rules as the plugin grows, and require almost no maintenance on your side.
+
+Choose manual configuration when one of these applies:
+
+| Scenario                                                                            | Why manual fits better                                                                                                              |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| You only need a few specific rules                                                  | Presets enable the full set; manual lets you adopt rules one at a time.                                                             |
+| You want to opt out of new rules added in future plugin releases                    | Manual configs are explicit — new rules added to a preset would automatically apply, manual configs don't change without your edit. |
+| You're consolidating multiple ESLint plugins and want fine-grained per-rule control | Avoids preset rules conflicting with rules from other plugins.                                                                      |
+| You're building a higher-level shared config for your org                           | You can hand-pick exactly which NextFriday rules to bundle into your own preset.                                                    |
+| You're debugging a rule conflict                                                    | Manual makes the active rule set unambiguous.                                                                                       |
+
+For every other case — new projects, gradual adoption, library code, application code — start from a preset and use [Extending a Preset with Rule Overrides](#extending-a-preset-with-rule-overrides) when you need to adjust specific rules.
+
+#### Manual configuration example
 
 ```js
 import nextfriday from "eslint-plugin-nextfriday";
@@ -151,7 +176,108 @@ export default [
 
 > **Note:** This plugin requires ESLint 9+ and only supports the flat config format. Legacy `.eslintrc` configurations are not supported.
 
+### Per-Directory Configuration
+
+ESLint flat config is an array of config objects. Each object's `files` and `ignores` glob patterns scope its rules to a subset of the project. Use this to apply different rule severities to different directories.
+
+```js
+import nextfriday from "eslint-plugin-nextfriday";
+
+export default [
+  {
+    files: ["src/components/**/*.{ts,tsx}"],
+    ...nextfriday.configs["react/recommended"],
+  },
+
+  {
+    files: ["src/utils/**/*.ts"],
+    ...nextfriday.configs.base,
+  },
+
+  {
+    files: ["src/legacy/**/*.{ts,tsx}"],
+    ignores: ["src/legacy/**/*"],
+  },
+
+  {
+    files: ["**/*.test.{ts,tsx}"],
+    rules: {
+      "nextfriday/require-explicit-return-type": "off",
+      "nextfriday/no-single-char-variables": "off",
+    },
+  },
+];
+```
+
+The first config block applies the strict `react/recommended` preset (errors) to component files. The second applies the looser `base` preset (warnings) to utilities. The third excludes legacy code from linting entirely. The fourth keeps lint enabled for tests but turns off rules that conflict with common test patterns.
+
+### Migration Strategy
+
+For an existing codebase with many violations, enable rules gradually instead of all at once. Three patterns, in order of how disruptive each is to your team:
+
+**1. Start with the warn-level preset.** All rules surface as warnings, so the build still passes. Fix issues at your own pace, then switch to `/recommended`.
+
+```js
+import nextfriday from "eslint-plugin-nextfriday";
+
+export default [nextfriday.configs.react];
+```
+
+**2. Lock-in a clean directory at a time.** Use `files` to apply `/recommended` (errors) only where the code is already clean, and the warn-level preset everywhere else.
+
+```js
+import nextfriday from "eslint-plugin-nextfriday";
+
+export default [
+  nextfriday.configs.react,
+
+  {
+    files: ["src/components/v2/**/*.{ts,tsx}", "src/lib/**/*.ts"],
+    ...nextfriday.configs["react/recommended"],
+  },
+];
+```
+
+**3. Disable individual rules until the codebase is ready.** Re-declare specific rules with a lower severity (or `"off"`) after spreading the preset. Useful when one rule produces too much noise to fix at once.
+
+```js
+import nextfriday from "eslint-plugin-nextfriday";
+
+export default [
+  nextfriday.configs["react/recommended"],
+
+  {
+    rules: {
+      "nextfriday/require-explicit-return-type": "warn",
+      "nextfriday/sort-imports": "off",
+    },
+  },
+];
+```
+
+Pair these with `ignores` to skip vendored or generated files entirely:
+
+```js
+{
+  ignores: ["dist/**", "build/**", "**/*.generated.ts"],
+}
+```
+
+#### Prioritize rules by impact
+
+When the warn-level preset surfaces hundreds of violations, fix them in this order — high-impact rules catch real bugs, while low-impact rules are style preferences that can wait.
+
+| Tier                                  | Examples                                                                                                                                                                           | Why first                                                                                                                       |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| High — correctness and runtime safety | `no-direct-date`, `no-env-fallback`, `nextjs-require-public-env`, `enforce-readonly-component-props`, `jsx-no-non-component-function`, `enforce-hook-naming`, `no-logic-in-params` | Each violation can mask a bug, leak config, or break React's rules of hooks. Fix before they ship.                              |
+| Medium — structure and naming         | `boolean-naming-prefix`, `enforce-camel-case`, `enforce-constant-case`, `file-kebab-case`, `jsx-pascal-case`, `enforce-props-suffix`, `prefer-import-type`                         | No runtime impact, but inconsistent naming compounds review and onboarding cost. Fix once the high tier is clean.               |
+| Low — formatting and ordering         | `sort-imports`, `sort-exports`, `sort-type-alphabetically`, `jsx-sort-props`, `newline-before-return`, `newline-after-multiline-block`, `no-emoji`                                 | Cosmetic. Most are auto-fixable, so a single `pnpm eslint --fix` pass typically clears the whole codebase. Save these for last. |
+
+In practice: turn the high tier on as `"error"` first, leave the medium tier as `"warn"` while you migrate, and run the auto-fixers for the low tier in a single dedicated PR.
+
 ## Rules
+
+> All rules in this plugin have no configurable options (`schema: []`). The only knob is severity — set each rule to `"error"`, `"warn"`, or `"off"`. Behavior is intentionally fixed so that the same rule means the same thing across every project.
 
 ### Variable Naming Rules
 

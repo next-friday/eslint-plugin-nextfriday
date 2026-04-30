@@ -108,6 +108,31 @@ describe("enforce-constant-case", () => {
         code: `const API_URL = process.env.API_URL;`,
         name: "should ignore process.env assignment",
       },
+      {
+        code: `const nextConfig = { reactStrictMode: true };`,
+        filename: "next.config.ts",
+        name: "should skip rule entirely in next.config.ts",
+      },
+      {
+        code: `const config = { plugins: ["foo"] };`,
+        filename: "vite.config.ts",
+        name: "should skip rule entirely in vite.config.ts",
+      },
+      {
+        code: `const config = { content: ["./src/**/*.tsx"] };`,
+        filename: "tailwind.config.ts",
+        name: "should skip rule entirely in tailwind.config.ts",
+      },
+      {
+        code: `const config = { plugins: { "@tailwindcss/postcss": {} } };`,
+        filename: "postcss.config.mjs",
+        name: "should skip rule entirely in postcss.config.mjs",
+      },
+      {
+        code: `const config = { extends: ["stylelint-config-standard"] };`,
+        filename: "stylelint.config.ts",
+        name: "should skip rule entirely in stylelint.config.ts",
+      },
     ],
     invalid: [
       {

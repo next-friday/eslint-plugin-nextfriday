@@ -34,7 +34,7 @@ The plugin dogfoods its own rules via `eslint.config.mjs`. Build config lives in
 
 - `meta` - Plugin name and version from package.json
 - `rules` - All 56 rule implementations keyed by hyphenated name
-- `configs` - Eight configuration presets (six nextfriday presets via `createConfig()`, plus lazy `sonarjs` and `unicorn` getters that wrap external plugins)
+- `configs` - Six configuration presets via `createConfig()` (each rule set has a `warn` and `error`/`recommended` variant)
 
 The plugin is exported both as default and as named exports `{ meta, configs, rules }`.
 
@@ -48,17 +48,13 @@ All rules use `schema: []` and `defaultOptions: []` (no configurable options).
 
 ### Configuration Presets
 
-Eight configs total. Six nextfriday presets built from three rule set tiers, each with a `warn` variant and a `Recommended` (`error`) variant defined as separate constants in `src/index.ts` (e.g., `baseRules`/`baseRecommendedRules`, `jsxRules`/`jsxRecommendedRules`, `nextjsOnlyRules`/`nextjsOnlyRecommendedRules`). Two additional configs (`sonarjs`, `unicorn`) are lazy getters wrapping external plugins.
+Six configs total. Three rule set tiers, each with a `warn` variant and a `Recommended` (`error`) variant defined as separate constants in `src/index.ts` (e.g., `baseRules`/`baseRecommendedRules`, `jsxRules`/`jsxRecommendedRules`, `nextjsOnlyRules`/`nextjsOnlyRecommendedRules`).
 
-| Preset                          | Rules                             | Severity     |
-| ------------------------------- | --------------------------------- | ------------ |
-| `base` / `base/recommended`     | 40 base                           | warn / error |
-| `react` / `react/recommended`   | 40 base + 15 JSX                  | warn / error |
-| `nextjs` / `nextjs/recommended` | 40 base + 15 JSX + 1 nextjs       | warn / error |
-| `sonarjs`                       | eslint-plugin-sonarjs recommended | -            |
-| `unicorn`                       | eslint-plugin-unicorn recommended | -            |
-
-The `unicorn` getter intentionally disables `unicorn/filename-case` and `unicorn/prevent-abbreviations` globally, plus `unicorn/no-null` for `**/*.jsx`/`**/*.tsx` files. Preserve these overrides if editing the getter — they're product decisions, not oversights.
+| Preset                          | Rules                       | Severity     |
+| ------------------------------- | --------------------------- | ------------ |
+| `base` / `base/recommended`     | 40 base                     | warn / error |
+| `react` / `react/recommended`   | 40 base + 15 JSX            | warn / error |
+| `nextjs` / `nextjs/recommended` | 40 base + 15 JSX + 1 nextjs | warn / error |
 
 ### Utilities
 

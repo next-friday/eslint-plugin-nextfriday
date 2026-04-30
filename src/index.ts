@@ -1,6 +1,3 @@
-import rawSonarjs from "eslint-plugin-sonarjs";
-import rawUnicorn from "eslint-plugin-unicorn";
-
 import packageJson from "../package.json" assert { type: "json" };
 
 import booleanNamingPrefix from "./rules/boolean-naming-prefix";
@@ -62,11 +59,6 @@ import sortTypeAlphabetically from "./rules/sort-type-alphabetically";
 import sortTypeRequiredFirst from "./rules/sort-type-required-first";
 
 import type { TSESLint } from "@typescript-eslint/utils";
-
-interface ExternalPlugin {
-  default?: ExternalPlugin;
-  configs: { recommended: { rules: Record<string, string> } };
-}
 
 const meta = {
   name: packageJson.name,
@@ -277,6 +269,22 @@ const createConfig = (configRules: Record<string, string>) => ({
   rules: configRules,
 });
 
+const NEXTJS_ROUTING_GLOBS = [
+  "app/**/*.{jsx,tsx}",
+  "src/app/**/*.{jsx,tsx}",
+  "pages/**/*.{jsx,tsx}",
+  "src/pages/**/*.{jsx,tsx}",
+];
+
+const nextjsRoutingOverride = {
+  files: NEXTJS_ROUTING_GLOBS,
+  rules: {
+    "nextfriday/jsx-pascal-case": "off",
+  },
+};
+
+const createNextjsConfig = (configRules: Record<string, string>) => [createConfig(configRules), nextjsRoutingOverride];
+
 const configs = {
   base: createConfig(baseRules),
   "base/recommended": createConfig(baseRecommendedRules),
@@ -288,55 +296,16 @@ const configs = {
     ...baseRecommendedRules,
     ...jsxRecommendedRules,
   }),
-  nextjs: createConfig({
+  nextjs: createNextjsConfig({
     ...baseRules,
     ...jsxRules,
     ...nextjsOnlyRules,
   }),
-  "nextjs/recommended": createConfig({
+  "nextjs/recommended": createNextjsConfig({
     ...baseRecommendedRules,
     ...jsxRecommendedRules,
     ...nextjsOnlyRecommendedRules,
   }),
-  get sonarjs() {
-    const pluginSonarjs = ((rawSonarjs as ExternalPlugin).default ?? rawSonarjs) as ExternalPlugin;
-    const sonarjsRules = pluginSonarjs.configs.recommended.rules;
-    return [
-      {
-        name: "sonarjs/config",
-        plugins: {
-          sonarjs: pluginSonarjs as unknown as TSESLint.FlatConfig.Plugin,
-        },
-        rules: {
-          ...sonarjsRules,
-        },
-      },
-    ];
-  },
-  get unicorn() {
-    const pluginUnicorn = ((rawUnicorn as ExternalPlugin).default ?? rawUnicorn) as ExternalPlugin;
-    const unicornRules = pluginUnicorn.configs.recommended.rules;
-    return [
-      {
-        name: "unicorn/config",
-        plugins: {
-          unicorn: pluginUnicorn as unknown as TSESLint.FlatConfig.Plugin,
-        },
-        rules: {
-          ...unicornRules,
-          "unicorn/filename-case": "off",
-          "unicorn/prevent-abbreviations": "off",
-        },
-      },
-      {
-        name: "unicorn/jsx-tsx-exceptions",
-        files: ["**/*.jsx", "**/*.tsx"],
-        rules: {
-          "unicorn/no-null": "off",
-        },
-      },
-    ];
-  },
 };
 
 const nextfridayPlugin = {
