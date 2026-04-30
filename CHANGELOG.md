@@ -1,5 +1,51 @@
 # eslint-plugin-nextfriday
 
+## 3.0.0
+
+### Major Changes
+
+- [#114](https://github.com/next-friday/eslint-plugin-nextfriday/pull/114) [`7933269`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/793326971cbbf15aaf2015f13622b7eff0fd51b2) Thanks [@joetakara](https://github.com/joetakara)! - Remove bundled `configs.sonarjs` and `configs.unicorn`. These configs are no longer exported. Consumers that previously did `...nextfriday.configs.sonarjs` or `...nextfriday.configs.unicorn` must install `eslint-plugin-sonarjs` and/or `eslint-plugin-unicorn` directly and configure them in their own flat config.
+
+  Migration:
+
+  ```js
+  import sonarjs from "eslint-plugin-sonarjs";
+  import unicorn from "eslint-plugin-unicorn";
+
+  export default [
+    {
+      plugins: { sonarjs },
+      rules: { ...sonarjs.configs.recommended.rules },
+    },
+    {
+      plugins: { unicorn },
+      rules: { ...unicorn.configs.recommended.rules },
+    },
+  ];
+  ```
+
+  The remaining six presets (`base`, `base/recommended`, `react`, `react/recommended`, `nextjs`, `nextjs/recommended`) are unchanged.
+
+- [#114](https://github.com/next-friday/eslint-plugin-nextfriday/pull/114) [`7933269`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/793326971cbbf15aaf2015f13622b7eff0fd51b2) Thanks [@joetakara](https://github.com/joetakara)! - `nextjs` and `nextjs/recommended` presets are now arrays of flat-config objects instead of a single object. The first object enables the rules; the second disables `nextfriday/jsx-pascal-case` for files matching `app/**/*.{jsx,tsx}`, `src/app/**/*.{jsx,tsx}`, `pages/**/*.{jsx,tsx}`, and `src/pages/**/*.{jsx,tsx}` — Next.js's official routing directories where filenames are owned by the framework (`page.tsx`, `layout.tsx`, `error.tsx`, etc.).
+
+  `base`, `base/recommended`, `react`, and `react/recommended` are unchanged — they remain single config objects and `jsx-pascal-case` is enforced everywhere when those presets are used.
+
+  The `jsx-pascal-case` rule itself no longer special-cases any filename or directory. Scope is expressed in the preset via ESLint's `files` glob, not via rule-internal allowlists. Consumers using `react`/`react/recommended` on a Next.js project must either switch to the `nextjs` preset or add their own `files`-scoped override.
+
+  Migration:
+
+  ```js
+  import nextfriday from "eslint-plugin-nextfriday";
+
+  export default [nextfriday.configs["nextjs/recommended"]];
+  ```
+
+  ESLint 9+ flattens nested config arrays automatically, so existing usage continues to work.
+
+### Patch Changes
+
+- [#114](https://github.com/next-friday/eslint-plugin-nextfriday/pull/114) [`7933269`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/793326971cbbf15aaf2015f13622b7eff0fd51b2) Thanks [@joetakara](https://github.com/joetakara)! - Fix `enforce-constant-case` flagging conventional names in framework config files. The rule now skips entirely when run on `*.config.{ts,mjs,cjs,js}`, `*.rc.*`, `*.setup.*`, `*.spec.*`, `*.test.*`, `.eslintrc*`, `.babelrc*`, and `.prettierrc*`. Frameworks like Next.js require `nextConfig` in `next.config.ts`, Vite/Tailwind require `config`, etc. — these conventions can no longer be incorrectly flagged as needing `SCREAMING_SNAKE_CASE`.
+
 ## 2.0.0
 
 ### Major Changes
