@@ -1,14 +1,23 @@
 # enforce-constant-case
 
-Enforce SCREAMING_SNAKE_CASE for global constant static values.
+Enforce SCREAMING_SNAKE_CASE for global magic-number and magic-text constants.
 
 ## Rule Details
 
-This rule ensures that global-scope `const` declarations with static values use SCREAMING_SNAKE_CASE naming convention. Static values include: string/number/boolean literals, RegExp, static template literals, `as const` assertions, and objects/arrays containing only literal values.
+This rule ensures that global-scope `const` declarations bound to a **magic number** or **magic text** literal use SCREAMING_SNAKE_CASE. The rule scope is intentionally narrow:
+
+- A magic text constant is a string literal: `const API_URL = "https://api.example.com"`
+- A magic number constant is a number literal (including a unary `-`/`+` over a numeric literal): `const PAGE_LIMIT = 10`, `const OFFSET = -1`
+
+Anything else is **not** checked: booleans, RegExp, template literals (static or dynamic), arrays, objects, `as const` assertions, function calls, identifiers, member expressions, JSX. Use whatever name fits the value (`metadata`, `viewport`, `statusMap`, `phoneRegex`, `isEnabled`, etc.) — the rule will not flag it.
 
 Only global scope (top-level of a file) is checked. Local scope constants inside functions are not checked by this rule.
 
 **Config files are exempt.** Files matching `*.config.{ts,mjs,cjs,js}`, `*.rc.*`, `*.setup.*`, `*.spec.*`, `*.test.*`, `.eslintrc*`, `.babelrc*`, and `.prettierrc*` skip this rule entirely. This avoids conflicts with framework conventions that require specific identifier names — e.g. Next.js expects `nextConfig` (not `NEXT_CONFIG`) in `next.config.ts`, Vite expects `config`, Tailwind expects `config`, etc.
+
+### Why magic numbers and magic text only?
+
+Reserved framework export names commonly bind to objects (Next.js App Router exports `metadata`, `viewport`, `generateStaticParams`, `dynamic`, `revalidate`, `runtime`, `fetchCache`, `dynamicParams`, `preferredRegion`, `maxDuration`; React Server Components and others have similar patterns). Forcing SCREAMING_SNAKE_CASE on any static-shaped initializer would rename those exports and break framework integration. Restricting the rule to bare number and string literals keeps the convention where it adds value (avoiding magic constants scattered through code) without colliding with framework-owned names.
 
 ## Examples
 
@@ -18,10 +27,8 @@ Only global scope (top-level of a file) is checked. Local scope constants inside
 const defaultCover = "/images/default.jpg";
 const pageLimit = 10;
 const apiBaseUrl = "https://api.example.com";
-const template = `hello world`;
-const phoneRegex = /^[0-9]{10}$/;
+const negativeOne = -1;
 const default_theme = "dark";
-export const categories = [{ id: "1" }] as const;
 ```
 
 ### Correct
@@ -30,35 +37,39 @@ export const categories = [{ id: "1" }] as const;
 const DEFAULT_COVER = "/images/default.jpg";
 const PAGE_LIMIT = 10;
 const API_BASE_URL = "https://api.example.com";
-const TEMPLATE = `hello world`;
-const PHONE_REGEX = /^[0-9]{10}$/;
+const NEGATIVE_ONE = -1;
 const DEFAULT_THEME = "dark";
-export const CATEGORIES = [{ id: "1" }] as const;
 
-const SKELETON_ITEMS = [1, 2, 3, 4, 5];
-const MAP_STYLE = { height: "320px", width: "100%" };
-const STATUS_MAP = { ACTIVE: "active" } as const;
-
-// Booleans with standard prefixes (is, has, should, etc.) are exempt
 const isProduction = true;
 const hasAccess = false;
+const featureEnabled = true;
 
-// Template literals with expressions are dynamic, camelCase is fine
+const phoneRegex = /^[0-9]{10}$/;
+const template = `hello world`;
+const skeletonItems = [1, 2, 3, 4, 5];
+const mapStyle = { height: "320px", width: "100%" };
+const statusMap = { ACTIVE: "active" } as const;
+const categories = [{ id: "1" }] as const;
+
+export const metadata: Metadata = { title: "404 - Page Not Found" };
+export const viewport: Viewport = { themeColor: "#fff" };
+export const generateStaticParams = async () => [];
+
 const pendingHref = `/branch/${branch.branchNumber}`;
 
-// Functions and components are not checked
 const handleClick = () => {};
 const MyComponent = () => {};
 
-// Local scope is not checked
 function foo() {
   const maxRetry = 3;
 }
 ```
 
+> Note: Next.js App Router has a few string-valued reserved exports — `dynamic = "force-dynamic"`, `runtime = "edge"`, `fetchCache = "default-cache"`, etc. — and one number-valued one (`revalidate = 60`, `maxDuration = 30`). These remain in scope for this rule because their initializers are bare literals. Disable `nextfriday/enforce-constant-case` for `app/**` and `pages/**` in your own flat config if you use those exports.
+
 ## Configuration
 
-This rule has no options — only severity is configurable (`"error"`, `"warn"`, `"off"`). It pairs with [`no-misleading-constant-case`](./NO_MISLEADING_CONSTANT_CASE.md) so that static globals use `SCREAMING_SNAKE_CASE` while local scopes and dynamic values keep `camelCase`.
+This rule has no options — only severity is configurable (`"error"`, `"warn"`, `"off"`). It pairs with [`no-misleading-constant-case`](./NO_MISLEADING_CONSTANT_CASE.md) so that magic-literal globals use `SCREAMING_SNAKE_CASE` while local scopes and dynamic values keep `camelCase`.
 
 ### Install
 
