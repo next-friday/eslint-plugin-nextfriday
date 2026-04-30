@@ -5,16 +5,27 @@ on:
     branches: [main]
 
 concurrency:
-  group: commit-validation-${{ github.event.pull_request.number }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   validate-commits:
     name: Validate Commit Messages
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     if: ${{ github.event.pull_request.draft == false }}
     env:
-      IS_TRUSTED_BOT: ${{ github.actor == 'github-actions[bot]' || github.actor == 'changeset-bot' || github.event.pull_request.user.type == 'Bot' }}
+      IS_TRUSTED_BOT: >-
+        ${{
+          contains(fromJson('["github-actions[bot]","changeset-bot","changeset-bot[bot]","dependabot[bot]"]'), github.actor)
+          || contains(fromJson('["github-actions[bot]","changeset-bot","changeset-bot[bot]","dependabot[bot]"]'), github.event.pull_request.user.login)
+          || github.event.pull_request.user.type == 'Bot'
+          || startsWith(github.event.pull_request.title, 'ci(changesets):')
+          || startsWith(github.head_ref, 'changeset-release/')
+        }}
 
     steps:
       - name: Fast-pass for trusted bots

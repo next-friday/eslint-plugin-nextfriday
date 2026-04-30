@@ -1,52 +1,31 @@
 ## Summary
 
-Brief description of the changes in this PR.
+<!-- What does this PR change and why? -->
 
 ## Type of Change
 
 - [ ] Bug fix
-- [ ] New feature
+- [ ] New rule or rule enhancement
 - [ ] Breaking change
-- [ ] Documentation update
-- [ ] Refactor
-- [ ] Performance improvement
-- [ ] Test improvement
+- [ ] Documentation
+- [ ] Tooling / CI
 
-## Changes Made
+## Test Plan
 
--
--
--
-
-## Testing
-
-- [ ] Unit tests pass
-- [ ] Manual testing completed
-- [ ] Added/updated tests for new functionality
+<!-- How was this verified? Reference test files or include reproducible steps. -->
 
 ## Related Issues
 
-Closes #[issue_number]
+<!-- Closes #N -->
 
-## Pre-merge Checklist
-
-<!-- For maintainers - contributors can ignore this section -->
+---
 
 <details>
+<summary>Maintainer checklist</summary>
 
-<summary>For maintainers</summary>
-
-- [ ] Code follows the project's style guidelines
-- [ ] Self-review of code completed
-- [ ] All tests pass locally
-- [ ] ESLint checks pass
-- [ ] TypeScript compilation successful
-- [ ] Changeset added (for src/ or docs/ changes)
-- [ ] Documentation updated (if applicable)
-- [ ] Breaking changes documented
-- [ ] Examples updated (if API changed)
-- [ ] Commit messages follow conventional commits
-- [ ] No debug code or console.log statements left
-- [ ] Performance impact considered
+- [ ] Tests added or updated
+- [ ] Docs added or updated (`docs/rules/` and `README.md`)
+- [ ] Changeset added (`pnpm changeset`) for `src/` or `docs/` changes
+- [ ] PR title follows `type(scope): subject` (no uppercase start, ≤50 chars)
 
 </details>

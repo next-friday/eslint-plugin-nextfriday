@@ -5,19 +5,24 @@ on:
     branches: [main]
 
 concurrency:
-  group: changeset-validation-${{ github.event.pull_request.number }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
-  validate-changes:
-    name: Validate Changes
+  validate-changeset:
+    name: Validate Changeset
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     if: ${{ github.event.pull_request.draft == false }}
     env:
       IS_TRUSTED_BOT: >-
         ${{
           contains(fromJson('["github-actions[bot]","changeset-bot","changeset-bot[bot]","dependabot[bot]"]'), github.actor)
-          || contains(fromJson('["github-actions[bot]","changeset-bot","changeset-bot[bot]"]'), github.event.pull_request.user.login)
+          || contains(fromJson('["github-actions[bot]","changeset-bot","changeset-bot[bot]","dependabot[bot]"]'), github.event.pull_request.user.login)
+          || github.event.pull_request.user.type == 'Bot'
           || startsWith(github.event.pull_request.title, 'ci(changesets):')
           || startsWith(github.head_ref, 'changeset-release/')
         }}
