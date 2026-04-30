@@ -14,5 +14,23 @@
         ]
       }
     ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git -C * diff*)",
+      "Bash(git -C * fetch*)",
+      "Bash(git -C * log*)",
+      "Bash(git -C * ls-files*)",
+      "Bash(git -C * stash*)",
+      "Bash(git -C * status*)",
+      "Bash(git diff *)",
+      "Bash(git fetch *)",
+      "Bash(git log *)",
+      "Bash(git ls-files *)",
+      "Bash(git stash *)",
+      "Bash(git status*)"
+    ],
+    "deny": ["Bash(git clean *)", "Bash(git push --force*)", "Bash(git reset --hard*)"],
+    "ask": ["Bash(git commit *)", "Bash(git push *)", "Bash(git rebase *)"]
   }
 }

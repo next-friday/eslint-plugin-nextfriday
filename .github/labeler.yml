@@ -1,0 +1,37 @@
+rules:
+  - changed-files:
+      - any-glob-to-any-file: "src/rules/**"
+
+tests:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "**/__tests__/**"
+          - "**/*.test.ts"
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "package.json"
+          - "pnpm-lock.yaml"
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file: ".github/**"
+
+changesets:
+  - changed-files:
+      - any-glob-to-any-file: ".changeset/**"
+
+config:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "*.config.{ts,mjs,js}"
+          - "tsconfig.json"
+          - "eslint.config.*"
+          - ".prettierrc*"
+          - ".husky/**"
+          - ".lintstagedrc*"
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: "**/*.md"

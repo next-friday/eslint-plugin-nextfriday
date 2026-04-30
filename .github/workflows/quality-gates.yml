@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 concurrency:
-  group: quality-${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -13,14 +13,21 @@ permissions:
 
 jobs:
   quality-checks:
-    if: ${{ github.event.pull_request.draft == false }}
     name: Quality Checks
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    if: ${{ github.event.pull_request.draft == false }}
     env:
       CI: true
       NODE_OPTIONS: --max-old-space-size=4096
-      IS_TRUSTED_BOT: ${{ github.actor == 'github-actions[bot]' || github.actor == 'changeset-bot' }}
+      IS_TRUSTED_BOT: >-
+        ${{
+          contains(fromJson('["github-actions[bot]","changeset-bot","changeset-bot[bot]","dependabot[bot]"]'), github.actor)
+          || contains(fromJson('["github-actions[bot]","changeset-bot","changeset-bot[bot]","dependabot[bot]"]'), github.event.pull_request.user.login)
+          || github.event.pull_request.user.type == 'Bot'
+          || startsWith(github.event.pull_request.title, 'ci(changesets):')
+          || startsWith(github.head_ref, 'changeset-release/')
+        }}
 
     steps:
       - name: Fast-pass for trusted bots
