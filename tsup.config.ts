@@ -8,5 +8,4 @@ export default defineConfig({
   clean: true,
   sourcemap: true,
   target: "es2020",
-  external: ["eslint-plugin-sonarjs", "eslint-plugin-unicorn"],
 });
