@@ -24,7 +24,7 @@ const userName = getUser(); // not "u" or "temp"
 
 Prefixes: `is`, `has`, `should`, `can`, `did`, `will`, `was`, `are`, `does`, `had`
 
-Files: `.ts` → `kebab-case.ts`, `.tsx` → `PascalCase.tsx`, `.md` → `UPPER_SNAKE_CASE.md`
+Files: `.ts` → `kebab-case.ts`, `.tsx` → `PascalCase.tsx`, `.md` → `UPPER_SNAKE_CASE.md`. Files under `app/**`, `src/app/**`, `pages/**`, `src/pages/**` follow Next.js conventions and are exempt from both filename rules under the `nextjs` preset.
 
 See [naming-conventions.md](./naming-conventions.md) for hook/service naming and props suffix rules.
 

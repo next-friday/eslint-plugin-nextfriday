@@ -270,15 +270,16 @@ const createConfig = (configRules: Record<string, string>) => ({
 });
 
 const NEXTJS_ROUTING_GLOBS = [
-  "app/**/*.{jsx,tsx}",
-  "src/app/**/*.{jsx,tsx}",
-  "pages/**/*.{jsx,tsx}",
-  "src/pages/**/*.{jsx,tsx}",
+  "app/**/*.{js,jsx,ts,tsx}",
+  "src/app/**/*.{js,jsx,ts,tsx}",
+  "pages/**/*.{js,jsx,ts,tsx}",
+  "src/pages/**/*.{js,jsx,ts,tsx}",
 ];
 
 const nextjsRoutingOverride = {
   files: NEXTJS_ROUTING_GLOBS,
   rules: {
+    "nextfriday/file-kebab-case": "off",
     "nextfriday/jsx-pascal-case": "off",
   },
 };

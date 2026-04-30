@@ -178,44 +178,115 @@ export default [
 
 ### Per-Directory Configuration
 
-ESLint flat config is an array of config objects. Each object's `files` and `ignores` glob patterns scope its rules to a subset of the project. Use this to apply different rule severities to different directories.
+#### How ESLint flat config resolves rules
+
+Flat config (the only format this plugin supports) is an **array of config objects** evaluated in order. For every file ESLint lints, it walks the array and merges every object whose `files` glob matches and whose `ignores` glob does not. Later objects override earlier ones rule-by-rule, so the **last matching object wins** for any given rule. Objects with no `files` field apply globally; objects with only `ignores` at the top level remove files from the entire run.
+
+This is why per-directory configuration works: you stack a global default first, then layer narrower `files`-scoped objects on top. ESLint 9+ also flattens nested arrays automatically, so spreading a preset that ships as an array (like `nextfriday.configs.nextjs`) works the same as spreading a single object.
+
+The legacy `.eslintrc` format used `overrides` and an inheritance tree to express the same thing. Flat config replaces that tree with a flat, deterministic array — easier to reason about, no implicit merging across `extends`, and no `parserOptions` plumbing per directory. The plugin does not ship `.eslintrc` shims, so projects on ESLint 8 or below cannot consume it without upgrading.
+
+#### Layering strict and loose presets
+
+Apply different rule severities to different directories by stacking config objects:
 
 ```js
 import nextfriday from "eslint-plugin-nextfriday";
 
 export default [
   {
-    files: ["src/components/**/*.{ts,tsx}"],
+    ignores: ["src/legacy/**", "dist/**", "build/**", "**/*.generated.ts"],
+  },
+
+  nextfriday.configs.react,
+
+  {
+    files: ["src/components/**/*.{ts,tsx}", "src/hooks/**/*.{ts,tsx}"],
     ...nextfriday.configs["react/recommended"],
   },
 
   {
-    files: ["src/utils/**/*.ts"],
-    ...nextfriday.configs.base,
+    files: ["src/utils/**/*.ts", "src/lib/**/*.ts"],
+    rules: {
+      "nextfriday/require-explicit-return-type": "error",
+      "nextfriday/no-relative-imports": "error",
+    },
   },
 
   {
-    files: ["src/legacy/**/*.{ts,tsx}"],
-    ignores: ["src/legacy/**/*"],
-  },
-
-  {
-    files: ["**/*.test.{ts,tsx}"],
+    files: ["**/*.{test,spec}.{ts,tsx}"],
     rules: {
       "nextfriday/require-explicit-return-type": "off",
       "nextfriday/no-single-char-variables": "off",
+      "nextfriday/no-direct-date": "off",
     },
   },
 ];
 ```
 
-The first config block applies the strict `react/recommended` preset (errors) to component files. The second applies the looser `base` preset (warnings) to utilities. The third excludes legacy code from linting entirely. The fourth keeps lint enabled for tests but turns off rules that conflict with common test patterns.
+Reading top to bottom:
+
+1. **Top-level `ignores`** removes legacy and build artifacts from the entire run. A config object containing _only_ `ignores` is treated as a global ignore — narrower `ignores` inside a `files`-scoped object only affect that object.
+2. **`nextfriday.configs.react`** applies as the warn-level baseline to every file ESLint sees (no `files` glob).
+3. **Component and hook directories** get promoted to `react/recommended` (errors). Because this object comes after the baseline, its severities win.
+4. **Utility directories** keep the warn-level baseline but selectively promote two correctness rules to `error`. Use this pattern when you don't want the full `/recommended` preset but do want specific rules treated as blocking.
+5. **Test files** keep most rules but turn off rules that conflict with common test patterns (single-letter loop counters, frozen `Date.now()` mocks, void-returning `it()` callbacks).
+
+#### Choosing a preset tier per directory
+
+| Code area                         | Suggested preset                            | Why                                                                        |
+| --------------------------------- | ------------------------------------------- | -------------------------------------------------------------------------- |
+| Library / SDK code                | `base/recommended` or `react/recommended`   | Public surface should be tightest. `error` blocks regressions at PR time.  |
+| New product code                  | `react/recommended` or `nextjs/recommended` | New code starts clean; lock the conventions in immediately.                |
+| Mature product code mid-migration | `react` or `nextjs` (warn)                  | Ship while migrating. Switch to `/recommended` after a clean run.          |
+| Tests, scripts, fixtures          | preset + targeted overrides                 | Keep the core lint signal; turn off rules that mismatch test/CLI patterns. |
+| Legacy / vendored / generated     | top-level `ignores`                         | No lint signal at all. Don't waste reviewer attention or CI time.          |
+
+#### Edge cases and troubleshooting
+
+- **Glob precedence is order-dependent, not specificity-based.** A more specific glob later in the array wins; a more specific glob _earlier_ in the array does not. If `files: ["src/**"]` appears after `files: ["src/components/**"]`, the broader rule set wins for components. Put broader configs first.
+- **`files` and `ignores` are anchored to the project root** (the directory containing `eslint.config.{js,mjs,ts}`), not the file's directory. Use `**/` prefixes for matches anywhere in the tree (e.g., `**/*.test.ts`).
+- **Top-level `ignores` ≠ `ignores` inside a config object.** A standalone object `{ ignores: [...] }` removes files from the entire run; an `ignores` field next to `files` and `rules` only narrows that one config object's match.
+- **Spreading a preset replaces, not merges, the `plugins` field.** If you spread `...nextfriday.configs.react` and then a different config later, the later object's `plugins` wins. Re-declare `plugins: { nextfriday }` if you add rules in a later object.
+- **`nextfriday.configs.nextjs` is an array, not a single object.** Spreading it inline with `...nextfriday.configs.nextjs` only spreads array indices, not the inner objects. Use it as an array entry (`nextfriday.configs.nextjs,`) instead, so ESLint 9+ flattens it.
+- **Two presets in one project.** Use scoped `files` rather than two unscoped presets — unscoped presets stack and the later one's rule severities win for every file, which is rarely what you want.
+- **Verifying the resolved config for a file:** `pnpm eslint --print-config path/to/file.tsx` prints the merged config ESLint would actually use. Reach for this when a rule fires (or doesn't) and you can't tell why.
 
 ### Migration Strategy
 
-For an existing codebase with many violations, enable rules gradually instead of all at once. Three patterns, in order of how disruptive each is to your team:
+For an existing codebase with many violations, treat the migration as a phased rollout — survey, fix, lock in, repeat.
 
-**1. Start with the warn-level preset.** All rules surface as warnings, so the build still passes. Fix issues at your own pace, then switch to `/recommended`.
+#### 1. Survey violations before changing anything
+
+Install the plugin as a dev dependency, drop a warn-level preset into `eslint.config.mjs`, and run a read-only lint. Don't `--fix` yet — you want to see the raw shape of the codebase first.
+
+```bash
+pnpm add -D eslint-plugin-nextfriday eslint
+pnpm eslint . --no-fix
+```
+
+Group violations by rule so you can plan the work. Most CI dashboards do this for you, but a one-liner works locally:
+
+```bash
+pnpm eslint . --no-fix --format json | jq -r '.[].messages[].ruleId' | sort | uniq -c | sort -rn
+```
+
+The output tells you which rules account for most of the noise. A rule with 3 violations is a 10-minute fix; a rule with 800 is a multi-week project. Plan accordingly.
+
+#### 2. Run the auto-fixers in an isolated PR
+
+Roughly a third of this plugin's rules are auto-fixable (the `Fixable ✅` column in the [Rules](#rules) table). Run them in a dedicated commit so the diff is purely mechanical and reviewers don't have to read every line:
+
+```bash
+pnpm eslint . --fix
+git add -u && git commit -m "style(lint): autofix nextfriday rules"
+```
+
+Open this as its own PR. Mixing auto-fix output with hand-written changes in the same diff makes review almost impossible.
+
+#### 3. Adopt the warn-level preset
+
+After the auto-fix pass, drop in the warn-level preset so the remaining violations surface during local dev and CI without breaking the build:
 
 ```js
 import nextfriday from "eslint-plugin-nextfriday";
@@ -223,7 +294,11 @@ import nextfriday from "eslint-plugin-nextfriday";
 export default [nextfriday.configs.react];
 ```
 
-**2. Lock-in a clean directory at a time.** Use `files` to apply `/recommended` (errors) only where the code is already clean, and the warn-level preset everywhere else.
+Warnings don't fail `eslint --max-warnings=0`, so add that flag in CI only when you're ready to block on warnings. Until then, warnings are visible signal without pressure.
+
+#### 4. Lock in clean directories one at a time
+
+As individual directories or features reach zero violations, promote them to `/recommended` (errors) so regressions block at PR time. Everything else stays on the warn-level preset.
 
 ```js
 import nextfriday from "eslint-plugin-nextfriday";
@@ -238,11 +313,15 @@ export default [
 ];
 ```
 
-**3. Disable individual rules until the codebase is ready.** Re-declare specific rules with a lower severity (or `"off"`) after spreading the preset. Useful when one rule produces too much noise to fix at once.
+Repeat per directory. This is how you ratchet without flag-day rewrites.
+
+#### 5. Manage exceptions explicitly
+
+Three ways to carve out an exception, in order of preference. Pick the narrowest one that solves the problem.
+
+**Per-rule severity override** — turn off a single noisy rule globally until you can fix it at the codebase level:
 
 ```js
-import nextfriday from "eslint-plugin-nextfriday";
-
 export default [
   nextfriday.configs["react/recommended"],
 
@@ -255,13 +334,55 @@ export default [
 ];
 ```
 
-Pair these with `ignores` to skip vendored or generated files entirely:
+**Per-directory exception** — keep the rule strict everywhere except one stubborn corner:
 
 ```js
-{
-  ignores: ["dist/**", "build/**", "**/*.generated.ts"],
-}
+export default [
+  nextfriday.configs["react/recommended"],
+
+  {
+    files: ["src/legacy/**/*.{ts,tsx}"],
+    rules: {
+      "nextfriday/no-relative-imports": "off",
+      "nextfriday/enforce-camel-case": "off",
+    },
+  },
+];
 ```
+
+**Per-file or per-line disable comments** — last resort, for genuinely irreducible cases:
+
+```ts
+// eslint-disable-next-line nextfriday/no-direct-date
+const epochAnchor = new Date(0);
+
+/* eslint-disable nextfriday/no-emoji */
+export const FLAG_EMOJIS = ["🇹🇭", "🇯🇵", "🇺🇸"];
+/* eslint-enable nextfriday/no-emoji */
+```
+
+Always disable a _named_ rule, never blanket-disable ESLint. A blanket `// eslint-disable` mutes every rule including correctness ones, so legitimate bugs slip through later.
+
+**Skip vendored or generated files entirely** with a top-level ignore — these aren't exceptions to manage, they're code you don't lint at all:
+
+```js
+export default [
+  {
+    ignores: ["dist/**", "build/**", "coverage/**", "**/*.generated.ts"],
+  },
+
+  nextfriday.configs["react/recommended"],
+];
+```
+
+#### 6. Track progress so the migration actually lands
+
+Migrations stall when nobody can see how close you are. Two cheap signals:
+
+- **Violation count over time.** Pipe `pnpm eslint . --no-fix --format compact | wc -l` into your CI metrics or a daily Slack post. Trend it weekly. If the number stops dropping, the migration has stalled.
+- **Verify a single file's resolved config.** When a contributor asks "why did this rule fire on my file?", run `pnpm eslint --print-config path/to/file.tsx`. The output shows exactly which severity ESLint resolved for every rule on that file — usually answers the question in seconds.
+
+Once a directory hits zero, lock it in (step 4). Once the warn-level count hits zero across the whole repo, switch the global preset to `/recommended` and add `--max-warnings=0` to CI. The migration is done.
 
 #### Prioritize rules by impact
 
@@ -379,10 +500,12 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | -------------------- | -------- | ---------- | --------- | ------------- | ----------- |
 | `base`               | warn     | 40         | 0         | 0             | 40          |
 | `base/recommended`   | error    | 40         | 0         | 0             | 40          |
-| `react`              | warn     | 40         | 15        | 0             | 55          |
-| `react/recommended`  | error    | 40         | 15        | 0             | 55          |
-| `nextjs`             | warn     | 40         | 15        | 1             | 56          |
-| `nextjs/recommended` | error    | 40         | 15        | 1             | 56          |
+| `react`              | warn     | 40         | 16        | 0             | 56          |
+| `react/recommended`  | error    | 40         | 16        | 0             | 56          |
+| `nextjs`             | warn     | 40         | 16        | 1             | 57          |
+| `nextjs/recommended` | error    | 40         | 16        | 1             | 57          |
+
+The `nextjs` and `nextjs/recommended` presets ship as an array of two flat-config objects: the rule set above, plus a routing override that disables `nextfriday/file-kebab-case` and `nextfriday/jsx-pascal-case` for files matching `app/**/*.{js,jsx,ts,tsx}`, `src/app/**/*.{js,jsx,ts,tsx}`, `pages/**/*.{js,jsx,ts,tsx}`, and `src/pages/**/*.{js,jsx,ts,tsx}`. Next.js owns the filenames in those directories (`page.tsx`, `layout.tsx`, `route.ts`, `middleware.ts`, etc.), so the plugin steps out of the way. ESLint 9+ flattens nested config arrays automatically, so spreading the preset works as expected.
 
 ### Base Configuration Rules (40 rules)
 
