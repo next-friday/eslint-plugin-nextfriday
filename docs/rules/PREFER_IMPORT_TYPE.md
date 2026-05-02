@@ -61,6 +61,10 @@ import { TSESTree } from "@typescript-eslint/utils";
 import type { TSESTree } from "@typescript-eslint/utils";
 ```
 
+## Exceptions
+
+This rule defers to [`no-inline-type-import`](./NO_INLINE_TYPE_IMPORT.md) when an import already contains an inline `type` marker (for example, `import { type Foo } from "x"`). Reporting both rules on the same statement produces overlapping messages and conflicting fixes, so `prefer-import-type` skips the import in that case and lets `no-inline-type-import` produce the canonical fix.
+
 ## When Not To Use It
 
 - If your project doesn't use TypeScript
@@ -69,4 +73,5 @@ import type { TSESTree } from "@typescript-eslint/utils";
 
 ## Related Rules
 
+- [no-inline-type-import](./NO_INLINE_TYPE_IMPORT.md) - Owns the `import { type Foo }` case
 - [@typescript-eslint/consistent-type-imports](https://typescript-eslint.io/rules/consistent-type-imports/) - Similar rule from typescript-eslint

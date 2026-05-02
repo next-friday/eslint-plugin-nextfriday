@@ -114,6 +114,13 @@ const preferImportType = createRule({
         return;
       }
 
+      const hasInlineTypeSpecifier = node.specifiers.some(
+        (specifier) => specifier.type === AST_NODE_TYPES.ImportSpecifier && specifier.importKind === "type",
+      );
+      if (hasInlineTypeSpecifier) {
+        return;
+      }
+
       if (
         context.filename.includes(".test.") ||
         context.filename.includes(".spec.") ||

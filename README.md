@@ -50,7 +50,7 @@ export default [nextfriday.configs["nextjs/recommended"]];
 
 To use a preset and adjust individual rules, append a second config object after the preset. Later objects override earlier ones, so you can change severity, swap options, or add rules without re-declaring the entire preset.
 
-For example, enforce PascalCase for React components via the `react/recommended` preset (which already runs `nextfriday/jsx-pascal-case` and `nextfriday/enforce-camel-case` as errors), and add a rule override on top:
+For example, start with the `react/recommended` preset (which runs `nextfriday/enforce-camel-case` and `nextfriday/enforce-props-suffix` as errors) and add a rule override on top:
 
 ```js
 import nextfriday from "eslint-plugin-nextfriday";
@@ -60,7 +60,6 @@ export default [
 
   {
     rules: {
-      "nextfriday/jsx-pascal-case": "error",
       "nextfriday/enforce-props-suffix": "error",
       "nextfriday/sort-imports": "warn",
     },
@@ -68,7 +67,7 @@ export default [
 ];
 ```
 
-The first object enables every rule in `react/recommended`. The second object reaffirms `jsx-pascal-case` (already enforced — useful when you want it loud and explicit), enables `enforce-props-suffix`, and downgrades `sort-imports` from error to warning.
+The first object enables every rule in `react/recommended`. The second object reaffirms `enforce-props-suffix` (already enforced — useful when you want it loud and explicit) and downgrades `sort-imports` from error to warning.
 
 ### Manual Configuration
 
@@ -108,10 +107,6 @@ export default [
       "nextfriday/enforce-property-case": "error",
       "nextfriday/no-misleading-constant-case": "error",
 
-      // File Naming
-      "nextfriday/file-kebab-case": "error",
-      "nextfriday/jsx-pascal-case": "error",
-
       // Code Style
       "nextfriday/no-emoji": "error",
       "nextfriday/prefer-destructuring-params": "error",
@@ -130,7 +125,6 @@ export default [
       "nextfriday/no-inline-nested-object": "error",
       "nextfriday/no-inline-return-properties": "error",
       "nextfriday/prefer-async-await": "error",
-      "nextfriday/enforce-curly-newline": "error",
       "nextfriday/no-nested-ternary": "error",
       "nextfriday/prefer-guard-clause": "error",
 
@@ -166,9 +160,6 @@ export default [
       "nextfriday/react-props-destructure": "error",
       "nextfriday/enforce-props-suffix": "error",
       "nextfriday/enforce-readonly-component-props": "error",
-
-      // Next.js
-      "nextfriday/nextjs-require-public-env": "error",
     },
   },
 ];
@@ -388,11 +379,11 @@ Once a directory hits zero, lock it in (step 4). Once the warn-level count hits 
 
 When the warn-level preset surfaces hundreds of violations, fix them in this order — high-impact rules catch real bugs, while low-impact rules are style preferences that can wait.
 
-| Tier                                  | Examples                                                                                                                                                                           | Why first                                                                                                                       |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| High — correctness and runtime safety | `no-direct-date`, `no-env-fallback`, `nextjs-require-public-env`, `enforce-readonly-component-props`, `jsx-no-non-component-function`, `enforce-hook-naming`, `no-logic-in-params` | Each violation can mask a bug, leak config, or break React's rules of hooks. Fix before they ship.                              |
-| Medium — structure and naming         | `boolean-naming-prefix`, `enforce-camel-case`, `enforce-constant-case`, `file-kebab-case`, `jsx-pascal-case`, `enforce-props-suffix`, `prefer-import-type`                         | No runtime impact, but inconsistent naming compounds review and onboarding cost. Fix once the high tier is clean.               |
-| Low — formatting and ordering         | `sort-imports`, `sort-exports`, `sort-type-alphabetically`, `jsx-sort-props`, `newline-before-return`, `newline-after-multiline-block`, `no-emoji`                                 | Cosmetic. Most are auto-fixable, so a single `pnpm eslint --fix` pass typically clears the whole codebase. Save these for last. |
+| Tier                                  | Examples                                                                                                                                              | Why first                                                                                                                       |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| High — correctness and runtime safety | `no-direct-date`, `no-env-fallback`, `enforce-readonly-component-props`, `jsx-no-non-component-function`, `enforce-hook-naming`, `no-logic-in-params` | Each violation can mask a bug, leak config, or break React's rules of hooks. Fix before they ship.                              |
+| Medium — structure and naming         | `boolean-naming-prefix`, `enforce-camel-case`, `enforce-constant-case`, `enforce-props-suffix`, `prefer-import-type`                                  | No runtime impact, but inconsistent naming compounds review and onboarding cost. Fix once the high tier is clean.               |
+| Low — formatting and ordering         | `sort-imports`, `sort-exports`, `sort-type-alphabetically`, `jsx-sort-props`, `newline-before-return`, `newline-after-multiline-block`, `no-emoji`    | Cosmetic. Most are auto-fixable, so a single `pnpm eslint --fix` pass typically clears the whole codebase. Save these for last. |
 
 In practice: turn the high tier on as `"error"` first, leave the medium tier as `"warn"` while you migrate, and run the auto-fixers for the low tier in a single dedicated PR.
 
@@ -411,13 +402,6 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | [enforce-constant-case](docs/rules/ENFORCE_CONSTANT_CASE.md)             | Enforce SCREAMING_SNAKE_CASE for global static constant values        | ❌      |
 | [enforce-property-case](docs/rules/ENFORCE_PROPERTY_CASE.md)             | Enforce camelCase for unquoted object property keys                   | ❌      |
 | [no-misleading-constant-case](docs/rules/NO_MISLEADING_CONSTANT_CASE.md) | Disallow SCREAMING_SNAKE_CASE in local scope and for dynamic values   | ❌      |
-
-### File Naming Rules
-
-| Rule                                             | Description                                          | Fixable |
-| ------------------------------------------------ | ---------------------------------------------------- | ------- |
-| [file-kebab-case](docs/rules/FILE_KEBAB_CASE.md) | Enforce kebab-case filenames for .ts and .js files   | ❌      |
-| [jsx-pascal-case](docs/rules/JSX_PASCAL_CASE.md) | Enforce PascalCase filenames for .jsx and .tsx files | ❌      |
 
 ### Code Style Rules
 
@@ -441,7 +425,6 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | [no-inline-nested-object](docs/rules/NO_INLINE_NESTED_OBJECT.md)             | Require nested objects and arrays to span multiple lines               | ✅      |
 | [no-inline-return-properties](docs/rules/NO_INLINE_RETURN_PROPERTIES.md)     | Require return object properties to use shorthand notation             | ❌      |
 | [prefer-async-await](docs/rules/PREFER_ASYNC_AWAIT.md)                       | Enforce async/await over .then() promise chains                        | ❌      |
-| [enforce-curly-newline](docs/rules/ENFORCE_CURLY_NEWLINE.md)                 | Enforce curly braces for multi-line if, forbid for single-line         | ✅      |
 | [no-nested-ternary](docs/rules/NO_NESTED_TERNARY.md)                         | Disallow nested ternary expressions                                    | ❌      |
 | [prefer-guard-clause](docs/rules/PREFER_GUARD_CLAUSE.md)                     | Enforce guard clause pattern instead of nested if statements           | ❌      |
 
@@ -458,16 +441,17 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 
 ### Type Pattern Rules
 
-| Rule                                                                                   | Description                                                      | Fixable |
-| -------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------- |
-| [enforce-type-declaration-order](docs/rules/ENFORCE_TYPE_DECLARATION_ORDER.md)         | Enforce referenced types are declared after their consumer       | ❌      |
-| [no-nested-interface-declaration](docs/rules/NO_NESTED_INTERFACE_DECLARATION.md)       | Disallow inline object types in interface/type properties        | ❌      |
-| [prefer-named-param-types](docs/rules/PREFER_NAMED_PARAM_TYPES.md)                     | Enforce named types for function parameters with object types    | ❌      |
-| [prefer-inline-literal-union](docs/rules/PREFER_INLINE_LITERAL_UNION.md)               | Enforce inlining literal union types for better IDE hover info   | ✅      |
-| [prefer-inline-type-export](docs/rules/PREFER_INLINE_TYPE_EXPORT.md)                   | Require type/interface exports inline at the declaration         | ✅      |
-| [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md) | Enforce interface declarations over inline types for React props | ❌      |
-| [sort-type-alphabetically](docs/rules/SORT_TYPE_ALPHABETICALLY.md)                     | Enforce A-Z sorting of properties within type groups             | ✅      |
-| [sort-type-required-first](docs/rules/SORT_TYPE_REQUIRED_FIRST.md)                     | Enforce required properties before optional in types/interfaces  | ✅      |
+| Rule                                                                                       | Description                                                       | Fixable |
+| ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------- | ------- |
+| [enforce-type-declaration-order](docs/rules/ENFORCE_TYPE_DECLARATION_ORDER.md)             | Enforce referenced types are declared after their consumer        | ❌      |
+| [no-nested-interface-declaration](docs/rules/NO_NESTED_INTERFACE_DECLARATION.md)           | Disallow inline object types in interface/type properties         | ❌      |
+| [prefer-named-param-types](docs/rules/PREFER_NAMED_PARAM_TYPES.md)                         | Enforce named types for function parameters with object types     | ❌      |
+| [prefer-inline-literal-union](docs/rules/PREFER_INLINE_LITERAL_UNION.md)                   | Enforce inlining literal union types for better IDE hover info    | ✅      |
+| [prefer-inline-type-export](docs/rules/PREFER_INLINE_TYPE_EXPORT.md)                       | Require type/interface exports inline at the declaration          | ✅      |
+| [prefer-interface-for-component-props](docs/rules/PREFER_INTERFACE_FOR_COMPONENT_PROPS.md) | Enforce interface over type alias for component prop declarations | ✅      |
+| [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md)     | Enforce interface declarations over inline types for React props  | ❌      |
+| [sort-type-alphabetically](docs/rules/SORT_TYPE_ALPHABETICALLY.md)                         | Enforce A-Z sorting of properties within type groups              | ✅      |
+| [sort-type-required-first](docs/rules/SORT_TYPE_REQUIRED_FIRST.md)                         | Enforce required properties before optional in types/interfaces   | ✅      |
 
 ### React/JSX Rules
 
@@ -484,45 +468,38 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | [jsx-sort-props](docs/rules/JSX_SORT_PROPS.md)                                           | Enforce JSX props are sorted by value type                            | ✅      |
 | [jsx-spread-props-last](docs/rules/JSX_SPREAD_PROPS_LAST.md)                             | Enforce JSX spread attributes appear after all other props            | ❌      |
 | [prefer-jsx-template-literals](docs/rules/PREFER_JSX_TEMPLATE_LITERALS.md)               | Enforce template literals instead of mixing text and JSX expressions  | ✅      |
+| [prefer-props-with-children](docs/rules/PREFER_PROPS_WITH_CHILDREN.md)                   | Prefer PropsWithChildren over manually declaring children: ReactNode  | ❌      |
 | [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                         | Enforce destructuring props inside React component body               | ❌      |
 | [enforce-props-suffix](docs/rules/ENFORCE_PROPS_SUFFIX.md)                               | Enforce 'Props' suffix for interfaces and types in \*.tsx files       | ❌      |
 | [enforce-readonly-component-props](docs/rules/ENFORCE_READONLY_COMPONENT_PROPS.md)       | Enforce Readonly wrapper for React component props                    | ✅      |
-
-### Next.js Rules
-
-| Rule                                                                 | Description                                                   | Fixable |
-| -------------------------------------------------------------------- | ------------------------------------------------------------- | ------- |
-| [nextjs-require-public-env](docs/rules/NEXTJS_REQUIRE_PUBLIC_ENV.md) | Require NEXT*PUBLIC* prefix for env vars in client components | ❌      |
 
 ## Configurations
 
 ### Configuration Presets Overview
 
-| Preset               | Severity | Base Rules | JSX Rules | Next.js Rules | Total Rules |
-| -------------------- | -------- | ---------- | --------- | ------------- | ----------- |
-| `base`               | warn     | 42         | 0         | 0             | 42          |
-| `base/recommended`   | error    | 42         | 0         | 0             | 42          |
-| `react`              | warn     | 42         | 16        | 0             | 58          |
-| `react/recommended`  | error    | 42         | 16        | 0             | 58          |
-| `nextjs`             | warn     | 42         | 16        | 1             | 59          |
-| `nextjs/recommended` | error    | 42         | 16        | 1             | 59          |
+| Preset               | Severity | Base Rules | JSX Rules | Total Rules |
+| -------------------- | -------- | ---------- | --------- | ----------- |
+| `base`               | warn     | 40         | 0         | 40          |
+| `base/recommended`   | error    | 40         | 0         | 40          |
+| `react`              | warn     | 40         | 17        | 57          |
+| `react/recommended`  | error    | 40         | 17        | 57          |
+| `nextjs`             | warn     | 40         | 17        | 57          |
+| `nextjs/recommended` | error    | 40         | 17        | 57          |
 
-The `nextjs` and `nextjs/recommended` presets ship as an array of two flat-config objects: the rule set above, plus a routing override that disables `nextfriday/file-kebab-case` and `nextfriday/jsx-pascal-case` for files matching `app/**/*.{js,jsx,ts,tsx}`, `src/app/**/*.{js,jsx,ts,tsx}`, `pages/**/*.{js,jsx,ts,tsx}`, and `src/pages/**/*.{js,jsx,ts,tsx}`. Next.js owns the filenames in those directories (`page.tsx`, `layout.tsx`, `route.ts`, `middleware.ts`, etc.), so the plugin steps out of the way. ESLint 9+ flattens nested config arrays automatically, so spreading the preset works as expected.
+The `nextjs` and `nextjs/recommended` presets currently share the same rule set as `react` and `react/recommended`; they are kept as named aliases for ergonomics.
 
-### Base Configuration Rules (42 rules)
+### Base Configuration Rules (40 rules)
 
 Included in `base`, `base/recommended`, and all other presets:
 
 - `nextfriday/boolean-naming-prefix`
 - `nextfriday/enforce-camel-case`
 - `nextfriday/enforce-constant-case`
-- `nextfriday/enforce-curly-newline`
 - `nextfriday/enforce-hook-naming`
 - `nextfriday/enforce-property-case`
 - `nextfriday/enforce-service-naming`
 - `nextfriday/enforce-sorted-destructuring`
 - `nextfriday/enforce-type-declaration-order`
-- `nextfriday/file-kebab-case`
 - `nextfriday/index-export-only`
 - `nextfriday/newline-after-multiline-block`
 - `nextfriday/newline-before-return`
@@ -556,7 +533,7 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/sort-type-alphabetically`
 - `nextfriday/sort-type-required-first`
 
-### JSX Rules (16 rules)
+### JSX Rules (17 rules)
 
 Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recommended`:
 
@@ -568,20 +545,15 @@ Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recomme
 - `nextfriday/jsx-no-non-component-function`
 - `nextfriday/jsx-no-ternary-null`
 - `nextfriday/jsx-no-variable-in-callback`
-- `nextfriday/jsx-pascal-case`
 - `nextfriday/jsx-require-suspense`
 - `nextfriday/jsx-simple-props`
 - `nextfriday/jsx-sort-props`
 - `nextfriday/jsx-spread-props-last`
+- `nextfriday/prefer-interface-for-component-props`
 - `nextfriday/prefer-interface-over-inline-types`
 - `nextfriday/prefer-jsx-template-literals`
+- `nextfriday/prefer-props-with-children`
 - `nextfriday/react-props-destructure`
-
-### Next.js Only Rules (1 rule)
-
-Additionally included in `nextjs`, `nextjs/recommended` only:
-
-- `nextfriday/nextjs-require-public-env`
 
 ### Severity Levels
 
@@ -601,7 +573,7 @@ Additionally included in `nextjs`, `nextjs/recommended` only:
 
 ## Agent Skill
 
-This plugin ships with an [Agent Skill](https://github.com/anthropics/skills) that teaches AI coding assistants (Claude Code, Cursor, etc.) all 56 rules so they generate compliant code from the start.
+This plugin ships with an [Agent Skill](https://github.com/anthropics/skills) that teaches AI coding assistants (Claude Code, Cursor, etc.) all 57 rules so they generate compliant code from the start.
 
 ```bash
 npx skills add next-friday/eslint-plugin-nextfriday --skill eslint-plugin-nextfriday

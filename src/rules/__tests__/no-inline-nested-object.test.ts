@@ -89,7 +89,7 @@ const obj = {
   items: [1, 2, 3],
 };
         `,
-        name: "inline array with primitives only is allowed",
+        name: "inline array of primitives is allowed",
       },
       {
         code: `
@@ -97,7 +97,7 @@ const obj = {
   options: ["primary", "foreground", "danger", "outline", "ghost", "link"],
 };
         `,
-        name: "inline array with string literals is allowed",
+        name: "inline array of string literals is allowed",
       },
       {
         code: `
@@ -105,7 +105,7 @@ const obj = {
   values: [true, false, null, undefined],
 };
         `,
-        name: "inline array with boolean and null literals is allowed",
+        name: "inline array of boolean and null literals is allowed",
       },
       {
         code: `
@@ -113,7 +113,47 @@ const obj = {
   refs: [foo, bar, baz],
 };
         `,
-        name: "inline array with identifiers is allowed",
+        name: "inline array of identifiers is allowed",
+      },
+      {
+        code: `
+const obj = {
+  allow: [target.utils, target.types, target.constants],
+};
+        `,
+        name: "inline array of member expressions is allowed",
+      },
+      {
+        code: `
+const obj = {
+  allow: [target?.utils, target?.types, target?.constants],
+};
+        `,
+        name: "inline array of optional chain member expressions is allowed",
+      },
+      {
+        code: `
+const obj = {
+  refs: [foo, bar.baz, qux],
+};
+        `,
+        name: "inline array mixing identifiers and member expressions is allowed",
+      },
+      {
+        code: `
+const obj = {
+  config: { enabled: true, timeout: 5000 },
+};
+        `,
+        name: "inline flat object value is allowed",
+      },
+      {
+        code: `
+const obj = {
+  database: { host: "localhost", port: 5432, name: "myapp" },
+};
+        `,
+        name: "inline flat object with multiple primitive properties is allowed",
       },
       {
         code: `
@@ -123,7 +163,7 @@ const obj = {
   c: { d: "e" },
 };
         `,
-        name: "inline nested object with single property is allowed",
+        name: "inline flat single-property object value is allowed",
       },
       {
         code: `
@@ -132,7 +172,7 @@ const obj = {
   c: { d: 2 },
 };
         `,
-        name: "multiple inline nested objects each with single property are allowed",
+        name: "multiple inline flat single-property object values are allowed",
       },
     ],
     invalid: [
@@ -155,12 +195,12 @@ const obj = {
   ],
 };
         `,
-        name: "inline array with objects should be multiline",
+        name: "inline array containing object literals must be multiline",
       },
       {
         code: `
 const obj = {
-  config: { enabled: true, timeout: 5000 },
+  matrix: [[1, 2], [3, 4]],
 };
         `,
         errors: [
@@ -170,13 +210,53 @@ const obj = {
         ],
         output: `
 const obj = {
-  config: {
-    enabled: true,
-    timeout: 5000,
+  matrix: [
+    [1, 2],
+    [3, 4],
+  ],
+};
+        `,
+        name: "inline array containing arrays must be multiline",
+      },
+      {
+        code: `
+const obj = {
+  layer: { inner: { leaf: 1 } },
+};
+        `,
+        errors: [
+          {
+            messageId: "requireMultiline",
+          },
+        ],
+        output: `
+const obj = {
+  layer: {
+    inner: { leaf: 1 },
   },
 };
         `,
-        name: "inline nested object with multiple properties",
+        name: "inline object containing nested object must be multiline",
+      },
+      {
+        code: `
+const obj = {
+  wrap: { items: [1, 2, 3] },
+};
+        `,
+        errors: [
+          {
+            messageId: "requireMultiline",
+          },
+        ],
+        output: `
+const obj = {
+  wrap: {
+    items: [1, 2, 3],
+  },
+};
+        `,
+        name: "inline object containing array value must be multiline",
       },
     ],
   });

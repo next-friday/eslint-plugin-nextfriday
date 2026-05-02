@@ -1,62 +1,80 @@
 # no-inline-nested-object
 
-Require nested objects and arrays with multiple properties to span multiple lines.
+Require object or array values that contain further nested objects or arrays to span multiple lines.
 
 ## Rule Details
 
-This rule enforces that when an object property's value is another object or array with more than one element, it should span multiple lines rather than being written inline. Single-property nested objects are allowed inline. This improves readability and makes diffs cleaner when properties are added or removed.
+This rule enforces that when an object property's value is itself an object or array **that contains further nested structures inside**, it must span multiple lines. Flat collections — objects of primitive properties or arrays of simple references — are allowed inline because Prettier already controls their wrapping via `printWidth`.
+
+A "nested structure" is any object or array element/property whose value is another object or array. The rule deliberately ignores depth-1 collections so it does not fight Prettier on simple data and configuration tables.
+
+### Why?
+
+Truly nested structures are easy to misread when collapsed onto a single line, and adding or removing an inner element produces noisy diffs. Flat collections do not have the same problem and are best left to Prettier's line-length logic.
 
 ## Examples
 
 ### Incorrect
 
+<!-- prettier-ignore -->
 ```ts
-const config = {
-  database: { host: "localhost", port: 5432, name: "myapp" },
+const obj = {
+  items: [{ a: 1 }, { b: 2 }],
+};
+```
+
+<!-- prettier-ignore -->
+```ts
+const obj = {
+  matrix: [[1, 2], [3, 4]],
 };
 ```
 
 ```ts
-const routes = {
-  api: { users: "/api/users", posts: "/api/posts" },
-  auth: { login: "/auth/login", logout: "/auth/logout" },
+const obj = {
+  layer: { inner: { leaf: 1 } },
+};
+```
+
+```ts
+const obj = {
+  wrap: { items: [1, 2, 3] },
 };
 ```
 
 ### Correct
 
+<!-- prettier-ignore -->
 ```ts
-const config = {
-  database: { host: "localhost" },
+const obj = {
+  items: [
+    { a: 1 },
+    { b: 2 },
+  ],
 };
 ```
 
 ```ts
-const config = {
-  database: {
-    host: "localhost",
-    port: 5432,
-    name: "myapp",
+const obj = {
+  layer: {
+    inner: { leaf: 1 },
   },
 };
 ```
 
+Flat values stay inline:
+
 ```ts
-const routes = {
-  api: {
-    users: "/api/users",
-    posts: "/api/posts",
-  },
-  auth: {
-    login: "/auth/login",
-    logout: "/auth/logout",
-  },
+const obj = {
+  config: { enabled: true, timeout: 5000 },
+  database: { host: "localhost", port: 5432, name: "myapp" },
 };
 ```
 
 ```ts
-const validationRules = {
-  required: ["name", "email", "password"],
+const obj = {
+  options: ["primary", "foreground", "danger", "outline", "ghost", "link"],
+  allow: [target.utils, target.types, target.constants],
 };
 ```
 
@@ -71,8 +89,8 @@ const initialState = {
 
 ## When Not To Use It
 
-If you prefer compact inline nested objects for all cases, or if your team has different formatting preferences.
+If your team prefers compact single-line nested structures regardless of depth, or if your project has different formatting preferences.
 
 ## Fixable
 
-This rule is auto-fixable. Running ESLint with the `--fix` flag will automatically expand inline nested objects and arrays with multiple properties to multiple lines.
+This rule is auto-fixable. Running ESLint with the `--fix` flag will expand inline collections that contain nested structures onto multiple lines.

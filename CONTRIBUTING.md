@@ -265,7 +265,7 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/):
 - `feat(rule): add no-emoji rule`
 - `fix(config): correct base configuration exports`
 - `docs(readme): update installation instructions`
-- `test(rule): improve jsx-pascal-case test coverage`
+- `test(rule): improve no-emoji test coverage`
 
 ## Release Process
 
@@ -317,18 +317,15 @@ eslint-plugin-nextfriday/
 ### Available Rules
 
 - `no-emoji`: Disallow emojis in code
-- `file-kebab-case`: Enforce kebab-case for .ts/.js files
-- `jsx-pascal-case`: Enforce PascalCase for .jsx/.tsx files
-- `md-filename-case-restriction`: Enforce SNAKE_CASE for .md files
 - `prefer-destructuring-params`: Enforce destructuring for multiple parameters
-- `no-explicit-return-type`: Disallow explicit return types (fixable)
+- `require-explicit-return-type`: Require explicit return types
 - `prefer-import-type`: Enforce 'import type' for type-only imports (fixable)
 
 ### Configuration Presets
 
 - **base**: Pure JS/TS projects (all non-JSX rules)
-- **react**: React projects (base + jsx-pascal-case)
-- **nextjs**: Next.js projects (same as react)
+- **react**: React projects (base + JSX rules)
+- **nextjs**: Next.js projects (same rule set as react)
 - Each has a `/recommended` variant with `error` severity instead of `warn`
 
 ## Getting Help
