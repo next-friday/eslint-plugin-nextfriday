@@ -16,22 +16,6 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-emoji"].create).toBe("function");
   });
 
-  it("should have file-kebab-case rule", () => {
-    expect(rules).toHaveProperty("file-kebab-case");
-    expect(typeof rules["file-kebab-case"]).toBe("object");
-    expect(rules["file-kebab-case"]).toHaveProperty("meta");
-    expect(rules["file-kebab-case"]).toHaveProperty("create");
-    expect(typeof rules["file-kebab-case"].create).toBe("function");
-  });
-
-  it("should have jsx-pascal-case rule", () => {
-    expect(rules).toHaveProperty("jsx-pascal-case");
-    expect(typeof rules["jsx-pascal-case"]).toBe("object");
-    expect(rules["jsx-pascal-case"]).toHaveProperty("meta");
-    expect(rules["jsx-pascal-case"]).toHaveProperty("create");
-    expect(typeof rules["jsx-pascal-case"].create).toBe("function");
-  });
-
   it("should have prefer-destructuring-params rule", () => {
     expect(rules).toHaveProperty("prefer-destructuring-params");
     expect(typeof rules["prefer-destructuring-params"]).toBe("object");
@@ -88,17 +72,15 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 59 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(59);
+  it("should have exactly 57 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(57);
   });
 
   it("should have correct rule names", () => {
     const ruleNames = Object.keys(rules);
     expect(ruleNames).toContain("no-emoji");
-    expect(ruleNames).toContain("file-kebab-case");
     expect(ruleNames).toContain("jsx-newline-between-elements");
     expect(ruleNames).toContain("jsx-no-inline-object-prop");
-    expect(ruleNames).toContain("jsx-pascal-case");
     expect(ruleNames).toContain("jsx-require-suspense");
     expect(ruleNames).toContain("jsx-simple-props");
     expect(ruleNames).toContain("jsx-no-newline-single-line-elements");
@@ -109,13 +91,14 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("require-explicit-return-type");
     expect(ruleNames).toContain("prefer-import-type");
     expect(ruleNames).toContain("prefer-named-param-types");
+    expect(ruleNames).toContain("prefer-interface-for-component-props");
     expect(ruleNames).toContain("prefer-interface-over-inline-types");
     expect(ruleNames).toContain("prefer-jsx-template-literals");
+    expect(ruleNames).toContain("prefer-props-with-children");
     expect(ruleNames).toContain("prefer-react-import-types");
     expect(ruleNames).toContain("react-props-destructure");
     expect(ruleNames).toContain("enforce-camel-case");
     expect(ruleNames).toContain("enforce-constant-case");
-    expect(ruleNames).toContain("enforce-curly-newline");
     expect(ruleNames).toContain("enforce-hook-naming");
     expect(ruleNames).toContain("enforce-property-case");
     expect(ruleNames).toContain("enforce-props-suffix");
@@ -139,7 +122,6 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("prefer-function-declaration");
     expect(ruleNames).toContain("prefer-guard-clause");
     expect(ruleNames).toContain("no-direct-date");
-    expect(ruleNames).toContain("nextjs-require-public-env");
     expect(ruleNames).toContain("jsx-sort-props");
     expect(ruleNames).toContain("jsx-spread-props-last");
     expect(ruleNames).toContain("sort-exports");
@@ -361,22 +343,6 @@ describe("ESLint Plugin Rules", () => {
     expect(rules["prefer-async-await"]).toHaveProperty("meta");
     expect(rules["prefer-async-await"]).toHaveProperty("create");
     expect(typeof rules["prefer-async-await"].create).toBe("function");
-  });
-
-  it("should have nextjs-require-public-env rule", () => {
-    expect(rules).toHaveProperty("nextjs-require-public-env");
-    expect(typeof rules["nextjs-require-public-env"]).toBe("object");
-    expect(rules["nextjs-require-public-env"]).toHaveProperty("meta");
-    expect(rules["nextjs-require-public-env"]).toHaveProperty("create");
-    expect(typeof rules["nextjs-require-public-env"].create).toBe("function");
-  });
-
-  it("should have enforce-curly-newline rule", () => {
-    expect(rules).toHaveProperty("enforce-curly-newline");
-    expect(typeof rules["enforce-curly-newline"]).toBe("object");
-    expect(rules["enforce-curly-newline"]).toHaveProperty("meta");
-    expect(rules["enforce-curly-newline"]).toHaveProperty("create");
-    expect(typeof rules["enforce-curly-newline"].create).toBe("function");
   });
 
   it("should have no-nested-ternary rule", () => {

@@ -3,7 +3,6 @@ import packageJson from "../package.json" with { type: "json" };
 import booleanNamingPrefix from "./rules/boolean-naming-prefix";
 import enforceCamelCase from "./rules/enforce-camel-case";
 import enforceConstantCase from "./rules/enforce-constant-case";
-import enforceCurlyNewline from "./rules/enforce-curly-newline";
 import enforceHookNaming from "./rules/enforce-hook-naming";
 import enforcePropertyCase from "./rules/enforce-property-case";
 import enforcePropsSuffix from "./rules/enforce-props-suffix";
@@ -11,7 +10,6 @@ import enforceReadonlyComponentProps from "./rules/enforce-readonly-component-pr
 import enforceServiceNaming from "./rules/enforce-service-naming";
 import enforceSortedDestructuring from "./rules/enforce-sorted-destructuring";
 import enforceTypeDeclarationOrder from "./rules/enforce-type-declaration-order";
-import fileKebabCase from "./rules/file-kebab-case";
 import indexExportOnly from "./rules/index-export-only";
 import jsxNewlineBetweenElements from "./rules/jsx-newline-between-elements";
 import jsxNoInlineObjectProp from "./rules/jsx-no-inline-object-prop";
@@ -19,14 +17,12 @@ import jsxNoNewlineSingleLineElements from "./rules/jsx-no-newline-single-line-e
 import jsxNoNonComponentFunction from "./rules/jsx-no-non-component-function";
 import jsxNoTernaryNull from "./rules/jsx-no-ternary-null";
 import jsxNoVariableInCallback from "./rules/jsx-no-variable-in-callback";
-import jsxPascalCase from "./rules/jsx-pascal-case";
 import jsxRequireSuspense from "./rules/jsx-require-suspense";
 import jsxSimpleProps from "./rules/jsx-simple-props";
 import jsxSortProps from "./rules/jsx-sort-props";
 import jsxSpreadPropsLast from "./rules/jsx-spread-props-last";
 import newlineAfterMultilineBlock from "./rules/newline-after-multiline-block";
 import newlineBeforeReturn from "./rules/newline-before-return";
-import nextjsRequirePublicEnv from "./rules/nextjs-require-public-env";
 import noComplexInlineReturn from "./rules/no-complex-inline-return";
 import noDirectDate from "./rules/no-direct-date";
 import noEmoji from "./rules/no-emoji";
@@ -49,9 +45,11 @@ import preferGuardClause from "./rules/prefer-guard-clause";
 import preferImportType from "./rules/prefer-import-type";
 import preferInlineLiteralUnion from "./rules/prefer-inline-literal-union";
 import preferInlineTypeExport from "./rules/prefer-inline-type-export";
+import preferInterfaceForComponentProps from "./rules/prefer-interface-for-component-props";
 import preferInterfaceOverInlineTypes from "./rules/prefer-interface-over-inline-types";
 import preferJSXTemplateLiterals from "./rules/prefer-jsx-template-literals";
 import preferNamedParamTypes from "./rules/prefer-named-param-types";
+import preferPropsWithChildren from "./rules/prefer-props-with-children";
 import preferReactImportTypes from "./rules/prefer-react-import-types";
 import reactPropsDestructure from "./rules/react-props-destructure";
 import requireExplicitReturnType from "./rules/require-explicit-return-type";
@@ -71,7 +69,6 @@ const rules = {
   "boolean-naming-prefix": booleanNamingPrefix,
   "enforce-camel-case": enforceCamelCase,
   "enforce-constant-case": enforceConstantCase,
-  "enforce-curly-newline": enforceCurlyNewline,
   "enforce-hook-naming": enforceHookNaming,
   "enforce-property-case": enforcePropertyCase,
   "enforce-props-suffix": enforcePropsSuffix,
@@ -79,7 +76,6 @@ const rules = {
   "enforce-service-naming": enforceServiceNaming,
   "enforce-sorted-destructuring": enforceSortedDestructuring,
   "enforce-type-declaration-order": enforceTypeDeclarationOrder,
-  "file-kebab-case": fileKebabCase,
   "index-export-only": indexExportOnly,
   "jsx-newline-between-elements": jsxNewlineBetweenElements,
   "jsx-no-inline-object-prop": jsxNoInlineObjectProp,
@@ -87,14 +83,12 @@ const rules = {
   "jsx-no-non-component-function": jsxNoNonComponentFunction,
   "jsx-no-ternary-null": jsxNoTernaryNull,
   "jsx-no-variable-in-callback": jsxNoVariableInCallback,
-  "jsx-pascal-case": jsxPascalCase,
   "jsx-require-suspense": jsxRequireSuspense,
   "jsx-simple-props": jsxSimpleProps,
   "jsx-sort-props": jsxSortProps,
   "jsx-spread-props-last": jsxSpreadPropsLast,
   "newline-after-multiline-block": newlineAfterMultilineBlock,
   "newline-before-return": newlineBeforeReturn,
-  "nextjs-require-public-env": nextjsRequirePublicEnv,
   "no-complex-inline-return": noComplexInlineReturn,
   "no-direct-date": noDirectDate,
   "no-emoji": noEmoji,
@@ -117,9 +111,11 @@ const rules = {
   "prefer-import-type": preferImportType,
   "prefer-inline-literal-union": preferInlineLiteralUnion,
   "prefer-inline-type-export": preferInlineTypeExport,
+  "prefer-interface-for-component-props": preferInterfaceForComponentProps,
   "prefer-interface-over-inline-types": preferInterfaceOverInlineTypes,
   "prefer-jsx-template-literals": preferJSXTemplateLiterals,
   "prefer-named-param-types": preferNamedParamTypes,
+  "prefer-props-with-children": preferPropsWithChildren,
   "prefer-react-import-types": preferReactImportTypes,
   "react-props-destructure": reactPropsDestructure,
   "require-explicit-return-type": requireExplicitReturnType,
@@ -138,13 +134,11 @@ const baseRules = {
   "nextfriday/boolean-naming-prefix": "warn",
   "nextfriday/enforce-camel-case": "warn",
   "nextfriday/enforce-constant-case": "warn",
-  "nextfriday/enforce-curly-newline": "warn",
   "nextfriday/enforce-hook-naming": "warn",
   "nextfriday/enforce-property-case": "warn",
   "nextfriday/enforce-service-naming": "warn",
   "nextfriday/enforce-sorted-destructuring": "warn",
   "nextfriday/enforce-type-declaration-order": "warn",
-  "nextfriday/file-kebab-case": "warn",
   "nextfriday/index-export-only": "warn",
   "nextfriday/newline-after-multiline-block": "warn",
   "nextfriday/newline-before-return": "warn",
@@ -183,13 +177,11 @@ const baseRecommendedRules = {
   "nextfriday/boolean-naming-prefix": "error",
   "nextfriday/enforce-camel-case": "error",
   "nextfriday/enforce-constant-case": "error",
-  "nextfriday/enforce-curly-newline": "error",
   "nextfriday/enforce-hook-naming": "error",
   "nextfriday/enforce-property-case": "error",
   "nextfriday/enforce-service-naming": "error",
   "nextfriday/enforce-sorted-destructuring": "error",
   "nextfriday/enforce-type-declaration-order": "error",
-  "nextfriday/file-kebab-case": "error",
   "nextfriday/index-export-only": "error",
   "nextfriday/newline-after-multiline-block": "error",
   "nextfriday/newline-before-return": "error",
@@ -233,13 +225,14 @@ const jsxRules = {
   "nextfriday/jsx-no-non-component-function": "warn",
   "nextfriday/jsx-no-ternary-null": "warn",
   "nextfriday/jsx-no-variable-in-callback": "warn",
-  "nextfriday/jsx-pascal-case": "warn",
   "nextfriday/jsx-require-suspense": "warn",
   "nextfriday/jsx-simple-props": "warn",
   "nextfriday/jsx-sort-props": "warn",
   "nextfriday/jsx-spread-props-last": "warn",
+  "nextfriday/prefer-interface-for-component-props": "warn",
   "nextfriday/prefer-interface-over-inline-types": "warn",
   "nextfriday/prefer-jsx-template-literals": "warn",
+  "nextfriday/prefer-props-with-children": "warn",
   "nextfriday/react-props-destructure": "warn",
 } as const;
 
@@ -252,22 +245,15 @@ const jsxRecommendedRules = {
   "nextfriday/jsx-no-non-component-function": "error",
   "nextfriday/jsx-no-ternary-null": "error",
   "nextfriday/jsx-no-variable-in-callback": "error",
-  "nextfriday/jsx-pascal-case": "error",
   "nextfriday/jsx-require-suspense": "error",
   "nextfriday/jsx-simple-props": "error",
   "nextfriday/jsx-sort-props": "error",
   "nextfriday/jsx-spread-props-last": "error",
+  "nextfriday/prefer-interface-for-component-props": "error",
   "nextfriday/prefer-interface-over-inline-types": "error",
   "nextfriday/prefer-jsx-template-literals": "error",
+  "nextfriday/prefer-props-with-children": "error",
   "nextfriday/react-props-destructure": "error",
-} as const;
-
-const nextjsOnlyRules = {
-  "nextfriday/nextjs-require-public-env": "warn",
-} as const;
-
-const nextjsOnlyRecommendedRules = {
-  "nextfriday/nextjs-require-public-env": "error",
 } as const;
 
 const createConfig = (configRules: Record<string, string>) => ({
@@ -276,23 +262,6 @@ const createConfig = (configRules: Record<string, string>) => ({
   },
   rules: configRules,
 });
-
-const NEXTJS_ROUTING_GLOBS = [
-  "app/**/*.{js,jsx,ts,tsx}",
-  "src/app/**/*.{js,jsx,ts,tsx}",
-  "pages/**/*.{js,jsx,ts,tsx}",
-  "src/pages/**/*.{js,jsx,ts,tsx}",
-];
-
-const nextjsRoutingOverride = {
-  files: NEXTJS_ROUTING_GLOBS,
-  rules: {
-    "nextfriday/file-kebab-case": "off",
-    "nextfriday/jsx-pascal-case": "off",
-  },
-};
-
-const createNextjsConfig = (configRules: Record<string, string>) => [createConfig(configRules), nextjsRoutingOverride];
 
 const configs = {
   base: createConfig(baseRules),
@@ -305,15 +274,13 @@ const configs = {
     ...baseRecommendedRules,
     ...jsxRecommendedRules,
   }),
-  nextjs: createNextjsConfig({
+  nextjs: createConfig({
     ...baseRules,
     ...jsxRules,
-    ...nextjsOnlyRules,
   }),
-  "nextjs/recommended": createNextjsConfig({
+  "nextjs/recommended": createConfig({
     ...baseRecommendedRules,
     ...jsxRecommendedRules,
-    ...nextjsOnlyRecommendedRules,
   }),
 };
 

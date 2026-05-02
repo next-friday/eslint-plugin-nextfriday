@@ -7,6 +7,32 @@ const createRule = ESLintUtils.RuleCreator(
     `https://github.com/next-friday/eslint-plugin-nextfriday/blob/main/docs/rules/${name.replaceAll("-", "_").toUpperCase()}.md`,
 );
 
+const returnsJsx = (node: TSESTree.Node): boolean => {
+  if (node.type === AST_NODE_TYPES.JSXElement || node.type === AST_NODE_TYPES.JSXFragment) {
+    return true;
+  }
+  if (node.type === AST_NODE_TYPES.ConditionalExpression) {
+    return returnsJsx(node.consequent) || returnsJsx(node.alternate);
+  }
+  if (node.type === AST_NODE_TYPES.LogicalExpression) {
+    return returnsJsx(node.left) || returnsJsx(node.right);
+  }
+  return false;
+};
+
+const bodyReturnsJsx = (body: TSESTree.BlockStatement | TSESTree.Expression): boolean => {
+  if (body.type !== AST_NODE_TYPES.BlockStatement) {
+    return returnsJsx(body);
+  }
+  return body.body.some(
+    (stmt) => stmt.type === AST_NODE_TYPES.ReturnStatement && stmt.argument !== null && returnsJsx(stmt.argument),
+  );
+};
+
+const isReactComponentFunction = (
+  node: TSESTree.FunctionDeclaration | TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression,
+): boolean => bodyReturnsJsx(node.body);
+
 const preferNamedParamTypes = createRule({
   name: "prefer-named-param-types",
   meta: {
@@ -56,6 +82,17 @@ const preferNamedParamTypes = createRule({
         params = node.params;
       } else if ("value" in node && node.value) {
         params = node.value.params;
+      }
+
+      if (
+        (node.type === AST_NODE_TYPES.FunctionDeclaration ||
+          node.type === AST_NODE_TYPES.FunctionExpression ||
+          node.type === AST_NODE_TYPES.ArrowFunctionExpression) &&
+        params.length === 1 &&
+        params[0].type === AST_NODE_TYPES.Identifier &&
+        isReactComponentFunction(node)
+      ) {
+        return;
       }
 
       params.forEach((param) => {

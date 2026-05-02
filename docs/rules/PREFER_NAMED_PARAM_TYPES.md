@@ -89,6 +89,10 @@ const setup = (config: Config) => {
 };
 ```
 
+## Exceptions
+
+This rule defers to [`prefer-interface-over-inline-types`](./PREFER_INTERFACE_OVER_INLINE_TYPES.md) for React components with a single non-destructured prop parameter (for example, `function Comp(props: { name: string }) { return <div /> }`). Both rules would otherwise report the same parameter with different messages, so `prefer-named-param-types` skips that case and lets the React-specific rule produce the canonical message. Destructured component props (`function Comp({ name }: { name: string })`) and non-component functions are still reported here.
+
 ## When Not To Use It
 
 - If you prefer inline types for simple, one-off function parameters
@@ -97,4 +101,4 @@ const setup = (config: Config) => {
 
 ## Related Rules
 
-- [prefer-interface-over-inline-types](./PREFER_INTERFACE_OVER_INLINE_TYPES.md) - Similar rule focused on React component props with complexity criteria
+- [prefer-interface-over-inline-types](./PREFER_INTERFACE_OVER_INLINE_TYPES.md) - Owns React component non-destructured prop case

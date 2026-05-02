@@ -52,6 +52,10 @@ describe("prefer-import-type", () => {
         code: 'import { ESLintUtils, type TSESTree } from "@typescript-eslint/utils";\nconst rule = ESLintUtils.RuleCreator(() => "");',
         name: "should not flag mixed import with type and value",
       },
+      {
+        code: 'import { type Foo } from "./types";\nconst x: Foo = null as Foo;',
+        name: "should defer to no-inline-type-import when inline type marker is present",
+      },
       'import { Geist, Geist_Mono } from "next/font/google";',
       'import { Inter } from "next/font/google";',
       'import { createRoot } from "react-dom/client";',

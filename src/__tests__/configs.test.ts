@@ -21,16 +21,14 @@ describe("ESLint Plugin Configs", () => {
       expect(configs["base/recommended"]).toHaveProperty("rules");
     });
 
-    it("should have correct base rules (without jsx-pascal-case)", () => {
+    it("should have correct base rules", () => {
       const baseRules = configs.base.rules;
       expect(baseRules).toHaveProperty("nextfriday/no-emoji", "warn");
-      expect(baseRules).toHaveProperty("nextfriday/file-kebab-case", "warn");
       expect(baseRules).toHaveProperty("nextfriday/prefer-destructuring-params", "warn");
       expect(baseRules).toHaveProperty("nextfriday/require-explicit-return-type", "warn");
       expect(baseRules).toHaveProperty("nextfriday/prefer-import-type", "warn");
       expect(baseRules).toHaveProperty("nextfriday/prefer-react-import-types", "warn");
       expect(baseRules).toHaveProperty("nextfriday/no-direct-date", "warn");
-      expect(baseRules).not.toHaveProperty("nextfriday/jsx-pascal-case");
     });
   });
 
@@ -47,11 +45,9 @@ describe("ESLint Plugin Configs", () => {
       expect(configs["react/recommended"]).toHaveProperty("rules");
     });
 
-    it("should have correct react rules (including jsx-pascal-case)", () => {
+    it("should have correct react rules", () => {
       const reactRules = configs.react.rules;
       expect(reactRules).toHaveProperty("nextfriday/no-emoji", "warn");
-      expect(reactRules).toHaveProperty("nextfriday/file-kebab-case", "warn");
-      expect(reactRules).toHaveProperty("nextfriday/jsx-pascal-case", "warn");
       expect(reactRules).toHaveProperty("nextfriday/prefer-interface-over-inline-types", "warn");
       expect(reactRules).toHaveProperty("nextfriday/react-props-destructure", "warn");
       expect(reactRules).toHaveProperty("nextfriday/enforce-readonly-component-props", "warn");
@@ -63,23 +59,21 @@ describe("ESLint Plugin Configs", () => {
   });
 
   describe("Next.js configurations", () => {
-    it("should have nextjs configuration as an array of config objects", () => {
+    it("should have nextjs configuration", () => {
       expect(configs).toHaveProperty("nextjs");
-      expect(Array.isArray(configs.nextjs)).toBe(true);
-      expect(configs.nextjs[0]).toHaveProperty("rules");
+      expect(typeof configs.nextjs).toBe("object");
+      expect(configs.nextjs).toHaveProperty("rules");
     });
 
-    it("should have nextjs/recommended configuration as an array of config objects", () => {
+    it("should have nextjs/recommended configuration", () => {
       expect(configs).toHaveProperty("nextjs/recommended");
-      expect(Array.isArray(configs["nextjs/recommended"])).toBe(true);
-      expect(configs["nextjs/recommended"][0]).toHaveProperty("rules");
+      expect(typeof configs["nextjs/recommended"]).toBe("object");
+      expect(configs["nextjs/recommended"]).toHaveProperty("rules");
     });
 
-    it("should have correct nextjs rules (including jsx-pascal-case)", () => {
-      const nextjsRules = configs.nextjs[0].rules;
+    it("should have correct nextjs rules", () => {
+      const nextjsRules = configs.nextjs.rules;
       expect(nextjsRules).toHaveProperty("nextfriday/no-emoji", "warn");
-      expect(nextjsRules).toHaveProperty("nextfriday/file-kebab-case", "warn");
-      expect(nextjsRules).toHaveProperty("nextfriday/jsx-pascal-case", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/prefer-interface-over-inline-types", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/react-props-destructure", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/enforce-readonly-component-props", "warn");
@@ -88,31 +82,14 @@ describe("ESLint Plugin Configs", () => {
       expect(nextjsRules).toHaveProperty("nextfriday/prefer-import-type", "warn");
       expect(nextjsRules).toHaveProperty("nextfriday/prefer-react-import-types", "warn");
     });
-
-    it("should disable filename rules in Next.js routing directories", () => {
-      const override = configs.nextjs[1] as { files: string[]; rules: Record<string, string> };
-      expect(override).toHaveProperty("files");
-      expect(override.files).toEqual(
-        expect.arrayContaining([
-          "app/**/*.{js,jsx,ts,tsx}",
-          "src/app/**/*.{js,jsx,ts,tsx}",
-          "pages/**/*.{js,jsx,ts,tsx}",
-          "src/pages/**/*.{js,jsx,ts,tsx}",
-        ]),
-      );
-      expect(override.rules).toEqual({
-        "nextfriday/file-kebab-case": "off",
-        "nextfriday/jsx-pascal-case": "off",
-      });
-    });
   });
 
   it("should set warn severity for regular configs and error for recommended configs", () => {
-    const regularConfigs = [configs.base, configs.react, configs.nextjs[0]];
+    const regularConfigs = [configs.base, configs.react, configs.nextjs];
     const recommendedConfigs = [
       configs["base/recommended"],
       configs["react/recommended"],
-      configs["nextjs/recommended"][0],
+      configs["nextjs/recommended"],
     ];
 
     regularConfigs.forEach((config) => {

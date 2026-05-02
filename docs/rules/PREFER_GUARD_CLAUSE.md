@@ -36,12 +36,14 @@ function validate(user) {
 function process(data) {
   if (!data) return [];
   if (!data.items) return [];
+
   return data.items.map(toItem);
 }
 
 function validate(user) {
   if (!user) return null;
   if (!user.isAdmin) return null;
+
   return adminDashboard();
 }
 ```

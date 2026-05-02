@@ -7,7 +7,15 @@ RuleTester.afterAll = afterAll;
 RuleTester.describe = describe;
 RuleTester.it = it;
 
-const ruleTester = new RuleTester();
+const ruleTester = new RuleTester({
+  languageOptions: {
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
+    },
+  },
+});
 
 describe("prefer-named-param-types", () => {
   it("should have meta property", () => {
@@ -85,8 +93,36 @@ describe("prefer-named-param-types", () => {
           };
         `,
       },
+      {
+        code: `
+          function Comp(props: { name: string }) {
+            return <div>{props.name}</div>;
+          }
+        `,
+        name: "should defer to prefer-interface-over-inline-types for React components with non-destructured props",
+      },
+      {
+        code: `
+          const Comp = (props: { name: string }) => {
+            return <div>{props.name}</div>;
+          };
+        `,
+        name: "should defer for arrow React components with non-destructured props",
+      },
     ],
     invalid: [
+      {
+        code: `
+          function Comp({ name }: { name: string }) {
+            return <div>{name}</div>;
+          }
+        `,
+        errors: [
+          {
+            messageId: "preferNamedParamTypes",
+          },
+        ],
+      },
       {
         code: `
           const foo = ({ bar, baz }: { bar: string; baz: number }) => {

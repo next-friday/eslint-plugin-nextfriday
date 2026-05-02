@@ -22,16 +22,21 @@ function getInnerExpression(node: TSESTree.Node): TSESTree.Node {
   return node;
 }
 
-function arrayContainsOnlyPrimitives(node: TSESTree.ArrayExpression): boolean {
-  return node.elements.every((el) => {
-    if (el === null) return true;
-    const inner = getInnerExpression(el);
-    return (
-      inner.type === AST_NODE_TYPES.Literal ||
-      inner.type === AST_NODE_TYPES.Identifier ||
-      inner.type === AST_NODE_TYPES.TemplateLiteral ||
-      inner.type === AST_NODE_TYPES.UnaryExpression
-    );
+function isNestedStructure(node: TSESTree.Node): boolean {
+  const inner = getInnerExpression(node);
+  return inner.type === AST_NODE_TYPES.ObjectExpression || inner.type === AST_NODE_TYPES.ArrayExpression;
+}
+
+function containsNestedStructure(node: TSESTree.ObjectExpression | TSESTree.ArrayExpression): boolean {
+  if (node.type === AST_NODE_TYPES.ObjectExpression) {
+    return node.properties.some((prop) => {
+      if (prop.type !== AST_NODE_TYPES.Property) return false;
+      return isNestedStructure(prop.value);
+    });
+  }
+  return node.elements.some((el) => {
+    if (el === null) return false;
+    return isNestedStructure(el);
   });
 }
 
@@ -40,11 +45,12 @@ const noInlineNestedObject = createRule({
   meta: {
     type: "layout",
     docs: {
-      description: "Require nested objects and arrays to span multiple lines",
+      description:
+        "Require object or array values that contain further nested objects or arrays to span multiple lines",
     },
     fixable: "whitespace",
     messages: {
-      requireMultiline: "Nested objects and arrays should span multiple lines",
+      requireMultiline: "Inline collections containing nested objects or arrays should span multiple lines",
     },
     schema: [],
   },
@@ -68,21 +74,16 @@ const noInlineNestedObject = createRule({
           return;
         }
 
-        const elements = valueNode.type === AST_NODE_TYPES.ObjectExpression ? valueNode.properties : valueNode.elements;
-
-        if (elements.length <= 1) {
-          return;
-        }
-
-        if (valueNode.type === AST_NODE_TYPES.ArrayExpression && arrayContainsOnlyPrimitives(valueNode)) {
-          return;
-        }
-
         const isMultiline = valueNode.loc.start.line !== valueNode.loc.end.line;
-
         if (isMultiline) {
           return;
         }
+
+        if (!containsNestedStructure(valueNode)) {
+          return;
+        }
+
+        const elements = valueNode.type === AST_NODE_TYPES.ObjectExpression ? valueNode.properties : valueNode.elements;
 
         context.report({
           node: valueNode,
