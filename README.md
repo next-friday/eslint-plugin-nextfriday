@@ -458,9 +458,12 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | Rule                                                                                     | Description                                                           | Fixable |
 | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------- |
 | [jsx-newline-between-elements](docs/rules/JSX_NEWLINE_BETWEEN_ELEMENTS.md)               | Require empty lines between sibling multi-line JSX children           | ✅      |
+| [jsx-no-data-array](docs/rules/JSX_NO_DATA_ARRAY.md)                                     | Disallow top-level array of object literals in `.tsx`/`.jsx`          | ❌      |
+| [jsx-no-data-object](docs/rules/JSX_NO_DATA_OBJECT.md)                                   | Disallow top-level nested object literals in `.tsx`/`.jsx`            | ❌      |
 | [jsx-no-inline-object-prop](docs/rules/JSX_NO_INLINE_OBJECT_PROP.md)                     | Disallow inline object literals in JSX props                          | ❌      |
 | [jsx-no-newline-single-line-elements](docs/rules/JSX_NO_NEWLINE_SINGLE_LINE_ELEMENTS.md) | Disallow empty lines between single-line sibling JSX elements         | ✅      |
 | [jsx-no-non-component-function](docs/rules/JSX_NO_NON_COMPONENT_FUNCTION.md)             | Disallow non-component functions at top level in .tsx/.jsx files      | ❌      |
+| [jsx-no-sub-interface](docs/rules/JSX_NO_SUB_INTERFACE.md)                               | Disallow sub-interfaces and helper types in component files           | ❌      |
 | [jsx-no-ternary-null](docs/rules/JSX_NO_TERNARY_NULL.md)                                 | Enforce logical AND over ternary with null/undefined in JSX           | ✅      |
 | [jsx-no-variable-in-callback](docs/rules/JSX_NO_VARIABLE_IN_CALLBACK.md)                 | Disallow variable declarations inside callback functions in JSX       | ❌      |
 | [jsx-require-suspense](docs/rules/JSX_REQUIRE_SUSPENSE.md)                               | Require lazy-loaded components to be wrapped in Suspense              | ❌      |
@@ -474,6 +477,7 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                         | Enforce destructuring props inside React component body               | ❌      |
 | [enforce-props-suffix](docs/rules/ENFORCE_PROPS_SUFFIX.md)                               | Enforce 'Props' suffix for interfaces and types in \*.tsx files       | ❌      |
 | [enforce-readonly-component-props](docs/rules/ENFORCE_READONLY_COMPONENT_PROPS.md)       | Enforce Readonly wrapper for React component props                    | ✅      |
+| [enforce-render-naming](docs/rules/ENFORCE_RENDER_NAMING.md)                             | Enforce 'render' prefix for variables holding JSX inside components   | ❌      |
 
 ## Configurations
 
@@ -483,10 +487,10 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | -------------------- | -------- | ---------- | --------- | ----------- |
 | `base`               | warn     | 40         | 0         | 40          |
 | `base/recommended`   | error    | 40         | 0         | 40          |
-| `react`              | warn     | 40         | 19        | 59          |
-| `react/recommended`  | error    | 40         | 19        | 59          |
-| `nextjs`             | warn     | 40         | 19        | 59          |
-| `nextjs/recommended` | error    | 40         | 19        | 59          |
+| `react`              | warn     | 40         | 23        | 63          |
+| `react/recommended`  | error    | 40         | 23        | 63          |
+| `nextjs`             | warn     | 40         | 23        | 63          |
+| `nextjs/recommended` | error    | 40         | 23        | 63          |
 
 The `nextjs` and `nextjs/recommended` presets currently share the same rule set as `react` and `react/recommended`; they are kept as named aliases for ergonomics.
 
@@ -535,16 +539,20 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/sort-type-alphabetically`
 - `nextfriday/sort-type-required-first`
 
-### JSX Rules (19 rules)
+### JSX Rules (23 rules)
 
 Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recommended`:
 
 - `nextfriday/enforce-props-suffix`
 - `nextfriday/enforce-readonly-component-props`
+- `nextfriday/enforce-render-naming`
 - `nextfriday/jsx-newline-between-elements`
+- `nextfriday/jsx-no-data-array`
+- `nextfriday/jsx-no-data-object`
 - `nextfriday/jsx-no-inline-object-prop`
 - `nextfriday/jsx-no-newline-single-line-elements`
 - `nextfriday/jsx-no-non-component-function`
+- `nextfriday/jsx-no-sub-interface`
 - `nextfriday/jsx-no-ternary-null`
 - `nextfriday/jsx-no-variable-in-callback`
 - `nextfriday/jsx-require-suspense`
