@@ -7,14 +7,18 @@ import enforceHookNaming from "./rules/enforce-hook-naming";
 import enforcePropertyCase from "./rules/enforce-property-case";
 import enforcePropsSuffix from "./rules/enforce-props-suffix";
 import enforceReadonlyComponentProps from "./rules/enforce-readonly-component-props";
+import enforceRenderNaming from "./rules/enforce-render-naming";
 import enforceServiceNaming from "./rules/enforce-service-naming";
 import enforceSortedDestructuring from "./rules/enforce-sorted-destructuring";
 import enforceTypeDeclarationOrder from "./rules/enforce-type-declaration-order";
 import indexExportOnly from "./rules/index-export-only";
 import jsxNewlineBetweenElements from "./rules/jsx-newline-between-elements";
+import jsxNoDataArray from "./rules/jsx-no-data-array";
+import jsxNoDataObject from "./rules/jsx-no-data-object";
 import jsxNoInlineObjectProp from "./rules/jsx-no-inline-object-prop";
 import jsxNoNewlineSingleLineElements from "./rules/jsx-no-newline-single-line-elements";
 import jsxNoNonComponentFunction from "./rules/jsx-no-non-component-function";
+import jsxNoSubInterface from "./rules/jsx-no-sub-interface";
 import jsxNoTernaryNull from "./rules/jsx-no-ternary-null";
 import jsxNoVariableInCallback from "./rules/jsx-no-variable-in-callback";
 import jsxRequireSuspense from "./rules/jsx-require-suspense";
@@ -75,14 +79,18 @@ const rules = {
   "enforce-property-case": enforcePropertyCase,
   "enforce-props-suffix": enforcePropsSuffix,
   "enforce-readonly-component-props": enforceReadonlyComponentProps,
+  "enforce-render-naming": enforceRenderNaming,
   "enforce-service-naming": enforceServiceNaming,
   "enforce-sorted-destructuring": enforceSortedDestructuring,
   "enforce-type-declaration-order": enforceTypeDeclarationOrder,
   "index-export-only": indexExportOnly,
   "jsx-newline-between-elements": jsxNewlineBetweenElements,
+  "jsx-no-data-array": jsxNoDataArray,
+  "jsx-no-data-object": jsxNoDataObject,
   "jsx-no-inline-object-prop": jsxNoInlineObjectProp,
   "jsx-no-newline-single-line-elements": jsxNoNewlineSingleLineElements,
   "jsx-no-non-component-function": jsxNoNonComponentFunction,
+  "jsx-no-sub-interface": jsxNoSubInterface,
   "jsx-no-ternary-null": jsxNoTernaryNull,
   "jsx-no-variable-in-callback": jsxNoVariableInCallback,
   "jsx-require-suspense": jsxRequireSuspense,
@@ -223,10 +231,14 @@ const baseRecommendedRules = {
 const jsxRules = {
   "nextfriday/enforce-props-suffix": "warn",
   "nextfriday/enforce-readonly-component-props": "warn",
+  "nextfriday/enforce-render-naming": "warn",
   "nextfriday/jsx-newline-between-elements": "warn",
+  "nextfriday/jsx-no-data-array": "warn",
+  "nextfriday/jsx-no-data-object": "warn",
   "nextfriday/jsx-no-inline-object-prop": "warn",
   "nextfriday/jsx-no-newline-single-line-elements": "warn",
   "nextfriday/jsx-no-non-component-function": "warn",
+  "nextfriday/jsx-no-sub-interface": "warn",
   "nextfriday/jsx-no-ternary-null": "warn",
   "nextfriday/jsx-no-variable-in-callback": "warn",
   "nextfriday/jsx-require-suspense": "warn",
@@ -245,10 +257,14 @@ const jsxRules = {
 const jsxRecommendedRules = {
   "nextfriday/enforce-props-suffix": "error",
   "nextfriday/enforce-readonly-component-props": "error",
+  "nextfriday/enforce-render-naming": "error",
   "nextfriday/jsx-newline-between-elements": "error",
+  "nextfriday/jsx-no-data-array": "error",
+  "nextfriday/jsx-no-data-object": "error",
   "nextfriday/jsx-no-inline-object-prop": "error",
   "nextfriday/jsx-no-newline-single-line-elements": "error",
   "nextfriday/jsx-no-non-component-function": "error",
+  "nextfriday/jsx-no-sub-interface": "error",
   "nextfriday/jsx-no-ternary-null": "error",
   "nextfriday/jsx-no-variable-in-callback": "error",
   "nextfriday/jsx-require-suspense": "error",

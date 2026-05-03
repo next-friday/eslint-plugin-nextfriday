@@ -72,8 +72,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 59 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(59);
+  it("should have exactly 63 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(63);
   });
 
   it("should have correct rule names", () => {
@@ -137,6 +137,10 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("no-inline-type-import");
     expect(ruleNames).toContain("no-ghost-wrapper");
     expect(ruleNames).toContain("no-redundant-fragment");
+    expect(ruleNames).toContain("jsx-no-data-array");
+    expect(ruleNames).toContain("jsx-no-data-object");
+    expect(ruleNames).toContain("jsx-no-sub-interface");
+    expect(ruleNames).toContain("enforce-render-naming");
   });
 
   it("should have prefer-interface-over-inline-types rule", () => {
