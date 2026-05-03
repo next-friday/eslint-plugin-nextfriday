@@ -35,7 +35,7 @@ The plugin dogfoods its own rules via `eslint.config.mjs`. Build config lives in
 `src/index.ts` - Main plugin export containing:
 
 - `meta` - Plugin name and version from package.json
-- `rules` - All 56 rule implementations keyed by hyphenated name
+- `rules` - All 59 rule implementations keyed by hyphenated name
 - `configs` - Six configuration presets (each rule set has a `warn` and `error`/`recommended` variant). All presets are built via `createConfig()` and return a single config object. The `nextjs` and `nextjs/recommended` presets currently share the same rule set as `react` and `react/recommended`; they are kept as named aliases.
 
 The plugin is exported both as default and as named exports `{ meta, configs, rules }`.
@@ -55,8 +55,8 @@ Six configs total. Two rule set tiers, each with a `warn` variant and a `Recomme
 | Preset                          | Rules            | Severity     |
 | ------------------------------- | ---------------- | ------------ |
 | `base` / `base/recommended`     | 40 base          | warn / error |
-| `react` / `react/recommended`   | 40 base + 16 JSX | warn / error |
-| `nextjs` / `nextjs/recommended` | 40 base + 16 JSX | warn / error |
+| `react` / `react/recommended`   | 40 base + 19 JSX | warn / error |
+| `nextjs` / `nextjs/recommended` | 40 base + 19 JSX | warn / error |
 
 ### Utilities
 
@@ -64,7 +64,7 @@ Six configs total. Two rule set tiers, each with a `warn` variant and a `Recomme
 
 ### Test Structure
 
-- **Per-rule tests** use `@typescript-eslint/rule-tester` wired to Jest hooks (`RuleTester.afterAll = afterAll`, etc.). Each test file has valid/invalid cases plus a structural `describe` block asserting `meta` and `create` exist.
+- **Per-rule tests** use `@typescript-eslint/rule-tester` wired to Jest hooks (`RuleTester.afterAll = afterAll`, etc.). Each test file calls `ruleTester.run(...)` with valid/invalid cases. See "Test Boilerplate" below for the full pattern.
 - **Integration tests** live in `src/__tests__/`:
   - `rules.test.ts` — asserts the exact rule count and that every rule name is present. Update both assertions when adding/removing rules.
   - `configs.test.ts` — asserts each of the six presets exists, has a `rules` property, and contains specific rule keys with the expected severity. Update when a rule moves between presets or when the spot-checked rules change.
@@ -133,9 +133,9 @@ const ruleTester = new RuleTester();
 - Hooks are sorted alphabetically: `afterAll`, `describe`, `it`
 - No `RuleTester.itOnly` — omit it
 - No `import parser` — RuleTester uses its built-in parser
-- No `expect` import — structural tests use `toBeDefined()` from the `it` callback
+- No `expect` import — `expect` is a Jest global; reach for it directly when needed
 - Add `parserOptions: { ecmaFeatures: { jsx: true } }` only for JSX rules
-- Each test file ends with a `describe("rule structure", ...)` block asserting `meta` and `create` exist
+- A standalone `describe("rule structure", ...)` block asserting `meta` and `create` exist is **optional** — most existing tests omit it and call `ruleTester.run` at the top level directly. New rules may follow either pattern.
 - These conventions apply to per-rule tests only. The integration tests in `src/__tests__/` use `expect` and do not follow the alphabetical-hook ordering — leave them as-is.
 
 ### Rule Documentation URL Pattern

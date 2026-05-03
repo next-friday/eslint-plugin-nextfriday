@@ -27,6 +27,7 @@ import noComplexInlineReturn from "./rules/no-complex-inline-return";
 import noDirectDate from "./rules/no-direct-date";
 import noEmoji from "./rules/no-emoji";
 import noEnvFallback from "./rules/no-env-fallback";
+import noGhostWrapper from "./rules/no-ghost-wrapper";
 import noInlineDefaultExport from "./rules/no-inline-default-export";
 import noInlineNestedObject from "./rules/no-inline-nested-object";
 import noInlineReturnProperties from "./rules/no-inline-return-properties";
@@ -36,6 +37,7 @@ import noLogicInParams from "./rules/no-logic-in-params";
 import noMisleadingConstantCase from "./rules/no-misleading-constant-case";
 import noNestedInterfaceDeclaration from "./rules/no-nested-interface-declaration";
 import noNestedTernary from "./rules/no-nested-ternary";
+import noRedundantFragment from "./rules/no-redundant-fragment";
 import noRelativeImports from "./rules/no-relative-imports";
 import noSingleCharVariables from "./rules/no-single-char-variables";
 import preferAsyncAwait from "./rules/prefer-async-await";
@@ -93,6 +95,7 @@ const rules = {
   "no-direct-date": noDirectDate,
   "no-emoji": noEmoji,
   "no-env-fallback": noEnvFallback,
+  "no-ghost-wrapper": noGhostWrapper,
   "no-inline-default-export": noInlineDefaultExport,
   "no-inline-nested-object": noInlineNestedObject,
   "no-inline-return-properties": noInlineReturnProperties,
@@ -102,6 +105,7 @@ const rules = {
   "no-misleading-constant-case": noMisleadingConstantCase,
   "no-nested-interface-declaration": noNestedInterfaceDeclaration,
   "no-nested-ternary": noNestedTernary,
+  "no-redundant-fragment": noRedundantFragment,
   "no-relative-imports": noRelativeImports,
   "no-single-char-variables": noSingleCharVariables,
   "prefer-async-await": preferAsyncAwait,
@@ -229,6 +233,8 @@ const jsxRules = {
   "nextfriday/jsx-simple-props": "warn",
   "nextfriday/jsx-sort-props": "warn",
   "nextfriday/jsx-spread-props-last": "warn",
+  "nextfriday/no-ghost-wrapper": "warn",
+  "nextfriday/no-redundant-fragment": "warn",
   "nextfriday/prefer-interface-for-component-props": "warn",
   "nextfriday/prefer-interface-over-inline-types": "warn",
   "nextfriday/prefer-jsx-template-literals": "warn",
@@ -249,6 +255,8 @@ const jsxRecommendedRules = {
   "nextfriday/jsx-simple-props": "error",
   "nextfriday/jsx-sort-props": "error",
   "nextfriday/jsx-spread-props-last": "error",
+  "nextfriday/no-ghost-wrapper": "error",
+  "nextfriday/no-redundant-fragment": "error",
   "nextfriday/prefer-interface-for-component-props": "error",
   "nextfriday/prefer-interface-over-inline-types": "error",
   "nextfriday/prefer-jsx-template-literals": "error",

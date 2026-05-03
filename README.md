@@ -467,6 +467,8 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | [jsx-simple-props](docs/rules/JSX_SIMPLE_PROPS.md)                                       | Enforce simple prop values (strings, variables, callbacks, ReactNode) | ❌      |
 | [jsx-sort-props](docs/rules/JSX_SORT_PROPS.md)                                           | Enforce JSX props are sorted by value type                            | ✅      |
 | [jsx-spread-props-last](docs/rules/JSX_SPREAD_PROPS_LAST.md)                             | Enforce JSX spread attributes appear after all other props            | ❌      |
+| [no-ghost-wrapper](docs/rules/NO_GHOST_WRAPPER.md)                                       | Disallow bare `<div>`/`<span>` with no meaningful attributes          | ❌      |
+| [no-redundant-fragment](docs/rules/NO_REDUNDANT_FRAGMENT.md)                             | Disallow Fragments wrapping zero or one child                         | ❌      |
 | [prefer-jsx-template-literals](docs/rules/PREFER_JSX_TEMPLATE_LITERALS.md)               | Enforce template literals instead of mixing text and JSX expressions  | ✅      |
 | [prefer-props-with-children](docs/rules/PREFER_PROPS_WITH_CHILDREN.md)                   | Prefer PropsWithChildren over manually declaring children: ReactNode  | ❌      |
 | [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                         | Enforce destructuring props inside React component body               | ❌      |
@@ -481,10 +483,10 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | -------------------- | -------- | ---------- | --------- | ----------- |
 | `base`               | warn     | 40         | 0         | 40          |
 | `base/recommended`   | error    | 40         | 0         | 40          |
-| `react`              | warn     | 40         | 17        | 57          |
-| `react/recommended`  | error    | 40         | 17        | 57          |
-| `nextjs`             | warn     | 40         | 17        | 57          |
-| `nextjs/recommended` | error    | 40         | 17        | 57          |
+| `react`              | warn     | 40         | 19        | 59          |
+| `react/recommended`  | error    | 40         | 19        | 59          |
+| `nextjs`             | warn     | 40         | 19        | 59          |
+| `nextjs/recommended` | error    | 40         | 19        | 59          |
 
 The `nextjs` and `nextjs/recommended` presets currently share the same rule set as `react` and `react/recommended`; they are kept as named aliases for ergonomics.
 
@@ -533,7 +535,7 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/sort-type-alphabetically`
 - `nextfriday/sort-type-required-first`
 
-### JSX Rules (17 rules)
+### JSX Rules (19 rules)
 
 Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recommended`:
 
@@ -549,6 +551,8 @@ Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recomme
 - `nextfriday/jsx-simple-props`
 - `nextfriday/jsx-sort-props`
 - `nextfriday/jsx-spread-props-last`
+- `nextfriday/no-ghost-wrapper`
+- `nextfriday/no-redundant-fragment`
 - `nextfriday/prefer-interface-for-component-props`
 - `nextfriday/prefer-interface-over-inline-types`
 - `nextfriday/prefer-jsx-template-literals`
@@ -570,16 +574,6 @@ Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recomme
 - **React component conventions**: Enforces naming standards and patterns for JSX/TSX files
 - **Clean code practices**: Prevents emoji usage, enforces parameter destructuring, and more
 - **Formatting rules**: Enforces consistent blank lines around multi-line blocks and return statements
-
-## Agent Skill
-
-This plugin ships with an [Agent Skill](https://github.com/anthropics/skills) that teaches AI coding assistants (Claude Code, Cursor, etc.) all 57 rules so they generate compliant code from the start.
-
-```bash
-npx skills add next-friday/eslint-plugin-nextfriday --skill eslint-plugin-nextfriday
-```
-
-Once installed, AI assistants will automatically follow the naming, code style, type, JSX, import, and formatting patterns enforced by this plugin — reducing lint errors to zero.
 
 ## Need Help?
 
