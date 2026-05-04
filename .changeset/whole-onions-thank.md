@@ -2,4 +2,4 @@
 "eslint-plugin-nextfriday": patch
 ---
 
-upgrade dependencies: typescript 6, eslint 10.3, commitlint 20.5.3, swc 1.15.33, types/node 25; migrate build tooling from tsup to tsdown for typescript 6 compatibility; replace ts-jest with @swc/jest; move tsup to devDependencies
+remove tsup as a transitive runtime dependency by moving it to devDependencies — consumers no longer have tsup and esbuild installed unnecessarily. upgrade typescript to 6.0, eslint to 10.3, and remaining dev dependencies. migrate build tooling from tsup to tsdown and test runner from ts-jest to @swc/jest for typescript 6 compatibility.
