@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 4.3.1
+
+### Patch Changes
+
+- [#130](https://github.com/next-friday/eslint-plugin-nextfriday/pull/130) [`c85cbe3`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/c85cbe356b03bcabd3aef5a1431a0764c5b6ad7d) Thanks [@joetakara](https://github.com/joetakara)! - remove tsup as a transitive runtime dependency by moving it to devDependencies — consumers no longer have tsup and esbuild installed unnecessarily. upgrade typescript to 6.0, eslint to 10.3, and remaining dev dependencies. migrate build tooling from tsup to tsdown and test runner from ts-jest to @swc/jest for typescript 6 compatibility.
+
 ## 4.3.0
 
 ### Minor Changes
