@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 4.3.2
+
+### Patch Changes
+
+- [#132](https://github.com/next-friday/eslint-plugin-nextfriday/pull/132) [`5b2cb71`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/5b2cb713b126917b1205fd54c6a1143d50aef7aa) Thanks [@joetakara](https://github.com/joetakara)! - fix 18 rules missing internal filename guards. `no-helper-function-in-hook` and `no-helper-function-in-test` now self-skip on non-matching files and are included in all presets — no consumer configuration required. all jsx rules now guard against non-jsx files using `isJsxFile()`, consistent with the established codebase pattern.
+
 ## 4.3.1
 
 ### Patch Changes
