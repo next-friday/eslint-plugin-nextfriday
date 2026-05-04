@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 4.3.0
+
+### Minor Changes
+
+- [#128](https://github.com/next-friday/eslint-plugin-nextfriday/pull/128) [`b165ec5`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/b165ec51eb3ec870a546ab808821426186543356) Thanks [@joetakara](https://github.com/joetakara)! - add enforce-hook-filename, enforce-test-filename, no-helper-function-in-hook, no-helper-function-in-test rules
+
 ## 4.2.0
 
 ### Minor Changes
