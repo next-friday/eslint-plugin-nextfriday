@@ -35,7 +35,7 @@ The plugin dogfoods its own rules via `eslint.config.mjs`. Build config lives in
 `src/index.ts` - Main plugin export containing:
 
 - `meta` - Plugin name and version from package.json
-- `rules` - All 63 rule implementations keyed by hyphenated name
+- `rules` - All 67 rule implementations keyed by hyphenated name
 - `configs` - Six configuration presets (each rule set has a `warn` and `error`/`recommended` variant). All presets are built via `createConfig()` and return a single config object. The `nextjs` and `nextjs/recommended` presets currently share the same rule set as `react` and `react/recommended`; they are kept as named aliases.
 
 The plugin is exported both as default and as named exports `{ meta, configs, rules }`.
@@ -54,9 +54,11 @@ Six configs total. Two rule set tiers, each with a `warn` variant and a `Recomme
 
 | Preset                          | Rules            | Severity     |
 | ------------------------------- | ---------------- | ------------ |
-| `base` / `base/recommended`     | 40 base          | warn / error |
-| `react` / `react/recommended`   | 40 base + 23 JSX | warn / error |
-| `nextjs` / `nextjs/recommended` | 40 base + 23 JSX | warn / error |
+| `base` / `base/recommended`     | 42 base          | warn / error |
+| `react` / `react/recommended`   | 42 base + 23 JSX | warn / error |
+| `nextjs` / `nextjs/recommended` | 42 base + 23 JSX | warn / error |
+
+Some rules are **not** included in any preset and must be opted into manually via a `files`-scoped config block (e.g. `no-helper-function-in-test`, `no-helper-function-in-hook`). These rules apply only when explicitly configured by the user.
 
 ### Utilities
 
@@ -79,7 +81,8 @@ Six configs total. Two rule set tiers, each with a `warn` variant and a `Recomme
 3. Register in `src/index.ts`:
    - Import the rule
    - Add to `rules` object
-   - Add to both the warn and recommended variants of the appropriate rule set (e.g., `jsxRules` AND `jsxRecommendedRules`)
+   - **If the rule belongs in a preset**: add to both the warn and recommended variants of the appropriate rule set (e.g., `baseRules` AND `baseRecommendedRules`, or `jsxRules` AND `jsxRecommendedRules`). Rules that check the filename internally (e.g. `enforce-hook-filename`, `enforce-test-filename`) go in `baseRules` and return early when the file doesn't match.
+   - **If the rule is opt-in** (only useful when scoped to specific file patterns via `files` glob): add to `rules` only — do **not** add to any preset. Examples: `no-helper-function-in-test`, `no-helper-function-in-hook`.
 4. Create documentation: `docs/rules/{RULE_NAME_UPPERCASE}.md`
 5. Update README.md rules table
 6. Update `src/__tests__/rules.test.ts`:
