@@ -1,6 +1,6 @@
 import { describe, it, expect } from "@jest/globals";
 
-import packageJson from "../../package.json" assert { type: "json" };
+import packageJson from "../../package.json" with { type: "json" };
 import { meta } from "..";
 
 describe("ESLint Plugin Meta", () => {

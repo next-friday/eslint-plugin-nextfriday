@@ -8,12 +8,14 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "rootDir": ".",
     "outDir": "lib",
     "sourceMap": true,
     "resolveJsonModule": true,
     "declaration": true,
     "declarationMap": true,
-    "inlineSources": true
+    "inlineSources": true,
+    "types": ["jest", "node"]
   },
   "include": ["src/**/*", "**/*.config.ts"],
   "exclude": ["node_modules", "lib"]

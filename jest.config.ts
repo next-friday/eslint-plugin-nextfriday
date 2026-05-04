@@ -1,7 +1,6 @@
 import type { Config } from "jest";
 
 const config: Config = {
-  preset: "ts-jest/presets/default-esm",
   extensionsToTreatAsEsm: [".ts"],
   testEnvironment: "node",
   testMatch: ["<rootDir>/src/**/__tests__/**/*.test.ts"],
@@ -12,9 +11,16 @@ const config: Config = {
   },
   transform: {
     "^.+\\.ts$": [
-      "ts-jest",
+      "@swc/jest",
       {
-        useESM: true,
+        jsc: {
+          parser: {
+            syntax: "typescript",
+          },
+        },
+        module: {
+          type: "es6",
+        },
       },
     ],
   },
