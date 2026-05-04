@@ -46,7 +46,7 @@
   ],
   "scripts": {
     "audit": "pnpm audit --prod --audit-level high",
-    "build": "tsup",
+    "build": "tsdown",
     "changeset": "changeset",
     "changeset:publish": "npm publish --provenance --access public",
     "changeset:version": "changeset version",
@@ -66,26 +66,25 @@
   },
   "dependencies": {
     "@typescript-eslint/utils": "^8.59.1",
-    "emoji-regex": "^10.6.0",
-    "tsup": "^8.5.1"
+    "emoji-regex": "^10.6.0"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.6.0",
     "@changesets/cli": "^2.31.0",
-    "@commitlint/cli": "^20.5.2",
-    "@commitlint/config-conventional": "^20.5.0",
+    "@commitlint/cli": "^20.5.3",
+    "@commitlint/config-conventional": "^20.5.3",
     "@eslint/js": "^10.0.1",
     "@jest/globals": "^30.3.0",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "@swc/core": "^1.15.32",
+    "@swc/core": "^1.15.33",
     "@swc/jest": "^0.2.39",
     "@types/eslint": "^9.6.1",
     "@types/jest": "^30.0.0",
-    "@types/node": "^22.19.17",
+    "@types/node": "^25.6.0",
     "@types/ramda": "^0.31.1",
     "@typescript-eslint/parser": "^8.59.1",
     "@typescript-eslint/rule-tester": "^8.59.1",
-    "eslint": "^10.2.1",
+    "eslint": "^10.3.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import-x": "^4.16.2",
@@ -96,9 +95,9 @@
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.3",
     "sort-package-json": "^3.6.1",
-    "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
+    "tsdown": "^0.21.10",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.1"
   },
   "peerDependencies": {
@@ -106,7 +105,7 @@
   },
   "packageManager": "pnpm@9.12.0",
   "engines": {
-    "node": ">=22.0.0",
+    "node": ">=22.10.0",
     "pnpm": ">=9.0.0"
   },
   "publishConfig": {
