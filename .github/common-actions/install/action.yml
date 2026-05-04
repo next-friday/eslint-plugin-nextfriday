@@ -28,6 +28,11 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
 
+    - name: Ensure pnpm store path exists
+      if: inputs.install-deps == 'false'
+      shell: bash
+      run: mkdir -p $(pnpm store path)
+
     - name: Install Dependencies
       if: inputs.install-deps == 'true'
       shell: bash
