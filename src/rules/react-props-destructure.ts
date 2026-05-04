@@ -1,5 +1,7 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
+import { isJsxFile } from "../utils";
+
 import type { TSESTree } from "@typescript-eslint/utils";
 
 const createRule = ESLintUtils.RuleCreator(
@@ -23,6 +25,8 @@ const reactPropsDestructure = createRule({
   },
   defaultOptions: [],
   create(context) {
+    if (!isJsxFile(context.filename)) return {};
+
     function hasJSXInConditional(node: TSESTree.ConditionalExpression): boolean {
       return (
         node.consequent.type === AST_NODE_TYPES.JSXElement ||

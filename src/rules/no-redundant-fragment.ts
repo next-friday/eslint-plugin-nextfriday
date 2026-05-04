@@ -1,5 +1,7 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
+import { isJsxFile } from "../utils";
+
 import type { TSESTree } from "@typescript-eslint/utils";
 
 const createRule = ESLintUtils.RuleCreator(
@@ -58,6 +60,8 @@ const noRedundantFragment = createRule({
   },
   defaultOptions: [],
   create(context) {
+    if (!isJsxFile(context.filename)) return {};
+
     return {
       JSXFragment(node: TSESTree.JSXFragment) {
         const count = countMeaningfulChildren(node.children);

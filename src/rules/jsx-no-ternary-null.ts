@@ -1,5 +1,7 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
+import { isJsxFile } from "../utils";
+
 import type { TSESTree } from "@typescript-eslint/utils";
 
 const createRule = ESLintUtils.RuleCreator(
@@ -34,6 +36,8 @@ const jsxNoTernaryNull = createRule({
   },
   defaultOptions: [],
   create(context) {
+    if (!isJsxFile(context.filename)) return {};
+
     return {
       JSXExpressionContainer(node: TSESTree.JSXExpressionContainer) {
         const { expression } = node;

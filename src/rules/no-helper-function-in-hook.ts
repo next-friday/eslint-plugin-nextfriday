@@ -1,3 +1,5 @@
+import path from "path";
+
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -21,6 +23,11 @@ const noHelperFunctionInHook = createRule({
   },
   defaultOptions: [],
   create(context) {
+    const basename = path.basename(context.filename);
+    const isHookFile = basename.endsWith(".hook.ts") || basename.endsWith(".hooks.ts");
+
+    if (!isHookFile) return {};
+
     function isAtProgramLevel(node: TSESTree.Node): boolean {
       const { parent } = node;
 
