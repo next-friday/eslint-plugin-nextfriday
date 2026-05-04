@@ -72,8 +72,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 63 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(63);
+  it("should have exactly 67 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(67);
   });
 
   it("should have correct rule names", () => {
@@ -99,11 +99,13 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("react-props-destructure");
     expect(ruleNames).toContain("enforce-camel-case");
     expect(ruleNames).toContain("enforce-constant-case");
+    expect(ruleNames).toContain("enforce-hook-filename");
     expect(ruleNames).toContain("enforce-hook-naming");
     expect(ruleNames).toContain("enforce-property-case");
     expect(ruleNames).toContain("enforce-props-suffix");
     expect(ruleNames).toContain("enforce-readonly-component-props");
     expect(ruleNames).toContain("enforce-service-naming");
+    expect(ruleNames).toContain("enforce-test-filename");
     expect(ruleNames).toContain("enforce-sorted-destructuring");
     expect(ruleNames).toContain("no-complex-inline-return");
     expect(ruleNames).toContain("no-logic-in-params");
@@ -136,6 +138,8 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("index-export-only");
     expect(ruleNames).toContain("no-inline-type-import");
     expect(ruleNames).toContain("no-ghost-wrapper");
+    expect(ruleNames).toContain("no-helper-function-in-hook");
+    expect(ruleNames).toContain("no-helper-function-in-test");
     expect(ruleNames).toContain("no-redundant-fragment");
     expect(ruleNames).toContain("jsx-no-data-array");
     expect(ruleNames).toContain("jsx-no-data-object");

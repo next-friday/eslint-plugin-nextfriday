@@ -3,12 +3,14 @@ import packageJson from "../package.json" with { type: "json" };
 import booleanNamingPrefix from "./rules/boolean-naming-prefix";
 import enforceCamelCase from "./rules/enforce-camel-case";
 import enforceConstantCase from "./rules/enforce-constant-case";
+import enforceHookFilename from "./rules/enforce-hook-filename";
 import enforceHookNaming from "./rules/enforce-hook-naming";
 import enforcePropertyCase from "./rules/enforce-property-case";
 import enforcePropsSuffix from "./rules/enforce-props-suffix";
 import enforceReadonlyComponentProps from "./rules/enforce-readonly-component-props";
 import enforceRenderNaming from "./rules/enforce-render-naming";
 import enforceServiceNaming from "./rules/enforce-service-naming";
+import enforceTestFilename from "./rules/enforce-test-filename";
 import enforceSortedDestructuring from "./rules/enforce-sorted-destructuring";
 import enforceTypeDeclarationOrder from "./rules/enforce-type-declaration-order";
 import indexExportOnly from "./rules/index-export-only";
@@ -32,6 +34,8 @@ import noDirectDate from "./rules/no-direct-date";
 import noEmoji from "./rules/no-emoji";
 import noEnvFallback from "./rules/no-env-fallback";
 import noGhostWrapper from "./rules/no-ghost-wrapper";
+import noHelperFunctionInHook from "./rules/no-helper-function-in-hook";
+import noHelperFunctionInTest from "./rules/no-helper-function-in-test";
 import noInlineDefaultExport from "./rules/no-inline-default-export";
 import noInlineNestedObject from "./rules/no-inline-nested-object";
 import noInlineReturnProperties from "./rules/no-inline-return-properties";
@@ -75,12 +79,14 @@ const rules = {
   "boolean-naming-prefix": booleanNamingPrefix,
   "enforce-camel-case": enforceCamelCase,
   "enforce-constant-case": enforceConstantCase,
+  "enforce-hook-filename": enforceHookFilename,
   "enforce-hook-naming": enforceHookNaming,
   "enforce-property-case": enforcePropertyCase,
   "enforce-props-suffix": enforcePropsSuffix,
   "enforce-readonly-component-props": enforceReadonlyComponentProps,
   "enforce-render-naming": enforceRenderNaming,
   "enforce-service-naming": enforceServiceNaming,
+  "enforce-test-filename": enforceTestFilename,
   "enforce-sorted-destructuring": enforceSortedDestructuring,
   "enforce-type-declaration-order": enforceTypeDeclarationOrder,
   "index-export-only": indexExportOnly,
@@ -104,6 +110,8 @@ const rules = {
   "no-emoji": noEmoji,
   "no-env-fallback": noEnvFallback,
   "no-ghost-wrapper": noGhostWrapper,
+  "no-helper-function-in-hook": noHelperFunctionInHook,
+  "no-helper-function-in-test": noHelperFunctionInTest,
   "no-inline-default-export": noInlineDefaultExport,
   "no-inline-nested-object": noInlineNestedObject,
   "no-inline-return-properties": noInlineReturnProperties,
@@ -146,9 +154,11 @@ const baseRules = {
   "nextfriday/boolean-naming-prefix": "warn",
   "nextfriday/enforce-camel-case": "warn",
   "nextfriday/enforce-constant-case": "warn",
+  "nextfriday/enforce-hook-filename": "warn",
   "nextfriday/enforce-hook-naming": "warn",
   "nextfriday/enforce-property-case": "warn",
   "nextfriday/enforce-service-naming": "warn",
+  "nextfriday/enforce-test-filename": "warn",
   "nextfriday/enforce-sorted-destructuring": "warn",
   "nextfriday/enforce-type-declaration-order": "warn",
   "nextfriday/index-export-only": "warn",
@@ -189,9 +199,11 @@ const baseRecommendedRules = {
   "nextfriday/boolean-naming-prefix": "error",
   "nextfriday/enforce-camel-case": "error",
   "nextfriday/enforce-constant-case": "error",
+  "nextfriday/enforce-hook-filename": "error",
   "nextfriday/enforce-hook-naming": "error",
   "nextfriday/enforce-property-case": "error",
   "nextfriday/enforce-service-naming": "error",
+  "nextfriday/enforce-test-filename": "error",
   "nextfriday/enforce-sorted-destructuring": "error",
   "nextfriday/enforce-type-declaration-order": "error",
   "nextfriday/index-export-only": "error",

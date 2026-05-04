@@ -413,6 +413,8 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | [require-explicit-return-type](docs/rules/REQUIRE_EXPLICIT_RETURN_TYPE.md)   | Require explicit return types on functions for better documentation    | ❌      |
 | [no-complex-inline-return](docs/rules/NO_COMPLEX_INLINE_RETURN.md)           | Disallow complex inline expressions in return - extract to const first | ❌      |
 | [no-logic-in-params](docs/rules/NO_LOGIC_IN_PARAMS.md)                       | Disallow logic/conditions in function parameters - extract to const    | ❌      |
+| [enforce-hook-filename](docs/rules/ENFORCE_HOOK_FILENAME.md)                 | Enforce that files exporting custom hooks are named \*.hook.ts         | ❌      |
+| [enforce-test-filename](docs/rules/ENFORCE_TEST_FILENAME.md)                 | Enforce that files containing test code are named \*.test.ts           | ❌      |
 | [enforce-hook-naming](docs/rules/ENFORCE_HOOK_NAMING.md)                     | Enforce 'use' prefix for functions in \*.hook.ts files                 | ❌      |
 | [enforce-service-naming](docs/rules/ENFORCE_SERVICE_NAMING.md)               | Enforce 'fetch' prefix for async functions in \*.service.ts files      | ❌      |
 | [enforce-sorted-destructuring](docs/rules/ENFORCE_SORTED_DESTRUCTURING.md)   | Enforce alphabetical sorting of destructured properties                | ✅      |
@@ -427,6 +429,8 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | [prefer-async-await](docs/rules/PREFER_ASYNC_AWAIT.md)                       | Enforce async/await over .then() promise chains                        | ❌      |
 | [no-nested-ternary](docs/rules/NO_NESTED_TERNARY.md)                         | Disallow nested ternary expressions                                    | ❌      |
 | [prefer-guard-clause](docs/rules/PREFER_GUARD_CLAUSE.md)                     | Enforce guard clause pattern instead of nested if statements           | ❌      |
+| [no-helper-function-in-hook](docs/rules/NO_HELPER_FUNCTION_IN_HOOK.md)       | Disallow non-hook helper function definitions in hook files            | ❌      |
+| [no-helper-function-in-test](docs/rules/NO_HELPER_FUNCTION_IN_TEST.md)       | Disallow helper function definitions in test files                     | ❌      |
 
 ### Import Optimization Rules
 
@@ -485,23 +489,25 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 
 | Preset               | Severity | Base Rules | JSX Rules | Total Rules |
 | -------------------- | -------- | ---------- | --------- | ----------- |
-| `base`               | warn     | 40         | 0         | 40          |
-| `base/recommended`   | error    | 40         | 0         | 40          |
-| `react`              | warn     | 40         | 23        | 63          |
-| `react/recommended`  | error    | 40         | 23        | 63          |
-| `nextjs`             | warn     | 40         | 23        | 63          |
-| `nextjs/recommended` | error    | 40         | 23        | 63          |
+| `base`               | warn     | 42         | 0         | 42          |
+| `base/recommended`   | error    | 42         | 0         | 42          |
+| `react`              | warn     | 42         | 23        | 65          |
+| `react/recommended`  | error    | 42         | 23        | 65          |
+| `nextjs`             | warn     | 42         | 23        | 65          |
+| `nextjs/recommended` | error    | 42         | 23        | 65          |
 
 The `nextjs` and `nextjs/recommended` presets currently share the same rule set as `react` and `react/recommended`; they are kept as named aliases for ergonomics.
 
-### Base Configuration Rules (40 rules)
+### Base Configuration Rules (42 rules)
 
 Included in `base`, `base/recommended`, and all other presets:
 
 - `nextfriday/boolean-naming-prefix`
 - `nextfriday/enforce-camel-case`
 - `nextfriday/enforce-constant-case`
+- `nextfriday/enforce-hook-filename`
 - `nextfriday/enforce-hook-naming`
+- `nextfriday/enforce-test-filename`
 - `nextfriday/enforce-property-case`
 - `nextfriday/enforce-service-naming`
 - `nextfriday/enforce-sorted-destructuring`
