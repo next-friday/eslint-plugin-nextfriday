@@ -1,5 +1,7 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
+import { isJsxFile } from "../utils";
+
 import type { TSESTree } from "@typescript-eslint/utils";
 
 const createRule = ESLintUtils.RuleCreator(
@@ -22,6 +24,8 @@ const jsxNoVariableInCallback = createRule({
   },
   defaultOptions: [],
   create(context) {
+    if (!isJsxFile(context.filename)) return {};
+
     function isInsideJSX(node: TSESTree.Node): boolean {
       let current = node.parent;
       while (current) {

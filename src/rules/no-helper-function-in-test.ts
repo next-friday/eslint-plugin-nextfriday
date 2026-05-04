@@ -1,3 +1,5 @@
+import path from "path";
+
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -21,6 +23,11 @@ const noHelperFunctionInTest = createRule({
   },
   defaultOptions: [],
   create(context) {
+    const basename = path.basename(context.filename);
+    const isTestFile = basename.endsWith(".test.ts") || basename.endsWith(".test.tsx");
+
+    if (!isTestFile) return {};
+
     return {
       FunctionDeclaration(node: TSESTree.FunctionDeclaration) {
         if (node.parent.type === AST_NODE_TYPES.Program) {
