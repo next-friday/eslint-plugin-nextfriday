@@ -1,5 +1,15 @@
 # eslint-plugin-nextfriday
 
+## 4.4.0
+
+### Minor Changes
+
+- [#134](https://github.com/next-friday/eslint-plugin-nextfriday/pull/134) [`ae95cb8`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/ae95cb840eb5e1a2f342e58958e0a44a94d4ae3d) Thanks [@joetakara](https://github.com/joetakara)! - remove `prefer-inline-type-export` rule
+
+  fix `prefer-import-type` incorrectly converting namespace imports used as JSX member expressions (e.g. `<Avatar.Root>`) to `import type`
+
+  update `prefer-props-with-children` to only flag optional `children?: ReactNode` — required `children: ReactNode` is no longer reported
+
 ## 4.3.2
 
 ### Patch Changes
