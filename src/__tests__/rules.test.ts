@@ -72,8 +72,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 66 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(66);
+  it("should have exactly 64 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(64);
   });
 
   it("should have correct rule names", () => {
@@ -109,9 +109,7 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("enforce-sorted-destructuring");
     expect(ruleNames).toContain("no-complex-inline-return");
     expect(ruleNames).toContain("no-logic-in-params");
-    expect(ruleNames).toContain("no-nested-ternary");
     expect(ruleNames).toContain("no-env-fallback");
-    expect(ruleNames).toContain("no-inline-default-export");
     expect(ruleNames).toContain("no-inline-return-properties");
     expect(ruleNames).toContain("no-inline-nested-object");
     expect(ruleNames).toContain("no-lazy-identifiers");
@@ -250,14 +248,6 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-direct-date"].create).toBe("function");
   });
 
-  it("should have no-inline-default-export rule", () => {
-    expect(rules).toHaveProperty("no-inline-default-export");
-    expect(typeof rules["no-inline-default-export"]).toBe("object");
-    expect(rules["no-inline-default-export"]).toHaveProperty("meta");
-    expect(rules["no-inline-default-export"]).toHaveProperty("create");
-    expect(typeof rules["no-inline-default-export"].create).toBe("function");
-  });
-
   it("should have jsx-newline-between-elements rule", () => {
     expect(rules).toHaveProperty("jsx-newline-between-elements");
     expect(typeof rules["jsx-newline-between-elements"]).toBe("object");
@@ -352,14 +342,6 @@ describe("ESLint Plugin Rules", () => {
     expect(rules["prefer-async-await"]).toHaveProperty("meta");
     expect(rules["prefer-async-await"]).toHaveProperty("create");
     expect(typeof rules["prefer-async-await"].create).toBe("function");
-  });
-
-  it("should have no-nested-ternary rule", () => {
-    expect(rules).toHaveProperty("no-nested-ternary");
-    expect(typeof rules["no-nested-ternary"]).toBe("object");
-    expect(rules["no-nested-ternary"]).toHaveProperty("meta");
-    expect(rules["no-nested-ternary"]).toHaveProperty("create");
-    expect(typeof rules["no-nested-ternary"].create).toBe("function");
   });
 
   it("should have prefer-guard-clause rule", () => {

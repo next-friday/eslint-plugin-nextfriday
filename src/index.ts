@@ -36,7 +36,6 @@ import noEnvFallback from "./rules/no-env-fallback";
 import noGhostWrapper from "./rules/no-ghost-wrapper";
 import noHelperFunctionInHook from "./rules/no-helper-function-in-hook";
 import noHelperFunctionInTest from "./rules/no-helper-function-in-test";
-import noInlineDefaultExport from "./rules/no-inline-default-export";
 import noInlineNestedObject from "./rules/no-inline-nested-object";
 import noInlineReturnProperties from "./rules/no-inline-return-properties";
 import noInlineTypeImport from "./rules/no-inline-type-import";
@@ -44,7 +43,6 @@ import noLazyIdentifiers from "./rules/no-lazy-identifiers";
 import noLogicInParams from "./rules/no-logic-in-params";
 import noMisleadingConstantCase from "./rules/no-misleading-constant-case";
 import noNestedInterfaceDeclaration from "./rules/no-nested-interface-declaration";
-import noNestedTernary from "./rules/no-nested-ternary";
 import noRedundantFragment from "./rules/no-redundant-fragment";
 import noRelativeImports from "./rules/no-relative-imports";
 import noSingleCharVariables from "./rules/no-single-char-variables";
@@ -111,7 +109,6 @@ const rules = {
   "no-ghost-wrapper": noGhostWrapper,
   "no-helper-function-in-hook": noHelperFunctionInHook,
   "no-helper-function-in-test": noHelperFunctionInTest,
-  "no-inline-default-export": noInlineDefaultExport,
   "no-inline-nested-object": noInlineNestedObject,
   "no-inline-return-properties": noInlineReturnProperties,
   "no-inline-type-import": noInlineTypeImport,
@@ -119,7 +116,6 @@ const rules = {
   "no-logic-in-params": noLogicInParams,
   "no-misleading-constant-case": noMisleadingConstantCase,
   "no-nested-interface-declaration": noNestedInterfaceDeclaration,
-  "no-nested-ternary": noNestedTernary,
   "no-redundant-fragment": noRedundantFragment,
   "no-relative-imports": noRelativeImports,
   "no-single-char-variables": noSingleCharVariables,
@@ -168,7 +164,6 @@ const baseRules = {
   "nextfriday/no-env-fallback": "warn",
   "nextfriday/no-helper-function-in-hook": "warn",
   "nextfriday/no-helper-function-in-test": "warn",
-  "nextfriday/no-inline-default-export": "warn",
   "nextfriday/no-inline-nested-object": "warn",
   "nextfriday/no-inline-return-properties": "warn",
   "nextfriday/no-inline-type-import": "warn",
@@ -176,7 +171,6 @@ const baseRules = {
   "nextfriday/no-logic-in-params": "warn",
   "nextfriday/no-misleading-constant-case": "warn",
   "nextfriday/no-nested-interface-declaration": "warn",
-  "nextfriday/no-nested-ternary": "warn",
   "nextfriday/no-relative-imports": "warn",
   "nextfriday/no-single-char-variables": "warn",
   "nextfriday/prefer-async-await": "warn",
@@ -214,7 +208,6 @@ const baseRecommendedRules = {
   "nextfriday/no-env-fallback": "error",
   "nextfriday/no-helper-function-in-hook": "error",
   "nextfriday/no-helper-function-in-test": "error",
-  "nextfriday/no-inline-default-export": "error",
   "nextfriday/no-inline-nested-object": "error",
   "nextfriday/no-inline-return-properties": "error",
   "nextfriday/no-inline-type-import": "error",
@@ -222,7 +215,6 @@ const baseRecommendedRules = {
   "nextfriday/no-logic-in-params": "error",
   "nextfriday/no-misleading-constant-case": "error",
   "nextfriday/no-nested-interface-declaration": "error",
-  "nextfriday/no-nested-ternary": "error",
   "nextfriday/no-relative-imports": "error",
   "nextfriday/no-single-char-variables": "error",
   "nextfriday/prefer-async-await": "error",

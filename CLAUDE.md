@@ -60,6 +60,10 @@ Six configs total. Two rule set tiers, each with a `warn` variant and a `Recomme
 
 All 66 rules are included in the presets. The `react` and `nextjs` presets cover the full rule set (43 + 23 = 66).
 
+`createConfig(rules)` is the only constructor used for presets — it wraps the rules object with `plugins: { nextfriday: plugin }` so each preset is self-contained for ESLint flat config. Never construct a preset config manually.
+
+A rule's tier (base vs JSX) is determined solely by placement in `jsxRules`/`jsxRecommendedRules` in `src/index.ts` — not by a `jsx-` name prefix. Ten JSX-tier rules have no `jsx-` prefix (e.g. `no-ghost-wrapper`, `no-redundant-fragment`, `enforce-props-suffix`, `react-props-destructure`). Similarly, `prefer-react-import-types` is intentionally in `baseRules` despite its name — do not move it to `jsxRules`.
+
 ### Utilities
 
 `src/utils.ts` - Shared functions for filename parsing (`getFileExtension`, `getBaseName`), file type detection (`isJsFile`, `isJsxFile`, `isConfigFile`), and function parameter analysis (`getFunctionParams`, `hasMultipleParams`, `hasNonDestructuredParams`).

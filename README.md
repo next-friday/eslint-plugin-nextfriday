@@ -125,7 +125,6 @@ export default [
       "nextfriday/no-inline-nested-object": "error",
       "nextfriday/no-inline-return-properties": "error",
       "nextfriday/prefer-async-await": "error",
-      "nextfriday/no-nested-ternary": "error",
       "nextfriday/prefer-guard-clause": "error",
 
       // Import Optimization
@@ -419,7 +418,6 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | [enforce-service-naming](docs/rules/ENFORCE_SERVICE_NAMING.md)               | Enforce 'fetch' prefix for async functions in \*.service.ts files      | ❌      |
 | [enforce-sorted-destructuring](docs/rules/ENFORCE_SORTED_DESTRUCTURING.md)   | Enforce alphabetical sorting of destructured properties                | ✅      |
 | [no-env-fallback](docs/rules/NO_ENV_FALLBACK.md)                             | Disallow fallback values for environment variables                     | ❌      |
-| [no-inline-default-export](docs/rules/NO_INLINE_DEFAULT_EXPORT.md)           | Disallow inline default exports - declare first, then export           | ❌      |
 | [index-export-only](docs/rules/INDEX_EXPORT_ONLY.md)                         | Restrict index files to imports, re-exports, and type declarations     | ❌      |
 | [no-direct-date](docs/rules/NO_DIRECT_DATE.md)                               | Disallow direct usage of Date constructor and methods                  | ❌      |
 | [newline-after-multiline-block](docs/rules/NEWLINE_AFTER_MULTILINE_BLOCK.md) | Require a blank line after multi-line statements                       | ✅      |
@@ -427,7 +425,6 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | [no-inline-nested-object](docs/rules/NO_INLINE_NESTED_OBJECT.md)             | Require nested objects and arrays to span multiple lines               | ✅      |
 | [no-inline-return-properties](docs/rules/NO_INLINE_RETURN_PROPERTIES.md)     | Require return object properties to use shorthand notation             | ❌      |
 | [prefer-async-await](docs/rules/PREFER_ASYNC_AWAIT.md)                       | Enforce async/await over .then() promise chains                        | ❌      |
-| [no-nested-ternary](docs/rules/NO_NESTED_TERNARY.md)                         | Disallow nested ternary expressions                                    | ❌      |
 | [prefer-guard-clause](docs/rules/PREFER_GUARD_CLAUSE.md)                     | Enforce guard clause pattern instead of nested if statements           | ❌      |
 | [no-helper-function-in-hook](docs/rules/NO_HELPER_FUNCTION_IN_HOOK.md)       | Disallow non-hook helper function definitions in hook files            | ❌      |
 | [no-helper-function-in-test](docs/rules/NO_HELPER_FUNCTION_IN_TEST.md)       | Disallow helper function definitions in test files                     | ❌      |
@@ -518,7 +515,6 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/no-direct-date`
 - `nextfriday/no-emoji`
 - `nextfriday/no-env-fallback`
-- `nextfriday/no-inline-default-export`
 - `nextfriday/no-inline-nested-object`
 - `nextfriday/no-inline-return-properties`
 - `nextfriday/no-inline-type-import`
@@ -526,7 +522,6 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/no-logic-in-params`
 - `nextfriday/no-misleading-constant-case`
 - `nextfriday/no-nested-interface-declaration`
-- `nextfriday/no-nested-ternary`
 - `nextfriday/no-relative-imports`
 - `nextfriday/no-single-char-variables`
 - `nextfriday/prefer-async-await`

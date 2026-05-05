@@ -33,6 +33,10 @@ const isAllowedTopLevel = (node: TSESTree.ProgramStatement): boolean => {
     case AST_NODE_TYPES.TSInterfaceDeclaration:
     case AST_NODE_TYPES.TSImportEqualsDeclaration:
       return true;
+    case AST_NODE_TYPES.ExpressionStatement: {
+      const { expression } = node;
+      return expression.type === AST_NODE_TYPES.Literal && typeof expression.value === "string";
+    }
     case AST_NODE_TYPES.ExportNamedDeclaration:
       return isAllowedExportNamed(node);
     case AST_NODE_TYPES.ExportDefaultDeclaration:
