@@ -54,11 +54,11 @@ Six configs total. Two rule set tiers, each with a `warn` variant and a `Recomme
 
 | Preset                          | Rules            | Severity     |
 | ------------------------------- | ---------------- | ------------ |
-| `base` / `base/recommended`     | 42 base          | warn / error |
-| `react` / `react/recommended`   | 42 base + 23 JSX | warn / error |
-| `nextjs` / `nextjs/recommended` | 42 base + 23 JSX | warn / error |
+| `base` / `base/recommended`     | 44 base          | warn / error |
+| `react` / `react/recommended`   | 44 base + 23 JSX | warn / error |
+| `nextjs` / `nextjs/recommended` | 44 base + 23 JSX | warn / error |
 
-Some rules are **not** included in any preset and must be opted into manually via a `files`-scoped config block (e.g. `no-helper-function-in-test`, `no-helper-function-in-hook`). These rules apply only when explicitly configured by the user.
+All 67 rules are included in the presets. The `react` and `nextjs` presets cover the full rule set (44 + 23 = 67).
 
 ### Utilities
 
@@ -82,7 +82,7 @@ Some rules are **not** included in any preset and must be opted into manually vi
    - Import the rule
    - Add to `rules` object
    - **If the rule belongs in a preset**: add to both the warn and recommended variants of the appropriate rule set (e.g., `baseRules` AND `baseRecommendedRules`, or `jsxRules` AND `jsxRecommendedRules`). Rules that check the filename internally (e.g. `enforce-hook-filename`, `enforce-test-filename`) go in `baseRules` and return early when the file doesn't match.
-   - **If the rule is opt-in** (only useful when scoped to specific file patterns via `files` glob): add to `rules` only — do **not** add to any preset. Examples: `no-helper-function-in-test`, `no-helper-function-in-hook`.
+   - **If the rule is opt-in** (only useful when scoped to specific file patterns via `files` glob): add to `rules` only — do **not** add to any preset.
 4. Create documentation: `docs/rules/{RULE_NAME_UPPERCASE}.md`
 5. Update README.md rules table
 6. Update `src/__tests__/rules.test.ts`:

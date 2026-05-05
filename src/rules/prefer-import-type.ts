@@ -82,6 +82,7 @@ const preferImportType = createRule({
         switch (parent.type) {
           case AST_NODE_TYPES.CallExpression:
           case AST_NODE_TYPES.NewExpression:
+          case AST_NODE_TYPES.JSXMemberExpression:
           case AST_NODE_TYPES.JSXOpeningElement:
           case AST_NODE_TYPES.JSXClosingElement:
           case AST_NODE_TYPES.MemberExpression:
