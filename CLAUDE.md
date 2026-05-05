@@ -35,7 +35,7 @@ The plugin dogfoods its own rules via `eslint.config.mjs`. Build config lives in
 `src/index.ts` - Main plugin export containing:
 
 - `meta` - Plugin name and version from package.json
-- `rules` - All 67 rule implementations keyed by hyphenated name
+- `rules` - All 66 rule implementations keyed by hyphenated name
 - `configs` - Six configuration presets (each rule set has a `warn` and `error`/`recommended` variant). All presets are built via `createConfig()` and return a single config object. The `nextjs` and `nextjs/recommended` presets currently share the same rule set as `react` and `react/recommended`; they are kept as named aliases.
 
 The plugin is exported both as default and as named exports `{ meta, configs, rules }`.
@@ -54,11 +54,11 @@ Six configs total. Two rule set tiers, each with a `warn` variant and a `Recomme
 
 | Preset                          | Rules            | Severity     |
 | ------------------------------- | ---------------- | ------------ |
-| `base` / `base/recommended`     | 44 base          | warn / error |
-| `react` / `react/recommended`   | 44 base + 23 JSX | warn / error |
-| `nextjs` / `nextjs/recommended` | 44 base + 23 JSX | warn / error |
+| `base` / `base/recommended`     | 43 base          | warn / error |
+| `react` / `react/recommended`   | 43 base + 23 JSX | warn / error |
+| `nextjs` / `nextjs/recommended` | 43 base + 23 JSX | warn / error |
 
-All 67 rules are included in the presets. The `react` and `nextjs` presets cover the full rule set (44 + 23 = 67).
+All 66 rules are included in the presets. The `react` and `nextjs` presets cover the full rule set (43 + 23 = 66).
 
 ### Utilities
 
