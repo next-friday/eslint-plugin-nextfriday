@@ -89,15 +89,13 @@ describe("prefer-props-with-children", () => {
           const Component = (props: PropsWithChildren<{ label: string }>) => <div>{props.children}</div>;
         `,
       },
-    ],
-    invalid: [
       {
         code: `
           interface LayoutProps {
             children: ReactNode;
           }
         `,
-        errors: [{ messageId: "usePropsWithChildren" }],
+        name: "should not flag required children: ReactNode",
       },
       {
         code: `
@@ -106,8 +104,41 @@ describe("prefer-props-with-children", () => {
             children: ReactNode;
           }
         `,
-        errors: [{ messageId: "usePropsWithChildren" }],
+        name: "should not flag required children: ReactNode with other props",
       },
+      {
+        code: `
+          type WrapperProps = {
+            children: ReactNode;
+            className: string;
+          };
+        `,
+        name: "should not flag required children: ReactNode in type alias",
+      },
+      {
+        code: `
+          const Component = ({ children, label }: { children: ReactNode; label: string }) => <div>{children}{label}</div>;
+        `,
+        name: "should not flag required children: ReactNode in inline type",
+      },
+      {
+        code: `
+          function Layout(props: { children: ReactNode }) {
+            return <div>{props.children}</div>;
+          }
+        `,
+        name: "should not flag required children: ReactNode in function props",
+      },
+      {
+        code: `
+          interface ReactNamespaceProps {
+            children: React.ReactNode;
+          }
+        `,
+        name: "should not flag required children: React.ReactNode",
+      },
+    ],
+    invalid: [
       {
         code: `
           interface OptionalChildrenProps {
@@ -119,8 +150,8 @@ describe("prefer-props-with-children", () => {
       },
       {
         code: `
-          interface ReactNamespaceProps {
-            children: React.ReactNode;
+          interface LayoutProps {
+            children?: ReactNode;
           }
         `,
         errors: [{ messageId: "usePropsWithChildren" }],
@@ -128,7 +159,7 @@ describe("prefer-props-with-children", () => {
       {
         code: `
           type WrapperProps = {
-            children: ReactNode;
+            children?: ReactNode;
             className: string;
           };
         `,
@@ -136,13 +167,15 @@ describe("prefer-props-with-children", () => {
       },
       {
         code: `
-          const Component = ({ children, label }: { children: ReactNode; label: string }) => <div>{children}{label}</div>;
+          interface ReactNamespaceProps {
+            children?: React.ReactNode;
+          }
         `,
         errors: [{ messageId: "usePropsWithChildren" }],
       },
       {
         code: `
-          function Layout(props: { children: ReactNode }) {
+          function Layout(props: { children?: ReactNode }) {
             return <div>{props.children}</div>;
           }
         `,

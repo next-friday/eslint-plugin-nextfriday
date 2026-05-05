@@ -451,7 +451,6 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | [no-nested-interface-declaration](docs/rules/NO_NESTED_INTERFACE_DECLARATION.md)           | Disallow inline object types in interface/type properties         | ❌      |
 | [prefer-named-param-types](docs/rules/PREFER_NAMED_PARAM_TYPES.md)                         | Enforce named types for function parameters with object types     | ❌      |
 | [prefer-inline-literal-union](docs/rules/PREFER_INLINE_LITERAL_UNION.md)                   | Enforce inlining literal union types for better IDE hover info    | ✅      |
-| [prefer-inline-type-export](docs/rules/PREFER_INLINE_TYPE_EXPORT.md)                       | Require type/interface exports inline at the declaration          | ✅      |
 | [prefer-interface-for-component-props](docs/rules/PREFER_INTERFACE_FOR_COMPONENT_PROPS.md) | Enforce interface over type alias for component prop declarations | ✅      |
 | [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md)     | Enforce interface declarations over inline types for React props  | ❌      |
 | [sort-type-alphabetically](docs/rules/SORT_TYPE_ALPHABETICALLY.md)                         | Enforce A-Z sorting of properties within type groups              | ✅      |
@@ -489,16 +488,16 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 
 | Preset               | Severity | Base Rules | JSX Rules | Total Rules |
 | -------------------- | -------- | ---------- | --------- | ----------- |
-| `base`               | warn     | 42         | 0         | 42          |
-| `base/recommended`   | error    | 42         | 0         | 42          |
-| `react`              | warn     | 42         | 23        | 65          |
-| `react/recommended`  | error    | 42         | 23        | 65          |
-| `nextjs`             | warn     | 42         | 23        | 65          |
-| `nextjs/recommended` | error    | 42         | 23        | 65          |
+| `base`               | warn     | 43         | 0         | 43          |
+| `base/recommended`   | error    | 43         | 0         | 43          |
+| `react`              | warn     | 43         | 23        | 66          |
+| `react/recommended`  | error    | 43         | 23        | 66          |
+| `nextjs`             | warn     | 43         | 23        | 66          |
+| `nextjs/recommended` | error    | 43         | 23        | 66          |
 
 The `nextjs` and `nextjs/recommended` presets currently share the same rule set as `react` and `react/recommended`; they are kept as named aliases for ergonomics.
 
-### Base Configuration Rules (42 rules)
+### Base Configuration Rules (43 rules)
 
 Included in `base`, `base/recommended`, and all other presets:
 
@@ -536,7 +535,6 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/prefer-guard-clause`
 - `nextfriday/prefer-import-type`
 - `nextfriday/prefer-inline-literal-union`
-- `nextfriday/prefer-inline-type-export`
 - `nextfriday/prefer-named-param-types`
 - `nextfriday/prefer-react-import-types`
 - `nextfriday/require-explicit-return-type`

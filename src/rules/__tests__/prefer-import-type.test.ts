@@ -89,6 +89,10 @@ describe("prefer-import-type", () => {
         name: "should not flag object used for member access",
       },
       {
+        code: 'import { Avatar } from "@scope/ui";\nfunction App() { return <Avatar.Root><Avatar.Image src="" /><Avatar.Fallback>A</Avatar.Fallback></Avatar.Root>; }',
+        name: "should not flag namespace import used as JSX member expression",
+      },
+      {
         code: 'import { Factory } from "./factory";\nconst instance = new Factory();',
         name: "should not flag constructor usage",
       },

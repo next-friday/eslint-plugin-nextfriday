@@ -54,7 +54,6 @@ import preferFunctionDeclaration from "./rules/prefer-function-declaration";
 import preferGuardClause from "./rules/prefer-guard-clause";
 import preferImportType from "./rules/prefer-import-type";
 import preferInlineLiteralUnion from "./rules/prefer-inline-literal-union";
-import preferInlineTypeExport from "./rules/prefer-inline-type-export";
 import preferInterfaceForComponentProps from "./rules/prefer-interface-for-component-props";
 import preferInterfaceOverInlineTypes from "./rules/prefer-interface-over-inline-types";
 import preferJSXTemplateLiterals from "./rules/prefer-jsx-template-literals";
@@ -130,7 +129,6 @@ const rules = {
   "prefer-guard-clause": preferGuardClause,
   "prefer-import-type": preferImportType,
   "prefer-inline-literal-union": preferInlineLiteralUnion,
-  "prefer-inline-type-export": preferInlineTypeExport,
   "prefer-interface-for-component-props": preferInterfaceForComponentProps,
   "prefer-interface-over-inline-types": preferInterfaceOverInlineTypes,
   "prefer-jsx-template-literals": preferJSXTemplateLiterals,
@@ -187,7 +185,6 @@ const baseRules = {
   "nextfriday/prefer-guard-clause": "warn",
   "nextfriday/prefer-import-type": "warn",
   "nextfriday/prefer-inline-literal-union": "warn",
-  "nextfriday/prefer-inline-type-export": "warn",
   "nextfriday/prefer-named-param-types": "warn",
   "nextfriday/prefer-react-import-types": "warn",
   "nextfriday/require-explicit-return-type": "warn",
@@ -234,7 +231,6 @@ const baseRecommendedRules = {
   "nextfriday/prefer-guard-clause": "error",
   "nextfriday/prefer-import-type": "error",
   "nextfriday/prefer-inline-literal-union": "error",
-  "nextfriday/prefer-inline-type-export": "error",
   "nextfriday/prefer-named-param-types": "error",
   "nextfriday/prefer-react-import-types": "error",
   "nextfriday/require-explicit-return-type": "error",

@@ -1,35 +1,23 @@
 # prefer-props-with-children
 
-Prefer `PropsWithChildren<T>` over manually declaring `children: ReactNode` in component props.
+Prefer `PropsWithChildren<T>` over manually declaring `children?: ReactNode` in component props.
 
 ## Rule Details
 
-This rule reports interfaces, type aliases, and inline parameter types that declare a `children` field typed as `ReactNode` (or `React.ReactNode`). React already provides the `PropsWithChildren<T>` helper for this exact case, so prefer it for consistency and to avoid restating the well-known `children` shape on every component.
+This rule reports interfaces, type aliases, and inline parameter types that declare an **optional** `children` field typed as `ReactNode` (or `React.ReactNode`). `PropsWithChildren<T>` already provides exactly this — an optional `children: ReactNode` — so the manual declaration is redundant.
 
-The rule only flags `children` whose type is exactly `ReactNode` (matching what `PropsWithChildren` provides). Other shapes such as `ReactElement`, render-prop functions, or unions like `ReactNode | string` are left alone.
+Required `children: ReactNode` (without `?`) is intentional and is not flagged, because `PropsWithChildren` cannot express required children.
+
+The rule only flags `children?` whose type is exactly `ReactNode`. Other shapes such as `ReactElement`, render-prop functions, or unions like `ReactNode | string` are left alone.
 
 ### Why?
 
-- `PropsWithChildren<T>` is the canonical type for components that accept children, making intent obvious at a glance.
-- It eliminates duplication of the `children` declaration across every component that accepts children.
-- It keeps the surrounding props focused on what is unique to the component.
+- `PropsWithChildren<T>` is the canonical type for components that optionally accept children, making intent obvious at a glance.
+- Required `children: ReactNode` (no `?`) cannot be replaced by `PropsWithChildren` — that case is intentional and not flagged.
 
 ## Examples
 
 ### Incorrect
-
-```tsx
-interface LayoutProps {
-  children: ReactNode;
-}
-```
-
-```tsx
-interface CardProps {
-  title: string;
-  children: ReactNode;
-}
-```
 
 ```tsx
 interface OptionalChildrenProps {
@@ -39,25 +27,22 @@ interface OptionalChildrenProps {
 ```
 
 ```tsx
-interface ReactNamespaceProps {
-  children: React.ReactNode;
+interface LayoutProps {
+  children?: ReactNode;
 }
 ```
 
 ```tsx
 type WrapperProps = {
-  children: ReactNode;
+  children?: ReactNode;
   className: string;
 };
 ```
 
 ```tsx
-const Component = ({ children, label }: { children: ReactNode; label: string }) => (
-  <div>
-    {children}
-    {label}
-  </div>
-);
+interface ReactNamespaceProps {
+  children?: React.ReactNode;
+}
 ```
 
 ### Correct
@@ -79,12 +64,9 @@ type WrapperProps = PropsWithChildren<{
 ```
 
 ```tsx
-const Component = (props: Readonly<PropsWithChildren<{ label: string }>>) => (
-  <div>
-    {props.children}
-    {props.label}
-  </div>
-);
+interface RequiredChildrenProps {
+  children: ReactNode;
+}
 ```
 
 ```tsx
@@ -103,7 +85,7 @@ interface SlotProps {
 
 This rule should not be used if:
 
-- Your project intentionally avoids `PropsWithChildren` and prefers explicit `children` declarations.
+- Your project intentionally avoids `PropsWithChildren` and prefers explicit `children?` declarations.
 - You frequently use children types other than `ReactNode` (this rule already skips those cases).
 
 ## Related Rules

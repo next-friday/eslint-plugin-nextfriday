@@ -18,7 +18,7 @@ const preferPropsWithChildren = createRule({
     },
     schema: [],
     messages: {
-      usePropsWithChildren: "Use 'PropsWithChildren<T>' instead of manually declaring 'children: ReactNode'.",
+      usePropsWithChildren: "Use 'PropsWithChildren<T>' instead of manually declaring 'children?: ReactNode'.",
     },
   },
   defaultOptions: [],
@@ -62,7 +62,7 @@ const preferPropsWithChildren = createRule({
         if (!member.typeAnnotation) {
           continue;
         }
-        if (isReactNodeType(member.typeAnnotation.typeAnnotation)) {
+        if (member.optional && isReactNodeType(member.typeAnnotation.typeAnnotation)) {
           return member;
         }
       }
