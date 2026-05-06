@@ -151,11 +151,11 @@ const sortImports = createRule({
       }
     }
 
-    function checkOrder(imports: { node: TSESTree.ImportDeclaration; group: number }[]): void {
+    function checkOrder(imports: { node: TSESTree.ImportDeclaration; group: number }[]): boolean {
       const isSorted = imports.every((entry, index) => index === 0 || entry.group >= imports[index - 1].group);
 
       if (isSorted) {
-        return;
+        return false;
       }
 
       const firstUnsorted = imports.find((entry, index) => index > 0 && entry.group < imports[index - 1].group);
@@ -181,6 +181,8 @@ const sortImports = createRule({
           return imports.map((entry, index) => fixer.replaceText(entry.node, sortedTexts[index]));
         },
       });
+
+      return true;
     }
 
     return {
@@ -190,8 +192,9 @@ const sortImports = createRule({
         node.body.forEach((statement) => {
           if (statement.type !== AST_NODE_TYPES.ImportDeclaration) {
             if (importGroups.length > 0) {
-              checkOrder(importGroups);
-              checkBlankLines(importGroups);
+              if (!checkOrder(importGroups)) {
+                checkBlankLines(importGroups);
+              }
               importGroups.length = 0;
             }
 
@@ -202,8 +205,9 @@ const sortImports = createRule({
         });
 
         if (importGroups.length > 0) {
-          checkOrder(importGroups);
-          checkBlankLines(importGroups);
+          if (!checkOrder(importGroups)) {
+            checkBlankLines(importGroups);
+          }
         }
       },
     };

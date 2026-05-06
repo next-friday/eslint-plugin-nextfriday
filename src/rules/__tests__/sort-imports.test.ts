@@ -23,11 +23,15 @@ describe("sort-imports", () => {
       {
         code: `
 import "./setup";
+
 import fs from "node:fs";
+
 import React from "react";
+
 import { utils } from "@/lib/utils";
+
 import { foo } from "../foo";`,
-        name: "correct order: all 5 groups",
+        name: "correct order: all groups with blank lines",
       },
       {
         code: `import React from "react";`,
@@ -44,6 +48,7 @@ import lodash from "lodash";`,
         code: `
 import React from "react";
 import type { FC } from "react";
+
 import { foo } from "../foo";
 import type { Bar } from "../foo";`,
         name: "type imports follow their own group",
@@ -58,12 +63,14 @@ import "./setup";`,
         code: `
 import fs from "node:fs";
 import path from "node:path";
+
 import React from "react";`,
         name: "builtin then external",
       },
       {
         code: `
 import React from "react";
+
 import { utils } from "@/lib/utils";
 import { helper } from "~/helpers";
 import { token } from "#auth/token";`,
@@ -72,6 +79,7 @@ import { token } from "#auth/token";`,
       {
         code: `
 import { foo } from "../foo";
+
 import { bar } from "./bar";`,
         name: "relative imports together",
       },
@@ -87,12 +95,14 @@ import { foo } from "../foo";`,
       {
         code: `
 import fs from "fs";
+
 import React from "react";`,
         name: "bare builtin module name (without node: prefix)",
       },
       {
         code: `
 import "@scope/setup";
+
 import React from "react";`,
         name: "side-effect with scoped package",
       },
@@ -100,7 +110,9 @@ import React from "react";`,
         code: `
 import React from "react";
 import type { Foo } from "react";
+
 import { utils } from "@/lib/utils";
+
 import type { Bar } from "../bar";`,
         name: "type imports follow their own group across groups",
       },
@@ -110,9 +122,15 @@ import type { Bar } from "../bar";`,
         code: `
 import { foo } from "../foo";
 import React from "react";`,
-        output: `
+        output: [
+          `
 import React from "react";
 import { foo } from "../foo";`,
+          `
+import React from "react";
+
+import { foo } from "../foo";`,
+        ],
         errors: [{ messageId: "unsortedImports" }],
         name: "relative before external",
       },
@@ -120,9 +138,15 @@ import { foo } from "../foo";`,
         code: `
 import React from "react";
 import fs from "node:fs";`,
-        output: `
+        output: [
+          `
 import fs from "node:fs";
 import React from "react";`,
+          `
+import fs from "node:fs";
+
+import React from "react";`,
+        ],
         errors: [{ messageId: "unsortedImports" }],
         name: "external before builtin",
       },
@@ -130,9 +154,15 @@ import React from "react";`,
         code: `
 import React from "react";
 import "./setup";`,
-        output: `
+        output: [
+          `
 import "./setup";
 import React from "react";`,
+          `
+import "./setup";
+
+import React from "react";`,
+        ],
         errors: [{ messageId: "unsortedImports" }],
         name: "side-effect after external",
       },
@@ -140,9 +170,15 @@ import React from "react";`,
         code: `
 import { utils } from "@/lib/utils";
 import React from "react";`,
-        output: `
+        output: [
+          `
 import React from "react";
 import { utils } from "@/lib/utils";`,
+          `
+import React from "react";
+
+import { utils } from "@/lib/utils";`,
+        ],
         errors: [{ messageId: "unsortedImports" }],
         name: "internal alias before external",
       },
@@ -150,9 +186,15 @@ import { utils } from "@/lib/utils";`,
         code: `
 import { foo } from "../foo";
 import { utils } from "@/lib/utils";`,
-        output: `
+        output: [
+          `
 import { utils } from "@/lib/utils";
 import { foo } from "../foo";`,
+          `
+import { utils } from "@/lib/utils";
+
+import { foo } from "../foo";`,
+        ],
         errors: [{ messageId: "unsortedImports" }],
         name: "relative before internal alias",
       },
@@ -161,10 +203,18 @@ import { foo } from "../foo";`,
 import { foo } from "./foo";
 import fs from "node:fs";
 import React from "react";`,
-        output: `
+        output: [
+          `
 import fs from "node:fs";
 import React from "react";
 import { foo } from "./foo";`,
+          `
+import fs from "node:fs";
+
+import React from "react";
+
+import { foo } from "./foo";`,
+        ],
         errors: [{ messageId: "unsortedImports" }],
         name: "relative before builtin (reports first violation only)",
       },
@@ -184,13 +234,45 @@ import type { FC } from "react";
 import React from "react";
 import type { Bar } from "../bar";
 import { foo } from "../foo";`,
-        output: `
+        output: [
+          `
 import React from "react";
 import type { FC } from "react";
 import { foo } from "../foo";
 import type { Bar } from "../bar";`,
+          `
+import React from "react";
+import type { FC } from "react";
+
+import { foo } from "../foo";
+import type { Bar } from "../bar";`,
+        ],
         errors: [{ messageId: "unsortedImports" }],
         name: "type imports interspersed with value imports",
+      },
+      {
+        code: `
+import React from "react";
+import { foo } from "../foo";`,
+        output: `
+import React from "react";
+
+import { foo } from "../foo";`,
+        errors: [{ messageId: "missingBlankLine" }],
+        name: "missing blank line between external and parent relative",
+      },
+      {
+        code: `
+import React from "react";
+import type { FC } from "react";
+import { foo } from "../foo";`,
+        output: `
+import React from "react";
+import type { FC } from "react";
+
+import { foo } from "../foo";`,
+        errors: [{ messageId: "missingBlankLine" }],
+        name: "missing blank line between external type and parent relative",
       },
     ],
   });

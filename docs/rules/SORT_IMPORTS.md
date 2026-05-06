@@ -59,14 +59,19 @@ import "./setup";
 
 ```ts
 import "./setup";
+
 import fs from "node:fs";
+
 import React from "react";
 import type { FC } from "react";
+
 import { utils } from "@/lib/utils";
 import type { Utils } from "@/lib/utils";
+
 import { foo } from "../../foo";
 import { bar } from "../bar";
 import type { Bar } from "../bar";
+
 import { baz } from "./baz";
 import type { Baz } from "./baz";
 ```
