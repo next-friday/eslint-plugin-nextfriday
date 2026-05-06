@@ -42,11 +42,11 @@ import lodash from "lodash";`,
       },
       {
         code: `
-import type { FC } from "react";
 import React from "react";
-import type { Bar } from "../bar";
-import { foo } from "../foo";`,
-        name: "type imports are skipped, remaining order is valid",
+import type { FC } from "react";
+import { foo } from "../foo";
+import type { Bar } from "../foo";`,
+        name: "type imports follow their own group",
       },
       {
         code: `
@@ -98,11 +98,11 @@ import React from "react";`,
       },
       {
         code: `
-import type { Bar } from "../bar";
-import type { Foo } from "react";
 import React from "react";
-import { utils } from "@/lib/utils";`,
-        name: "type imports anywhere are skipped",
+import type { Foo } from "react";
+import { utils } from "@/lib/utils";
+import type { Bar } from "../bar";`,
+        name: "type imports follow their own group across groups",
       },
     ],
     invalid: [
@@ -167,6 +167,30 @@ import React from "react";
 import { foo } from "./foo";`,
         errors: [{ messageId: "unsortedImports" }],
         name: "relative before builtin (reports first violation only)",
+      },
+      {
+        code: `
+import type { Foo } from "some-lib";
+import { bar } from "other-lib";`,
+        output: `
+import { bar } from "other-lib";
+import type { Foo } from "some-lib";`,
+        errors: [{ messageId: "unsortedImports" }],
+        name: "type import before value import",
+      },
+      {
+        code: `
+import type { FC } from "react";
+import React from "react";
+import type { Bar } from "../bar";
+import { foo } from "../foo";`,
+        output: `
+import React from "react";
+import type { FC } from "react";
+import { foo } from "../foo";
+import type { Bar } from "../bar";`,
+        errors: [{ messageId: "unsortedImports" }],
+        name: "type imports interspersed with value imports",
       },
     ],
   });
