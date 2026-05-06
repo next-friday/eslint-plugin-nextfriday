@@ -44,6 +44,12 @@ console.log("loaded");
 ### Correct
 
 ```ts
+"use strict";
+
+export { cn } from "./cn";
+```
+
+```ts
 export { cn } from "./cn";
 export * from "./types";
 export type { Props } from "./props";
@@ -66,6 +72,7 @@ export interface Bar {
 ## What This Rule Allows
 
 - `import` statements (including side-effect imports like `import "./styles.css"`)
+- String directive prologues (e.g. `"use strict"`)
 - Specifier-only `export` and `export ... from` re-exports
 - `export *` and `export * as ns` re-exports
 - `export default identifier` where the identifier comes from an import

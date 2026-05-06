@@ -1,11 +1,9 @@
 import packageJson from "../package.json" with { type: "json" };
 
 import booleanNamingPrefix from "./rules/boolean-naming-prefix";
-import enforceCamelCase from "./rules/enforce-camel-case";
 import enforceConstantCase from "./rules/enforce-constant-case";
 import enforceHookFilename from "./rules/enforce-hook-filename";
 import enforceHookNaming from "./rules/enforce-hook-naming";
-import enforcePropertyCase from "./rules/enforce-property-case";
 import enforcePropsSuffix from "./rules/enforce-props-suffix";
 import enforceReadonlyComponentProps from "./rules/enforce-readonly-component-props";
 import enforceRenderNaming from "./rules/enforce-render-naming";
@@ -36,7 +34,6 @@ import noEnvFallback from "./rules/no-env-fallback";
 import noGhostWrapper from "./rules/no-ghost-wrapper";
 import noHelperFunctionInHook from "./rules/no-helper-function-in-hook";
 import noHelperFunctionInTest from "./rules/no-helper-function-in-test";
-import noInlineDefaultExport from "./rules/no-inline-default-export";
 import noInlineNestedObject from "./rules/no-inline-nested-object";
 import noInlineReturnProperties from "./rules/no-inline-return-properties";
 import noInlineTypeImport from "./rules/no-inline-type-import";
@@ -44,23 +41,17 @@ import noLazyIdentifiers from "./rules/no-lazy-identifiers";
 import noLogicInParams from "./rules/no-logic-in-params";
 import noMisleadingConstantCase from "./rules/no-misleading-constant-case";
 import noNestedInterfaceDeclaration from "./rules/no-nested-interface-declaration";
-import noNestedTernary from "./rules/no-nested-ternary";
-import noRedundantFragment from "./rules/no-redundant-fragment";
 import noRelativeImports from "./rules/no-relative-imports";
-import noSingleCharVariables from "./rules/no-single-char-variables";
 import preferAsyncAwait from "./rules/prefer-async-await";
 import preferDestructuringParams from "./rules/prefer-destructuring-params";
-import preferFunctionDeclaration from "./rules/prefer-function-declaration";
 import preferGuardClause from "./rules/prefer-guard-clause";
 import preferImportType from "./rules/prefer-import-type";
 import preferInlineLiteralUnion from "./rules/prefer-inline-literal-union";
 import preferInterfaceForComponentProps from "./rules/prefer-interface-for-component-props";
 import preferInterfaceOverInlineTypes from "./rules/prefer-interface-over-inline-types";
-import preferJSXTemplateLiterals from "./rules/prefer-jsx-template-literals";
 import preferNamedParamTypes from "./rules/prefer-named-param-types";
 import preferPropsWithChildren from "./rules/prefer-props-with-children";
 import preferReactImportTypes from "./rules/prefer-react-import-types";
-import reactPropsDestructure from "./rules/react-props-destructure";
 import requireExplicitReturnType from "./rules/require-explicit-return-type";
 import sortExports from "./rules/sort-exports";
 import sortImports from "./rules/sort-imports";
@@ -76,11 +67,9 @@ const meta = {
 
 const rules = {
   "boolean-naming-prefix": booleanNamingPrefix,
-  "enforce-camel-case": enforceCamelCase,
   "enforce-constant-case": enforceConstantCase,
   "enforce-hook-filename": enforceHookFilename,
   "enforce-hook-naming": enforceHookNaming,
-  "enforce-property-case": enforcePropertyCase,
   "enforce-props-suffix": enforcePropsSuffix,
   "enforce-readonly-component-props": enforceReadonlyComponentProps,
   "enforce-render-naming": enforceRenderNaming,
@@ -111,7 +100,6 @@ const rules = {
   "no-ghost-wrapper": noGhostWrapper,
   "no-helper-function-in-hook": noHelperFunctionInHook,
   "no-helper-function-in-test": noHelperFunctionInTest,
-  "no-inline-default-export": noInlineDefaultExport,
   "no-inline-nested-object": noInlineNestedObject,
   "no-inline-return-properties": noInlineReturnProperties,
   "no-inline-type-import": noInlineTypeImport,
@@ -119,23 +107,17 @@ const rules = {
   "no-logic-in-params": noLogicInParams,
   "no-misleading-constant-case": noMisleadingConstantCase,
   "no-nested-interface-declaration": noNestedInterfaceDeclaration,
-  "no-nested-ternary": noNestedTernary,
-  "no-redundant-fragment": noRedundantFragment,
   "no-relative-imports": noRelativeImports,
-  "no-single-char-variables": noSingleCharVariables,
   "prefer-async-await": preferAsyncAwait,
   "prefer-destructuring-params": preferDestructuringParams,
-  "prefer-function-declaration": preferFunctionDeclaration,
   "prefer-guard-clause": preferGuardClause,
   "prefer-import-type": preferImportType,
   "prefer-inline-literal-union": preferInlineLiteralUnion,
   "prefer-interface-for-component-props": preferInterfaceForComponentProps,
   "prefer-interface-over-inline-types": preferInterfaceOverInlineTypes,
-  "prefer-jsx-template-literals": preferJSXTemplateLiterals,
   "prefer-named-param-types": preferNamedParamTypes,
   "prefer-props-with-children": preferPropsWithChildren,
   "prefer-react-import-types": preferReactImportTypes,
-  "react-props-destructure": reactPropsDestructure,
   "require-explicit-return-type": requireExplicitReturnType,
   "sort-exports": sortExports,
   "sort-imports": sortImports,
@@ -150,11 +132,9 @@ const plugin = {
 
 const baseRules = {
   "nextfriday/boolean-naming-prefix": "warn",
-  "nextfriday/enforce-camel-case": "warn",
   "nextfriday/enforce-constant-case": "warn",
   "nextfriday/enforce-hook-filename": "warn",
   "nextfriday/enforce-hook-naming": "warn",
-  "nextfriday/enforce-property-case": "warn",
   "nextfriday/enforce-service-naming": "warn",
   "nextfriday/enforce-test-filename": "warn",
   "nextfriday/enforce-sorted-destructuring": "warn",
@@ -168,7 +148,6 @@ const baseRules = {
   "nextfriday/no-env-fallback": "warn",
   "nextfriday/no-helper-function-in-hook": "warn",
   "nextfriday/no-helper-function-in-test": "warn",
-  "nextfriday/no-inline-default-export": "warn",
   "nextfriday/no-inline-nested-object": "warn",
   "nextfriday/no-inline-return-properties": "warn",
   "nextfriday/no-inline-type-import": "warn",
@@ -176,12 +155,9 @@ const baseRules = {
   "nextfriday/no-logic-in-params": "warn",
   "nextfriday/no-misleading-constant-case": "warn",
   "nextfriday/no-nested-interface-declaration": "warn",
-  "nextfriday/no-nested-ternary": "warn",
   "nextfriday/no-relative-imports": "warn",
-  "nextfriday/no-single-char-variables": "warn",
   "nextfriday/prefer-async-await": "warn",
   "nextfriday/prefer-destructuring-params": "warn",
-  "nextfriday/prefer-function-declaration": "warn",
   "nextfriday/prefer-guard-clause": "warn",
   "nextfriday/prefer-import-type": "warn",
   "nextfriday/prefer-inline-literal-union": "warn",
@@ -196,11 +172,9 @@ const baseRules = {
 
 const baseRecommendedRules = {
   "nextfriday/boolean-naming-prefix": "error",
-  "nextfriday/enforce-camel-case": "error",
   "nextfriday/enforce-constant-case": "error",
   "nextfriday/enforce-hook-filename": "error",
   "nextfriday/enforce-hook-naming": "error",
-  "nextfriday/enforce-property-case": "error",
   "nextfriday/enforce-service-naming": "error",
   "nextfriday/enforce-test-filename": "error",
   "nextfriday/enforce-sorted-destructuring": "error",
@@ -214,7 +188,6 @@ const baseRecommendedRules = {
   "nextfriday/no-env-fallback": "error",
   "nextfriday/no-helper-function-in-hook": "error",
   "nextfriday/no-helper-function-in-test": "error",
-  "nextfriday/no-inline-default-export": "error",
   "nextfriday/no-inline-nested-object": "error",
   "nextfriday/no-inline-return-properties": "error",
   "nextfriday/no-inline-type-import": "error",
@@ -222,12 +195,9 @@ const baseRecommendedRules = {
   "nextfriday/no-logic-in-params": "error",
   "nextfriday/no-misleading-constant-case": "error",
   "nextfriday/no-nested-interface-declaration": "error",
-  "nextfriday/no-nested-ternary": "error",
   "nextfriday/no-relative-imports": "error",
-  "nextfriday/no-single-char-variables": "error",
   "nextfriday/prefer-async-await": "error",
   "nextfriday/prefer-destructuring-params": "error",
-  "nextfriday/prefer-function-declaration": "error",
   "nextfriday/prefer-guard-clause": "error",
   "nextfriday/prefer-import-type": "error",
   "nextfriday/prefer-inline-literal-union": "error",
@@ -258,12 +228,9 @@ const jsxRules = {
   "nextfriday/jsx-sort-props": "warn",
   "nextfriday/jsx-spread-props-last": "warn",
   "nextfriday/no-ghost-wrapper": "warn",
-  "nextfriday/no-redundant-fragment": "warn",
   "nextfriday/prefer-interface-for-component-props": "warn",
   "nextfriday/prefer-interface-over-inline-types": "warn",
-  "nextfriday/prefer-jsx-template-literals": "warn",
   "nextfriday/prefer-props-with-children": "warn",
-  "nextfriday/react-props-destructure": "warn",
 } as const;
 
 const jsxRecommendedRules = {
@@ -284,12 +251,9 @@ const jsxRecommendedRules = {
   "nextfriday/jsx-sort-props": "error",
   "nextfriday/jsx-spread-props-last": "error",
   "nextfriday/no-ghost-wrapper": "error",
-  "nextfriday/no-redundant-fragment": "error",
   "nextfriday/prefer-interface-for-component-props": "error",
   "nextfriday/prefer-interface-over-inline-types": "error",
-  "nextfriday/prefer-jsx-template-literals": "error",
   "nextfriday/prefer-props-with-children": "error",
-  "nextfriday/react-props-destructure": "error",
 } as const;
 
 const createConfig = (configRules: Record<string, string>) => ({

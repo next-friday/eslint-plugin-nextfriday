@@ -52,32 +52,50 @@ const NODE_BUILTINS = new Set([
   "zlib",
 ]);
 
-const GROUP_NAMES = ["", "side-effect", "builtin", "external", "internal alias", "relative"] as const;
+const GROUP_NAMES = [
+  "",
+  "side-effect",
+  "builtin",
+  "builtin type",
+  "external",
+  "external type",
+  "internal alias",
+  "internal alias type",
+  "parent relative",
+  "parent relative type",
+  "relative",
+  "relative type",
+] as const;
+
+function isTypeOnlyImport(node: TSESTree.ImportDeclaration): boolean {
+  return node.importKind === "type" && node.specifiers.length > 0;
+}
 
 function getImportGroup(node: TSESTree.ImportDeclaration): number {
   const source = node.source.value;
+  const isType = isTypeOnlyImport(node);
 
-  if (node.specifiers.length === 0 && node.importKind !== "type") {
+  if (node.specifiers.length === 0 && !isType) {
     return 1;
   }
 
   if (source.startsWith("node:") || NODE_BUILTINS.has(source.split("/")[0])) {
-    return 2;
+    return isType ? 3 : 2;
   }
 
   if (source.startsWith("@/") || source.startsWith("~/") || source.startsWith("#")) {
-    return 4;
+    return isType ? 7 : 6;
+  }
+
+  if (source.startsWith("../")) {
+    return isType ? 9 : 8;
   }
 
   if (source.startsWith(".")) {
-    return 5;
+    return isType ? 11 : 10;
   }
 
-  return 3;
-}
-
-function isTypeOnlyImport(node: TSESTree.ImportDeclaration): boolean {
-  return node.importKind === "type" && node.specifiers.length > 0;
+  return isType ? 5 : 4;
 }
 
 const sortImports = createRule({
@@ -91,22 +109,59 @@ const sortImports = createRule({
     schema: [],
     messages: {
       unsortedImports:
-        "Import group '{{current}}' should come before '{{previous}}'. Expected order: side-effect, builtin, external, internal alias, relative.",
+        "Import group '{{current}}' should come before '{{previous}}'. Expected order: side-effect, builtin, external, internal alias, parent relative, relative — each followed by its type imports.",
+      missingBlankLine: "Expected a blank line before '{{current}}' imports (new group after '{{previous}}').",
     },
   },
   defaultOptions: [],
   create(context) {
-    function checkOrder(imports: { node: TSESTree.ImportDeclaration; group: number }[]): void {
+    function getMainGroup(group: number): number {
+      if (group === 1) return 1;
+      return Math.floor((group - 2) / 2) + 2;
+    }
+
+    function checkBlankLines(imports: { node: TSESTree.ImportDeclaration; group: number }[]): void {
+      const { sourceCode } = context;
+
+      for (let i = 1; i < imports.length; i++) {
+        const prev = imports[i - 1];
+        const curr = imports[i];
+
+        if (getMainGroup(prev.group) === getMainGroup(curr.group)) {
+          continue;
+        }
+
+        if (curr.node.loc.start.line - prev.node.loc.end.line > 1) {
+          continue;
+        }
+
+        context.report({
+          node: curr.node,
+          messageId: "missingBlankLine",
+          data: {
+            current: GROUP_NAMES[curr.group],
+            previous: GROUP_NAMES[prev.group],
+          },
+          fix(fixer) {
+            const firstToken = sourceCode.getFirstToken(curr.node);
+            if (!firstToken) return null;
+            return fixer.insertTextBefore(firstToken, "\n");
+          },
+        });
+      }
+    }
+
+    function checkOrder(imports: { node: TSESTree.ImportDeclaration; group: number }[]): boolean {
       const isSorted = imports.every((entry, index) => index === 0 || entry.group >= imports[index - 1].group);
 
       if (isSorted) {
-        return;
+        return false;
       }
 
       const firstUnsorted = imports.find((entry, index) => index > 0 && entry.group < imports[index - 1].group);
 
       if (!firstUnsorted) {
-        return;
+        return false;
       }
 
       const previous = imports[imports.indexOf(firstUnsorted) - 1];
@@ -126,6 +181,8 @@ const sortImports = createRule({
           return imports.map((entry, index) => fixer.replaceText(entry.node, sortedTexts[index]));
         },
       });
+
+      return true;
     }
 
     return {
@@ -135,14 +192,12 @@ const sortImports = createRule({
         node.body.forEach((statement) => {
           if (statement.type !== AST_NODE_TYPES.ImportDeclaration) {
             if (importGroups.length > 0) {
-              checkOrder(importGroups);
+              if (!checkOrder(importGroups)) {
+                checkBlankLines(importGroups);
+              }
               importGroups.length = 0;
             }
 
-            return;
-          }
-
-          if (isTypeOnlyImport(statement)) {
             return;
           }
 
@@ -150,7 +205,9 @@ const sortImports = createRule({
         });
 
         if (importGroups.length > 0) {
-          checkOrder(importGroups);
+          if (!checkOrder(importGroups)) {
+            checkBlankLines(importGroups);
+          }
         }
       },
     };

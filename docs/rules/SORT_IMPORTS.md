@@ -17,12 +17,13 @@ This rule enforces that import statements are grouped and ordered by their sourc
 ### Import Group Order
 
 1. **Side-effect imports** — no specifiers (e.g., `import "./setup"`)
-2. **Node.js builtins** — `node:` prefix or known builtin names (e.g., `import fs from "node:fs"`)
-3. **External packages** — scoped or plain package names (e.g., `import React from "react"`)
-4. **Internal aliases** — paths starting with `@/`, `~/`, or `#` (e.g., `import { utils } from "@/lib/utils"`)
-5. **Relative imports** — paths starting with `.` (e.g., `import { foo } from "../foo"`)
+2. **Builtin** value → **builtin type**
+3. **External** value → **external type**
+4. **Internal alias** value → **internal alias type** — paths starting with `@/`, `~/`, or `#`
+5. **Parent relative** value → **parent relative type** — paths starting with `../` (any depth)
+6. **Relative** value → **relative type** — paths starting with `./`
 
-Type-only imports (`import type`) are skipped and do not affect ordering.
+Within each group, value imports come first, then `import type` for the same group.
 
 Non-contiguous imports (separated by other statements) are checked independently.
 
@@ -31,7 +32,13 @@ Non-contiguous imports (separated by other statements) are checked independently
 ### Incorrect
 
 ```ts
-// Bad: Relative before external
+// Bad: type import before value import in same group
+import type { Foo } from "some-lib";
+import { bar } from "some-lib";
+```
+
+```ts
+// Bad: relative before external
 import { foo } from "../foo";
 import React from "react";
 ```
@@ -51,19 +58,22 @@ import "./setup";
 ### Correct
 
 ```ts
-// Good: All 5 groups in correct order
 import "./setup";
-import fs from "node:fs";
-import React from "react";
-import { utils } from "@/lib/utils";
-import { foo } from "../foo";
-```
 
-```ts
-// Good: Type imports can appear anywhere
-import type { FC } from "react";
-import { foo } from "../foo";
+import fs from "node:fs";
+
 import React from "react";
+import type { FC } from "react";
+
+import { utils } from "@/lib/utils";
+import type { Utils } from "@/lib/utils";
+
+import { foo } from "../../foo";
+import { bar } from "../bar";
+import type { Bar } from "../bar";
+
+import { baz } from "./baz";
+import type { Baz } from "./baz";
 ```
 
 ```ts

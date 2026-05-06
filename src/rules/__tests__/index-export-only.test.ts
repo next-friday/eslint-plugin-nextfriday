@@ -102,6 +102,24 @@ export type { Bar };
       },
       {
         code: `
+"use strict";
+
+export { cn } from "./cn";
+`,
+        filename: "index.ts",
+        name: "should allow string directive prologue",
+      },
+      {
+        code: `
+"use strict";
+
+export { cn } from "./cn";
+`,
+        filename: "index.tsx",
+        name: "should allow string directive prologue in tsx",
+      },
+      {
+        code: `
 function cn() {
   return "x";
 }

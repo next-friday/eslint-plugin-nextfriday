@@ -72,8 +72,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 66 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(66);
+  it("should have exactly 57 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(57);
   });
 
   it("should have correct rule names", () => {
@@ -93,15 +93,11 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("prefer-named-param-types");
     expect(ruleNames).toContain("prefer-interface-for-component-props");
     expect(ruleNames).toContain("prefer-interface-over-inline-types");
-    expect(ruleNames).toContain("prefer-jsx-template-literals");
     expect(ruleNames).toContain("prefer-props-with-children");
     expect(ruleNames).toContain("prefer-react-import-types");
-    expect(ruleNames).toContain("react-props-destructure");
-    expect(ruleNames).toContain("enforce-camel-case");
     expect(ruleNames).toContain("enforce-constant-case");
     expect(ruleNames).toContain("enforce-hook-filename");
     expect(ruleNames).toContain("enforce-hook-naming");
-    expect(ruleNames).toContain("enforce-property-case");
     expect(ruleNames).toContain("enforce-props-suffix");
     expect(ruleNames).toContain("enforce-readonly-component-props");
     expect(ruleNames).toContain("enforce-service-naming");
@@ -109,19 +105,15 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("enforce-sorted-destructuring");
     expect(ruleNames).toContain("no-complex-inline-return");
     expect(ruleNames).toContain("no-logic-in-params");
-    expect(ruleNames).toContain("no-nested-ternary");
     expect(ruleNames).toContain("no-env-fallback");
-    expect(ruleNames).toContain("no-inline-default-export");
     expect(ruleNames).toContain("no-inline-return-properties");
     expect(ruleNames).toContain("no-inline-nested-object");
     expect(ruleNames).toContain("no-lazy-identifiers");
     expect(ruleNames).toContain("no-relative-imports");
-    expect(ruleNames).toContain("no-single-char-variables");
     expect(ruleNames).toContain("prefer-async-await");
     expect(ruleNames).toContain("newline-after-multiline-block");
     expect(ruleNames).toContain("newline-before-return");
     expect(ruleNames).toContain("boolean-naming-prefix");
-    expect(ruleNames).toContain("prefer-function-declaration");
     expect(ruleNames).toContain("prefer-guard-clause");
     expect(ruleNames).toContain("no-direct-date");
     expect(ruleNames).toContain("jsx-sort-props");
@@ -139,7 +131,6 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("no-ghost-wrapper");
     expect(ruleNames).toContain("no-helper-function-in-hook");
     expect(ruleNames).toContain("no-helper-function-in-test");
-    expect(ruleNames).toContain("no-redundant-fragment");
     expect(ruleNames).toContain("jsx-no-data-array");
     expect(ruleNames).toContain("jsx-no-data-object");
     expect(ruleNames).toContain("jsx-no-sub-interface");
@@ -160,22 +151,6 @@ describe("ESLint Plugin Rules", () => {
     expect(rules["prefer-react-import-types"]).toHaveProperty("meta");
     expect(rules["prefer-react-import-types"]).toHaveProperty("create");
     expect(typeof rules["prefer-react-import-types"].create).toBe("function");
-  });
-
-  it("should have prefer-jsx-template-literals rule", () => {
-    expect(rules).toHaveProperty("prefer-jsx-template-literals");
-    expect(typeof rules["prefer-jsx-template-literals"]).toBe("object");
-    expect(rules["prefer-jsx-template-literals"]).toHaveProperty("meta");
-    expect(rules["prefer-jsx-template-literals"]).toHaveProperty("create");
-    expect(typeof rules["prefer-jsx-template-literals"].create).toBe("function");
-  });
-
-  it("should have react-props-destructure rule", () => {
-    expect(rules).toHaveProperty("react-props-destructure");
-    expect(typeof rules["react-props-destructure"]).toBe("object");
-    expect(rules["react-props-destructure"]).toHaveProperty("meta");
-    expect(rules["react-props-destructure"]).toHaveProperty("create");
-    expect(typeof rules["react-props-destructure"].create).toBe("function");
   });
 
   it("should have enforce-readonly-component-props rule", () => {
@@ -218,14 +193,6 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-lazy-identifiers"].create).toBe("function");
   });
 
-  it("should have no-single-char-variables rule", () => {
-    expect(rules).toHaveProperty("no-single-char-variables");
-    expect(typeof rules["no-single-char-variables"]).toBe("object");
-    expect(rules["no-single-char-variables"]).toHaveProperty("meta");
-    expect(rules["no-single-char-variables"]).toHaveProperty("create");
-    expect(typeof rules["no-single-char-variables"].create).toBe("function");
-  });
-
   it("should have boolean-naming-prefix rule", () => {
     expect(rules).toHaveProperty("boolean-naming-prefix");
     expect(typeof rules["boolean-naming-prefix"]).toBe("object");
@@ -234,28 +201,12 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["boolean-naming-prefix"].create).toBe("function");
   });
 
-  it("should have prefer-function-declaration rule", () => {
-    expect(rules).toHaveProperty("prefer-function-declaration");
-    expect(typeof rules["prefer-function-declaration"]).toBe("object");
-    expect(rules["prefer-function-declaration"]).toHaveProperty("meta");
-    expect(rules["prefer-function-declaration"]).toHaveProperty("create");
-    expect(typeof rules["prefer-function-declaration"].create).toBe("function");
-  });
-
   it("should have no-direct-date rule", () => {
     expect(rules).toHaveProperty("no-direct-date");
     expect(typeof rules["no-direct-date"]).toBe("object");
     expect(rules["no-direct-date"]).toHaveProperty("meta");
     expect(rules["no-direct-date"]).toHaveProperty("create");
     expect(typeof rules["no-direct-date"].create).toBe("function");
-  });
-
-  it("should have no-inline-default-export rule", () => {
-    expect(rules).toHaveProperty("no-inline-default-export");
-    expect(typeof rules["no-inline-default-export"]).toBe("object");
-    expect(rules["no-inline-default-export"]).toHaveProperty("meta");
-    expect(rules["no-inline-default-export"]).toHaveProperty("create");
-    expect(typeof rules["no-inline-default-export"].create).toBe("function");
   });
 
   it("should have jsx-newline-between-elements rule", () => {
@@ -352,14 +303,6 @@ describe("ESLint Plugin Rules", () => {
     expect(rules["prefer-async-await"]).toHaveProperty("meta");
     expect(rules["prefer-async-await"]).toHaveProperty("create");
     expect(typeof rules["prefer-async-await"].create).toBe("function");
-  });
-
-  it("should have no-nested-ternary rule", () => {
-    expect(rules).toHaveProperty("no-nested-ternary");
-    expect(typeof rules["no-nested-ternary"]).toBe("object");
-    expect(rules["no-nested-ternary"]).toHaveProperty("meta");
-    expect(rules["no-nested-ternary"]).toHaveProperty("create");
-    expect(typeof rules["no-nested-ternary"].create).toBe("function");
   });
 
   it("should have prefer-guard-clause rule", () => {
