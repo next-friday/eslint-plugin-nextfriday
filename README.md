@@ -50,7 +50,7 @@ export default [nextfriday.configs["nextjs/recommended"]];
 
 To use a preset and adjust individual rules, append a second config object after the preset. Later objects override earlier ones, so you can change severity, swap options, or add rules without re-declaring the entire preset.
 
-For example, start with the `react/recommended` preset (which runs `nextfriday/enforce-camel-case` and `nextfriday/enforce-props-suffix` as errors) and add a rule override on top:
+For example, start with the `react/recommended` preset (which runs `nextfriday/enforce-constant-case` and `nextfriday/enforce-props-suffix` as errors) and add a rule override on top:
 
 ```js
 import nextfriday from "eslint-plugin-nextfriday";
@@ -99,18 +99,14 @@ export default [
     },
     rules: {
       // Variable Naming
-      "nextfriday/no-single-char-variables": "error",
       "nextfriday/no-lazy-identifiers": "error",
       "nextfriday/boolean-naming-prefix": "error",
-      "nextfriday/enforce-camel-case": "error",
       "nextfriday/enforce-constant-case": "error",
-      "nextfriday/enforce-property-case": "error",
       "nextfriday/no-misleading-constant-case": "error",
 
       // Code Style
       "nextfriday/no-emoji": "error",
       "nextfriday/prefer-destructuring-params": "error",
-      "nextfriday/prefer-function-declaration": "error",
       "nextfriday/require-explicit-return-type": "error",
       "nextfriday/no-complex-inline-return": "error",
       "nextfriday/no-logic-in-params": "error",
@@ -155,8 +151,6 @@ export default [
       "nextfriday/jsx-simple-props": "error",
       "nextfriday/jsx-sort-props": "error",
       "nextfriday/jsx-spread-props-last": "error",
-      "nextfriday/prefer-jsx-template-literals": "error",
-      "nextfriday/react-props-destructure": "error",
       "nextfriday/enforce-props-suffix": "error",
       "nextfriday/enforce-readonly-component-props": "error",
     },
@@ -207,7 +201,6 @@ export default [
     files: ["**/*.{test,spec}.{ts,tsx}"],
     rules: {
       "nextfriday/require-explicit-return-type": "off",
-      "nextfriday/no-single-char-variables": "off",
       "nextfriday/no-direct-date": "off",
     },
   },
@@ -334,7 +327,6 @@ export default [
     files: ["src/legacy/**/*.{ts,tsx}"],
     rules: {
       "nextfriday/no-relative-imports": "off",
-      "nextfriday/enforce-camel-case": "off",
     },
   },
 ];
@@ -381,7 +373,7 @@ When the warn-level preset surfaces hundreds of violations, fix them in this ord
 | Tier                                  | Examples                                                                                                                                              | Why first                                                                                                                       |
 | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | High — correctness and runtime safety | `no-direct-date`, `no-env-fallback`, `enforce-readonly-component-props`, `jsx-no-non-component-function`, `enforce-hook-naming`, `no-logic-in-params` | Each violation can mask a bug, leak config, or break React's rules of hooks. Fix before they ship.                              |
-| Medium — structure and naming         | `boolean-naming-prefix`, `enforce-camel-case`, `enforce-constant-case`, `enforce-props-suffix`, `prefer-import-type`                                  | No runtime impact, but inconsistent naming compounds review and onboarding cost. Fix once the high tier is clean.               |
+| Medium — structure and naming         | `boolean-naming-prefix`, `enforce-constant-case`, `enforce-props-suffix`, `prefer-import-type`                                                        | No runtime impact, but inconsistent naming compounds review and onboarding cost. Fix once the high tier is clean.               |
 | Low — formatting and ordering         | `sort-imports`, `sort-exports`, `sort-type-alphabetically`, `jsx-sort-props`, `newline-before-return`, `newline-after-multiline-block`, `no-emoji`    | Cosmetic. Most are auto-fixable, so a single `pnpm eslint --fix` pass typically clears the whole codebase. Save these for last. |
 
 In practice: turn the high tier on as `"error"` first, leave the medium tier as `"warn"` while you migrate, and run the auto-fixers for the low tier in a single dedicated PR.
@@ -394,12 +386,9 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 
 | Rule                                                                     | Description                                                           | Fixable |
 | ------------------------------------------------------------------------ | --------------------------------------------------------------------- | ------- |
-| [no-single-char-variables](docs/rules/NO_SINGLE_CHAR_VARIABLES.md)       | Disallow single character variable names (e.g., `d`, `u`, `l`)        | ❌      |
 | [no-lazy-identifiers](docs/rules/NO_LAZY_IDENTIFIERS.md)                 | Disallow lazy identifiers like `xxx`, `asdf`, `qwerty`                | ❌      |
 | [boolean-naming-prefix](docs/rules/BOOLEAN_NAMING_PREFIX.md)             | Enforce boolean variables to have prefix (is, has, should, can, etc.) | ❌      |
-| [enforce-camel-case](docs/rules/ENFORCE_CAMEL_CASE.md)                   | Ban snake_case and restrict PascalCase to React components            | ❌      |
 | [enforce-constant-case](docs/rules/ENFORCE_CONSTANT_CASE.md)             | Enforce SCREAMING_SNAKE_CASE for global static constant values        | ❌      |
-| [enforce-property-case](docs/rules/ENFORCE_PROPERTY_CASE.md)             | Enforce camelCase for unquoted object property keys                   | ❌      |
 | [no-misleading-constant-case](docs/rules/NO_MISLEADING_CONSTANT_CASE.md) | Disallow SCREAMING_SNAKE_CASE in local scope and for dynamic values   | ❌      |
 
 ### Code Style Rules
@@ -408,7 +397,6 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------- |
 | [no-emoji](docs/rules/NO_EMOJI.md)                                           | Disallow emoji characters in source code                               | ❌      |
 | [prefer-destructuring-params](docs/rules/PREFER_DESTRUCTURING_PARAMS.md)     | Enforce destructuring for functions with multiple parameters           | ❌      |
-| [prefer-function-declaration](docs/rules/PREFER_FUNCTION_DECLARATION.md)     | Enforce function declarations over arrow functions in .ts files        | ❌      |
 | [require-explicit-return-type](docs/rules/REQUIRE_EXPLICIT_RETURN_TYPE.md)   | Require explicit return types on functions for better documentation    | ❌      |
 | [no-complex-inline-return](docs/rules/NO_COMPLEX_INLINE_RETURN.md)           | Disallow complex inline expressions in return - extract to const first | ❌      |
 | [no-logic-in-params](docs/rules/NO_LOGIC_IN_PARAMS.md)                       | Disallow logic/conditions in function parameters - extract to const    | ❌      |
@@ -471,10 +459,7 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | [jsx-sort-props](docs/rules/JSX_SORT_PROPS.md)                                           | Enforce JSX props are sorted by value type                            | ✅      |
 | [jsx-spread-props-last](docs/rules/JSX_SPREAD_PROPS_LAST.md)                             | Enforce JSX spread attributes appear after all other props            | ❌      |
 | [no-ghost-wrapper](docs/rules/NO_GHOST_WRAPPER.md)                                       | Disallow bare `<div>`/`<span>` with no meaningful attributes          | ❌      |
-| [no-redundant-fragment](docs/rules/NO_REDUNDANT_FRAGMENT.md)                             | Disallow Fragments wrapping zero or one child                         | ❌      |
-| [prefer-jsx-template-literals](docs/rules/PREFER_JSX_TEMPLATE_LITERALS.md)               | Enforce template literals instead of mixing text and JSX expressions  | ✅      |
 | [prefer-props-with-children](docs/rules/PREFER_PROPS_WITH_CHILDREN.md)                   | Prefer PropsWithChildren over manually declaring children: ReactNode  | ❌      |
-| [react-props-destructure](docs/rules/REACT_PROPS_DESTRUCTURE.md)                         | Enforce destructuring props inside React component body               | ❌      |
 | [enforce-props-suffix](docs/rules/ENFORCE_PROPS_SUFFIX.md)                               | Enforce 'Props' suffix for interfaces and types in \*.tsx files       | ❌      |
 | [enforce-readonly-component-props](docs/rules/ENFORCE_READONLY_COMPONENT_PROPS.md)       | Enforce Readonly wrapper for React component props                    | ✅      |
 | [enforce-render-naming](docs/rules/ENFORCE_RENDER_NAMING.md)                             | Enforce 'render' prefix for variables holding JSX inside components   | ❌      |
@@ -499,12 +484,10 @@ The `nextjs` and `nextjs/recommended` presets currently share the same rule set 
 Included in `base`, `base/recommended`, and all other presets:
 
 - `nextfriday/boolean-naming-prefix`
-- `nextfriday/enforce-camel-case`
 - `nextfriday/enforce-constant-case`
 - `nextfriday/enforce-hook-filename`
 - `nextfriday/enforce-hook-naming`
 - `nextfriday/enforce-test-filename`
-- `nextfriday/enforce-property-case`
 - `nextfriday/enforce-service-naming`
 - `nextfriday/enforce-sorted-destructuring`
 - `nextfriday/enforce-type-declaration-order`
@@ -523,10 +506,8 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/no-misleading-constant-case`
 - `nextfriday/no-nested-interface-declaration`
 - `nextfriday/no-relative-imports`
-- `nextfriday/no-single-char-variables`
 - `nextfriday/prefer-async-await`
 - `nextfriday/prefer-destructuring-params`
-- `nextfriday/prefer-function-declaration`
 - `nextfriday/prefer-guard-clause`
 - `nextfriday/prefer-import-type`
 - `nextfriday/prefer-inline-literal-union`
@@ -559,12 +540,9 @@ Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recomme
 - `nextfriday/jsx-sort-props`
 - `nextfriday/jsx-spread-props-last`
 - `nextfriday/no-ghost-wrapper`
-- `nextfriday/no-redundant-fragment`
 - `nextfriday/prefer-interface-for-component-props`
 - `nextfriday/prefer-interface-over-inline-types`
-- `nextfriday/prefer-jsx-template-literals`
 - `nextfriday/prefer-props-with-children`
-- `nextfriday/react-props-destructure`
 
 ### Severity Levels
 

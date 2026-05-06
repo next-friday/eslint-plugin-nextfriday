@@ -109,7 +109,6 @@ export default [
     rules: {
       "nextfriday/enforce-constant-case": "error",
       "nextfriday/no-misleading-constant-case": "error",
-      "nextfriday/enforce-camel-case": "error",
     },
   },
 ];
@@ -166,4 +165,3 @@ This plugin only supports ESLint 9+ flat config — legacy `.eslintrc` is not su
 ## Related Rules
 
 - [no-misleading-constant-case](NO_MISLEADING_CONSTANT_CASE.md) - Disallows SCREAMING_SNAKE_CASE in local scope and for dynamic values
-- [enforce-camel-case](ENFORCE_CAMEL_CASE.md) - Enforces camelCase for variables and functions

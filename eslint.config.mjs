@@ -71,14 +71,6 @@ const createJestConfig = () => [
     files: ["**/*.test.js", "**/*.test.ts"],
     ...eslintPluginJest.configs["flat/recommended"],
   },
-  {
-    name: "jest/template-literal-test-override",
-    files: ["**/prefer-jsx-template-literals.test.ts"],
-    rules: {
-      "no-template-curly-in-string": "off",
-      "no-useless-concat": "off",
-    },
-  },
 ];
 
 const createPrettierConfig = () => [

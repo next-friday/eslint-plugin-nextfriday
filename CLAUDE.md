@@ -4,19 +4,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is `eslint-plugin-nextfriday`, an ESLint plugin providing custom rules and configurations for Next Friday development workflows. Requires ESLint 10+ flat config (peer dependency `^10.0.0`) with presets for base (JS/TS), React, and Next.js projects. Built with tsup for dual CJS/ESM output.
+This is `eslint-plugin-nextfriday`, an ESLint plugin providing custom rules and configurations for Next Friday development workflows. Requires ESLint 10+ flat config (peer dependency `^10.0.0`) with presets for base (JS/TS), React, and Next.js projects. Built with tsdown for dual CJS/ESM output.
 
 ## Development Commands
 
 ```bash
-pnpm build               # Build plugin using tsup (dual CJS/ESM output to lib/)
-pnpm test                # Run all tests with Jest (uses ts-jest ESM preset)
+pnpm build               # Build plugin using tsdown (dual CJS/ESM output to lib/)
+pnpm test                # Run all tests with Jest (uses @swc/jest with native ESM)
 pnpm test src/rules/__tests__/no-emoji.test.ts  # Run a single test file
 pnpm test -t 'invalid'   # Run tests whose names match the pattern (Jest -t)
 pnpm test:coverage       # Jest with coverage (run by pre-push hook)
 pnpm test:watch          # Jest watch mode
-pnpm eslint              # Lint and auto-fix
-pnpm eslint:check        # Lint without auto-fix (read-only)
+pnpm eslint              # Lint src/ and auto-fix (.js, .ts only)
+pnpm eslint:check        # Lint src/ without auto-fix (read-only)
 pnpm typecheck           # Run TypeScript type checking
 pnpm prettier            # Format all files
 pnpm prettier:check      # Verify formatting
@@ -26,7 +26,7 @@ pnpm changeset           # Create a changeset for version bumping
 pnpm audit               # Audit prod dependencies at high severity
 ```
 
-The plugin dogfoods its own rules via `eslint.config.mjs`. Build config lives in `tsup.config.ts`, Jest config in `jest.config.ts`. Distributed exports (per `package.json`): `lib/index.js` (ESM), `lib/index.cjs` (CJS), `lib/index.d.ts` (types).
+Build config lives in `tsdown.config.ts`, Jest config in `jest.config.ts`, ESLint config in `eslint.config.mjs` (does **not** load the `nextfriday` plugin itself — the plugin is not self-applied). Distributed exports (per `package.json`): `lib/index.js` (ESM), `lib/index.cjs` (CJS), `lib/index.d.ts` (types).
 
 ## Code Architecture
 
@@ -35,7 +35,7 @@ The plugin dogfoods its own rules via `eslint.config.mjs`. Build config lives in
 `src/index.ts` - Main plugin export containing:
 
 - `meta` - Plugin name and version from package.json
-- `rules` - All 66 rule implementations keyed by hyphenated name
+- `rules` - All 57 rule implementations keyed by hyphenated name
 - `configs` - Six configuration presets (each rule set has a `warn` and `error`/`recommended` variant). All presets are built via `createConfig()` and return a single config object. The `nextjs` and `nextjs/recommended` presets currently share the same rule set as `react` and `react/recommended`; they are kept as named aliases.
 
 The plugin is exported both as default and as named exports `{ meta, configs, rules }`.
@@ -54,15 +54,15 @@ Six configs total. Two rule set tiers, each with a `warn` variant and a `Recomme
 
 | Preset                          | Rules            | Severity     |
 | ------------------------------- | ---------------- | ------------ |
-| `base` / `base/recommended`     | 43 base          | warn / error |
-| `react` / `react/recommended`   | 43 base + 23 JSX | warn / error |
-| `nextjs` / `nextjs/recommended` | 43 base + 23 JSX | warn / error |
+| `base` / `base/recommended`     | 37 base          | warn / error |
+| `react` / `react/recommended`   | 37 base + 20 JSX | warn / error |
+| `nextjs` / `nextjs/recommended` | 37 base + 20 JSX | warn / error |
 
-All 66 rules are included in the presets. The `react` and `nextjs` presets cover the full rule set (43 + 23 = 66).
+All 57 rules are included in the presets. The `react` and `nextjs` presets cover the full rule set (37 + 20 = 57).
 
 `createConfig(rules)` is the only constructor used for presets — it wraps the rules object with `plugins: { nextfriday: plugin }` so each preset is self-contained for ESLint flat config. Never construct a preset config manually.
 
-A rule's tier (base vs JSX) is determined solely by placement in `jsxRules`/`jsxRecommendedRules` in `src/index.ts` — not by a `jsx-` name prefix. Ten JSX-tier rules have no `jsx-` prefix (e.g. `no-ghost-wrapper`, `no-redundant-fragment`, `enforce-props-suffix`, `react-props-destructure`). Similarly, `prefer-react-import-types` is intentionally in `baseRules` despite its name — do not move it to `jsxRules`.
+A rule's tier (base vs JSX) is determined solely by placement in `jsxRules`/`jsxRecommendedRules` in `src/index.ts` — not by a `jsx-` name prefix. Several JSX-tier rules have no `jsx-` prefix (e.g. `no-ghost-wrapper`, `enforce-props-suffix`, `enforce-render-naming`, `prefer-props-with-children`, `prefer-interface-for-component-props`, `prefer-interface-over-inline-types`). Similarly, `prefer-react-import-types` is intentionally in `baseRules` despite its name — do not move it to `jsxRules`.
 
 ### Utilities
 
@@ -185,8 +185,8 @@ Git hooks (husky): `pre-commit` runs lint-staged, `pre-push` runs `test:coverage
 
 ## Requirements
 
-- Node: >=22.0.0
-- pnpm: >=9.0.0 (enforced)
+- Node: >=22.10.0
+- pnpm: >=9.0.0 (enforced; `packageManager` pinned to `pnpm@9.12.0`)
 - ESLint: ^10.0.0 (peer dependency)
 
 ## Agent skills

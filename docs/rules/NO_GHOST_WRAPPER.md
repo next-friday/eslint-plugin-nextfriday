@@ -69,7 +69,3 @@ Any of the following attributes count as meaningful and silence the rule:
 ## When Not To Use It
 
 If your codebase intentionally uses bare `<div>` and `<span>` as structural placeholders, or if you rely on parent CSS selectors that target a fixed wrapper depth.
-
-## Related Rules
-
-- [no-redundant-fragment](NO_REDUNDANT_FRAGMENT.md)

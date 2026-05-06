@@ -101,5 +101,4 @@ If you need stricter coverage of object/class members, pair this rule with [`@ty
 
 ## Related Rules
 
-- [no-single-char-variables](./NO_SINGLE_CHAR_VARIABLES.md) - Disallows single character variable names
 - [@typescript-eslint/naming-convention](https://typescript-eslint.io/rules/naming-convention/) - More comprehensive naming convention rule

@@ -92,4 +92,3 @@ This rule is fixable using ESLint's `--fix` option. The fixer will automatically
 ## Related Rules
 
 - [`prefer-interface-over-inline-types`](./PREFER_INTERFACE_OVER_INLINE_TYPES.md) - Enforces interface declarations over inline types
-- [`react-props-destructure`](./REACT_PROPS_DESTRUCTURE.md) - Enforces destructuring props inside component body

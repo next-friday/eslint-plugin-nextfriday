@@ -78,7 +78,7 @@ Variables containing 4 or more consecutive keyboard row characters:
 
 ### Short Identifiers
 
-Identifiers shorter than 3 characters are ignored (use `no-single-char-variables` for those).
+Identifiers shorter than 3 characters are ignored (use the core ESLint `id-length` rule with `min: 2` for those).
 
 ### Underscore-Prefixed
 
@@ -95,5 +95,4 @@ const _unused = getValue();
 
 ## Related Rules
 
-- [no-single-char-variables](./NO_SINGLE_CHAR_VARIABLES.md) - Disallows single character variable names
 - [boolean-naming-prefix](./BOOLEAN_NAMING_PREFIX.md) - Enforces naming conventions for boolean variables

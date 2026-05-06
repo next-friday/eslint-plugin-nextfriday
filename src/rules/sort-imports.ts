@@ -161,7 +161,7 @@ const sortImports = createRule({
       const firstUnsorted = imports.find((entry, index) => index > 0 && entry.group < imports[index - 1].group);
 
       if (!firstUnsorted) {
-        return;
+        return false;
       }
 
       const previous = imports[imports.indexOf(firstUnsorted) - 1];

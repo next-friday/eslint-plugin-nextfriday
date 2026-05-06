@@ -73,4 +73,3 @@ If your project does not follow the convention that SCREAMING_SNAKE_CASE is rese
 ## Related Rules
 
 - [enforce-constant-case](ENFORCE_CONSTANT_CASE.md) - The complementary rule that enforces SCREAMING_SNAKE_CASE for global static constants
-- [enforce-camel-case](ENFORCE_CAMEL_CASE.md) - Enforces camelCase for variables and functions
