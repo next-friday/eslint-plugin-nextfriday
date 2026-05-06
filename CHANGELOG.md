@@ -1,5 +1,11 @@
 # eslint-plugin-nextfriday
 
+## 5.0.1
+
+### Patch Changes
+
+- [#138](https://github.com/next-friday/eslint-plugin-nextfriday/pull/138) [`28c600d`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/28c600d4746de76f7587e2fb5eab97ec5bdc6658) Thanks [@joetakara](https://github.com/joetakara)! - fix `no-inline-nested-object` scope — the rule now applies only to function-like contexts (call arguments, `new` expressions, `return` statements, arrow implicit returns, and JSX expressions) instead of every object property; module-level data declarations such as route tables, dependency rule arrays, and configuration objects are no longer flagged, eliminating false positives in patterns where Prettier already controls the layout
+
 ## 5.0.0
 
 ### Major Changes
