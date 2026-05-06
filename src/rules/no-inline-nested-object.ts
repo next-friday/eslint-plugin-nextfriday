@@ -7,14 +7,6 @@ const createRule = ESLintUtils.RuleCreator(
     `https://github.com/next-friday/eslint-plugin-nextfriday/blob/main/docs/rules/${name.replaceAll("-", "_").toUpperCase()}.md`,
 );
 
-function isObjectOrArray(node: TSESTree.Node): boolean {
-  return (
-    node.type === AST_NODE_TYPES.ObjectExpression ||
-    node.type === AST_NODE_TYPES.ArrayExpression ||
-    node.type === AST_NODE_TYPES.TSAsExpression
-  );
-}
-
 function getInnerExpression(node: TSESTree.Node): TSESTree.Node {
   if (node.type === AST_NODE_TYPES.TSAsExpression) {
     return getInnerExpression(node.expression);
@@ -46,7 +38,7 @@ const noInlineNestedObject = createRule({
     type: "layout",
     docs: {
       description:
-        "Require object or array values that contain further nested objects or arrays to span multiple lines",
+        "Require object or array values passed to functions, returned, or used as JSX attributes to span multiple lines when they contain nested objects or arrays",
     },
     fixable: "whitespace",
     messages: {
@@ -58,62 +50,87 @@ const noInlineNestedObject = createRule({
   create(context) {
     const { sourceCode } = context;
 
+    function checkValue(node: TSESTree.Node | null | undefined): void {
+      if (!node) {
+        return;
+      }
+
+      const inner = getInnerExpression(node);
+
+      if (inner.type !== AST_NODE_TYPES.ObjectExpression && inner.type !== AST_NODE_TYPES.ArrayExpression) {
+        return;
+      }
+
+      if (!inner.loc) {
+        return;
+      }
+
+      const isMultiline = inner.loc.start.line !== inner.loc.end.line;
+      if (isMultiline) {
+        return;
+      }
+
+      if (!containsNestedStructure(inner)) {
+        return;
+      }
+
+      const elements = inner.type === AST_NODE_TYPES.ObjectExpression ? inner.properties : inner.elements;
+
+      context.report({
+        node: inner,
+        messageId: "requireMultiline",
+        fix(fixer) {
+          const valueLineText = sourceCode.lines[inner.loc.start.line - 1] ?? "";
+          const lineIndentMatch = valueLineText.match(/^(\s*)/);
+          const lineIndent = lineIndentMatch ? lineIndentMatch[1] : "";
+          const innerIndent = `${lineIndent}  `;
+
+          const elementTexts = elements
+            .filter((el): el is NonNullable<typeof el> => el !== null)
+            .map((el) => sourceCode.getText(el));
+
+          const isObject = inner.type === AST_NODE_TYPES.ObjectExpression;
+          const openChar = isObject ? "{" : "[";
+          const closeChar = isObject ? "}" : "]";
+
+          const formattedElements = elementTexts.map((text) => `${innerIndent}${text},`).join("\n");
+
+          const newContent = `${openChar}\n${formattedElements}\n${lineIndent}${closeChar}`;
+
+          return fixer.replaceText(inner, newContent);
+        },
+      });
+    }
+
+    function checkArguments(args: ReadonlyArray<TSESTree.CallExpressionArgument>): void {
+      args.forEach((arg) => {
+        if (arg.type === AST_NODE_TYPES.SpreadElement) {
+          return;
+        }
+        checkValue(arg);
+      });
+    }
+
     return {
-      Property(node) {
-        if (!node.value || !isObjectOrArray(node.value)) {
+      CallExpression(node) {
+        checkArguments(node.arguments);
+      },
+      NewExpression(node) {
+        checkArguments(node.arguments);
+      },
+      ReturnStatement(node) {
+        checkValue(node.argument);
+      },
+      ArrowFunctionExpression(node) {
+        if (node.body.type !== AST_NODE_TYPES.BlockStatement) {
+          checkValue(node.body);
+        }
+      },
+      JSXExpressionContainer(node) {
+        if (node.expression.type === AST_NODE_TYPES.JSXEmptyExpression) {
           return;
         }
-
-        const valueNode = getInnerExpression(node.value);
-
-        if (valueNode.type !== AST_NODE_TYPES.ObjectExpression && valueNode.type !== AST_NODE_TYPES.ArrayExpression) {
-          return;
-        }
-
-        if (!valueNode.loc) {
-          return;
-        }
-
-        const isMultiline = valueNode.loc.start.line !== valueNode.loc.end.line;
-        if (isMultiline) {
-          return;
-        }
-
-        if (!containsNestedStructure(valueNode)) {
-          return;
-        }
-
-        const elements = valueNode.type === AST_NODE_TYPES.ObjectExpression ? valueNode.properties : valueNode.elements;
-
-        context.report({
-          node: valueNode,
-          messageId: "requireMultiline",
-          fix(fixer) {
-            const openBrace = sourceCode.getFirstToken(valueNode);
-            const closeBrace = sourceCode.getLastToken(valueNode);
-
-            if (!openBrace || !closeBrace) {
-              return null;
-            }
-
-            const indent = " ".repeat(node.loc?.start.column ?? 0);
-            const innerIndent = `${indent}  `;
-
-            const elementTexts = elements
-              .filter((el): el is NonNullable<typeof el> => el !== null)
-              .map((el) => sourceCode.getText(el));
-
-            const isObject = valueNode.type === AST_NODE_TYPES.ObjectExpression;
-            const openChar = isObject ? "{" : "[";
-            const closeChar = isObject ? "}" : "]";
-
-            const formattedElements = elementTexts.map((text) => `${innerIndent}${text},`).join("\n");
-
-            const newContent = `${openChar}\n${formattedElements}\n${indent}${closeChar}`;
-
-            return fixer.replaceText(valueNode, newContent);
-          },
-        });
+        checkValue(node.expression);
       },
     };
   },
