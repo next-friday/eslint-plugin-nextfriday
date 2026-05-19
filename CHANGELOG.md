@@ -1,5 +1,14 @@
 # eslint-plugin-nextfriday
 
+## 5.0.2
+
+### Patch Changes
+
+- [#141](https://github.com/next-friday/eslint-plugin-nextfriday/pull/141) [`9a9ba41`](https://github.com/next-friday/eslint-plugin-nextfriday/commit/9a9ba415a7a188ec0f0180cefd807e562a489bc8) Thanks [@joetakara](https://github.com/joetakara)! - Expand `enforce-constant-case` to enforce SCREAMING_SNAKE_CASE on RegExp and bigint constants, and refine `new RegExp()` detection to skip dynamic arguments.
+  - RegExp literals (`/foo/`) and `new RegExp("foo", "g")` (all args must be string literals) are now flagged when named in camelCase at global scope.
+  - BigInt literals (`100n`, `-1n`) are now flagged consistently with number literals.
+  - `new RegExp(userInput)` and other non-literal RegExp constructors are intentionally ignored — only statically-constructed patterns are treated as magic values.
+
 ## 5.0.1
 
 ### Patch Changes
