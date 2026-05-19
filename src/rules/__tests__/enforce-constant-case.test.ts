@@ -57,8 +57,32 @@ describe("enforce-constant-case", () => {
         name: "should ignore static template literals",
       },
       {
-        code: `const phoneRegex = /^[0-9]{10}$/;`,
-        name: "should ignore RegExp literals",
+        code: `const PHONE_REGEX = /^[0-9]{10}$/;`,
+        name: "should allow SCREAMING_SNAKE_CASE RegExp literal",
+      },
+      {
+        code: `const EMAIL_PATTERN = new RegExp("^.+@.+$");`,
+        name: "should allow SCREAMING_SNAKE_CASE new RegExp() constructor",
+      },
+      {
+        code: `const EMAIL_PATTERN = new RegExp("^.+@.+$", "g");`,
+        name: "should allow SCREAMING_SNAKE_CASE new RegExp() with flags",
+      },
+      {
+        code: `const dynamicPattern = new RegExp(userInput);`,
+        name: "should ignore new RegExp() with dynamic argument",
+      },
+      {
+        code: `const dynamicPattern = new RegExp(getPattern(), "i");`,
+        name: "should ignore new RegExp() with function-call argument",
+      },
+      {
+        code: `const BIG_LIMIT = 9007199254740993n;`,
+        name: "should allow SCREAMING_SNAKE_CASE bigint constant",
+      },
+      {
+        code: `const NEGATIVE_BIG = -1n;`,
+        name: "should allow SCREAMING_SNAKE_CASE for negative bigint",
       },
       {
         code: `const skeletonItems = [1, 2, 3, 4, 5];`,
@@ -200,6 +224,46 @@ describe("enforce-constant-case", () => {
           {
             messageId: "noSnakeCase",
             data: { name: "default_theme", suggestion: "DEFAULT_THEME" },
+          },
+        ],
+      },
+      {
+        code: `const phoneRegex = /^[0-9]{10}$/;`,
+        name: "should disallow camelCase for global RegExp literal",
+        errors: [
+          {
+            messageId: "useScreamingSnakeCase",
+            data: { name: "phoneRegex", suggestion: "PHONE_REGEX" },
+          },
+        ],
+      },
+      {
+        code: `const emailPattern = new RegExp("^.+@.+$");`,
+        name: "should disallow camelCase for global new RegExp() constructor",
+        errors: [
+          {
+            messageId: "useScreamingSnakeCase",
+            data: { name: "emailPattern", suggestion: "EMAIL_PATTERN" },
+          },
+        ],
+      },
+      {
+        code: `const bigLimit = 9007199254740993n;`,
+        name: "should disallow camelCase for global bigint constant",
+        errors: [
+          {
+            messageId: "useScreamingSnakeCase",
+            data: { name: "bigLimit", suggestion: "BIG_LIMIT" },
+          },
+        ],
+      },
+      {
+        code: `const negativeBig = -1n;`,
+        name: "should disallow camelCase for global negative bigint",
+        errors: [
+          {
+            messageId: "useScreamingSnakeCase",
+            data: { name: "negativeBig", suggestion: "NEGATIVE_BIG" },
           },
         ],
       },

@@ -1,23 +1,25 @@
 # enforce-constant-case
 
-Enforce SCREAMING_SNAKE_CASE for global magic-number and magic-text constants.
+Enforce SCREAMING_SNAKE_CASE for global magic-number, magic-text, bigint, and RegExp constants.
 
 ## Rule Details
 
-This rule ensures that global-scope `const` declarations bound to a **magic number** or **magic text** literal use SCREAMING_SNAKE_CASE. The rule scope is intentionally narrow:
+This rule ensures that global-scope `const` declarations bound to a **magic literal** value use SCREAMING_SNAKE_CASE. The rule scope is intentionally narrow:
 
 - A magic text constant is a string literal: `const API_URL = "https://api.example.com"`
 - A magic number constant is a number literal (including a unary `-`/`+` over a numeric literal): `const PAGE_LIMIT = 10`, `const OFFSET = -1`
+- A bigint constant is a bigint literal (including a unary `-`/`+` over a bigint literal): `const BIG_LIMIT = 9007199254740993n`, `const NEGATIVE_BIG = -1n`
+- A RegExp constant is a regex literal, or a `new RegExp(...)` call whose arguments are **all** string literals: `const PHONE_REGEX = /^[0-9]+$/`, `const EMAIL_PATTERN = new RegExp("^.+@.+$", "g")`
 
-Anything else is **not** checked: booleans, RegExp, template literals (static or dynamic), arrays, objects, `as const` assertions, function calls, identifiers, member expressions, JSX. Use whatever name fits the value (`metadata`, `viewport`, `statusMap`, `phoneRegex`, `isEnabled`, etc.) — the rule will not flag it.
+Anything else is **not** checked: booleans, template literals (static or dynamic), arrays, objects, `as const` assertions, function calls, identifiers, member expressions, JSX, and `new RegExp(dynamicValue)` (where the pattern argument is non-literal). Use whatever name fits the value (`metadata`, `viewport`, `statusMap`, `isEnabled`, `dynamicPattern`, etc.) — the rule will not flag it.
 
 Only global scope (top-level of a file) is checked. Local scope constants inside functions are not checked by this rule.
 
 **Config files are exempt.** Files matching `*.config.{ts,mjs,cjs,js}`, `*.rc.*`, `*.setup.*`, `*.spec.*`, `*.test.*`, `.eslintrc*`, `.babelrc*`, and `.prettierrc*` skip this rule entirely. This avoids conflicts with framework conventions that require specific identifier names — e.g. Next.js expects `nextConfig` (not `NEXT_CONFIG`) in `next.config.ts`, Vite expects `config`, Tailwind expects `config`, etc.
 
-### Why magic numbers and magic text only?
+### Why only static literal values?
 
-Reserved framework export names commonly bind to objects (Next.js App Router exports `metadata`, `viewport`, `generateStaticParams`, `dynamic`, `revalidate`, `runtime`, `fetchCache`, `dynamicParams`, `preferredRegion`, `maxDuration`; React Server Components and others have similar patterns). Forcing SCREAMING_SNAKE_CASE on any static-shaped initializer would rename those exports and break framework integration. Restricting the rule to bare number and string literals keeps the convention where it adds value (avoiding magic constants scattered through code) without colliding with framework-owned names.
+Reserved framework export names commonly bind to objects (Next.js App Router exports `metadata`, `viewport`, `generateStaticParams`, `dynamic`, `revalidate`, `runtime`, `fetchCache`, `dynamicParams`, `preferredRegion`, `maxDuration`; React Server Components and others have similar patterns). Forcing SCREAMING_SNAKE_CASE on any static-shaped initializer would rename those exports and break framework integration. Restricting the rule to bare number, string, bigint, and statically-constructed RegExp values keeps the convention where it adds value (avoiding magic constants scattered through code) without colliding with framework-owned names or flagging dynamically-constructed patterns.
 
 ## Examples
 
@@ -29,6 +31,9 @@ const pageLimit = 10;
 const apiBaseUrl = "https://api.example.com";
 const negativeOne = -1;
 const default_theme = "dark";
+const phoneRegex = /^[0-9]{10}$/;
+const emailPattern = new RegExp("^.+@.+$");
+const bigLimit = 9007199254740993n;
 ```
 
 ### Correct
@@ -39,12 +44,15 @@ const PAGE_LIMIT = 10;
 const API_BASE_URL = "https://api.example.com";
 const NEGATIVE_ONE = -1;
 const DEFAULT_THEME = "dark";
+const PHONE_REGEX = /^[0-9]{10}$/;
+const EMAIL_PATTERN = new RegExp("^.+@.+$", "g");
+const BIG_LIMIT = 9007199254740993n;
 
 const isProduction = true;
 const hasAccess = false;
 const featureEnabled = true;
 
-const phoneRegex = /^[0-9]{10}$/;
+const dynamicPattern = new RegExp(userInput);
 const template = `hello world`;
 const skeletonItems = [1, 2, 3, 4, 5];
 const mapStyle = { height: "320px", width: "100%" };
