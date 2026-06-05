@@ -14,11 +14,12 @@ const preferPropsWithChildren = createRule({
   meta: {
     type: "suggestion",
     docs: {
-      description: "Prefer PropsWithChildren<T> over manually declaring children: ReactNode in component props",
+      description: "Prefer PropsWithChildren over manually declaring a children property typed as ReactNode",
     },
     schema: [],
     messages: {
-      usePropsWithChildren: "Use 'PropsWithChildren<T>' instead of manually declaring 'children?: ReactNode'.",
+      usePropsWithChildren:
+        "Use 'PropsWithChildren' instead of manually declaring a 'children' property typed as ReactNode (or a union/array of ReactNode).",
     },
   },
   defaultOptions: [],
@@ -28,6 +29,12 @@ const preferPropsWithChildren = createRule({
     function isReactNodeType(typeNode: TSESTree.TypeNode | undefined): boolean {
       if (!typeNode) {
         return false;
+      }
+      if (typeNode.type === AST_NODE_TYPES.TSUnionType) {
+        return typeNode.types.every((member) => isReactNodeType(member));
+      }
+      if (typeNode.type === AST_NODE_TYPES.TSArrayType) {
+        return isReactNodeType(typeNode.elementType);
       }
       if (typeNode.type !== AST_NODE_TYPES.TSTypeReference) {
         return false;
@@ -62,7 +69,7 @@ const preferPropsWithChildren = createRule({
         if (!member.typeAnnotation) {
           continue;
         }
-        if (member.optional && isReactNodeType(member.typeAnnotation.typeAnnotation)) {
+        if (isReactNodeType(member.typeAnnotation.typeAnnotation)) {
           return member;
         }
       }

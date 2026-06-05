@@ -1,3 +1,5 @@
+import path from "node:path";
+
 import { RuleTester } from "@typescript-eslint/rule-tester";
 import { afterAll, describe, it } from "@jest/globals";
 
@@ -7,7 +9,16 @@ RuleTester.afterAll = afterAll;
 RuleTester.describe = describe;
 RuleTester.it = it;
 
-const ruleTester = new RuleTester();
+const ruleTester = new RuleTester({
+  languageOptions: {
+    parserOptions: {
+      projectService: {
+        allowDefaultProject: ["*.ts*"],
+      },
+      tsconfigRootDir: path.join(process.cwd(), "src/rules/__tests__/fixtures"),
+    },
+  },
+});
 
 describe("enforce-sorted-destructuring", () => {
   it("should have meta property", () => {
@@ -27,6 +38,22 @@ describe("enforce-sorted-destructuring", () => {
       {
         code: "const { a } = foo;",
         name: "single property",
+      },
+      {
+        code: `
+declare const props: { description: string; title: string; onSubmit: () => void };
+
+const { description, title, onSubmit } = props;
+`,
+        name: "non-callable alphabetical then callable last",
+      },
+      {
+        code: `
+declare const props: { description: string; submitLabel: string; onSubmit: () => void };
+
+const { submitLabel = "Continue", description, onSubmit } = props;
+`,
+        name: "default first, then non-callable, then callable",
       },
       {
         code: "const { a, b } = foo;",
@@ -83,6 +110,24 @@ describe("enforce-sorted-destructuring", () => {
           },
         ],
         name: "not sorted alphabetically",
+      },
+      {
+        code: `
+declare const props: { description: string; onSubmit: () => void; title: string };
+
+const { description, onSubmit, title } = props;
+`,
+        output: `
+declare const props: { description: string; onSubmit: () => void; title: string };
+
+const { description, title, onSubmit } = props;
+`,
+        errors: [
+          {
+            messageId: "unsortedDestructuring",
+          },
+        ],
+        name: "callable property must move after non-callable",
       },
       {
         code: "const { z, a, m } = foo;",

@@ -1,3 +1,5 @@
+import path from "node:path";
+
 import { RuleTester } from "@typescript-eslint/rule-tester";
 import { afterAll, describe, it } from "@jest/globals";
 
@@ -7,7 +9,16 @@ RuleTester.afterAll = afterAll;
 RuleTester.describe = describe;
 RuleTester.it = it;
 
-const ruleTester = new RuleTester();
+const ruleTester = new RuleTester({
+  languageOptions: {
+    parserOptions: {
+      projectService: {
+        allowDefaultProject: ["*.ts*"],
+      },
+      tsconfigRootDir: path.join(process.cwd(), "src/rules/__tests__/fixtures"),
+    },
+  },
+});
 
 describe("sort-type-alphabetically", () => {
   it("should have meta property", () => {
@@ -20,6 +31,29 @@ describe("sort-type-alphabetically", () => {
 
   ruleTester.run("sort-type-alphabetically", sortTypeAlphabetically, {
     valid: [
+      {
+        code: `
+interface RootProps {
+  description: string;
+  title: string;
+  onSubmit: () => void;
+  submitLabel?: string;
+  onSubmit2?: () => void;
+}
+`,
+        name: "callable members last within required and optional groups",
+      },
+      {
+        code: `
+type Handler = (value: string) => void;
+
+interface Props {
+  title: string;
+  onChange: Handler;
+}
+`,
+        name: "callable detected through a type alias goes last",
+      },
       {
         code: `
 interface Props {
@@ -104,6 +138,24 @@ interface Props {
 }`,
         errors: [{ messageId: "unsortedTypeMembers" }],
         name: "required not sorted A-Z",
+      },
+      {
+        code: `
+interface Props {
+  description: string;
+  onSubmit: () => void;
+  title: string;
+}
+`,
+        output: `
+interface Props {
+  description: string;
+  title: string;
+  onSubmit: () => void;
+}
+`,
+        errors: [{ messageId: "unsortedTypeMembers" }],
+        name: "callable member must move after non-callable",
       },
       {
         code: `

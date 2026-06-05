@@ -72,8 +72,8 @@ describe("ESLint Plugin Rules", () => {
     expect(typeof rules["no-env-fallback"].create).toBe("function");
   });
 
-  it("should have exactly 57 rules", () => {
-    expect(Object.keys(rules)).toHaveLength(57);
+  it("should have exactly 60 rules", () => {
+    expect(Object.keys(rules)).toHaveLength(60);
   });
 
   it("should have correct rule names", () => {
@@ -111,6 +111,7 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("no-lazy-identifiers");
     expect(ruleNames).toContain("no-relative-imports");
     expect(ruleNames).toContain("prefer-async-await");
+    expect(ruleNames).toContain("prefer-body-destructuring");
     expect(ruleNames).toContain("newline-after-multiline-block");
     expect(ruleNames).toContain("newline-before-return");
     expect(ruleNames).toContain("boolean-naming-prefix");
@@ -119,7 +120,9 @@ describe("ESLint Plugin Rules", () => {
     expect(ruleNames).toContain("jsx-sort-props");
     expect(ruleNames).toContain("jsx-spread-props-last");
     expect(ruleNames).toContain("sort-exports");
+    expect(ruleNames).toContain("sort-dependency-array");
     expect(ruleNames).toContain("sort-imports");
+    expect(ruleNames).toContain("sort-object-properties");
     expect(ruleNames).toContain("sort-type-alphabetically");
     expect(ruleNames).toContain("sort-type-required-first");
     expect(ruleNames).toContain("prefer-inline-literal-union");

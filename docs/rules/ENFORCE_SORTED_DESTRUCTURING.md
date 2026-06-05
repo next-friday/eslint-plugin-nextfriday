@@ -1,12 +1,14 @@
 # enforce-sorted-destructuring
 
-Enforce alphabetical sorting of destructured properties with defaults first.
+Enforce destructured properties sorted with defaults first, then non-callable, then callable last.
 
 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
+> This rule requires type information. Enable typed linting (for example `parserOptions.projectService: true`).
+
 ## Rule Details
 
-This rule enforces that object destructuring properties are sorted alphabetically, with properties that have default values coming first. Both groups (defaults and non-defaults) are sorted alphabetically (A-Z).
+This rule enforces that object destructuring properties are sorted: properties with default values first, then non-callable properties, then callable (function-typed) properties last. Within each group, properties are sorted alphabetically (A-Z). Whether a property is callable is determined from its resolved type, so handlers typed through aliases or indexed access (for example `ComponentProps<typeof Button>["onPress"]`) are recognized.
 
 ### Why?
 
@@ -20,7 +22,18 @@ This rule enforces that object destructuring properties are sorted alphabeticall
 Properties are sorted in this order:
 
 1. **Properties with defaults** (sorted alphabetically A-Z)
-2. **Properties without defaults** (sorted alphabetically A-Z)
+2. **Non-callable properties without defaults** (sorted alphabetically A-Z)
+3. **Callable (function-typed) properties** (sorted alphabetically A-Z, last)
+
+```ts
+declare const props: { description: string; onSubmit: () => void; title: string };
+
+// Incorrect: callable before non-callable
+const { description, onSubmit, title } = props;
+
+// Correct: callable last
+const { description, title, onSubmit } = props;
+```
 
 ## Examples
 
