@@ -73,7 +73,7 @@ The first object enables every rule in `react/recommended`. The second object re
 
 #### When to use manual configuration vs a preset
 
-Reach for a preset (`base`, `react`, `nextjs`, or any `/recommended` variant) by default. Presets are curated, kept in sync with new rules as the plugin grows, and require almost no maintenance on your side.
+Reach for a preset (`base`, `react`, or any `/recommended` variant) by default. Presets are curated, kept in sync with new rules as the plugin grows, and require almost no maintenance on your side.
 
 Choose manual configuration when one of these applies:
 
@@ -217,13 +217,13 @@ Reading top to bottom:
 
 #### Choosing a preset tier per directory
 
-| Code area                         | Suggested preset                            | Why                                                                        |
-| --------------------------------- | ------------------------------------------- | -------------------------------------------------------------------------- |
-| Library / SDK code                | `base/recommended` or `react/recommended`   | Public surface should be tightest. `error` blocks regressions at PR time.  |
-| New product code                  | `react/recommended` or `nextjs/recommended` | New code starts clean; lock the conventions in immediately.                |
-| Mature product code mid-migration | `react` or `nextjs` (warn)                  | Ship while migrating. Switch to `/recommended` after a clean run.          |
-| Tests, scripts, fixtures          | preset + targeted overrides                 | Keep the core lint signal; turn off rules that mismatch test/CLI patterns. |
-| Legacy / vendored / generated     | top-level `ignores`                         | No lint signal at all. Don't waste reviewer attention or CI time.          |
+| Code area                         | Suggested preset                          | Why                                                                        |
+| --------------------------------- | ----------------------------------------- | -------------------------------------------------------------------------- |
+| Library / SDK code                | `base/recommended` or `react/recommended` | Public surface should be tightest. `error` blocks regressions at PR time.  |
+| New product code                  | `react/recommended`                       | New code starts clean; lock the conventions in immediately.                |
+| Mature product code mid-migration | `react` (warn)                            | Ship while migrating. Switch to `/recommended` after a clean run.          |
+| Tests, scripts, fixtures          | preset + targeted overrides               | Keep the core lint signal; turn off rules that mismatch test/CLI patterns. |
+| Legacy / vendored / generated     | top-level `ignores`                       | No lint signal at all. Don't waste reviewer attention or CI time.          |
 
 #### Edge cases and troubleshooting
 
@@ -396,6 +396,7 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | Rule                                                                         | Description                                                            | Fixable |
 | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------- |
 | [no-emoji](docs/rules/NO_EMOJI.md)                                           | Disallow emoji characters in source code                               | ❌      |
+| [prefer-body-destructuring](docs/rules/PREFER_BODY_DESTRUCTURING.md)         | Destructure a single object parameter in the body, not the signature   | ❌      |
 | [prefer-destructuring-params](docs/rules/PREFER_DESTRUCTURING_PARAMS.md)     | Enforce destructuring for functions with multiple parameters           | ❌      |
 | [require-explicit-return-type](docs/rules/REQUIRE_EXPLICIT_RETURN_TYPE.md)   | Require explicit return types on functions for better documentation    | ❌      |
 | [no-complex-inline-return](docs/rules/NO_COMPLEX_INLINE_RETURN.md)           | Disallow complex inline expressions in return - extract to const first | ❌      |
@@ -438,6 +439,8 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 | [prefer-inline-literal-union](docs/rules/PREFER_INLINE_LITERAL_UNION.md)                   | Enforce inlining literal union types for better IDE hover info    | ✅      |
 | [prefer-interface-for-component-props](docs/rules/PREFER_INTERFACE_FOR_COMPONENT_PROPS.md) | Enforce interface over type alias for component prop declarations | ✅      |
 | [prefer-interface-over-inline-types](docs/rules/PREFER_INTERFACE_OVER_INLINE_TYPES.md)     | Enforce interface declarations over inline types for React props  | ❌      |
+| [sort-dependency-array](docs/rules/SORT_DEPENDENCY_ARRAY.md)                               | Sort hook dependency arrays with callable deps last (typed)       | ✅      |
+| [sort-object-properties](docs/rules/SORT_OBJECT_PROPERTIES.md)                             | Sort object literal properties with callable members last (typed) | ✅      |
 | [sort-type-alphabetically](docs/rules/SORT_TYPE_ALPHABETICALLY.md)                         | Enforce A-Z sorting of properties within type groups              | ✅      |
 | [sort-type-required-first](docs/rules/SORT_TYPE_REQUIRED_FIRST.md)                         | Enforce required properties before optional in types/interfaces   | ✅      |
 
@@ -468,16 +471,12 @@ In practice: turn the high tier on as `"error"` first, leave the medium tier as 
 
 ### Configuration Presets Overview
 
-| Preset               | Severity | Base Rules | JSX Rules | Total Rules |
-| -------------------- | -------- | ---------- | --------- | ----------- |
-| `base`               | warn     | 43         | 0         | 43          |
-| `base/recommended`   | error    | 43         | 0         | 43          |
-| `react`              | warn     | 43         | 23        | 66          |
-| `react/recommended`  | error    | 43         | 23        | 66          |
-| `nextjs`             | warn     | 43         | 23        | 66          |
-| `nextjs/recommended` | error    | 43         | 23        | 66          |
-
-The `nextjs` and `nextjs/recommended` presets currently share the same rule set as `react` and `react/recommended`; they are kept as named aliases for ergonomics.
+| Preset              | Severity | Base Rules | JSX Rules | Total Rules |
+| ------------------- | -------- | ---------- | --------- | ----------- |
+| `base`              | warn     | 43         | 0         | 43          |
+| `base/recommended`  | error    | 43         | 0         | 43          |
+| `react`             | warn     | 43         | 23        | 66          |
+| `react/recommended` | error    | 43         | 23        | 66          |
 
 ### Base Configuration Rules (43 rules)
 
@@ -507,6 +506,7 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/no-nested-interface-declaration`
 - `nextfriday/no-relative-imports`
 - `nextfriday/prefer-async-await`
+- `nextfriday/prefer-body-destructuring`
 - `nextfriday/prefer-destructuring-params`
 - `nextfriday/prefer-guard-clause`
 - `nextfriday/prefer-import-type`
@@ -515,13 +515,15 @@ Included in `base`, `base/recommended`, and all other presets:
 - `nextfriday/prefer-react-import-types`
 - `nextfriday/require-explicit-return-type`
 - `nextfriday/sort-exports`
+- `nextfriday/sort-dependency-array`
 - `nextfriday/sort-imports`
+- `nextfriday/sort-object-properties`
 - `nextfriday/sort-type-alphabetically`
 - `nextfriday/sort-type-required-first`
 
 ### JSX Rules (23 rules)
 
-Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recommended`:
+Additionally included in `react`, `react/recommended`:
 
 - `nextfriday/enforce-props-suffix`
 - `nextfriday/enforce-readonly-component-props`
@@ -546,8 +548,8 @@ Additionally included in `react`, `react/recommended`, `nextjs`, `nextjs/recomme
 
 ### Severity Levels
 
-- **`base` / `react` / `nextjs`**: All rules set to `"warn"`
-- **`base/recommended` / `react/recommended` / `nextjs/recommended`**: All rules set to `"error"`
+- **`base` / `react`**: All rules set to `"warn"`
+- **`base/recommended` / `react/recommended`**: All rules set to `"error"`
 
 ## Features
 

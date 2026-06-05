@@ -57,38 +57,9 @@ describe("ESLint Plugin Configs", () => {
     });
   });
 
-  describe("Next.js configurations", () => {
-    it("should have nextjs configuration", () => {
-      expect(configs).toHaveProperty("nextjs");
-      expect(typeof configs.nextjs).toBe("object");
-      expect(configs.nextjs).toHaveProperty("rules");
-    });
-
-    it("should have nextjs/recommended configuration", () => {
-      expect(configs).toHaveProperty("nextjs/recommended");
-      expect(typeof configs["nextjs/recommended"]).toBe("object");
-      expect(configs["nextjs/recommended"]).toHaveProperty("rules");
-    });
-
-    it("should have correct nextjs rules", () => {
-      const nextjsRules = configs.nextjs.rules;
-      expect(nextjsRules).toHaveProperty("nextfriday/no-emoji", "warn");
-      expect(nextjsRules).toHaveProperty("nextfriday/prefer-interface-over-inline-types", "warn");
-      expect(nextjsRules).toHaveProperty("nextfriday/enforce-readonly-component-props", "warn");
-      expect(nextjsRules).toHaveProperty("nextfriday/prefer-destructuring-params", "warn");
-      expect(nextjsRules).toHaveProperty("nextfriday/require-explicit-return-type", "warn");
-      expect(nextjsRules).toHaveProperty("nextfriday/prefer-import-type", "warn");
-      expect(nextjsRules).toHaveProperty("nextfriday/prefer-react-import-types", "warn");
-    });
-  });
-
   it("should set warn severity for regular configs and error for recommended configs", () => {
-    const regularConfigs = [configs.base, configs.react, configs.nextjs];
-    const recommendedConfigs = [
-      configs["base/recommended"],
-      configs["react/recommended"],
-      configs["nextjs/recommended"],
-    ];
+    const regularConfigs = [configs.base, configs.react];
+    const recommendedConfigs = [configs["base/recommended"], configs["react/recommended"]];
 
     regularConfigs.forEach((config) => {
       Object.values(config.rules).forEach((severity) => {

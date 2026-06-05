@@ -43,6 +43,7 @@ import noMisleadingConstantCase from "./rules/no-misleading-constant-case";
 import noNestedInterfaceDeclaration from "./rules/no-nested-interface-declaration";
 import noRelativeImports from "./rules/no-relative-imports";
 import preferAsyncAwait from "./rules/prefer-async-await";
+import preferBodyDestructuring from "./rules/prefer-body-destructuring";
 import preferDestructuringParams from "./rules/prefer-destructuring-params";
 import preferGuardClause from "./rules/prefer-guard-clause";
 import preferImportType from "./rules/prefer-import-type";
@@ -53,8 +54,10 @@ import preferNamedParamTypes from "./rules/prefer-named-param-types";
 import preferPropsWithChildren from "./rules/prefer-props-with-children";
 import preferReactImportTypes from "./rules/prefer-react-import-types";
 import requireExplicitReturnType from "./rules/require-explicit-return-type";
+import sortDependencyArray from "./rules/sort-dependency-array";
 import sortExports from "./rules/sort-exports";
 import sortImports from "./rules/sort-imports";
+import sortObjectProperties from "./rules/sort-object-properties";
 import sortTypeAlphabetically from "./rules/sort-type-alphabetically";
 import sortTypeRequiredFirst from "./rules/sort-type-required-first";
 
@@ -109,6 +112,7 @@ const rules = {
   "no-nested-interface-declaration": noNestedInterfaceDeclaration,
   "no-relative-imports": noRelativeImports,
   "prefer-async-await": preferAsyncAwait,
+  "prefer-body-destructuring": preferBodyDestructuring,
   "prefer-destructuring-params": preferDestructuringParams,
   "prefer-guard-clause": preferGuardClause,
   "prefer-import-type": preferImportType,
@@ -119,8 +123,10 @@ const rules = {
   "prefer-props-with-children": preferPropsWithChildren,
   "prefer-react-import-types": preferReactImportTypes,
   "require-explicit-return-type": requireExplicitReturnType,
+  "sort-dependency-array": sortDependencyArray,
   "sort-exports": sortExports,
   "sort-imports": sortImports,
+  "sort-object-properties": sortObjectProperties,
   "sort-type-alphabetically": sortTypeAlphabetically,
   "sort-type-required-first": sortTypeRequiredFirst,
 } as const satisfies Record<string, TSESLint.RuleModule<string, readonly unknown[]>>;
@@ -157,6 +163,7 @@ const baseRules = {
   "nextfriday/no-nested-interface-declaration": "warn",
   "nextfriday/no-relative-imports": "warn",
   "nextfriday/prefer-async-await": "warn",
+  "nextfriday/prefer-body-destructuring": "warn",
   "nextfriday/prefer-destructuring-params": "warn",
   "nextfriday/prefer-guard-clause": "warn",
   "nextfriday/prefer-import-type": "warn",
@@ -164,8 +171,10 @@ const baseRules = {
   "nextfriday/prefer-named-param-types": "warn",
   "nextfriday/prefer-react-import-types": "warn",
   "nextfriday/require-explicit-return-type": "warn",
+  "nextfriday/sort-dependency-array": "warn",
   "nextfriday/sort-exports": "warn",
   "nextfriday/sort-imports": "warn",
+  "nextfriday/sort-object-properties": "warn",
   "nextfriday/sort-type-alphabetically": "warn",
   "nextfriday/sort-type-required-first": "warn",
 } as const;
@@ -197,6 +206,7 @@ const baseRecommendedRules = {
   "nextfriday/no-nested-interface-declaration": "error",
   "nextfriday/no-relative-imports": "error",
   "nextfriday/prefer-async-await": "error",
+  "nextfriday/prefer-body-destructuring": "error",
   "nextfriday/prefer-destructuring-params": "error",
   "nextfriday/prefer-guard-clause": "error",
   "nextfriday/prefer-import-type": "error",
@@ -204,8 +214,10 @@ const baseRecommendedRules = {
   "nextfriday/prefer-named-param-types": "error",
   "nextfriday/prefer-react-import-types": "error",
   "nextfriday/require-explicit-return-type": "error",
+  "nextfriday/sort-dependency-array": "error",
   "nextfriday/sort-exports": "error",
   "nextfriday/sort-imports": "error",
+  "nextfriday/sort-object-properties": "error",
   "nextfriday/sort-type-alphabetically": "error",
   "nextfriday/sort-type-required-first": "error",
 } as const;
@@ -271,14 +283,6 @@ const configs = {
     ...jsxRules,
   }),
   "react/recommended": createConfig({
-    ...baseRecommendedRules,
-    ...jsxRecommendedRules,
-  }),
-  nextjs: createConfig({
-    ...baseRules,
-    ...jsxRules,
-  }),
-  "nextjs/recommended": createConfig({
     ...baseRecommendedRules,
     ...jsxRecommendedRules,
   }),

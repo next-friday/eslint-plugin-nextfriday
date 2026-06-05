@@ -36,7 +36,7 @@ Build config lives in `tsdown.config.ts`, Jest config in `jest.config.ts`, ESLin
 
 - `meta` - Plugin name and version from package.json
 - `rules` - All 57 rule implementations keyed by hyphenated name
-- `configs` - Six configuration presets (each rule set has a `warn` and `error`/`recommended` variant). All presets are built via `createConfig()` and return a single config object. The `nextjs` and `nextjs/recommended` presets currently share the same rule set as `react` and `react/recommended`; they are kept as named aliases.
+- `configs` - Four configuration presets (each rule set has a `warn` and `error`/`recommended` variant). All presets are built via `createConfig()` and return a single config object.
 
 The plugin is exported both as default and as named exports `{ meta, configs, rules }`.
 
@@ -50,15 +50,14 @@ All rules use `schema: []` and `defaultOptions: []` (no configurable options).
 
 ### Configuration Presets
 
-Six configs total. Two rule set tiers, each with a `warn` variant and a `Recommended` (`error`) variant defined as separate constants in `src/index.ts` (`baseRules`/`baseRecommendedRules`, `jsxRules`/`jsxRecommendedRules`).
+Four configs total. Two rule set tiers, each with a `warn` variant and a `Recommended` (`error`) variant defined as separate constants in `src/index.ts` (`baseRules`/`baseRecommendedRules`, `jsxRules`/`jsxRecommendedRules`).
 
-| Preset                          | Rules            | Severity     |
-| ------------------------------- | ---------------- | ------------ |
-| `base` / `base/recommended`     | 37 base          | warn / error |
-| `react` / `react/recommended`   | 37 base + 20 JSX | warn / error |
-| `nextjs` / `nextjs/recommended` | 37 base + 20 JSX | warn / error |
+| Preset                        | Rules            | Severity     |
+| ----------------------------- | ---------------- | ------------ |
+| `base` / `base/recommended`   | 37 base          | warn / error |
+| `react` / `react/recommended` | 37 base + 20 JSX | warn / error |
 
-All 57 rules are included in the presets. The `react` and `nextjs` presets cover the full rule set (37 + 20 = 57).
+All 57 rules are included in the presets. The `react` preset covers the full rule set (37 + 20 = 57).
 
 `createConfig(rules)` is the only constructor used for presets — it wraps the rules object with `plugins: { nextfriday: plugin }` so each preset is self-contained for ESLint flat config. Never construct a preset config manually.
 
@@ -73,7 +72,7 @@ A rule's tier (base vs JSX) is determined solely by placement in `jsxRules`/`jsx
 - **Per-rule tests** use `@typescript-eslint/rule-tester` wired to Jest hooks (`RuleTester.afterAll = afterAll`, etc.). Each test file calls `ruleTester.run(...)` with valid/invalid cases. See "Test Boilerplate" below for the full pattern.
 - **Integration tests** live in `src/__tests__/`:
   - `rules.test.ts` — asserts the exact rule count and that every rule name is present. Update both assertions when adding/removing rules.
-  - `configs.test.ts` — asserts each of the six presets exists, has a `rules` property, and contains specific rule keys with the expected severity. Update when a rule moves between presets or when the spot-checked rules change.
+  - `configs.test.ts` — asserts each of the four presets exists, has a `rules` property, and contains specific rule keys with the expected severity. Update when a rule moves between presets or when the spot-checked rules change.
   - `meta.test.ts` — asserts `meta.name` and `meta.version` come from `package.json`.
   - `utils.test.ts` — covers the helpers in `src/utils.ts`.
 - Integration tests import via `import { describe, it, expect } from "@jest/globals"` — they are not bound to the per-rule `RuleTester` boilerplate and may use `expect`.

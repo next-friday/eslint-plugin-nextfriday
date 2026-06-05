@@ -325,7 +325,6 @@ eslint-plugin-nextfriday/
 
 - **base**: Pure JS/TS projects (all non-JSX rules)
 - **react**: React projects (base + JSX rules)
-- **nextjs**: Next.js projects (same rule set as react)
 - Each has a `/recommended` variant with `error` severity instead of `warn`
 
 ## Getting Help

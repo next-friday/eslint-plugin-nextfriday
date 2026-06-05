@@ -1,12 +1,14 @@
 # sort-type-alphabetically
 
-Enforce alphabetical sorting of properties within required and optional groups in TypeScript interfaces and type aliases.
+Enforce sorting of type members within required and optional groups: non-callable alphabetical, then callable last.
 
 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
+> This rule requires type information. Enable typed linting (for example `parserOptions.projectService: true`).
+
 ## Rule Details
 
-This rule enforces that TypeScript interface and type alias properties are sorted alphabetically (A-Z) within their respective groups (required and optional). It checks each group independently.
+This rule enforces that TypeScript interface and type alias properties are ordered within their respective groups (required and optional): non-callable properties first (alphabetically A-Z), then callable (function-typed) properties last (alphabetically A-Z). It checks each group independently. Whether a member is callable is determined from its resolved type, so handlers typed through aliases or indexed access (for example `ComponentProps<typeof Button>["onPress"]`) are recognized.
 
 ### Why?
 
@@ -16,10 +18,20 @@ This rule enforces that TypeScript interface and type alias properties are sorte
 
 ### Sorting Order
 
-Properties within each group are sorted alphabetically A-Z:
+Within each group (required, then optional), members are ordered:
 
-1. **Required properties** sorted A-Z among themselves
-2. **Optional properties** sorted A-Z among themselves
+1. **Non-callable members** sorted A-Z
+2. **Callable (function-typed) members** sorted A-Z, last
+
+```ts
+interface RootProps {
+  description: string;
+  title: string;
+  onSubmit: () => void; // callable -> last in the required group
+  submitLabel?: string;
+  onReset?: () => void; // callable -> last in the optional group
+}
+```
 
 Use with `sort-type-required-first` to also enforce required properties come before optional.
 

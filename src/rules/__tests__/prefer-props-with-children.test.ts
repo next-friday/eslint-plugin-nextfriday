@@ -89,13 +89,16 @@ describe("prefer-props-with-children", () => {
           const Component = (props: PropsWithChildren<{ label: string }>) => <div>{props.children}</div>;
         `,
       },
+    ],
+    invalid: [
       {
         code: `
           interface LayoutProps {
             children: ReactNode;
           }
         `,
-        name: "should not flag required children: ReactNode",
+        errors: [{ messageId: "usePropsWithChildren" }],
+        name: "should flag required children: ReactNode",
       },
       {
         code: `
@@ -104,7 +107,8 @@ describe("prefer-props-with-children", () => {
             children: ReactNode;
           }
         `,
-        name: "should not flag required children: ReactNode with other props",
+        errors: [{ messageId: "usePropsWithChildren" }],
+        name: "should flag required children: ReactNode with other props",
       },
       {
         code: `
@@ -113,21 +117,8 @@ describe("prefer-props-with-children", () => {
             className: string;
           };
         `,
-        name: "should not flag required children: ReactNode in type alias",
-      },
-      {
-        code: `
-          const Component = ({ children, label }: { children: ReactNode; label: string }) => <div>{children}{label}</div>;
-        `,
-        name: "should not flag required children: ReactNode in inline type",
-      },
-      {
-        code: `
-          function Layout(props: { children: ReactNode }) {
-            return <div>{props.children}</div>;
-          }
-        `,
-        name: "should not flag required children: ReactNode in function props",
+        errors: [{ messageId: "usePropsWithChildren" }],
+        name: "should flag required children: ReactNode in type alias",
       },
       {
         code: `
@@ -135,10 +126,28 @@ describe("prefer-props-with-children", () => {
             children: React.ReactNode;
           }
         `,
-        name: "should not flag required children: React.ReactNode",
+        errors: [{ messageId: "usePropsWithChildren" }],
+        name: "should flag required children: React.ReactNode",
       },
-    ],
-    invalid: [
+      {
+        code: `
+          interface BasicPageProps {
+            title: string;
+            children: ReactNode | ReactNode[];
+          }
+        `,
+        errors: [{ messageId: "usePropsWithChildren" }],
+        name: "should flag children typed as a ReactNode union",
+      },
+      {
+        code: `
+          interface ListProps {
+            children: ReactNode[];
+          }
+        `,
+        errors: [{ messageId: "usePropsWithChildren" }],
+        name: "should flag children typed as a ReactNode array",
+      },
       {
         code: `
           interface OptionalChildrenProps {

@@ -12,17 +12,19 @@ const enforceSortedDestructuring = createRule({
   meta: {
     type: "suggestion",
     docs: {
-      description: "Enforce alphabetical sorting of destructured properties with defaults first",
+      description: "Enforce destructured properties sorted with defaults first, then non-callable, then callable last",
     },
     fixable: "code",
     schema: [],
     messages: {
       unsortedDestructuring:
-        "Destructured properties should be sorted alphabetically. Properties with defaults should come first, sorted alphabetically.",
+        "Destructured properties should be sorted: defaults first, then alphabetical, with callable (function) properties last.",
     },
   },
   defaultOptions: [],
   create(context) {
+    const services = ESLintUtils.getParserServices(context);
+
     function getPropertyName(property: TSESTree.Property | TSESTree.RestElement): string | null {
       if (property.type === AST_NODE_TYPES.RestElement) {
         return null;
@@ -37,6 +39,12 @@ const enforceSortedDestructuring = createRule({
 
     function hasDefaultValue(property: TSESTree.Property): boolean {
       return property.value.type === AST_NODE_TYPES.AssignmentPattern && Boolean(property.value.right);
+    }
+
+    function isCallableProperty(property: TSESTree.Property): boolean {
+      const valueNode = property.value.type === AST_NODE_TYPES.AssignmentPattern ? property.value.left : property.value;
+      const type = services.getTypeAtLocation(valueNode);
+      return type.getCallSignatures().length > 0;
     }
 
     function checkVariableDeclarator(node: TSESTree.VariableDeclarator) {
@@ -59,16 +67,18 @@ const enforceSortedDestructuring = createRule({
             property: prop,
             name: getPropertyName(prop),
             hasDefault: hasDefaultValue(prop),
+            callable: isCallableProperty(prop),
           };
         })
         .filter((info): info is NonNullable<typeof info> => info !== null && info.name !== null);
 
       const sorted = [...propertyInfo].sort((a, b) => {
-        if (a.hasDefault && !b.hasDefault) {
-          return -1;
+        if (a.hasDefault !== b.hasDefault) {
+          return a.hasDefault ? -1 : 1;
         }
-        if (!a.hasDefault && b.hasDefault) {
-          return 1;
+
+        if (a.callable !== b.callable) {
+          return a.callable ? 1 : -1;
         }
 
         return a.name!.localeCompare(b.name!);
